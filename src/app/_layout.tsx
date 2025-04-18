@@ -3,6 +3,7 @@ import { useColorScheme } from "nativewind";
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useEffect } from 'react';
 import { THEME_STORAGE_KEY } from '../shared/constants';
+import { Stack } from 'expo-router';
 
 export default function App() {
   const { setColorScheme } = useColorScheme();
@@ -15,8 +16,8 @@ export default function App() {
   })
   return (
     <SafeAreaProvider>
-      <SafeAreaView>
-
+      <SafeAreaView style={{ flex: 1 }}>
+        <Stack />
       </SafeAreaView>
     </SafeAreaProvider>
   );
