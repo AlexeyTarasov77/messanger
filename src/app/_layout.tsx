@@ -3,9 +3,9 @@ import { useColorScheme } from "nativewind";
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useEffect } from 'react';
 import { THEME_STORAGE_KEY } from '../shared/constants';
-import { Stack } from 'expo-router';
+import { Slot, Stack } from 'expo-router';
 
-export default function App() {
+export default function RootLayout() {
   const { setColorScheme } = useColorScheme();
   useEffect(() => {
     const setTheme = async () => {
@@ -17,9 +17,20 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={{ flex: 1 }}>
-        <Stack />
+        {/* <Stack */}
+        {/*   screenOptions={{ */}
+        {/*     headerStyle: { */}
+        {/*       backgroundColor: '#f4511e', */}
+        {/*     }, */}
+        {/*     headerTintColor: '#fff', */}
+        {/*     headerTitleStyle: { */}
+        {/*       fontWeight: 'bold', */}
+        {/*     }, */}
+        {/*   }}> */}
+        {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
+        {/* </Stack> */}
+        <Slot />
       </SafeAreaView>
     </SafeAreaProvider>
   );
 }
-

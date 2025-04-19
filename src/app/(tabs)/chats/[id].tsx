@@ -1,7 +1,6 @@
-import { Text, View } from "react-native";
+import { ChatScreen } from "../../../modules/chats/screens";
 
-export default function ChatScreen() {
-  return (
-    <View><Text>One chat screen</Text></View>
-  )
+export default function ChatRoute() {
+  return <ChatScreen />
 }
+

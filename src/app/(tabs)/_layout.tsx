@@ -8,14 +8,14 @@ export default function TabsLayout() {
         name="chats"
         options={{
           title: "Chats",
-          tabBarIcon: ({ color, size }) => <Ionicons name="home-outline" color={color} size={size} />
+          // tabBarIcon: ({ color, size }) => <Ionicons name="home-outline" color={color} size={size} />
         }}
       />
       <Tabs.Screen
         name="contacts"
         options={{
           title: "Contacts",
-          tabBarIcon: ({ color, size }) => <Ionicons name="settings-outline" color={color} size={size} />
+          // tabBarIcon: ({ color, size }) => <Ionicons name="settings-outline" color={color} size={size} />
         }}
       />
     </Tabs>
