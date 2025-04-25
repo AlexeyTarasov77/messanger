@@ -1,5 +1,9 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
+import { Profile } from "../../modules/users/screens/profile";
 
-export default function Profile() {
-  return <View><Text>Profile</Text></View>
+export default function ProfileRoute() {
+    // <Text>Profile</Text>
+  return <View>
+    <Profile/>
+  </View>
 }
