@@ -4,10 +4,11 @@ module.exports = {
   presets: [require("nativewind/preset")],
   theme: {
     extend: {
-        gradientColors:{
-            top: "#77B5BF",
-            bottom: "#7D88AA"
-        }
+        // example
+        // gradientColors:{
+        //     top: "#77B5BF",
+        //     bottom: "#7D88AA"
+        // }
     },
   },
   plugins: [],
