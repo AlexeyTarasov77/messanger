@@ -3,6 +3,7 @@ import { useColorScheme } from "nativewind";
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useEffect } from 'react';
 import { THEME_STORAGE_KEY } from '../shared/constants';
+import "../styles/global.css"
 import { Slot, Stack } from 'expo-router';
 
 export default function RootLayout() {
