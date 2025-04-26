@@ -1,6 +1,6 @@
 import Svg, { Path, SvgProps } from "react-native-svg";
 
-function PenIcon(props: SvgProps) {
+export function PenIcon(props: SvgProps) {
   return (
     <Svg
       viewBox="0 0 33 33"
