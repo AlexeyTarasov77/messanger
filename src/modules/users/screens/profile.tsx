@@ -2,6 +2,7 @@ import { View, Text, Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { COLOR_PALETTE } from "../../../shared/theme/colors";
 import { useColorScheme } from "nativewind";
+import { Avatar } from "../../../shared/ui/avatar";
 
 export function Profile() {
     const { colorScheme } = useColorScheme();
@@ -22,13 +23,7 @@ export function Profile() {
             className="h-full"
         >
             <View className="flex-row gap-10 py-6 px-2">
-                <View className=" border-white border dark:border-border rounded-full p-2 ">
-                    <Image
-                        className="rounded-full h-[88] w-[88]"
-                        source={require("../assets/avatar.jpg")}
-                    ></Image>
-                </View>
-
+                <Avatar/>
                 <View className="justify-center gap-4 ">
                     <Text className="text-white text-4xl font-semibold ">
                         Name
