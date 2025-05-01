@@ -15,13 +15,13 @@ export function Login() {
     }
     return (
         <View className="h-full">
-            <View className="flex-auto justify-center">
+            <View className="flex-1 justify-center ">
                 <View>
                     <Text className="text-white dark:text-bgLightOne font-normal text-4xl self-center">
                         Login
                     </Text>
                 </View>
-                <View className="self-center gap-10 w-[250]">
+                <View className="self-center gap-10 w-[80%]">
                     <Controller
                         control={control}
                         name="email"
