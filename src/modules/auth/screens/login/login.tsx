@@ -14,14 +14,14 @@ export function Login() {
         console.log(data);
     }
     return (
-        <View>
-            <View>
+        <View className="h-full">
+            <View className="flex-auto justify-center">
                 <View>
-                    <Text className="text-white dark:text-border font-normal text-4xl self-center">
+                    <Text className="text-white dark:text-bgLightOne font-normal text-4xl self-center">
                         Login
                     </Text>
                 </View>
-                <View className="self-center">
+                <View className="self-center gap-10 w-[250]">
                     <Controller
                         control={control}
                         name="email"
@@ -34,7 +34,7 @@ export function Login() {
                         render={({ field, fieldState }) => {
                             return (
                                 <Input
-                                    placeholder="SuperCoolEmail@gmail.com"
+                                    placeholder="Email@gmail.com"
                                     iconLeft={
                                         <ICONS.EmailIcon
                                             width={30}
@@ -47,7 +47,7 @@ export function Login() {
                                     label="Email"
                                     autoCorrect={false}
                                     errMsg={fieldState.error?.message}
-                                    className="h-[60] bg-bgLight"
+                                    className="h-[60] flex-row"
                                 />
                             );
                         }}
@@ -71,7 +71,7 @@ export function Login() {
                                     label="Password"
                                     autoCorrect={false}
                                     errMsg={fieldState.error?.message}
-                                    className="h-[60] bg-bgLight"
+                                    className="h-[60]"
                                 />
                             );
                         }}
@@ -80,14 +80,14 @@ export function Login() {
                         <Button
                             label="Login"
                             onPress={handleSubmit(onSubmit)}
-                            className="h-[60] bg-bgLight border-border "
+                            className="h-[50] w-[160] self-center bg-bgLight dark:bg-bgDark border-border rounded-xl justify-center"
                         />
                     </View>
                 </View>
             </View>
-            <View>
-                <Text>Already have an account?</Text>
-                <Link href={"/register/"}>Register now</Link>
+            <View className=" flex-row self-center">
+                <Text className="text-white">Don`t have an account?</Text>
+                <Link href={"/auth/registration/"} className="text-bgDark dark:text-bgLight font-bold text-base">Register now</Link>
             </View>
         </View>
     );

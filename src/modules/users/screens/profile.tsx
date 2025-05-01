@@ -16,30 +16,30 @@ export function Profile() {
                 </View>
             </View>
 
-            <View className="mt-4 border m-2 rounded-xl p-2 dark:border-border border-white">
+            <View className="mt-4 border m-2 rounded-xl p-2 dark:border-bgLight border-white">
                 <View>
-                    <Text className="text-white dark:text-border font-extralight text-2xl">
+                    <Text className="text-white dark:text-bgLight font-extralight text-2xl">
                         Номер телефону
                     </Text>
-                    <Text className="text-white dark:text-border font-normal text-2xl">
+                    <Text className="text-white dark:text-bgLight font-normal text-2xl">
                         +380-99-639-**-**
                     </Text>
                 </View>
-                <View className="h-px w-full bg-white dark:bg-border my-4" />
+                <View className="h-px w-full bg-white dark:bg-bgLight my-4" />
                 <View>
-                    <Text className="text-white dark:text-border font-extralight text-2xl">
+                    <Text className="text-white dark:text-bgLight font-extralight text-2xl">
                         Про себе
                     </Text>
-                    <Text className="text-white dark:text-border font-normal text-2xl">
+                    <Text className="text-white dark:text-bgLight font-normal text-2xl">
                         Хз
                     </Text>
                 </View>
-                <View className="h-px w-full bg-white dark:bg-border my-4" />
+                <View className="h-px w-full bg-white dark:bg-bgLight my-4" />
                 <View>
-                    <Text className="text-white dark:text-border font-extralight text-2xl">
+                    <Text className="text-white dark:text-bgLight font-extralight text-2xl">
                         Ім'я користувача
                     </Text>
-                    <Text className="text-white dark:text-border font-normal text-2xl">
+                    <Text className="text-white dark:text-bgLight font-normal text-2xl">
                         @mila_krutaja
                     </Text>
                 </View>

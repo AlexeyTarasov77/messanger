@@ -8,10 +8,9 @@ export function Button(props: IButtonProps) {
 		<TouchableOpacity
 			{...touchableOpacityProps}
 			disabled={disabled}
-			// style={[disabled ? styles.disabled : null, styles.button]}
 		>
-			<Text>{label}</Text>
+			<Text className="self-center text-white dark:text-border text-xl font-bold">{label}</Text>
 		</TouchableOpacity>
 	);
 }
-// spread оператор
+
