@@ -14,18 +14,20 @@ function Input({
 }: IInputProps) {
 	return (
 		<View>
-			{label && <Text style={styles.label}>{label}</Text>}
-			<View style={[styles.inputBox, containerStyles]}>
+			{label && <Text >{label}</Text>}
+            {/* style={[styles.inputBox, containerStyles]} */}
+			<View >
 				{iconLeft && <View style={{ marginRight: 2 }}>{iconLeft}</View>}
-				<TextInput style={[inputStyles, styles.input]} {...props} />
+                {/* style={[inputStyles, styles.input]} */}
+				<TextInput  {...props} />
 				{iconRight && (
 					<View style={{ marginLeft: "auto" }}>{iconRight}</View>
 				)}
 			</View>
 			{errMsg && (
-				<View style={styles.errorBox}>
-					<ICONS.ErrorIcon width={16} height={16} />
-					<Text style={styles.errMsg}>{errMsg}</Text>
+				<View>
+					{/* <ICONS.ErrorIcon width={16} height={16} /> */}
+					<Text>{errMsg}</Text>
 				</View>
 			)}
 		</View>
@@ -38,14 +40,14 @@ function Password(props: Omit<IInputProps, "iconLeft" | "iconRight">) {
 
 	return (
 		<View>
-			{label && <Text style={styles.label}>{label}</Text>}
-			<View style={[styles.inputBox, containerStyles]}>
+			{label && <Text>{label}</Text>}
+			<View>
 				<View style={{ marginRight: 2 }}>
 					<ICONS.KeyIcon width={30} height={30} />
 				</View>
 				<TextInput
 					secureTextEntry={isHidden}
-					style={[inputStyles, styles.input]}
+					// style={[inputStyles, styles.input]}
 					{...props}
 				/>
 				<View style={{ marginLeft: "auto" }}>
@@ -63,9 +65,9 @@ function Password(props: Omit<IInputProps, "iconLeft" | "iconRight">) {
 				</View>
 			</View>
 			{errMsg && (
-				<View style={styles.errorBox}>
-					<ICONS.ErrorIcon width={16} height={16} />
-					<Text style={styles.errMsg}>{errMsg}</Text>
+				<View>
+					{/* <ICONS.ErrorIcon width={16} height={16} /> */}
+					<Text>{errMsg}</Text>
 				</View>
 			)}
 		</View>
