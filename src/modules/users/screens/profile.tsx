@@ -2,7 +2,7 @@ import { View, Text, Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { COLOR_PALETTE } from "../../../shared/theme/colors";
 import { useColorScheme } from "nativewind";
-import { Avatar } from "../../../shared/ui/avatar";
+import { Avatar } from "../../../shared/ui/avatar/avatar";
 
 export function Profile() {
     const { colorScheme } = useColorScheme();

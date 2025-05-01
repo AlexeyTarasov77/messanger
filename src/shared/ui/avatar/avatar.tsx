@@ -1,5 +1,7 @@
 import { View, Image } from "react-native";
 
+
+// папку добавила потому что типы будут
 export function Avatar() {
     return (
         <View className=" border-white border dark:border-border rounded-full p-2 ">
