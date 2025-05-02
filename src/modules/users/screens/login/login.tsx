@@ -4,7 +4,7 @@ import { Input } from "../../../../shared/ui/input/input";
 import { ICONS } from "../../../../shared/ui/icons";
 import { Link, useRouter } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
-import { ILoginForm, IRegisterForm } from "../../types";
+import { ILoginForm } from "../../types";
 import { useUserCtx } from "../../components/users-ctx/context";
 
 
@@ -14,7 +14,7 @@ export function Login() {
     const { handleSubmit, control, setError } = useForm<ILoginForm>({
         defaultValues: { email: "", password: "" },
     });
-    async function onSubmit(data: IRegisterForm) {
+    async function onSubmit(data: ILoginForm) {
         const errMsg = await login(data)
         if (errMsg) {
             setError("root", { message: errMsg })

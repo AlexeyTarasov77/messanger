@@ -3,10 +3,8 @@ export interface ILoginForm {
     password: string;
 }
 
-export interface IRegisterForm {
-    email: string;
+export interface IRegisterForm extends ILoginForm {
     username: string;
-    password: string;
     confirmPassword: string
 }
 
@@ -20,6 +18,3 @@ export interface IRegisterResponse {
     user: IUser;
 }
 
-export interface ILoginResponse {
-    token: string;
-};
