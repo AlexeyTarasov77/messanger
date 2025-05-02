@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { Profile } from "../../modules/users/screens/profile";
+import { Profile } from "../../../modules/users/screens";
 
 export default function ProfileRoute() {
     return (

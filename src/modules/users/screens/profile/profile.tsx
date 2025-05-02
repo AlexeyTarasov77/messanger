@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import { Avatar } from "../../../shared/ui/avatar/avatar";
+import { Avatar } from "../../../../shared/ui/avatar";
 
 export function Profile() {
     return (

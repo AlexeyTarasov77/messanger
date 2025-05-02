@@ -1,7 +1,7 @@
-import { SERVER_URL } from "../constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SERVER_URL, AUTH_TOKEN_KEY } from "../constants";
 import { APIResponse } from "./types";
 
-export const authTokenKey = "authToken";
 
 export async function sendReq<T>(
   path: string | URL,
@@ -11,7 +11,8 @@ export async function sendReq<T>(
   if (path instanceof URL) {
     url = path.toString();
   }
-  const authToken = localStorage.getItem(authTokenKey);
+  console.log("Sending request to: ", url)
+  const authToken = await AsyncStorage.getItem(AUTH_TOKEN_KEY)
   if (authToken) {
     const headers = new Headers(options?.headers);
     headers.append("Authorization", `Bearer ${authToken}`);
@@ -21,9 +22,15 @@ export async function sendReq<T>(
       options = { headers };
     }
   }
-  const resp = await fetch(url, options);
-  const data = await resp.json();
-  return { ...data, status: resp.status };
+  try {
+    const resp = await fetch(url, options);
+    const data = await resp.json();
+    console.log("Response received: ", data)
+    return { ...data, status: resp.status };
+  } catch (err) {
+    console.error("Fetch failed: ", err)
+    throw err
+  }
 }
 
 export async function GET<T>(path: string | URL): APIResponse<T> {

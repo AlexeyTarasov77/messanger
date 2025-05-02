@@ -2,37 +2,24 @@ import { View, Text } from "react-native";
 import { Button } from "../../../../shared/ui/button";
 import { Input } from "../../../../shared/ui/input/input";
 import { ICONS } from "../../../../shared/ui/icons";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
-import { ILogin, LoginResponse } from "../../types";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { IRegisterForm } from "../../types";
+import { useUserCtx } from "../../components/users-ctx/context";
 
-const BASE_URL = "http://127.0.0.1:8000";
-
-
-export function Login() {
-    const { handleSubmit, control } = useForm<ILogin>({
-        defaultValues: { email: "", password: "" },
+export function Register() {
+    const router = useRouter()
+    const { register } = useUserCtx()
+    const { handleSubmit, control, setError } = useForm<IRegisterForm>({
+        defaultValues: { email: "", username: "", password: "" },
     });
-    async function onSubmit(data: ILogin): Promise<LoginResponse> {
-        const response = await fetch(`${BASE_URL}/api/v1/users/signin`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        });
-    
-        const result = await response.json();
-    
-        if (!response.ok) {
-            throw new Error(result.message || "Something went wrong");
+    async function onSubmit(data: IRegisterForm) {
+        const errMsg = await register(data)
+        if (errMsg) {
+            setError("root", { message: errMsg })
+            return
         }
-    
-
-        await AsyncStorage.setItem("token", result.token);
-        console.log("Успешный вход:", result);
-        return result;
+        router.replace("/users/profile")
     }
 
     return (
@@ -40,7 +27,7 @@ export function Login() {
             <View className="flex-1 justify-center ">
                 <View>
                     <Text className="text-white dark:text-bgLightOne font-normal text-4xl self-center">
-                        Login
+                        Register
                     </Text>
                 </View>
                 <View className="self-center gap-10 w-[80%]">
@@ -74,6 +61,37 @@ export function Login() {
                             );
                         }}
                     />
+
+                    <Controller
+                        control={control}
+                        name="username"
+                        rules={{
+                            required: {
+                                value: true,
+                                message: "Username is required",
+                            },
+                        }}
+                        render={({ field, fieldState }) => {
+                            return (
+                                <Input
+                                    placeholder="Username"
+                                    iconLeft={
+                                        <ICONS.UserIcon
+                                            width={30}
+                                            height={30}
+                                        />
+                                    }
+                                    onChange={field.onChange}
+                                    onChangeText={field.onChange}
+                                    value={field.value}
+                                    label="Username"
+                                    autoCorrect={false}
+                                    errMsg={fieldState.error?.message}
+                                    className="h-[60] flex-row"
+                                />
+                            );
+                        }}
+                    />
                     <Controller
                         control={control}
                         name="password"
@@ -98,9 +116,33 @@ export function Login() {
                             );
                         }}
                     />
+                    <Controller
+                        control={control}
+                        name="confirmPassword"
+                        rules={{
+                            required: {
+                                value: true,
+                                message: "Password is required",
+                            },
+                        }}
+                        render={({ field, fieldState }) => {
+                            return (
+                                <Input.Password
+                                    placeholder="Confirm password"
+                                    onChange={field.onChange}
+                                    onChangeText={field.onChange}
+                                    value={field.value}
+                                    label="Confirm password"
+                                    autoCorrect={false}
+                                    errMsg={fieldState.error?.message}
+                                    className="h-[60]"
+                                />
+                            );
+                        }}
+                    />
                     <View>
                         <Button
-                            label="Login"
+                            label="Register"
                             onPress={handleSubmit(onSubmit)}
                             className="h-[50] w-[160] self-center bg-bgLight dark:bg-bgDark border-border rounded-xl justify-center"
                         />
@@ -108,12 +150,12 @@ export function Login() {
                 </View>
             </View>
             <View className=" flex-row self-center">
-                <Text className="text-white">Don`t have an account?</Text>
+                <Text className="text-white">Already have an account?</Text>
                 <Link
-                    href={"/auth/register/"}
+                    href={"/auth/login/"}
                     className="text-bgDark dark:text-bgLight font-bold text-base"
                 >
-                    Register now
+                    Login now
                 </Link>
             </View>
         </View>
