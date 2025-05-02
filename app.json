@@ -1,8 +1,8 @@
 {
   "expo": {
-    "scheme": "messanger",
-    "name": "messanger",
-    "slug": "messanger",
+    "scheme": "vibenet",
+    "name": "vibenet",
+    "slug": "vibenet",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
