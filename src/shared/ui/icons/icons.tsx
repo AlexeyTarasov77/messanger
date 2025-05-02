@@ -7,8 +7,8 @@ import { UserIcon } from "./user-icon";
 
 export const ICONS = {
 	EyeIcon,
-    EyeSlashIcon,
+	EyeSlashIcon,
 	KeyIcon,
 	EmailIcon,
-    UserIcon
+	UserIcon
 };
