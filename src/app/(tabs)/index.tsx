@@ -11,6 +11,9 @@ export default function IndexScreen() {
       <Link href="/auth/login" asChild>
         <Button title="Login" />
       </Link>
+      <Link href="/auth/register" asChild>
+        <Button title="Register" />
+      </Link>
     </View>
   )
 }

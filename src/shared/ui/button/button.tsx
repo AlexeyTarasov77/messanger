@@ -9,7 +9,7 @@ export function Button(props: IButtonProps) {
 			{...touchableOpacityProps}
 			disabled={disabled}
 		>
-			<Text className="self-center text-white dark:text-border text-xl font-bold">{label}</Text>
+			<Text className="self-center text-white dark:text-bgLightOne text-xl font-bold">{label}</Text>
 		</TouchableOpacity>
 	);
 }
