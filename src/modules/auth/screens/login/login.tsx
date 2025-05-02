@@ -7,7 +7,7 @@ import { Controller, useForm } from "react-hook-form";
 import { ILogin, LoginResponse } from "../../types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const BASE_URL = "http://192.168.0.115:8000";
+const BASE_URL = "http://127.0.0.1:8000";
 
 
 export function Login() {
@@ -15,7 +15,7 @@ export function Login() {
         defaultValues: { email: "", password: "" },
     });
     async function onSubmit(data: ILogin): Promise<LoginResponse> {
-        const response = await fetch(`${BASE_URL}/api/user/login`, {
+        const response = await fetch(`${BASE_URL}/api/v1/users/signin`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

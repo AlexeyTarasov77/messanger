@@ -14,7 +14,7 @@ export function Register() {
         defaultValues: { email: "", username: "", password: "" },
     });
     async function onSubmit(data: IRegister) {
-        console.log("Успешный вход:", data);
+        console.log("Успешная регистрация:", data);
     }
 
     return (
