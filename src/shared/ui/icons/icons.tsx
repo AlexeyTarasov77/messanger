@@ -4,7 +4,7 @@ import { EyeSlashIcon } from "./eye-slash-icon";
 import { KeyIcon } from "./key-icon";
 import { UserIcon } from "./user-icon";
 import { PenIcon } from "./pen-icon";
-
+import { PhoneNumberIcon } from "./phone-number-icon";
 
 export const ICONS = {
 	EyeIcon,
@@ -13,4 +13,5 @@ export const ICONS = {
 	EmailIcon,
     UserIcon,
 	PenIcon,
+	PhoneNumberIcon, 
 };

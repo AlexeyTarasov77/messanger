@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import { Button } from "../../../../shared/ui/button";
 import { Input } from "../../../../shared/ui/input";
 import { ICONS } from "../../../../shared/ui/icons";
@@ -15,10 +15,10 @@ export function Register() {
     async function onSubmit(data: IRegister) {
         console.log("Successful registration:", data);
     }
-
     return (
-        <View className="h-full">
-            <View className="flex-1 justify-center ">
+        <ScrollView style={{
+        }} >
+            <View className="flex-1 justify-center gap-5">
                 <View>
                     <Text className="text-white dark:text-bgLight font-normal text-4xl self-center">
                         Registration
@@ -37,22 +37,22 @@ export function Register() {
                         }}
                         render={({ field, fieldState }) => {
                             return (
-                                    <Input
-                                        placeholder="Email@gmail.com"
-                                        iconLeft={
-                                            <ICONS.EmailIcon
-                                                width={30}
-                                                height={30}
-                                            />
-                                        }
-                                        onChange={field.onChange}
-                                        onChangeText={field.onChange}
-                                        value={field.value}
-                                        label="Email"
-                                        autoCorrect={false}
-                                        errMsg={fieldState.error?.message}
-                                        className="h-[60] flex-row"
-                                    />
+                                <Input
+                                    placeholder="Email@gmail.com"
+                                    iconLeft={
+                                        <ICONS.EmailIcon
+                                            width={30}
+                                            height={30}
+                                        />
+                                    }
+                                    onChange={field.onChange}
+                                    onChangeText={field.onChange}
+                                    value={field.value}
+                                    label="Email"
+                                    autoCorrect={false}
+                                    errMsg={fieldState.error?.message}
+                                    className="h-[60] flex-row"
+                                />
                             );
                         }}
                     />
@@ -85,6 +85,60 @@ export function Register() {
                                 />
                             );
                         }}
+                    />
+                    <Controller
+                        control={control}
+                        name="phoneNumber"
+                        rules={{ required: { value: true, message: "Phone number is required" } }}
+                        render={({ field, fieldState }) => (
+                            <Input
+                                placeholder="Phone number"
+                                iconLeft={<ICONS.PhoneNumberIcon width={30} height={30} />}
+                                onChange={field.onChange}
+                                onChangeText={field.onChange}
+                                value={field.value}
+                                label="Phone number"
+                                autoCorrect={false}
+                                errMsg={fieldState.error?.message}
+                                className="h-[60]"
+                            />
+                        )}
+                    />
+                    <Controller
+                        control={control}
+                        name="firstName"
+                        rules={{ required: { value: true, message: "First name is required" } }}
+                        render={({ field, fieldState }) => (
+                            <Input
+                                placeholder="First name"
+                                iconLeft={<ICONS.UserIcon width={30} height={30}/>}
+                                onChange={field.onChange}
+                                onChangeText={field.onChange}
+                                value={field.value}
+                                label="First name"
+                                autoCorrect={false}
+                                errMsg={fieldState.error?.message}
+                                className="h-[60]"
+                            />
+                        )}
+                    />
+                    <Controller
+                        control={control}
+                        name="lastName"
+                        rules={{ required: { value: true, message: "Last name is required" } }}
+                        render={({ field, fieldState }) => (
+                            <Input
+                                placeholder="Last name"
+                                iconLeft={<ICONS.UserIcon width={30} height={30}/>}
+                                onChange={field.onChange}
+                                onChangeText={field.onChange}
+                                value={field.value}
+                                label="Last name"
+                                autoCorrect={false}
+                                errMsg={fieldState.error?.message}
+                                className="h-[60]"
+                            />
+                        )}
                     />
                     <Controller
                         control={control}
@@ -143,7 +197,7 @@ export function Register() {
                     </View>
                 </View>
             </View>
-            <View className=" flex-row self-center">
+            <View className=" flex-row self-center ">
                 <Text className="text-white">Do you have an account? </Text>
                 <Link
                     href={"/auth/login/"}
@@ -152,6 +206,6 @@ export function Register() {
                     Login
                 </Link>
             </View>
-        </View>
+        </ScrollView>
     );
 }

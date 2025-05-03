@@ -1,7 +1,6 @@
 import { useColorScheme } from "react-native";
 import Svg, { Defs, LinearGradient, Path, Stop, SvgProps } from "react-native-svg";
 
-
 export function EmailIcon(props: SvgProps) {
     const colorScheme = useColorScheme();
     if (colorScheme === "dark"){

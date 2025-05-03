@@ -4,6 +4,7 @@ export function PenIcon(props: SvgProps) {
   return (
     <Svg
       viewBox="0 0 33 33"
+      fill="none"
       {...props}
     >
       <Path
