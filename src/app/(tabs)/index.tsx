@@ -8,10 +8,9 @@ export default function IndexScreen() {
       <Link href="/profile" asChild>
         <Button title="Go to profile" />
       </Link>
-      <Link href="/auth/registration" asChild>
-        <Button title="Go to registration" />
+      <Link href="/auth/register" asChild>
+        <Button title="Register" />
       </Link>
     </View>
   )
 }
-

@@ -1,2 +1,1 @@
-export {UserIcon} from "./user-icon"
-export {PenIcon} from "./pen-icon" 
+export { ICONS } from "./icons"

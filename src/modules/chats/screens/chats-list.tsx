@@ -1,43 +1,20 @@
 import { Link, useRouter } from "expo-router"
-import { Button, TextInput, ScrollView, TouchableOpacity, Text, View, useColorScheme } from "react-native"
-// import { useColorScheme } from "nativewind";
+import { TextInput, ScrollView, TouchableOpacity, Text, View, useColorScheme } from "react-native"
 import { StyleSheet } from 'react-native';
-import { UserIcon, PenIcon } from "../../../shared/ui/icons"
+import { ICONS } from "../../../shared/ui/icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { verifyInstallation } from "nativewind";
-import { COLOR_PALETTE } from "../../../shared/theme/colors";
+import { Button } from "../../../shared/ui/button";
+import { Input } from "../../../shared/ui/input";
+import { UserAvatar } from "../../../shared/ui/userAvatar";
+import { COLOR_PALETTE, colors } from "../../../shared/theme/colors";
 
 export function ChatsListScreen() {
   verifyInstallation();
   const router = useRouter()
   const colorScheme = useColorScheme()
 
-  const colors = colorScheme === "light"
-    ? ([
-      COLOR_PALETTE.lightTheme.gradientColors.top,
-      COLOR_PALETTE.lightTheme.gradientColors.bottom,
-      COLOR_PALETTE.lightTheme.border,
-      COLOR_PALETTE.lightTheme.text,
-      COLOR_PALETTE.lightTheme.background,
-      COLOR_PALETTE.lightTheme.shadowColor,
-    ] as const)
-    : ([
-      COLOR_PALETTE.darkTheme.gradientColors.top,
-      COLOR_PALETTE.darkTheme.gradientColors.bottom,
-      COLOR_PALETTE.darkTheme.border,
-      COLOR_PALETTE.darkTheme.text,
-      COLOR_PALETTE.darkTheme.textNext,
-      COLOR_PALETTE.darkTheme.background,
-      COLOR_PALETTE.darkTheme.shadowColor,
-    ] as const)
-
   return (
-    <LinearGradient
-      colors={colors}
-      start={{ x: 0, y: 0 }}
-      // end={{ x: 1, y: 1 }}
-      className="h-full"
-    >
       <ScrollView className="m-5 gap-5">
 
         <View className="flex-row items-center gap-5">
@@ -55,7 +32,7 @@ export function ChatsListScreen() {
                 },
               ]}
             >
-              <UserIcon className="w-15 h-15" />
+              <ICONS.UserIcon className="w-15 h-15" />
             </LinearGradient>
           </View>
           {/* текст Inter */}
@@ -96,7 +73,7 @@ export function ChatsListScreen() {
                   },
                 ]}
               >
-                <UserIcon className="w-15 h-15" />
+                <ICONS.UserIcon className="w-15 h-15" />
               </LinearGradient>
             </View>
 
@@ -126,13 +103,12 @@ export function ChatsListScreen() {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => router.navigate("/chats/1")} className="">
-          <PenIcon className="w-15 h-15" />
+          <ICONS.PenIcon className="w-15 h-15" />
         </TouchableOpacity>
         {/* Link может обертывать только компонент Text по дефолту или компонент принимающий проп onPress (какой то из подвидов кнопок) С УКАЗАНИЕМ asChild для Link*/}
 
         <Link href="/auth/registration"><Text>reg</Text></Link>
       </ScrollView>
-    </LinearGradient>
   )
 }
 
