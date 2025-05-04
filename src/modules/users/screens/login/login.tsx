@@ -11,7 +11,7 @@ import { useUserCtx } from "../../components/users-ctx/context";
 export function Login() {
     const router = useRouter()
     const { login } = useUserCtx()
-    const { handleSubmit, control, setError } = useForm<ILoginForm>({
+    const { handleSubmit, control, setError, formState: { errors } } = useForm<ILoginForm>({
         defaultValues: { email: "", password: "" },
     });
     async function onSubmit(data: ILoginForm) {
@@ -85,6 +85,7 @@ export function Login() {
                             );
                         }}
                     />
+                    {errors.root && <Text className="text-red-500">{errors.root.message || "Invalid data"}</Text>}
                     <View>
                         <Button
                             label="Login"
@@ -97,7 +98,7 @@ export function Login() {
             <View className=" flex-row self-center">
                 <Text className="text-white">Don`t have an account?</Text>
                 <Link
-                    href={"/auth/register/"}
+                    href={"/users/register/"}
                     className="text-bgDark dark:text-bgLight font-bold text-base"
                 >
                     Register now

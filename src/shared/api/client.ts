@@ -24,6 +24,13 @@ export async function sendReq<T>(
   }
   try {
     const resp = await fetch(url, options);
+    // token is expired and can't be used in subsequent requests
+    if (resp.status === 401 && authToken) {
+      console.log("Expired auth token. Retrying")
+      await AsyncStorage.removeItem(AUTH_TOKEN_KEY)
+      // retry request
+      return await sendReq(path, options)
+    }
     const data = await resp.json();
     console.log("Response received: ", data)
     return { ...data, status: resp.status };

@@ -10,7 +10,7 @@ import { useUserCtx } from "../../components/users-ctx/context";
 export function Register() {
     const router = useRouter()
     const { register } = useUserCtx()
-    const { handleSubmit, control, setError } = useForm<IRegisterForm>({
+    const { handleSubmit, control, setError, formState: { errors } } = useForm<IRegisterForm>({
         defaultValues: { email: "", username: "", password: "" },
     });
     async function onSubmit(data: IRegisterForm) {
@@ -140,6 +140,7 @@ export function Register() {
                             );
                         }}
                     />
+                    {errors.root && <Text className="text-red-500">{errors.root.message || "Invalid data"}</Text>}
                     <View>
                         <Button
                             label="Register"
@@ -152,7 +153,7 @@ export function Register() {
             <View className=" flex-row self-center">
                 <Text className="text-white">Already have an account?</Text>
                 <Link
-                    href={"/auth/login/"}
+                    href={"/users/login/"}
                     className="text-bgDark dark:text-bgLight font-bold text-base"
                 >
                     Login now
