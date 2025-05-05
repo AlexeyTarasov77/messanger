@@ -5,7 +5,7 @@ export default function IndexScreen() {
   return (
     <View>
       <Text>Main screen</Text>
-      <Link href="/profile" asChild>
+      <Link href="/users/profile" asChild>
         <Button title="Go to profile" />
       </Link>
       <Link href="/users/login" asChild>

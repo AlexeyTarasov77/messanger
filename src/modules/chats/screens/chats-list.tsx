@@ -2,7 +2,7 @@ import { Link, useRouter } from "expo-router"
 import { Button, TextInput, ScrollView, TouchableOpacity, Text, View, useColorScheme } from "react-native"
 // import { useColorScheme } from "nativewind";
 import { StyleSheet } from 'react-native';
-import { UserIcon, PenIcon } from "../../../shared/ui/icons"
+// import { UserIcon, PenIcon } from "../../../shared/ui/icons"
 import { LinearGradient } from "expo-linear-gradient";
 import { verifyInstallation } from "nativewind";
 import { COLOR_PALETTE } from "../../../shared/theme/colors";
@@ -16,19 +16,19 @@ export function ChatsListScreen() {
     ? ([
       COLOR_PALETTE.lightTheme.gradientColors.top,
       COLOR_PALETTE.lightTheme.gradientColors.bottom,
-      COLOR_PALETTE.lightTheme.border,
-      COLOR_PALETTE.lightTheme.text,
-      COLOR_PALETTE.lightTheme.background,
-      COLOR_PALETTE.lightTheme.shadowColor,
+    //   COLOR_PALETTE.lightTheme.border,
+    //   COLOR_PALETTE.lightTheme.text,
+    //   COLOR_PALETTE.lightTheme.background,
+    //   COLOR_PALETTE.lightTheme.shadowColor,
     ] as const)
     : ([
       COLOR_PALETTE.darkTheme.gradientColors.top,
       COLOR_PALETTE.darkTheme.gradientColors.bottom,
-      COLOR_PALETTE.darkTheme.border,
-      COLOR_PALETTE.darkTheme.text,
-      COLOR_PALETTE.darkTheme.textNext,
-      COLOR_PALETTE.darkTheme.background,
-      COLOR_PALETTE.darkTheme.shadowColor,
+    //   COLOR_PALETTE.darkTheme.border,
+    //   COLOR_PALETTE.darkTheme.text,
+    //   COLOR_PALETTE.darkTheme.textNext,
+    //   COLOR_PALETTE.darkTheme.background,
+    //   COLOR_PALETTE.darkTheme.shadowColor,
     ] as const)
 
   return (
@@ -49,13 +49,13 @@ export function ChatsListScreen() {
               style={[
                 styles.linearGradientUser,
                 {
-                  borderColor: colorScheme === 'light'
-                    ? COLOR_PALETTE.lightTheme.border
-                    : COLOR_PALETTE.darkTheme.border
+                //   borderColor: colorScheme === 'light'
+                    // ? COLOR_PALETTE.lightTheme.border
+                    // : COLOR_PALETTE.darkTheme.border
                 },
               ]}
             >
-              <UserIcon className="w-15 h-15" />
+              {/* <UserIcon className="w-15 h-15" /> */}
             </LinearGradient>
           </View>
           {/* текст Inter */}
@@ -76,9 +76,9 @@ export function ChatsListScreen() {
             style={[
               styles.linearGradientMessage,
               {
-                borderColor: colorScheme === 'light'
-                  ? COLOR_PALETTE.lightTheme.border
-                  : COLOR_PALETTE.darkTheme.border
+                // borderColor: colorScheme === 'light'
+                //   ? COLOR_PALETTE.lightTheme.border
+                //   : COLOR_PALETTE.darkTheme.border
               },
             ]}
           >
@@ -90,13 +90,13 @@ export function ChatsListScreen() {
                 style={[
                   styles.linearGradientUser,
                   {
-                    borderColor: colorScheme === 'light'
-                      ? COLOR_PALETTE.lightTheme.border
-                      : COLOR_PALETTE.darkTheme.border
+                    // borderColor: colorScheme === 'light'
+                    //   ? COLOR_PALETTE.lightTheme.border
+                    //   : COLOR_PALETTE.darkTheme.border
                   },
                 ]}
               >
-                <UserIcon className="w-15 h-15" />
+                {/* <UserIcon className="w-15 h-15" /> */}
               </LinearGradient>
             </View>
 
@@ -111,9 +111,9 @@ export function ChatsListScreen() {
                 style={[
                   styles.linearGradientMissed,
                   {
-                    borderColor: colorScheme === 'light'
-                      ? COLOR_PALETTE.lightTheme.border
-                      : COLOR_PALETTE.darkTheme.border
+                    // borderColor: colorScheme === 'light'
+                    //   ? COLOR_PALETTE.lightTheme.border
+                    //   : COLOR_PALETTE.darkTheme.border
                   },
                 ]}
               >
@@ -126,7 +126,7 @@ export function ChatsListScreen() {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => router.navigate("/chats/1")} className="">
-          <PenIcon className="w-15 h-15" />
+          {/* <PenIcon className="w-15 h-15" /> */}
         </TouchableOpacity>
         {/* Link может обертывать только компонент Text по дефолту или компонент принимающий проп onPress (какой то из подвидов кнопок) С УКАЗАНИЕМ asChild для Link*/}
 
