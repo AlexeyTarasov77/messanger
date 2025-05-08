@@ -26,7 +26,6 @@ export function UsersProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<IUser | null>(null);
     const [token, setToken] = useState("");
     useEffect(() => {
-        if (!token) return;
         const fetchUser = async () => {
             try {
                 const resp = await authService.getUser();

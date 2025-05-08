@@ -1,15 +1,22 @@
 import { View, Text } from "react-native";
 import { Avatar } from "../../../../shared/ui/avatar";
 import { useUserCtx } from "../../components/users-ctx/context";
+import { Redirect } from "expo-router";
 
 export function Profile() {
-    const {user} = useUserCtx()
+    const { user } = useUserCtx()
+    const displayName = () => {
+        let finalName = user.username
+        if (user.firstName) {
+            finalName = user.firstName
+            if (user.lastName) {
+                finalName += " " + user.lastName
+            }
+        }
+        return finalName
+    }
     if (!user) {
-        return (
-            <View className="p-4">
-                <Text className="text-white text-xl">Loading...</Text>
-            </View>
-        );
+        return <Redirect href="/users/login" />;
     }
     return (
         <View>
@@ -17,10 +24,10 @@ export function Profile() {
                 <Avatar />
                 <View className="justify-center gap-4 ">
                     <Text className="text-white text-4xl font-semibold ">
-                        {user.firstName && user.lastName || "Name"}
+                        {displayName()}
                     </Text>
                     <Text className="text-white text-2xl font-light">
-                        У мережі
+                        {user.isOnline ? "У мережі" : "Не у мережi"}
                     </Text>
                 </View>
             </View>
@@ -31,7 +38,7 @@ export function Profile() {
                         Номер телефону
                     </Text>
                     <Text className="text-white dark:text-bgLight font-normal text-2xl">
-                        { user.phoneNumber || "+380-99-639-**-**"}
+                        {(user.phoneNumber[0] == "+" ? "" : "+") + user.phoneNumber}
                     </Text>
                 </View>
                 <View className="h-px w-full bg-white dark:bg-bgLight my-4" />
@@ -40,7 +47,7 @@ export function Profile() {
                         Про себе
                     </Text>
                     <Text className="text-white dark:text-bgLight font-normal text-2xl">
-                        { user.aboutMe|| "Хз"}
+                        {user.aboutMe}
                     </Text>
                 </View>
                 <View className="h-px w-full bg-white dark:bg-bgLight my-4" />
@@ -49,7 +56,7 @@ export function Profile() {
                         Ім'я користувача
                     </Text>
                     <Text className="text-white dark:text-bgLight font-normal text-2xl">
-                        @{ user.username || "mila_krutaja"}
+                        @{user.username}
                     </Text>
                 </View>
             </View>
