@@ -4,21 +4,29 @@ import { Input } from "../../../../shared/ui/input";
 import { ICONS } from "../../../../shared/ui/icons";
 import { Link } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
-import { IRegister } from "../../types";
+import { IRegisterStepOne } from "../../types";
+import { useRouter } from "expo-router";
 
 const BASE_URL = "http://192.168.0.115:8000";
-
-export function Register() {
-    const { handleSubmit, control } = useForm<IRegister>({
+export function RegisterStepOne() {
+    const router = useRouter();
+    const { handleSubmit, control } = useForm<IRegisterStepOne>({
         defaultValues: { email: "", username: "", password: "" },
     });
-    async function onSubmit(data: IRegister) {
-        console.log("Successful registration:", data);
+    async function onSubmit(data: IRegisterStepOne) {
+        router.push({
+            pathname: "/auth/register-step-two",
+            params: {
+                email: data.email,
+                username: data.username,
+                password: data.password,
+            },
+        });
     }
     return (
         <ScrollView style={{
         }} >
-            <View className="flex-1 justify-center gap-5">
+            <View className="flex-1 justify-center items-center gap-5">
                 <View>
                     <Text className="text-white dark:text-bgLight font-normal text-4xl self-center">
                         Registration
@@ -32,7 +40,11 @@ export function Register() {
                         rules={{
                             required: {
                                 value: true,
-                                message: "Email is required",
+                                message: "Email is required"
+                            },
+                            pattern: {
+                                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                message: "Invalid email format",
                             },
                         }}
                         render={({ field, fieldState }) => {
@@ -88,65 +100,15 @@ export function Register() {
                     />
                     <Controller
                         control={control}
-                        name="phoneNumber"
-                        rules={{ required: { value: true, message: "Phone number is required" } }}
-                        render={({ field, fieldState }) => (
-                            <Input
-                                placeholder="Phone number"
-                                iconLeft={<ICONS.PhoneNumberIcon width={30} height={30} />}
-                                onChange={field.onChange}
-                                onChangeText={field.onChange}
-                                value={field.value}
-                                label="Phone number"
-                                autoCorrect={false}
-                                errMsg={fieldState.error?.message}
-                                className="h-[60]"
-                            />
-                        )}
-                    />
-                    <Controller
-                        control={control}
-                        name="firstName"
-                        rules={{ required: { value: true, message: "First name is required" } }}
-                        render={({ field, fieldState }) => (
-                            <Input
-                                placeholder="First name"
-                                iconLeft={<ICONS.UserIcon width={30} height={30}/>}
-                                onChange={field.onChange}
-                                onChangeText={field.onChange}
-                                value={field.value}
-                                label="First name"
-                                autoCorrect={false}
-                                errMsg={fieldState.error?.message}
-                                className="h-[60]"
-                            />
-                        )}
-                    />
-                    <Controller
-                        control={control}
-                        name="lastName"
-                        rules={{ required: { value: true, message: "Last name is required" } }}
-                        render={({ field, fieldState }) => (
-                            <Input
-                                placeholder="Last name"
-                                iconLeft={<ICONS.UserIcon width={30} height={30}/>}
-                                onChange={field.onChange}
-                                onChangeText={field.onChange}
-                                value={field.value}
-                                label="Last name"
-                                autoCorrect={false}
-                                errMsg={fieldState.error?.message}
-                                className="h-[60]"
-                            />
-                        )}
-                    />
-                    <Controller
-                        control={control}
                         name="password"
                         rules={{
                             required: {
                                 value: true,
-                                message: "Password is required",
+                                message: "Password is required"
+                            },
+                            minLength: {
+                                value: 8,
+                                message: "Password must be at least 8 characters"
                             },
                         }}
                         render={({ field, fieldState }) => {
@@ -170,7 +132,11 @@ export function Register() {
                         rules={{
                             required: {
                                 value: true,
-                                message: "Password is required",
+                                message: "Password is required"
+                            },
+                            minLength: {
+                                value: 8,
+                                message: "Password must be at least 8 characters"
                             },
                         }}
                         render={({ field, fieldState }) => {
@@ -190,7 +156,7 @@ export function Register() {
                     />
                     <View>
                         <Button.Registr
-                            label="Register"
+                            label="next step"
                             onPress={handleSubmit(onSubmit)}
                             className="h-[50] w-[160] font-normal self-center bg-bgLight dark:bg-bgDark border-border rounded-xl justify-center"
                         />
@@ -200,12 +166,21 @@ export function Register() {
             <View className=" flex-row self-center ">
                 <Text className="text-white">Do you have an account? </Text>
                 <Link
-                    href={"/auth/login/"}
+                    href={"/auth/login"}
                     className="text-bgLight text-base font-bold"
                 >
                     Login
                 </Link>
             </View>
+            {/* <View className=" flex-row self-center ">
+                <Text className="text-white">Do you have an account? </Text>
+                <Link
+                    href={"/auth/register-step-two"}
+                    className="text-bgLight text-base font-bold"
+                >
+                    Regist
+                </Link>
+            </View> */}
         </ScrollView>
     );
 }

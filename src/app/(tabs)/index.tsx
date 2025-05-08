@@ -1,5 +1,6 @@
 import { Link } from "expo-router";
 import { Button, Text, View } from "react-native";
+//  "../../modules/auth/screens/register/step-one"
 
 export default function IndexScreen() {
   return (
@@ -8,8 +9,8 @@ export default function IndexScreen() {
       <Link href="/profile" asChild>
         <Button title="Go to profile" />
       </Link>
-      <Link href="/auth/register" asChild>
-        <Button title="Register" />
+      <Link href="/auth/register-step-one" asChild>
+        <Button title="Register (RegisterStepOne)" />
       </Link>
     </View>
   )

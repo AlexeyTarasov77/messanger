@@ -24,12 +24,11 @@ export const COLOR_PALETTE = {
     background: "#1B1E25",
     shadowColor: "#77B5BF",
   },
-
 }
 
-const colorScheme = useColorScheme()
-
-export const colors = colorScheme === "light"
+export function useColors() {
+  const colorScheme = useColorScheme();
+  return colorScheme === "light"
   ? ([
     COLOR_PALETTE.lightTheme.gradientColors.top,
     COLOR_PALETTE.lightTheme.gradientColors.bottom,
@@ -47,6 +46,8 @@ export const colors = colorScheme === "light"
     COLOR_PALETTE.darkTheme.background,
     COLOR_PALETTE.darkTheme.shadowColor,
   ] as const)
+}
+
 
 export const styles = StyleSheet.create({
   linearGradientUser: {
@@ -84,5 +85,14 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     borderWidth: 1,
+  },
+  black: {
+    color: "#000000",
+  },
+  white: {
+    color: "#FFFFFF",
+  },
+  red: {
+    color: "#c90000"
   },
 });
