@@ -8,6 +8,7 @@ import { Slot, Stack } from "expo-router";
 import { COLOR_PALETTE } from "../shared/theme/colors";
 import { LinearGradient } from "expo-linear-gradient";
 import { UsersProvider } from "../modules/users/components/users-ctx/context";
+import { MainHeader } from "../shared/ui/header";
 
 export default function RootLayout() {
     const { setColorScheme } = useColorScheme();
@@ -36,6 +37,7 @@ export default function RootLayout() {
         <SafeAreaProvider>
             <UsersProvider>
                 <SafeAreaView style={{ flex: 1 }}>
+                    <MainHeader/>
                     <LinearGradient
                         colors={colors}
                         start={{ x: 0, y: 0 }}
