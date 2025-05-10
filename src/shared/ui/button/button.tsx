@@ -7,6 +7,7 @@ import { Controller, useForm } from "react-hook-form";
 import { posts } from "../../constants";
 
 const defaultImage = require("../../../../assets/user-image.png");
+
 export function Button(props: IButtonProps) {
 	const { label, disabled, ...touchableOpacityProps } = props;
 	return (

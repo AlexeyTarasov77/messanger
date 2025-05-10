@@ -55,7 +55,6 @@ export function EyeIcon(props: SvgProps) {
     }
 }
 
-
 function UserEyeIcon(props: SvgProps) {
     const colorScheme = useColorScheme();
     if (colorScheme === "dark") {

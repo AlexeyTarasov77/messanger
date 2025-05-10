@@ -9,6 +9,7 @@ import { COLOR_PALETTE } from "../shared/theme/colors";
 import { LinearGradient } from "expo-linear-gradient";
 import { PostCard } from "../shared/ui/postCard";
 import { PostsList } from "../shared/ui/postsList";
+import { MainHeader } from "../shared/ui/header";
 
 export default function RootLayout() {
     const { setColorScheme } = useColorScheme();
@@ -36,6 +37,7 @@ export default function RootLayout() {
     return (
         <SafeAreaProvider>
             <SafeAreaView style={{ flex: 1 }}>
+                <MainHeader/>
                 <LinearGradient
                     colors={colors}
                     start={{ x: 0, y: 0 }}

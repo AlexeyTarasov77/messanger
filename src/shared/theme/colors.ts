@@ -5,12 +5,8 @@ export const COLOR_PALETTE = {
   lightTheme: {
     gradientColors: {
       top: "#77B5BF",
-      bottom: "#7D88AA",
-    },
-    border: "#77B5BF",
-    text: "#FFFFFF",
-    background: "#E6F1F5",
-    shadowColor: "#77B5BF",
+      bottom: "#7D88AA"
+    }
   },
   darkTheme: {
     gradientColors: {
@@ -96,3 +92,4 @@ export const styles = StyleSheet.create({
     color: "#c90000"
   },
 });
+

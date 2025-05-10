@@ -8,16 +8,26 @@ import { SearchIcon } from "./search-icon";
 import { SettingsIcon } from "./settings-icon";
 import { LikesIcon } from "./likes-icon";
 import { PhoneNumberIcon } from "./phone-number-icon";
+import { LogoIcon } from "./logo-icon";
+import { PlusIcon } from "./plus-icon";
+import { PostSettingsIcon } from "./post-settings-icon";
+import { LogOutIcon } from "./logout-icon";
+
 
 export const ICONS = {
 	EyeIcon,
-    EyeSlashIcon,
+	EyeSlashIcon,
 	KeyIcon,
 	EmailIcon,
-    UserIcon,
-	PenIcon,
+	UserIcon,
+    PenIcon,
+    LogoIcon,
+    LogOutIcon,
+    SettingsIcon,
+    PlusIcon,
+	PostSettingsIcon,
+	PhoneNumberIcon,
 	SearchIcon,
-	PhoneNumberIcon, 
-	SettingsIcon,
 	LikesIcon
 };
+

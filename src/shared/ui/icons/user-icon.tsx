@@ -53,7 +53,6 @@ export function UserIcon(props: SvgProps) {
       </Svg>
     )
   }
-
 }
 
 function SearchIcon(props: SvgProps) {
