@@ -38,7 +38,7 @@ function Registr(props: IButtonProps) {
 }
 Button.Registr = Registr
 
-function UserAvatar(props: IButtonProps) {
+function UserAvatarTypeOne(props: IButtonProps) {
 	const [image, setImage] = useState<string>("")
 	async function onSearch() {
 		const result = await requestMediaLibraryPermissionsAsync()
@@ -93,4 +93,49 @@ function UserAvatar(props: IButtonProps) {
 	);
 }
 
-Button.UserAvatar = UserAvatar
+Button.UserAvatarTypeOne = UserAvatarTypeOne
+
+function UserAvatarTypeTwo(props: IButtonProps) {
+	const [image, setImage] = useState<string>("")
+	async function onSearch() {
+		const result = await requestMediaLibraryPermissionsAsync()
+		if (result.status === "granted") {
+			const images = await launchImageLibraryAsync({
+				mediaTypes: "images",
+				allowsEditing: true,
+				allowsMultipleSelection: false,
+				selectionLimit: 1,
+				base64: false,
+			});
+			if (images.assets) {
+				setImage(images.assets[0].uri)
+			}
+		} else {
+		}
+	}
+	const { label, disabled, ...touchableOpacityProps } = props;
+	return (
+		<GradientBorder.Button borderRadius={90} borderWidth={3} style={{ padding: 0, }}>
+			<TouchableOpacity
+				onPress={onSearch}
+				{...touchableOpacityProps}
+				disabled={disabled}
+				style={{
+					borderRadius: 60,
+				}}>
+				<View className="items-center justify-center">
+					<View className="items-center justify-center p-5">
+						<Image
+							source={image ? { uri: image } : defaultImage}
+							className="w-12 h-12 " 
+							style={{ borderRadius: 60 }}
+							resizeMode="cover"
+						/>
+					</View>
+				</View>
+			</TouchableOpacity>
+		</GradientBorder.Button >
+	);
+}
+
+Button.UserAvatarTypeOne = UserAvatarTypeTwo

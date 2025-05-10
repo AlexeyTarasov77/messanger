@@ -79,3 +79,32 @@ function Password(props: Omit<IInputProps, "iconLeft" | "iconRight">) {
 }
 
 Input.Password = Password;
+
+function Comment(props: Omit<IInputProps, "iconLeft" | "iconRight">) {
+    const { label, errMsg } = props;
+    const [isHidden, setIsHidden] = useState(true);
+
+    return (
+        <View>
+            {label && <Text className="text-white dark:text-bgLight">{label}</Text>}
+
+            <GradientBorder borderRadius={20} borderWidth={3} style={{ padding: 0 }}>
+                <View className="flex-row bg-bgLight dark:bg-bgDark rounded-xl px-2">
+                    <View className="mr-2 self-center">
+                        <ICONS.KeyIcon width={30} height={30} />
+                    </View>
+                    <TextInput placeholderTextColor="#CDCDCD" style={{ color: "#FFFFFF", }} secureTextEntry={isHidden} {...props} />
+                </View>
+            </GradientBorder>
+            {
+                errMsg && (
+                    <View>
+                        <Text>{errMsg}</Text>
+                    </View>
+                )
+            }
+        </View >
+    );
+}
+
+Input.Comment = Comment;

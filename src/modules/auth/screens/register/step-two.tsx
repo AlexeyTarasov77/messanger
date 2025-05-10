@@ -62,7 +62,7 @@ export function RegisterStepTwo() {
                 </View>
 
                 <View className="items-center justify-center">
-                    <Button.UserAvatar />
+                    <Button.UserAvatarTypeOne />
                     <Text className="self-center text-white font-bold" >Add photo</Text>
                 </View>
 

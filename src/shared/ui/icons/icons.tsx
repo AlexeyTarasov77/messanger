@@ -5,6 +5,7 @@ import { KeyIcon } from "./key-icon";
 import { UserIcon } from "./user-icon";
 import { PenIcon } from "./pen-icon";
 import { SearchIcon } from "./search-icon";
+import { SettingsIcon } from "./settings-icon";
 import { PhoneNumberIcon } from "./phone-number-icon";
 
 export const ICONS = {
@@ -16,4 +17,5 @@ export const ICONS = {
 	PenIcon,
 	SearchIcon,
 	PhoneNumberIcon, 
+	SettingsIcon,
 };
