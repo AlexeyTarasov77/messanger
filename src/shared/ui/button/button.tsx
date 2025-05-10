@@ -131,17 +131,15 @@ function UserAvatarTypeTwo(props: IButtonProps) {
 						return (
 							<View className="items-center justify-center">
 								<View className="items-center justify-center p-5">
-
 									<Image
-										// source={{ uri: item.author.avatarUrl }}
+										source={{ uri: item.author.avatarUrl }}
 										className="w-10 h-10"
 									/>
 								</View>
 							</View>)
 					}}
-				>
-				</FlatList>
-				
+				/>
+
 			</TouchableOpacity>
 		</GradientBorder.Button >
 	);

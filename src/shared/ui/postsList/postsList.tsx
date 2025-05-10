@@ -35,10 +35,10 @@ export function PostsList() {
                                 </Text>
                             </View>
                             <View>
-                                <Text>{item.body}</Text>
+                                <Text className="flex-wrap">{item.body}</Text>
                                 <View className="flex-row flex-wrap">
                                     {item.tags.map((tag, index) => (
-                                        <Text key={index}>#{tag}</Text>
+                                        <Text className="text-text" key={index}>#{tag}</Text>
                                     ))}
                                 </View>
                                 <View className="flex-row">
@@ -50,9 +50,9 @@ export function PostsList() {
                                     ))}
                                 </View>
                             </View>
-                            <View className="flex-row justify-between items-center w-fit">
-                                <Text className="flex-row self-center items-center justify-center"><ICONS.LikesIcon width={20} height={20}/> {item.likesCount}Вподобань</Text>
-                                <Text className="self-center items-center justify-center"><ICONS.EyeIcon width={20} height={20}/> {item.viewsCount}Переглядів</Text>
+                            <View className="flex-row items-center gap-4">
+                                <Text className="flex-row self-center items-center"><ICONS.LikesIcon width={20} height={20}/> {item.likesCount} Вподобань</Text>
+                                <Text className="self-center items-center"><ICONS.EyeIcon width={20} height={20} /> {item.viewsCount} Переглядів</Text>
                             </View>
                         </View>
                     );

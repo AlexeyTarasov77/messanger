@@ -7,7 +7,8 @@ module.exports = {
             colors: {
                 bgLightOne: "#7D88AA",
                 bgLight:"#77B5BF",
-                bgDark:"#1C1F26"
+                bgDark:"#1C1F26",
+                text:"#543B52"
             },
         },
     },
