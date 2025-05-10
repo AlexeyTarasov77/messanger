@@ -2,17 +2,17 @@
 export const posts = [
   {
     "body": "lorem ipsum dolor",
-    "tags": ["tag 1", "tag 2", "tag 3"],
+    "tags": ["відпочинок", "натхнення", "життя", "природа", "читання" , "спокій", "гармонія"],
     "likesCount": 123,
     "viewsCount": 456,
     "media": [
       {
         "type": "IMAGE",
-        "url": "http://example.com"
+        "url": "https://www.dobrovserdce.ru/images/2022/11/02/kot%20Fedya_large.jpeg"
       },
       {
         "type": "IMAGE",
-        "url": "http://example.com"
+        "url": "https://t3.ftcdn.net/jpg/02/36/99/22/360_F_236992283_sNOxCVQeFLd5pdqaKGh8DRGMZy7P4XKm.jpg"
       },
       {
         "type": "VIDEO",

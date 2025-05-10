@@ -41,8 +41,8 @@ export default function RootLayout() {
                     start={{ x: 0, y: 0 }}
                     className="h-full"
                 >
-                    {/* <PostCard /> */}
                     <PostsList/>
+                    <PostCard />
                     {/* <Stack */}
                     {/*   screenOptions={{ */}
                     {/*     headerStyle: { */}

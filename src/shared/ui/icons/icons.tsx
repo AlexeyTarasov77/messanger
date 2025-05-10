@@ -6,6 +6,7 @@ import { UserIcon } from "./user-icon";
 import { PenIcon } from "./pen-icon";
 import { SearchIcon } from "./search-icon";
 import { SettingsIcon } from "./settings-icon";
+import { LikesIcon } from "./likes-icon";
 import { PhoneNumberIcon } from "./phone-number-icon";
 
 export const ICONS = {
@@ -18,4 +19,5 @@ export const ICONS = {
 	SearchIcon,
 	PhoneNumberIcon, 
 	SettingsIcon,
+	LikesIcon
 };

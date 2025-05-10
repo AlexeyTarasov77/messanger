@@ -3,11 +3,13 @@ import {
     ScrollView,
     Text,
     TouchableOpacity,
+    Image,
     FlatList,
 } from "react-native";
 import { Link } from "expo-router";
 import { Button } from "../button";
 import { ICONS } from "../icons";
+import { PostCard } from "../postCard";
 import { posts } from "../../constants";
 
 export function PostsList() {
@@ -17,22 +19,40 @@ export function PostsList() {
                 data={posts}
                 renderItem={({ item }) => {
                     return (
-                        <View>
-                            <View>
-                                <Text>{item.author.avatarUrl}</Text>
+                        <View className="border border-black rounded-2xl p-2">
+                            <View className="flex-row justify-around">
+                                <View>
+                                    <Image
+                                        source={{ uri: item.author.avatarUrl }}
+                                        className="w-10 h-10"
+                                    />
+                                </View>
                                 <Text>{item.author.username}</Text>
-                                <Text>{item.author.isOnline}</Text>
+                                <Text>
+                                    {item.author.isOnline
+                                        ? "Online"
+                                        : "Offline"}
+                                </Text>
                             </View>
                             <View>
                                 <Text>{item.body}</Text>
-                                <Text>{item.tags}</Text>
-                                <View>
-                                    {/* <Text>{item.media}</Text> */}
+                                <View className="flex-row flex-wrap">
+                                    {item.tags.map((tag, index) => (
+                                        <Text key={index}>#{tag}</Text>
+                                    ))}
+                                </View>
+                                <View className="flex-row">
+                                    {item.media.map((img) => (
+                                        <Image
+                                            source={{ uri: img.url }}
+                                            className="w-40 h-40 rounded-2xl m-2"
+                                        />
+                                    ))}
                                 </View>
                             </View>
-                            <View>
-                                <Text>{item.likesCount}</Text>
-                                <Text>{item.viewsCount}</Text>
+                            <View className="flex-row justify-between items-center w-fit">
+                                <Text className="flex-row self-center items-center justify-center"><ICONS.LikesIcon width={20} height={20}/> {item.likesCount}Вподобань</Text>
+                                <Text className="self-center items-center justify-center"><ICONS.EyeIcon width={20} height={20}/> {item.viewsCount}Переглядів</Text>
                             </View>
                         </View>
                     );

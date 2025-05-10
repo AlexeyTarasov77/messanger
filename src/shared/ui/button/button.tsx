@@ -1,9 +1,10 @@
-import { TouchableOpacity, Text, View, Image } from "react-native";
+import { TouchableOpacity, Text, View, Image, FlatList } from "react-native";
 import { IButtonProps } from "./button.types";
 import GradientBorder from '../gradientBorder/gradientBorder';
 import { launchImageLibraryAsync, requestMediaLibraryPermissionsAsync } from 'expo-image-picker'
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { posts } from "../../constants";
 
 const defaultImage = require("../../../../assets/user-image.png");
 export function Button(props: IButtonProps) {
@@ -66,7 +67,7 @@ function UserAvatarTypeOne(props: IButtonProps) {
 				style={{
 					borderRadius: 60,
 				}}>
-				<View className="items-center justify-center" 
+				<View className="items-center justify-center"
 				// style={{
 				// 	alignItems: "center",
 				// 	justifyContent: "center",
@@ -82,7 +83,7 @@ function UserAvatarTypeOne(props: IButtonProps) {
 					>
 						<Image
 							source={image ? { uri: image } : defaultImage}
-							className="w-32 h-32 " 
+							className="w-32 h-32 "
 							style={{ borderRadius: 60 }}
 							resizeMode="cover"
 						/>
@@ -123,16 +124,24 @@ function UserAvatarTypeTwo(props: IButtonProps) {
 				style={{
 					borderRadius: 60,
 				}}>
-				<View className="items-center justify-center">
-					<View className="items-center justify-center p-5">
-						<Image
-							source={image ? { uri: image } : defaultImage}
-							className="w-12 h-12 " 
-							style={{ borderRadius: 60 }}
-							resizeMode="cover"
-						/>
-					</View>
-				</View>
+
+				<FlatList
+					data={posts}
+					renderItem={({ item }) => {
+						return (
+							<View className="items-center justify-center">
+								<View className="items-center justify-center p-5">
+
+									<Image
+										// source={{ uri: item.author.avatarUrl }}
+										className="w-10 h-10"
+									/>
+								</View>
+							</View>)
+					}}
+				>
+				</FlatList>
+				
 			</TouchableOpacity>
 		</GradientBorder.Button >
 	);
