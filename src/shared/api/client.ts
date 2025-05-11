@@ -31,7 +31,7 @@ export async function sendReq<T>(
             return await sendReq(path, options);
         }
         let respData
-        if (resp.status !== 204) {
+        if (resp.status === 204) {
             respData = { success: true, data: null }
             console.log("Received empty response (204)")
         } else {

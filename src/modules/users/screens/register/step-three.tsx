@@ -1,13 +1,14 @@
 import { View, Text, ScrollView } from "react-native";
 import { Button } from "../../../../shared/ui/button";
 import { Input } from "../../../../shared/ui/input";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { useLocalSearchParams } from "expo-router";
 import { IRegisterStepOne, IRegisterStepThree, IRegisterStepTwo } from "../../types";
 import { authService } from "../../services";
 
 export function RegisterStepThree() {
+    const router = useRouter()
     const prevData = useLocalSearchParams() as unknown as IRegisterStepTwo & IRegisterStepOne;
 
     const { handleSubmit, control } = useForm<IRegisterStepThree>({
@@ -16,6 +17,7 @@ export function RegisterStepThree() {
 
     async function onSubmit(data: IRegisterStepThree) {
         await authService.register({ ...data, ...prevData })
+        router.replace("/")
     }
     return (
         <ScrollView
