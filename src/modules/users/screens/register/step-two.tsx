@@ -28,7 +28,7 @@ export function RegisterStepTwo() {
                     </Text>
                 </View>
                 <View className="">
-                    <Text className="text-darkBlue font-medium text-sm self-center pt-8 pb-4 px-2">
+                    <Text className="text-darkBlue font-medium text-sm self-center pt-8 pb-4 px-4 text-center">
                         Ми надіслали 6-значний код на вашу пошту
                         (you@example.com). Введіть його нижче, щоб підтвердити
                         акаунт
