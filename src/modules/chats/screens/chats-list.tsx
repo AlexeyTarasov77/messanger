@@ -9,7 +9,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { verifyInstallation } from "nativewind";
 import { Button } from "../../../shared/ui/button";
 import { Input } from "../../../shared/ui/input";
-import { UserAvatar } from "../../../shared/ui/userAvatar";
+// import { UserAvatar } from "../../../shared/ui/userAvatar";
 import { COLOR_PALETTE} from "../../../shared/theme/colors";
 
 export function ChatsListScreen() {

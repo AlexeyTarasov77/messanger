@@ -29,24 +29,29 @@ export function PostCard(props: IPostProps) {
     return (
         <View className="border border-border rounded-2xl p-2 gap-2">
             <View className="flex-row justify-between py-4 px-2">
-                <View className="flex-row items-center gap-4">
-                    <View className="flex-row">
-                        <View>
-                            <Image
-                                source={{ uri: post.author.avatarUrl }}
-                                className="w-10 h-10"
-                            />
+                <View>
+                    <View className="flex-row items-center gap-4">
+                        <View className="flex-row">
+                            <View>
+                                <Image
+                                    source={{ uri: post.author.avatarUrl }}
+                                    className="w-10 h-10"
+                                />
+                            </View>
+                            <View className="absolute bottom-0 right-0">
+                                {post.author.isOnline ? (
+                                    <ICONS.OnlineIcon width={12} height={12} />
+                                ) : (
+                                    <ICONS.OfflineIcon width={12} height={12} />
+                                )}
+                            </View>
                         </View>
-                        <View className="absolute bottom-0 right-0">
-                            {post.author.isOnline ? (
-                                <ICONS.OnlineIcon width={12} height={12} />
-                            ) : (
-                                <ICONS.OfflineIcon width={12} height={12} />
-                            )}
+                        <View className="font-medium text-sm">
+                            <Text>{post.author.username}</Text>
                         </View>
                     </View>
-                    <View className="font-medium text-sm">
-                        <Text>{post.author.username}</Text>
+                    <View>
+                        <ICONS.Signature/>
                     </View>
                 </View>
                 <View className="self-center">
@@ -75,13 +80,13 @@ export function PostCard(props: IPostProps) {
             </View>
             <View className="flex-row gap-4">
                 <View className="flex-row items-center">
-                    <ICONS.LikeIcon width={20} height={20} /> 
-                    <Text >{" "}{post.likesCount}{" "} Вподобань</Text>
+                    <ICONS.LikeIcon width={20} height={20} />
+                    <Text> {post.likesCount} Вподобань</Text>
                 </View>
 
                 <View className="flex-row ">
-                    <ICONS.EyeIcon width={20} height={20} /> 
-                    <Text>{" "}{post.viewsCount}{" "} Переглядів</Text>
+                    <ICONS.EyeIcon width={20} height={20} />
+                    <Text> {post.viewsCount} Переглядів</Text>
                 </View>
             </View>
         </View>

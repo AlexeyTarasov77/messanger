@@ -5,6 +5,9 @@ import { Redirect } from "expo-router";
 
 export function Profile() {
     const { user } = useUserCtx()
+    if (!user) {
+        return <Redirect href="/users/login" />;
+    }
     const displayName = () => {
         let finalName = user.username
         if (user.firstName) {
@@ -14,9 +17,6 @@ export function Profile() {
             }
         }
         return finalName
-    }
-    if (!user) {
-        return <Redirect href="/users/login" />;
     }
     return (
         <View>

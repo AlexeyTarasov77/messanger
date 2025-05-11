@@ -5,9 +5,6 @@ import React, { useEffect } from "react";
 import { THEME_STORAGE_KEY } from "../shared/constants";
 import "../styles/global.css";
 import { Slot } from "expo-router";
-import { COLOR_PALETTE } from "../shared/theme/colors";
-import { LinearGradient } from "expo-linear-gradient";
-import { PostCard } from "../shared/ui/postCard";
 import { PostsList } from "../shared/ui/postsList";
 import { CustomHeader } from "../shared/ui/header";
 

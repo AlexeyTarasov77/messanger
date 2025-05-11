@@ -14,6 +14,7 @@ import { PostSettingsIcon } from "./post-settings-icon";
 import { LogOutIcon } from "./logout-icon";
 import { OnlineIcon } from "./online-icon";
 import { OfflineIcon } from "./offline-icon";
+import { Signature } from "./signature";
 
 
 export const ICONS = {
@@ -32,6 +33,7 @@ export const ICONS = {
 	SearchIcon,
 	LikeIcon,
     OnlineIcon,
-    OfflineIcon
+    OfflineIcon,
+    Signature
 };
 
