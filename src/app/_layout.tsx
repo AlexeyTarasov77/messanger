@@ -6,6 +6,7 @@ import { THEME_STORAGE_KEY } from "../shared/constants";
 import "../styles/global.css";
 import { Slot } from "expo-router";
 import { CustomHeader } from "../shared/ui/header";
+import { UsersProvider } from "../modules/users/components/users-ctx/context";
 
 export default function RootLayout() {
     const { setColorScheme } = useColorScheme();
@@ -21,6 +22,7 @@ export default function RootLayout() {
 
     return (
         <SafeAreaProvider>
+            <UsersProvider>
             <SafeAreaView style={{ flex: 1 }} >
                 <CustomHeader />
                 {/* <Stack */}
@@ -37,6 +39,7 @@ export default function RootLayout() {
                 {/* </Stack> */}
                 <Slot />
             </SafeAreaView>
+            </UsersProvider>
         </SafeAreaProvider>
     );
 }

@@ -1,35 +1,37 @@
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import { Button } from "../../../../shared/ui/button";
-import { Input } from "../../../../shared/ui/input/input";
+import { Input } from "../../../../shared/ui/input";
 import { ICONS } from "../../../../shared/ui/icons";
-import { Link, useRouter } from "expo-router";
+import { Link } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
-import { IRegisterForm } from "../../types";
-import { useUserCtx } from "../../components/users-ctx/context";
+import { IRegisterStepOne } from "../../types";
+import { useRouter } from "expo-router";
 
-export function Register() {
-    const router = useRouter()
-    const { register } = useUserCtx()
-    const { handleSubmit, control, setError, formState: { errors } } = useForm<IRegisterForm>({
+export function RegisterStepOne() {
+    const router = useRouter();
+    const { handleSubmit, control } = useForm<IRegisterStepOne>({
         defaultValues: { email: "", username: "", password: "" },
     });
-    async function onSubmit(data: IRegisterForm) {
-        const errMsg = await register(data)
-        if (errMsg) {
-            setError("root", { message: errMsg })
-            return
-        }
-        router.replace("/users/profile")
+    async function onSubmit(data: IRegisterStepOne) {
+        router.push({
+            pathname: "/users/register-step-two",
+            params: {
+                email: data.email,
+                username: data.username,
+                password: data.password,
+            },
+        });
     }
-
     return (
-        <View className="h-full">
-            <View className="flex-1 justify-center ">
+        <ScrollView style={{
+        }} >
+            <View className="flex-1 justify-center items-center gap-5">
                 <View>
-                    <Text className="text-white dark:text-bgLightOne font-normal text-4xl self-center">
-                        Register
+                    <Text className="text-white dark:text-bgLight font-normal text-4xl self-center">
+                        Registration
                     </Text>
                 </View>
+
                 <View className="self-center gap-10 w-[80%]">
                     <Controller
                         control={control}
@@ -37,7 +39,11 @@ export function Register() {
                         rules={{
                             required: {
                                 value: true,
-                                message: "Email is required",
+                                message: "Email is required"
+                            },
+                            pattern: {
+                                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                message: "Invalid email format",
                             },
                         }}
                         render={({ field, fieldState }) => {
@@ -61,7 +67,6 @@ export function Register() {
                             );
                         }}
                     />
-
                     <Controller
                         control={control}
                         name="username"
@@ -98,7 +103,11 @@ export function Register() {
                         rules={{
                             required: {
                                 value: true,
-                                message: "Password is required",
+                                message: "Password is required"
+                            },
+                            minLength: {
+                                value: 8,
+                                message: "Password must be at least 8 characters"
                             },
                         }}
                         render={({ field, fieldState }) => {
@@ -122,7 +131,11 @@ export function Register() {
                         rules={{
                             required: {
                                 value: true,
-                                message: "Password is required",
+                                message: "Password is required"
+                            },
+                            minLength: {
+                                value: 8,
+                                message: "Password must be at least 8 characters"
                             },
                         }}
                         render={({ field, fieldState }) => {
@@ -140,25 +153,24 @@ export function Register() {
                             );
                         }}
                     />
-                    {errors.root && <Text className="text-red-500">{errors.root.message || "Invalid data"}</Text>}
                     <View>
-                        <Button
-                            label="Register"
+                        <Button.Registr
+                            label="next step"
                             onPress={handleSubmit(onSubmit)}
-                            className="h-[50] w-[160] self-center bg-bgLight dark:bg-bgDark border-border rounded-xl justify-center"
+                            className="h-[50] w-[160] font-normal self-center bg-bgLight dark:bg-bgDark border-border rounded-xl justify-center"
                         />
                     </View>
                 </View>
             </View>
-            <View className=" flex-row self-center">
-                <Text className="text-white">Already have an account?</Text>
+            <View className=" flex-row self-center ">
+                <Text className="text-white">Do you have an account? </Text>
                 <Link
-                    href={"/users/login/"}
-                    className="text-bgDark dark:text-bgLight font-bold text-base"
+                    href={"/users/login"}
+                    className="text-bgLight text-base font-bold"
                 >
-                    Login now
+                    Login
                 </Link>
             </View>
-        </View>
+        </ScrollView>
     );
 }

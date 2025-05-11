@@ -5,8 +5,9 @@ import {
     useState,
     useEffect,
 } from "react";
-import { authService } from "../../services";
+import { authService, usersService } from "../../services";
 import { ILoginForm, IRegisterForm, IUser } from "../../types";
+import { getErrorMessage } from "../../../../shared/utils/errors";
 
 interface IUserCtx {
     user: IUser | null;
@@ -28,7 +29,7 @@ export function UsersProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const resp = await authService.getUser();
+                const resp = await usersService.getUser();
                 setUser(resp);
             } catch (err) {
                 console.log("Не удалось получить пользователя:", err);
@@ -43,7 +44,7 @@ export function UsersProvider({ children }: { children: ReactNode }) {
             const token = await authService.login(data);
             setToken(token);
         } catch (err) {
-            return err.message;
+            return getErrorMessage(err);
         }
     };
 
@@ -53,7 +54,7 @@ export function UsersProvider({ children }: { children: ReactNode }) {
             setUser(resp.user);
             setToken(resp.token);
         } catch (err) {
-            return err.message;
+            return getErrorMessage(err);
         }
     };
 

@@ -6,51 +6,31 @@ import { Link } from "expo-router";
 import { launchImageLibraryAsync, requestMediaLibraryPermissionsAsync } from 'expo-image-picker'
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { IRegisterStepTwo } from "../../types";
+import { IRegisterStepOne, IRegisterStepTwo } from "../../types";
 import { useLocalSearchParams } from "expo-router";
 import { useRouter } from "expo-router";
+import { authService } from "../../services";
 
 const defaultImage = require("../../../../../assets/user-image.png");
-const BASE_URL = "http://192.168.0.115:8000";
 
 export function RegisterStepTwo() {
     const router = useRouter();
     const [image, setImage] = useState<string>("")
-    const { email, username, password } = useLocalSearchParams()
+    const prevData = useLocalSearchParams() as unknown as IRegisterStepOne
 
-    console.log({ email, username, password })
     const { handleSubmit, control } = useForm<IRegisterStepTwo>({
-        defaultValues: { phoneNumber: "", firstName: "", lastName: "", avatarUrl: "", },
+        defaultValues: { phoneNumber: "", firstName: "", lastName: "", avatar: "", },
     });
     async function onSubmit(data: IRegisterStepTwo) {
+        await authService.sendOTP(prevData.email)
         router.push({
-            pathname: "/auth/register-step-three",
+            pathname: "/users/register-step-three",
             params: {
-                email,
-                username,
-                password,
-                phoneNumber: data.phoneNumber,
-                firstName: data.firstName,
-                lastName: data.lastName,
-                image,
-            }
+                ...prevData,
+                ...data,
+                avatar: image,
+            } satisfies IRegisterStepTwo & IRegisterStepOne
         });
-    }
-    async function onSearch() {
-        const result = await requestMediaLibraryPermissionsAsync()
-        if (result.status === "granted") {
-            const images = await launchImageLibraryAsync({
-                mediaTypes: "images",
-                allowsEditing: true,
-                allowsMultipleSelection: false,
-                selectionLimit: 1,
-                base64: false,
-            });
-            if (images.assets) {
-                setImage(images.assets[0].uri)
-            }
-        } else {
-        }
     }
     return (
         <ScrollView>
@@ -88,7 +68,6 @@ export function RegisterStepTwo() {
                     <Controller
                         control={control}
                         name="firstName"
-                        rules={{ required: { value: true, message: "First name is required" } }}
                         render={({ field, fieldState }) => (
                             <Input
                                 placeholder="First name"
@@ -106,7 +85,6 @@ export function RegisterStepTwo() {
                     <Controller
                         control={control}
                         name="lastName"
-                        rules={{ required: { value: true, message: "Last name is required" } }}
                         render={({ field, fieldState }) => (
                             <Input
                                 placeholder="Last name"
@@ -133,21 +111,12 @@ export function RegisterStepTwo() {
             <View className=" flex-row self-center ">
                 <Text className="text-white">Do you have an account? </Text>
                 <Link
-                    href={"/auth/login"}
+                    href={"/users/login"}
                     className="text-bgLight text-base font-bold"
                 >
                     Login
                 </Link>
             </View>
-            {/* <View className=" flex-row self-center ">
-                <Text className="text-white">Do you have an account? </Text>
-                <Link
-                    href={"/auth/register-step-three"}
-                    className="text-bgLight text-base font-bold"
-                >
-                    Regist
-                </Link>
-            </View> */}
         </ScrollView>
     );
 }
