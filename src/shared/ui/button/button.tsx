@@ -146,4 +146,4 @@ function UserAvatarTypeTwo(props: IButtonProps) {
 	);
 }
 
-Button.UserAvatarTypeOne = UserAvatarTypeTwo
+Button.UserAvatarTypeOne = UserAvatarTypeOne
