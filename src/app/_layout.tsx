@@ -9,7 +9,7 @@ import { COLOR_PALETTE } from "../shared/theme/colors";
 import { LinearGradient } from "expo-linear-gradient";
 import { PostCard } from "../shared/ui/postCard";
 import { PostsList } from "../shared/ui/postsList";
-import { MainHeader } from "../shared/ui/header";
+import { CustomHeader } from "../shared/ui/header";
 
 export default function RootLayout() {
     const { setColorScheme } = useColorScheme();
@@ -23,42 +23,24 @@ export default function RootLayout() {
         setTheme();
     });
 
-    const { colorScheme } = useColorScheme();
-    const colors = colorScheme === "light"
-        ? ([
-            COLOR_PALETTE.lightTheme.gradientColors.top,
-            COLOR_PALETTE.lightTheme.gradientColors.bottom,
-        ] as const)
-        : ([
-            COLOR_PALETTE.darkTheme.gradientColors.top,
-            COLOR_PALETTE.darkTheme.gradientColors.bottom,
-        ] as const)
-
     return (
         <SafeAreaProvider>
             <SafeAreaView style={{ flex: 1 }}>
-                <MainHeader/>
-                <LinearGradient
-                    colors={colors}
-                    start={{ x: 0, y: 0 }}
-                    className="h-full"
-                >
-                    <PostsList/>
-                    <PostCard />
-                    {/* <Stack */}
-                    {/*   screenOptions={{ */}
-                    {/*     headerStyle: { */}
-                    {/*       backgroundColor: '#f4511e', */}
-                    {/*     }, */}
-                    {/*     headerTintColor: '#fff', */}
-                    {/*     headerTitleStyle: { */}
-                    {/*       fontWeight: 'bold', */}
-                    {/*     }, */}
-                    {/*   }}> */}
-                    {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
-                    {/* </Stack> */}
-                    <Slot />
-                </LinearGradient>
+                <CustomHeader />
+                <PostsList />
+                {/* <Stack */}
+                {/*   screenOptions={{ */}
+                {/*     headerStyle: { */}
+                {/*       backgroundColor: '#f4511e', */}
+                {/*     }, */}
+                {/*     headerTintColor: '#fff', */}
+                {/*     headerTitleStyle: { */}
+                {/*       fontWeight: 'bold', */}
+                {/*     }, */}
+                {/*   }}> */}
+                {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
+                {/* </Stack> */}
+                <Slot />
             </SafeAreaView>
         </SafeAreaProvider>
     );

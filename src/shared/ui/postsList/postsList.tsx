@@ -15,61 +15,22 @@ import { posts } from "../../constants";
 export function PostsList() {
     return (
         <ScrollView>
-            <FlatList
-                data={posts}
-                renderItem={({ item }) => {
-                    return (
-                        <View className="border border-black rounded-2xl p-2">
-                            <View className="flex-row justify-around">
-                                <View>
-                                    <Image
-                                        source={{ uri: item.author.avatarUrl }}
-                                        className="w-10 h-10"
-                                    />
-                                </View>
-                                <Text>{item.author.username}</Text>
-                                <Text>
-                                    {item.author.isOnline
-                                        ? "Online"
-                                        : "Offline"}
-                                </Text>
-                            </View>
-                            <View>
-                                <Text className="flex-wrap">{item.body}</Text>
-                                <View className="flex-row flex-wrap">
-                                    {item.tags.map((tag, index) => (
-                                        <Text className="text-text" key={index}>#{tag}</Text>
-                                    ))}
-                                </View>
-                                <View className="flex-row">
-                                    {item.media.map((img) => (
-                                        <Image
-                                            source={{ uri: img.url }}
-                                            className="w-40 h-40 rounded-2xl m-2"
-                                        />
-                                    ))}
-                                </View>
-                            </View>
-                            <View className="flex-row items-center gap-4">
-                                <Text className="flex-row self-center items-center"><ICONS.LikesIcon width={20} height={20}/> {item.likesCount} Вподобань</Text>
-                                <Text className="self-center items-center"><ICONS.EyeIcon width={20} height={20} /> {item.viewsCount} Переглядів</Text>
-                            </View>
-                        </View>
-                    );
-                }}
-            ></FlatList>
-
+            <View className="gap-8">
+                {posts.map((item) => {
+                    return <PostCard post={item} key={item.id}></PostCard>;
+                })}
+            </View>
             {/* <View className="flex-row items-center gap-5 justify-start">
                 <Button.UserAvatarTypeOne />
                 <Text className="text-white dark:text-bgLight font-bold">X_AE_A-13</Text>
             </View>
             <View className="flex-row gap-2">
                 <TouchableOpacity className="">
-                        <ICONS.Icon width={30} height={30} />
-                </TouchableOpacity> */}
+                        {/* <ICONS.Icon width={30} height={30} /> */}
+            {/* </TouchableOpacity>  */}
 
             {/* className=" border-text border rounded-full p-2 flex-row gap-2 border-text justify-start border rounded-full p-2 " */}
-            {/* </View> */}
+            {/* </View>  */}
         </ScrollView>
     );
 }

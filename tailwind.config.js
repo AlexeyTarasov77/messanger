@@ -9,7 +9,11 @@ module.exports = {
                 bgLight:"#77B5BF",
                 bgDark:"#1C1F26",
                 text:"#543B52",
+                border: "#CDCED2"
             },
+            fontFamily:{
+                main: "GT Walsheim Pro"
+            }
         },
     },
     plugins: [],

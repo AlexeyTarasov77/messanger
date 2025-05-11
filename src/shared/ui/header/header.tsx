@@ -6,7 +6,7 @@ import { SettingsIcon } from "../icons/settings-icon";
 import { Link, Tabs } from "expo-router";
 import { authService } from "../../../modules/users/services";
 
-export function MainHeader() {
+export function CustomHeader() {
     return (
         <View className="flex-row items-center justify-between p-2">
             <View className="justify-start">
