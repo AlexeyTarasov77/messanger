@@ -1,66 +1,28 @@
-import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import { Button } from "../../../../shared/ui/button";
 import { Input } from "../../../../shared/ui/input";
 import { Link } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { useLocalSearchParams } from "expo-router";
-
-const BASE_URL = "http://192.168.0.115:8000";
+import { IRegisterStepOne, IRegisterStepThree, IRegisterStepTwo } from "../../types";
+import { authService } from "../../services";
 
 export function RegisterStepThree() {
-    const {
-        email,
-        username,
-        password,
-        phoneNumber,
-        firstName,
-        lastName,
-        image,
-    } = useLocalSearchParams();
+    const prevData = useLocalSearchParams() as unknown as IRegisterStepTwo & IRegisterStepOne;
 
-    const { handleSubmit, control } = useForm<{ emailCode: string }>({
-        defaultValues: { emailCode: "" },
+    const { handleSubmit, control } = useForm<IRegisterStepThree>({
+        defaultValues: { otp: "" },
     });
 
-    async function onSubmit(data: { emailCode: string }) {
-        const formData = new FormData()
-
-        formData.append("email", email as string)
-        formData.append("username", username as string)
-        formData.append("password", password as string)
-        formData.append("phoneNumber", phoneNumber as string)
-        formData.append("firstName", firstName as string)
-        formData.append("lastName", lastName as string)
-        formData.append("emailCode", data.emailCode)
-
-        if (image) {
-            formData.append("image", {
-                uri: image as string,
-                name: "avatar.jpg",
-                type: "image/jpeg"
-            } as any)
-        }
-
-        try {
-            const response = await fetch(`${BASE_URL}/auth/register`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-                body: formData,
-            })
-            const resJson = await response.json()
-            console.log("Server response:", resJson)
-        } catch (error) {
-            console.error("Error during registration:", error)
-        }
+    async function onSubmit(data: IRegisterStepThree) {
+        await authService.register({ ...data, ...prevData })
     }
     return (
         <ScrollView
-            // contentContainerStyle={{ flexGrow: 1 }}
-            // className="flex-1"
-            >
-                {/* <View></View> */}
+        // contentContainerStyle={{ flexGrow: 1 }}
+        // className="flex-1"
+        >
+            {/* <View></View> */}
             <View className="flex-1 justify-center items-center gap-5">
                 <View>
                     <Text className="text-white dark:text-bgLight font-normal text-4xl self-center">
@@ -70,7 +32,7 @@ export function RegisterStepThree() {
                 <View className="self-center gap-10 w-[80%]">
                     <Controller
                         control={control}
-                        name="emailCode"
+                        name="otp"
                         rules={{ required: { value: true, message: "Confirmation email is required" } }}
                         render={({ field, fieldState }) => (
                             <Input
@@ -97,7 +59,7 @@ export function RegisterStepThree() {
             <View className=" flex-row self-center ">
                 <Text className="text-white">Do you have an account? </Text>
                 <Link
-                    href={"/auth/login"}
+                    href={"/users/login"}
                     className="text-bgLight text-base font-bold"
                 >
                     Login

@@ -4,7 +4,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect } from "react";
 import { THEME_STORAGE_KEY } from "../shared/constants";
 import "../styles/global.css";
-import { Slot } from "expo-router";
+import { Link, Slot, Stack } from "expo-router";
 import { COLOR_PALETTE } from "../shared/theme/colors";
 import { LinearGradient } from "expo-linear-gradient";
 import { PostCard } from "../shared/ui/postCard";
@@ -37,14 +37,13 @@ export default function RootLayout() {
     return (
         <SafeAreaProvider>
             <SafeAreaView style={{ flex: 1 }}>
-                <MainHeader/>
                 <LinearGradient
                     colors={colors}
                     start={{ x: 0, y: 0 }}
                     className="h-full"
                 >
-                    <PostsList/>
-                    <PostCard />
+                    {/* <PostsList /> */}
+                    {/* <PostCard /> */}
                     {/* <Stack */}
                     {/*   screenOptions={{ */}
                     {/*     headerStyle: { */}
@@ -57,7 +56,9 @@ export default function RootLayout() {
                     {/*   }}> */}
                     {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
                     {/* </Stack> */}
-                    <Slot />
+                    <Stack screenOptions={{ headerShown: false }}>
+                        <Stack.Screen options={{ header: MainHeader }} name="Header" />
+                    </Stack>
                 </LinearGradient>
             </SafeAreaView>
         </SafeAreaProvider>
