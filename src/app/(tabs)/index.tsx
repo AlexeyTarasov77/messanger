@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { PostsList } from "../../shared/ui/postsList";
+import { PostsList } from "../../modules/main/screens/postsList";
 
 
 export default function IndexScreen() {

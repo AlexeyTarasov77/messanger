@@ -1,7 +1,6 @@
 import { View, ScrollView } from "react-native";
-
-import { PostCard } from "../postCard";
-import { posts } from "../../constants";
+import { PostCard } from "../../components";
+import { posts } from "../../../../shared/constants";
 
 export function PostsList() {
     return (

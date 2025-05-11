@@ -23,22 +23,22 @@ export default function RootLayout() {
     return (
         <SafeAreaProvider>
             <UsersProvider>
-            <SafeAreaView style={{ flex: 1 }} >
-                <CustomHeader />
-                {/* <Stack */}
-                {/*   screenOptions={{ */}
-                {/*     headerStyle: { */}
-                {/*       backgroundColor: '#f4511e', */}
-                {/*     }, */}
-                {/*     headerTintColor: '#fff', */}
-                {/*     headerTitleStyle: { */}
-                {/*       fontWeight: 'bold', */}
-                {/*     }, */}
-                {/*   }}> */}
-                {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
-                {/* </Stack> */}
-                <Slot />
-            </SafeAreaView>
+                <SafeAreaView className="flex-1">
+                    <CustomHeader />
+                    {/* <Stack */}
+                    {/*   screenOptions={{ */}
+                    {/*     headerStyle: { */}
+                    {/*       backgroundColor: '#f4511e', */}
+                    {/*     }, */}
+                    {/*     headerTintColor: '#fff', */}
+                    {/*     headerTitleStyle: { */}
+                    {/*       fontWeight: 'bold', */}
+                    {/*     }, */}
+                    {/*   }}> */}
+                    {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
+                    {/* </Stack> */}
+                    <Slot />
+                </SafeAreaView>
             </UsersProvider>
         </SafeAreaProvider>
     );

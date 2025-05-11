@@ -1,8 +1,6 @@
-import { View, Text, TouchableOpacity, Image } from "react-native";
-import { Link } from "expo-router";
-import { Button } from "../button";
-import { ICONS } from "../icons";
-import { posts } from "../../constants";
+import { View, Text, Image } from "react-native";
+import { ICONS } from "../../../shared/ui/icons";
+
 export interface IPost {
     id: number;
     body: string;

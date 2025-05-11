@@ -26,8 +26,8 @@ export function Login() {
         <View className="h-full">
             <View className="flex-1 justify-center ">
                 <View>
-                    <Text className="text-white dark:text-bgLightOne font-normal text-4xl self-center">
-                        Login
+                    <Text className="text-black dark:text-bgLightOne font-normal text-4xl self-center">
+                        Раді тебе знову бачити!
                     </Text>
                 </View>
                 <View className="self-center gap-10 w-[80%]">
@@ -53,7 +53,7 @@ export function Login() {
                                     onChange={field.onChange}
                                     onChangeText={field.onChange}
                                     value={field.value}
-                                    label="Email"
+                                    label="Електронна пошта"
                                     autoCorrect={false}
                                     errMsg={fieldState.error?.message}
                                     className="h-[60] flex-row"
