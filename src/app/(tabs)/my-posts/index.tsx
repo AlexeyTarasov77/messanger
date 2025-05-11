@@ -12,6 +12,9 @@ export default function MyPostsScreen() {
             <Link href="/users/register-step-one" asChild>
                 <Button title="Register (RegisterStepOne)" />
             </Link>
+            <Link href="/users/register-step-two" asChild>
+                <Button title="Register (RegisterStepTwo)" />
+            </Link>
 
             <Link href="/users/login" asChild>
                 <Button title="Login" />

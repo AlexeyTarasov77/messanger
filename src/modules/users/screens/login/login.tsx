@@ -7,26 +7,44 @@ import { Controller, useForm } from "react-hook-form";
 import { ILoginForm } from "../../types";
 import { useUserCtx } from "../../components/users-ctx/context";
 
-
 export function Login() {
-    const router = useRouter()
-    const { login } = useUserCtx()
-    const { handleSubmit, control, setError, formState: { errors } } = useForm<ILoginForm>({
+    const router = useRouter();
+    const { login } = useUserCtx();
+    const {
+        handleSubmit,
+        control,
+        setError,
+        formState: { errors },
+    } = useForm<ILoginForm>({
         defaultValues: { email: "", password: "" },
     });
     async function onSubmit(data: ILoginForm) {
-        const errMsg = await login(data)
+        const errMsg = await login(data);
         if (errMsg) {
-            setError("root", { message: errMsg })
-            return
+            setError("root", { message: errMsg });
+            return;
         }
-        router.replace("/users/profile")
+        router.replace("/users/profile");
     }
     return (
-        <View className="h-full">
-            <View className="flex-1 justify-center ">
+        <View className="h-full pt-10 bg-mainBg">
+            <View className=" self-center bg-white rounded-2xl px-4 py-12">
+                <View className="flex-row gap-4 justify-center">
+                    <View>
+                        <Link href="/users/register-step-one" asChild>
+                            <Text className="font-bold text-2xl color-grey">
+                                Peєстрація
+                            </Text>
+                        </Link>
+                    </View>
+                    <View>
+                        <Text className="font-bold text-2xl color-darkBlue border-b">
+                            Авторизація
+                        </Text>
+                    </View>
+                </View>
                 <View>
-                    <Text className="text-black dark:text-bgLightOne font-normal text-4xl self-center">
+                    <Text className="text-darkBlue font-medium text-2xl self-center pt-8 pb-4">
                         Раді тебе знову бачити!
                     </Text>
                 </View>
@@ -43,20 +61,14 @@ export function Login() {
                         render={({ field, fieldState }) => {
                             return (
                                 <Input
-                                    placeholder="Email@gmail.com"
-                                    iconLeft={
-                                        <ICONS.EmailIcon
-                                            width={30}
-                                            height={30}
-                                        />
-                                    }
+                                    placeholder="you@example.com"
                                     onChange={field.onChange}
                                     onChangeText={field.onChange}
                                     value={field.value}
                                     label="Електронна пошта"
                                     autoCorrect={false}
                                     errMsg={fieldState.error?.message}
-                                    className="h-[60] flex-row"
+                                    className="h-[42] w-full"
                                 />
                             );
                         }}
@@ -73,36 +85,31 @@ export function Login() {
                         render={({ field, fieldState }) => {
                             return (
                                 <Input.Password
-                                    placeholder="Password"
+                                    placeholder="Введи пароль"
                                     onChange={field.onChange}
                                     onChangeText={field.onChange}
                                     value={field.value}
-                                    label="Password"
+                                    label="Пароль"
                                     autoCorrect={false}
                                     errMsg={fieldState.error?.message}
-                                    className="h-[60]"
+                                    className="h-[42] flex-1"
                                 />
                             );
                         }}
                     />
-                    {errors.root && <Text className="text-red-500">{errors.root.message || "Invalid data"}</Text>}
+                    {errors.root && (
+                        <Text className="text-red-500">
+                            {errors.root.message || "Invalid data"}
+                        </Text>
+                    )}
                     <View>
                         <Button
-                            label="Login"
+                            label="Увійти"
                             onPress={handleSubmit(onSubmit)}
-                            className="h-[50] w-[160] self-center bg-bgLight dark:bg-bgDark border-border rounded-xl justify-center"
+                            className="h-[52] w-full self-center bg-slive border-border rounded-[1234] justify-center"
                         />
                     </View>
                 </View>
-            </View>
-            <View className=" flex-row self-center">
-                <Text className="text-white">Don`t have an account?</Text>
-                <Link
-                    href={"/users/register/"}
-                    className="text-bgDark dark:text-bgLight font-bold text-base"
-                >
-                    Register now
-                </Link>
             </View>
         </View>
     );

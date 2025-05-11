@@ -6,7 +6,6 @@ import { useState } from "react";
 export function Input({
     label,
     errMsg,
-    iconLeft,
     iconRight,
 
     ...props
@@ -14,10 +13,7 @@ export function Input({
        return (
         <View>
             {label && <Text className="text-black">{label}</Text>}
-            <View className="flex-row rounded-xl px-2">
-                {iconLeft && (
-                    <View className="mr-2 self-center">{iconLeft}</View>
-                )}
+            <View className="flex-row rounded-2xl px-2 border border-grey">
                 <TextInput placeholderTextColor="#CDCDCD"{...props} />
                 {iconRight && (
                     <View style={{ marginLeft: "auto" }}>{iconRight}</View>
@@ -32,17 +28,14 @@ export function Input({
     );
 }
 
-function Password(props: Omit<IInputProps, "iconLeft" | "iconRight">) {
+function Password(props: Omit<IInputProps, "iconRight">) {
     const { label, errMsg } = props;
     const [isHidden, setIsHidden] = useState(true);
 
     return (
         <View>
             {label && <Text className="text-dark">{label}</Text>}
-            <View className="flex-rowrounded-xl px-2">
-                <View className="mr-2 self-center">
-                    <ICONS.KeyIcon width={30} height={30} />
-                </View>
+            <View className="flex-row rounded-2xl border border-grey px-2">
                 <TextInput placeholderTextColor="#CDCDCD" secureTextEntry={isHidden} {...props} />
                 <View className="ml-auto self-center">
                     <TouchableWithoutFeedback

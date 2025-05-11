@@ -23,7 +23,7 @@ export function CustomHeader() {
                 <TouchableOpacity className=" border-text border rounded-full p-2 ">
                     <SettingsIcon width={20} height={20} />
                 </TouchableOpacity>
-                
+
                 <TouchableOpacity
                     onPress={() => {
                         authService.logOut();
@@ -36,3 +36,13 @@ export function CustomHeader() {
         </View>
     );
 }
+
+function NotAuthentificatedHeader() {
+    return (
+        <View className="flex-row items-center justify-center p-2">
+            <LogoIcon />
+        </View>
+    );
+}
+
+CustomHeader.NotAuthentificatedHeader = NotAuthentificatedHeader;

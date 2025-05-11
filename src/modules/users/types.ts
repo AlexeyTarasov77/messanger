@@ -30,17 +30,10 @@ export interface IRegisterStepOne extends ILoginForm {
 }
 
 export interface IRegisterStepTwo {
-    phoneNumber: string;
-    firstName?: string;
-    lastName?: string;
-    avatar?: string;
-}
-
-export interface IRegisterStepThree {
     otp: string;
 }
 
-export interface IRegisterForm extends IRegisterStepOne, IRegisterStepTwo, IRegisterStepThree { }
+export interface IRegisterForm extends IRegisterStepOne, IRegisterStepTwo { }
 
 export type LoginResponse = {
     token: string;

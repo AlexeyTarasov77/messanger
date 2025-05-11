@@ -23,12 +23,25 @@ export function RegisterStepOne() {
         });
     }
     return (
-        <ScrollView style={{
-        }} >
-            <View className="flex-1 justify-center items-center gap-5">
+        <View className="h-full pt-10 bg-mainBg">
+            <View className="self-center items-center rounded-2xl bg-white px-4 py-12">
+                <View className="flex-row gap-4 justify-center">
+                    <View>
+                        <Text className="font-bold text-2xl color-darkBlue border-b">
+                            Peєстрація
+                        </Text>
+                    </View>
+                    <View>
+                        <Link href="/users/login" asChild>
+                            <Text className="font-bold text-2xl color-grey ">
+                                Авторизація
+                            </Text>
+                        </Link>
+                    </View>
+                </View>
                 <View>
-                    <Text className="text-white dark:text-bgLight font-normal text-4xl self-center">
-                        Registration
+                    <Text className="text-darkBlue font-medium text-2xl self-center pt-8 pb-4">
+                        Приєднуйся до World IT
                     </Text>
                 </View>
 
@@ -39,60 +52,20 @@ export function RegisterStepOne() {
                         rules={{
                             required: {
                                 value: true,
-                                message: "Email is required"
-                            },
-                            pattern: {
-                                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                                message: "Invalid email format",
-                            },
+                                message: "Email is required",
+                            }
                         }}
                         render={({ field, fieldState }) => {
                             return (
                                 <Input
-                                    placeholder="Email@gmail.com"
-                                    iconLeft={
-                                        <ICONS.EmailIcon
-                                            width={30}
-                                            height={30}
-                                        />
-                                    }
+                                    placeholder="you@example.com"
                                     onChange={field.onChange}
                                     onChangeText={field.onChange}
                                     value={field.value}
-                                    label="Email"
+                                    label="Електронна пошта"
                                     autoCorrect={false}
                                     errMsg={fieldState.error?.message}
-                                    className="h-[60] flex-row"
-                                />
-                            );
-                        }}
-                    />
-                    <Controller
-                        control={control}
-                        name="username"
-                        rules={{
-                            required: {
-                                value: true,
-                                message: "Username is required",
-                            },
-                        }}
-                        render={({ field, fieldState }) => {
-                            return (
-                                <Input
-                                    placeholder="Username"
-                                    iconLeft={
-                                        <ICONS.UserIcon
-                                            width={30}
-                                            height={30}
-                                        />
-                                    }
-                                    onChange={field.onChange}
-                                    onChangeText={field.onChange}
-                                    value={field.value}
-                                    label="Username"
-                                    autoCorrect={false}
-                                    errMsg={fieldState.error?.message}
-                                    className="h-[60] flex-row"
+                                    className="h-[42] w-full"
                                 />
                             );
                         }}
@@ -103,24 +76,25 @@ export function RegisterStepOne() {
                         rules={{
                             required: {
                                 value: true,
-                                message: "Password is required"
+                                message: "Password is required",
                             },
                             minLength: {
                                 value: 8,
-                                message: "Password must be at least 8 characters"
+                                message:
+                                    "Password must be at least 8 characters",
                             },
                         }}
                         render={({ field, fieldState }) => {
                             return (
                                 <Input.Password
-                                    placeholder="Password"
+                                    placeholder="Введи пароль"
                                     onChange={field.onChange}
                                     onChangeText={field.onChange}
                                     value={field.value}
-                                    label="Password"
+                                    label="Пароль"
                                     autoCorrect={false}
                                     errMsg={fieldState.error?.message}
-                                    className="h-[60]"
+                                    className="h-[42]"
                                 />
                             );
                         }}
@@ -131,46 +105,38 @@ export function RegisterStepOne() {
                         rules={{
                             required: {
                                 value: true,
-                                message: "Password is required"
+                                message: "Password is required",
                             },
                             minLength: {
                                 value: 8,
-                                message: "Password must be at least 8 characters"
+                                message:
+                                    "Password must be at least 8 characters",
                             },
                         }}
                         render={({ field, fieldState }) => {
                             return (
                                 <Input.Password
-                                    placeholder="Confirm password"
+                                    placeholder="Повтори пароль"
                                     onChange={field.onChange}
                                     onChangeText={field.onChange}
                                     value={field.value}
-                                    label="Confirm password"
+                                    label="Підтверди пароль"
                                     autoCorrect={false}
                                     errMsg={fieldState.error?.message}
-                                    className="h-[60]"
+                                    className="h-[42] flex-1"
                                 />
                             );
                         }}
                     />
                     <View>
-                        <Button.Registr
-                            label="next step"
+                        <Button
+                            label="Створити акаунт"
                             onPress={handleSubmit(onSubmit)}
-                            className="h-[50] w-[160] font-normal self-center bg-bgLight dark:bg-bgDark border-border rounded-xl justify-center"
+                            className="h-[52] w-full self-center bg-slive border-border rounded-[1234] justify-center"
                         />
                     </View>
                 </View>
             </View>
-            <View className=" flex-row self-center ">
-                <Text className="text-white">Do you have an account? </Text>
-                <Link
-                    href={"/users/login"}
-                    className="text-bgLight text-base font-bold"
-                >
-                    Login
-                </Link>
-            </View>
-        </ScrollView>
+        </View>
     );
 }

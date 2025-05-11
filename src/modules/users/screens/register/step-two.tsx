@@ -1,122 +1,214 @@
-import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import { Button } from "../../../../shared/ui/button";
 import { Input } from "../../../../shared/ui/input";
-import { ICONS } from "../../../../shared/ui/icons";
-import { Link } from "expo-router";
-import { launchImageLibraryAsync, requestMediaLibraryPermissionsAsync } from 'expo-image-picker'
-import { useState } from "react";
+import { Link, useRouter } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
-import { IRegisterStepOne, IRegisterStepTwo } from "../../types";
 import { useLocalSearchParams } from "expo-router";
-import { useRouter } from "expo-router";
+import { IRegisterStepOne, IRegisterStepTwo } from "../../types";
 import { authService } from "../../services";
-
-const defaultImage = require("../../../../../assets/user-image.png");
 
 export function RegisterStepTwo() {
     const router = useRouter();
-    const [image, setImage] = useState<string>("")
-    const prevData = useLocalSearchParams() as unknown as IRegisterStepOne
+    const prevData = useLocalSearchParams() as unknown as IRegisterStepOne;
 
-    const { handleSubmit, control } = useForm<IRegisterStepTwo>({
-        defaultValues: { phoneNumber: "", firstName: "", lastName: "", avatar: "", },
+    const { handleSubmit, control, formState } = useForm<IRegisterStepTwo>({
+        defaultValues: { otp: "" },
     });
+
     async function onSubmit(data: IRegisterStepTwo) {
-        await authService.sendOTP(prevData.email)
-        router.push({
-            pathname: "/users/register-step-three",
-            params: {
-                ...prevData,
-                ...data,
-                avatar: image,
-            } satisfies IRegisterStepTwo & IRegisterStepOne
-        });
+        await authService.register({ ...data, ...prevData });
+        router.replace("/");
     }
     return (
-        <ScrollView>
-            <View className="flex-1 justify-center items-center gap-5">
+        <View className="h-full pt-10 bg-mainBg">
+            <View className="self-center items-center rounded-2xl bg-white px-4 py-12">
                 <View>
-                    <Text className="text-white dark:text-bgLight font-normal text-4xl self-center">
-                        Registration
+                    <Text className="text-darkBlue font-medium text-2xl self-center pt-8 pb-4">
+                        Підтвердження пошти
                     </Text>
                 </View>
-
-                <View className="items-center justify-center">
-                    <Button.UserAvatarTypeOne />
-                    <Text className="self-center text-white font-bold" >Add photo</Text>
+                <View className="">
+                    <Text className="text-darkBlue font-medium text-sm self-center pt-8 pb-4 px-2">
+                        Ми надіслали 6-значний код на вашу пошту
+                        (you@example.com). Введіть його нижче, щоб підтвердити
+                        акаунт
+                    </Text>
                 </View>
-
-                <View className="self-center gap-10 w-[80%]">
-                    <Controller
-                        control={control}
-                        name="phoneNumber"
-                        rules={{ required: { value: true, message: "Phone number is required" } }}
-                        render={({ field, fieldState }) => (
-                            <Input
-                                placeholder="Phone number"
-                                iconLeft={<ICONS.PhoneNumberIcon width={30} height={30} />}
-                                onChange={field.onChange}
-                                onChangeText={field.onChange}
-                                value={field.value}
-                                label="Phone number"
-                                autoCorrect={false}
-                                errMsg={fieldState.error?.message}
-                                className="h-[60]"
-                            />
-                        )}
-                    />
-                    <Controller
-                        control={control}
-                        name="firstName"
-                        render={({ field, fieldState }) => (
-                            <Input
-                                placeholder="First name"
-                                iconLeft={<ICONS.UserIcon width={30} height={30} />}
-                                onChange={field.onChange}
-                                onChangeText={field.onChange}
-                                value={field.value}
-                                label="First name"
-                                autoCorrect={false}
-                                errMsg={fieldState.error?.message}
-                                className="h-[60]"
-                            />
-                        )}
-                    />
-                    <Controller
-                        control={control}
-                        name="lastName"
-                        render={({ field, fieldState }) => (
-                            <Input
-                                placeholder="Last name"
-                                iconLeft={<ICONS.UserIcon width={30} height={30} />}
-                                onChange={field.onChange}
-                                onChangeText={field.onChange}
-                                value={field.value}
-                                label="Last Name"
-                                autoCorrect={false}
-                                errMsg={fieldState.error?.message}
-                                className="h-[60]"
-                            />
-                        )}
-                    />
+                <View className="self-center w-full ">
+                    <View className="gap-2">
+                        <View>
+                            <Text className="color-darkBlue text-base font-normal">
+                                Код підтвердження
+                            </Text>
+                        </View>
+                        <View className="flex-row gap-6">
+                            <View className="flex-row gap-2">
+                                <View className="flex-row">
+                                    <Controller
+                                        control={control}
+                                        name="otp"
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message:
+                                                    "Confirmation otp is required",
+                                            },
+                                        }}
+                                        render={({ field }) => (
+                                            <Input
+                                                placeholder="___"
+                                                onChange={field.onChange}
+                                                onChangeText={field.onChange}
+                                                value={field.value}
+                                                autoCorrect={false}
+                                                className="h-[40]"
+                                            />
+                                        )}
+                                    />
+                                    
+                                </View>
+                                <View className="flex-row">
+                                    <Controller
+                                        control={control}
+                                        name="otp"
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message:
+                                                    "Confirmation otp is required",
+                                            },
+                                        }}
+                                        render={({ field }) => (
+                                            <Input
+                                                placeholder="___"
+                                                onChange={field.onChange}
+                                                onChangeText={field.onChange}
+                                                value={field.value}
+                                                autoCorrect={false}
+                                                
+                                                className="h-[40]"
+                                            />
+                                        )}
+                                    />
+                                </View>
+                            </View>
+                            <View className="flex-row gap-2">
+                                <View className="flex-row">
+                                    <Controller
+                                        control={control}
+                                        name="otp"
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message:
+                                                    "Confirmation otp is required",
+                                            },
+                                        }}
+                                        render={({ field }) => (
+                                            <Input
+                                                placeholder="___"
+                                                onChange={field.onChange}
+                                                onChangeText={field.onChange}
+                                                value={field.value}
+                                                autoCorrect={false}
+                                                className="h-[40]"
+                                            />
+                                        )}
+                                    />
+                                </View>
+                                <View className="flex-row">
+                                    <Controller
+                                        control={control}
+                                        name="otp"
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message:
+                                                    "Confirmation otp is required",
+                                            },
+                                        }}
+                                        render={({ field }) => (
+                                            <Input
+                                                placeholder="___"
+                                                onChange={field.onChange}
+                                                onChangeText={field.onChange}
+                                                value={field.value}
+                                                autoCorrect={false}
+                                                className="h-[40]"
+                                            />
+                                        )}
+                                    />
+                                </View>
+                            </View>
+                            <View className="flex-row gap-2">
+                                <View className="flex-row">
+                                    <Controller
+                                        control={control}
+                                        name="otp"
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message:
+                                                    "Confirmation otp is required",
+                                            },
+                                        }}
+                                        render={({ field }) => (
+                                            <Input
+                                                placeholder="___"
+                                                onChange={field.onChange}
+                                                onChangeText={field.onChange}
+                                                value={field.value}
+                                                autoCorrect={false}
+                                                className="h-[40]"
+                                            />
+                                        )}
+                                    />
+                                </View>
+                                <View className="flex-row">
+                                    <Controller
+                                        control={control}
+                                        name="otp"
+                                        rules={{
+                                            required: {
+                                                value: true,
+                                                message:
+                                                    "Confirmation otp is required",
+                                            },
+                                        }}
+                                        render={({ field }) => (
+                                            <Input
+                                                placeholder="___"
+                                                onChange={field.onChange}
+                                                onChangeText={field.onChange}
+                                                value={field.value}
+                                                autoCorrect={false}
+                                                className="h-[40]"
+                                            />
+                                        )}
+                                    />
+                                </View>
+                            </View>
+                        </View>
+                        <View><Text>{formState.errors.otp?.message}</Text></View>
+                    </View>
                     <View>
-                        <Button.Registr
-                            label="next step"
-                            onPress={handleSubmit(onSubmit)}
-                            className="h-[50] w-[160] font-normal self-center bg-bgLight dark:bg-bgDark border-border rounded-xl justify-center"
-                        />
+                        <View>
+                            <Button
+                                label="Підтвердити"
+                                onPress={handleSubmit(onSubmit)}
+                                className="h-[52] w-full self-center bg-slive border-border rounded-[1234] justify-center"
+                            />
+                        </View>
+                        <View className="self-center">
+                            <Link href="/users/register-step-one" asChild>
+                                <Text className="font-bold text-2xl color-slive">
+                                    Назад
+                                </Text>
+                            </Link>
+                        </View>
                     </View>
                 </View>
             </View>
-            <View className=" flex-row self-center ">
-                <Text className="text-white">Do you have an account? </Text>
-                <Link
-                    href={"/users/login"}
-                    className="text-bgLight text-base font-bold"
-                >
-                    Login
-                </Link>
-            </View>
-        </ScrollView>
+        </View>
     );
 }
