@@ -9,7 +9,8 @@ module.exports = {
                 bgLight:"#77B5BF",
                 bgDark:"#1C1F26",
                 text:"#543B52",
-                border: "#CDCED2"
+                border: "#CDCED2",
+                mainBg: "#FAF8FF"
             },
             fontFamily:{
                 main: "GT Walsheim Pro"

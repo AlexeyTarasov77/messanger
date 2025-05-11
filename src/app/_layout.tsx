@@ -5,7 +5,6 @@ import React, { useEffect } from "react";
 import { THEME_STORAGE_KEY } from "../shared/constants";
 import "../styles/global.css";
 import { Slot } from "expo-router";
-import { PostsList } from "../shared/ui/postsList";
 import { CustomHeader } from "../shared/ui/header";
 
 export default function RootLayout() {
@@ -22,9 +21,8 @@ export default function RootLayout() {
 
     return (
         <SafeAreaProvider>
-            <SafeAreaView style={{ flex: 1 }}>
+            <SafeAreaView style={{ flex: 1 }} >
                 <CustomHeader />
-                <PostsList />
                 {/* <Stack */}
                 {/*   screenOptions={{ */}
                 {/*     headerStyle: { */}

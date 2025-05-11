@@ -5,8 +5,8 @@ import { posts } from "../../constants";
 
 export function PostsList() {
     return (
-        <ScrollView>
-            <View className="gap-8">
+        <ScrollView className="bg-mainBg pt-4">
+            <View className="gap-4 ">
                 {posts.map((item) => {
                     return <PostCard post={item} key={item.id}></PostCard>;
                 })}

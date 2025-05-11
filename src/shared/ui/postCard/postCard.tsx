@@ -27,7 +27,7 @@ interface IPostProps {
 export function PostCard(props: IPostProps) {
     const { post } = props;
     return (
-        <View className="border border-border rounded-2xl p-2 gap-2">
+        <View className="border border-border rounded-2xl p-2 gap-2 bg-white">
             <View className="flex-row justify-between py-4 px-2">
                 <View>
                     <View className="flex-row items-center gap-4">
@@ -51,7 +51,7 @@ export function PostCard(props: IPostProps) {
                         </View>
                     </View>
                     <View>
-                        <ICONS.Signature/>
+                        <ICONS.Signature />
                     </View>
                 </View>
                 <View className="self-center">
@@ -70,8 +70,9 @@ export function PostCard(props: IPostProps) {
                     ))}
                 </View>
                 <View className="flex-row flex-wrap justify-center">
-                    {post.media.map((img) => (
+                    {post.media.map((img, index) => (
                         <Image
+                            key={index}
                             source={{ uri: img.url }}
                             className="rounded-2xl m-2 w-40 h-60"
                         />
