@@ -36,7 +36,7 @@ export const authService = {
         }
     },
     logOut: async () => {
-        await AsyncStorage.removeItem("token");
+        await AsyncStorage.removeItem(AUTH_TOKEN_KEY);
         console.log("Ви вийшли з акаунту.")
     },
 };

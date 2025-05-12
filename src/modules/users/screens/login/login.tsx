@@ -1,7 +1,6 @@
 import { View, Text } from "react-native";
 import { Button } from "../../../../shared/ui/button";
 import { Input } from "../../../../shared/ui/input/input";
-import { ICONS } from "../../../../shared/ui/icons";
 import { Link, useRouter } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { ILoginForm } from "../../types";
