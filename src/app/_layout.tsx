@@ -5,41 +5,7 @@ import React, { useEffect } from "react";
 import { THEME_STORAGE_KEY } from "../shared/constants";
 import "../styles/global.css";
 import { Slot } from "expo-router";
-import { CustomHeader } from "../shared/ui/header";
 import { UsersProvider } from "../modules/users/components/users-ctx/context";
+import { RootLayout } from "../modules/main/screens/layouts/root-layout";
 
-export default function RootLayout() {
-    const { setColorScheme } = useColorScheme();
-    useEffect(() => {
-        const setTheme = async () => {
-            const selectedTheme = (await AsyncStorage.getItem(
-                THEME_STORAGE_KEY
-            )) as ReturnType<typeof useColorScheme>["colorScheme"];
-            setColorScheme(selectedTheme || "system");
-        };
-        setTheme();
-    });
-
-    return (
-        <SafeAreaProvider>
-            <UsersProvider>
-                <SafeAreaView className="flex-1">
-                    <CustomHeader />
-                    {/* <Stack */}
-                    {/*   screenOptions={{ */}
-                    {/*     headerStyle: { */}
-                    {/*       backgroundColor: '#f4511e', */}
-                    {/*     }, */}
-                    {/*     headerTintColor: '#fff', */}
-                    {/*     headerTitleStyle: { */}
-                    {/*       fontWeight: 'bold', */}
-                    {/*     }, */}
-                    {/*   }}> */}
-                    {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
-                    {/* </Stack> */}
-                    <Slot />
-                </SafeAreaView>
-            </UsersProvider>
-        </SafeAreaProvider>
-    );
-}
+export default RootLayout
