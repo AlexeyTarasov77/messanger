@@ -5,6 +5,7 @@ import { Link } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { IRegisterStepOne } from "../../types";
 import { useRouter } from "expo-router";
+import { authService } from "../../services";
 
 export function RegisterStepOne() {
     const router = useRouter();
@@ -19,6 +20,8 @@ export function RegisterStepOne() {
                 password: data.password
             },
         });
+        console.log(data.email)
+        await authService.sendOTP(data.email);
     }
     return (
         <View className="h-full pt-10 bg-mainBg">
