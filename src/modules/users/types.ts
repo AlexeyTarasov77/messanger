@@ -24,7 +24,6 @@ export interface IRegisterResponse {
 
 export interface IRegisterStepOne extends ILoginForm {
     email: string;
-    username: string;
     password: string;
     confirmPassword: string;
 }

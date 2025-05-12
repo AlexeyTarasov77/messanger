@@ -10,15 +10,14 @@ import { useRouter } from "expo-router";
 export function RegisterStepOne() {
     const router = useRouter();
     const { handleSubmit, control } = useForm<IRegisterStepOne>({
-        defaultValues: { email: "", username: "", password: "" },
+        defaultValues: { email: "",  password: "", confirmPassword:""},
     });
     async function onSubmit(data: IRegisterStepOne) {
         router.push({
             pathname: "/users/register-step-two",
             params: {
                 email: data.email,
-                username: data.username,
-                password: data.password,
+                password: data.password
             },
         });
     }
