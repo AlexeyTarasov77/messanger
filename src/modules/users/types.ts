@@ -7,9 +7,9 @@ export interface IUser {
     id: string;
     firstName?: string;
     lastName?: string;
-    username: string;
+    username?: string;
     email: string
-    phoneNumber: string;
+    birthDate?: string;
     isOnline: boolean;
     aboutMe?: string;
     avatarUrl?: string;
