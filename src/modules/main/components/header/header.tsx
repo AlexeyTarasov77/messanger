@@ -17,8 +17,8 @@ export function Header() {
         actions = actions.concat(getAuthenticatedOnlyActions(onLogout))
     }
     return (
-        <View className="flex-row items-center justify-between p-2">
-            <View className="justify-start">
+        <View className="flex-row p-2 bg-white">
+            <View className="self-center items-center justify-center">
                 <Link href="/" asChild>
                     <TouchableOpacity>
                         <LogoIcon />

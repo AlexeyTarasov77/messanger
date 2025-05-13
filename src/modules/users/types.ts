@@ -13,7 +13,7 @@ export interface IUser {
     birthDate?: string;
     isOnline: boolean;
     avatarUrl?: string;
-    password:string;
+    password: string;
     createdAt: string;
     updatedAt: string;
 }
@@ -26,7 +26,7 @@ export interface IRegisterResponse {
 export interface IRegisterStepOne extends ILoginForm {
     email: string;
     password: string;
-    confirmPassword: string;
+    confirmPassword?: string;
 }
 
 export interface IRegisterStepTwo {
@@ -40,7 +40,7 @@ export interface IRegisterStepTwo {
 
 export interface IRegisterForm extends IRegisterStepOne {
     otp: string;
- }
+}
 
 export type LoginResponse = {
     token: string;

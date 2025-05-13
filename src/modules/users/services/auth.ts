@@ -19,7 +19,7 @@ export const authService = {
         formData.append("email", data.email)
         formData.append("password", data.password)
         formData.append("otp", data.otp)
-        
+
         const resp = await POST<IRegisterResponse>("/users/signup", data);
         if (resp.success === false) {
             throw new Error(resp.message);
