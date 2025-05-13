@@ -16,24 +16,10 @@ export const authService = {
     },
     register: async (data: IRegisterForm): Promise<IRegisterResponse> => {
         const formData = new FormData()
-
         formData.append("email", data.email)
-        formData.append("username", data.username)
         formData.append("password", data.password)
-        formData.append("phoneNumber", data.phoneNumber)
-        if (data.firstName) {
-            formData.append("firstName", data.firstName)
-        }
-        if (data.lastName) {
-            formData.append("lastName", data.lastName)
-        }
         formData.append("otp", data.otp)
 
-        if (data.avatar) {
-            formData.append("image", new File([data.avatar], "avatar.jpg", {
-                type: "image/jpeg"
-            }))
-        }
         const resp = await POST<IRegisterResponse>("/users/signup", data);
         if (resp.success === false) {
             throw new Error(resp.message);

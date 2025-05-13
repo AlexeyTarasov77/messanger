@@ -1,26 +1,27 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text } from "react-native";
 import { Button } from "../../../../shared/ui/button";
 import { Input } from "../../../../shared/ui/input";
-import { ICONS } from "../../../../shared/ui/icons";
 import { Link } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { IRegisterStepOne } from "../../types";
 import { useRouter } from "expo-router";
+import { authService } from "../../services";
 
 export function RegisterStepOne() {
     const router = useRouter();
-    const { handleSubmit, control } = useForm<IRegisterStepOne>({
-        defaultValues: { email: "", username: "", password: "" },
+    const { handleSubmit, control, getValues} = useForm<IRegisterStepOne>({
+        defaultValues: { email: "", password: "", confirmPassword: "" },
     });
     async function onSubmit(data: IRegisterStepOne) {
+        await authService.sendOTP(data.email);
         router.push({
             pathname: "/users/register-step-two",
             params: {
                 email: data.email,
-                username: data.username,
                 password: data.password,
             },
         });
+        
     }
     return (
         <View className="h-full pt-10 bg-mainBg">
@@ -53,7 +54,7 @@ export function RegisterStepOne() {
                             required: {
                                 value: true,
                                 message: "Email is required",
-                            }
+                            },
                         }}
                         render={({ field, fieldState }) => {
                             return (
@@ -112,6 +113,7 @@ export function RegisterStepOne() {
                                 message:
                                     "Password must be at least 8 characters",
                             },
+                            validate: (value) => (value === getValues('password'))
                         }}
                         render={({ field, fieldState }) => {
                             return (

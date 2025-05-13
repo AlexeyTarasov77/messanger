@@ -147,22 +147,3 @@ export function Button(props: IButtonProps) {
 	);
 }
 
-// function Register(props: IButtonProps) {
-// 	const { label, disabled, ...touchableOpacityProps } = props;
-// 	return (
-// 		<Button borderRadius={20} borderWidth={3} style={{ padding: 0, }}>
-// 			<TouchableOpacity
-// 				{...touchableOpacityProps}
-// 				disabled={disabled}
-// 				style={{
-// 					paddingVertical: 10,
-// 					paddingHorizontal: 20,
-// 					borderRadius: 17,
-// 				}}
-// 			>
-// 				<Text className="self-center text-white dark:text-bgLight text-xl font-normal">{label}</Text>
-// 			</TouchableOpacity>
-// 		</Button >
-// 	);
-// }
-// Button.Register = Register

@@ -5,14 +5,15 @@ export interface ILoginForm {
 
 export interface IUser {
     id: string;
+    username?: string;
+    email: string;
+    aboutMe?: string;
     firstName?: string;
     lastName?: string;
-    username?: string;
-    email: string
     birthDate?: string;
     isOnline: boolean;
-    aboutMe?: string;
     avatarUrl?: string;
+    password: string;
     createdAt: string;
     updatedAt: string;
 }
@@ -24,16 +25,22 @@ export interface IRegisterResponse {
 
 export interface IRegisterStepOne extends ILoginForm {
     email: string;
-    username: string;
     password: string;
-    confirmPassword: string;
+    confirmPassword?: string;
 }
 
 export interface IRegisterStepTwo {
-    otp: string;
+    otp1: string;
+    otp2: string;
+    otp3: string;
+    otp4: string;
+    otp5: string;
+    otp6: string;
 }
 
-export interface IRegisterForm extends IRegisterStepOne, IRegisterStepTwo { }
+export interface IRegisterForm extends IRegisterStepOne {
+    otp: string;
+}
 
 export type LoginResponse = {
     token: string;
