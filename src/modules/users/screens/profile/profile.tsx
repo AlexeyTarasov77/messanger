@@ -2,6 +2,7 @@ import { View, Text } from "react-native";
 import { Avatar } from "../../../../shared/ui/avatar";
 import { useUserCtx } from "../../components/users-ctx/context";
 import { Redirect } from "expo-router";
+import { formatDate } from "../../../../shared/utils/dates";
 
 export function Profile() {
     const { user } = useUserCtx()
@@ -9,15 +10,16 @@ export function Profile() {
         return <Redirect href="/users/login" />;
     }
     const displayName = () => {
-        let finalName = user.username
+        let finalName;
         if (user.firstName) {
             finalName = user.firstName
             if (user.lastName) {
                 finalName += " " + user.lastName
             }
         }
-        return finalName
+        return finalName || user.username || user.email
     }
+    const birthDate = user.birthDate && new Date(user.birthDate)
     return (
         <View>
             <View className="flex-row gap-10 py-6 px-2">
@@ -33,14 +35,16 @@ export function Profile() {
             </View>
 
             <View className="mt-4 border m-2 rounded-xl p-2 dark:border-bgLight border-white">
-                <View>
-                    <Text className="text-white dark:text-bgLight font-extralight text-2xl">
-                        Номер телефону
-                    </Text>
-                    <Text className="text-white dark:text-bgLight font-normal text-2xl">
-                        {(user.phoneNumber[0] == "+" ? "" : "+") + user.phoneNumber}
-                    </Text>
-                </View>
+                {birthDate &&
+                    <View>
+                        <Text className="text-white dark:text-bgLight font-extralight text-2xl">
+                            Дата народженяя
+                        </Text>
+                        <Text className="text-white dark:text-bgLight font-normal text-2xl">
+                            {formatDate(birthDate, "%d-%m-%YYYY")}
+                        </Text>
+                    </View>
+                }
                 <View className="h-px w-full bg-white dark:bg-bgLight my-4" />
                 <View>
                     <Text className="text-white dark:text-bgLight font-extralight text-2xl">
