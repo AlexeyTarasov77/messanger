@@ -1,79 +1,23 @@
 import { View, Text } from "react-native";
 import { Button } from "../../../../shared/ui/button";
-import { Input } from "../../../../shared/ui/input";
 import { Link, useRouter } from "expo-router";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useLocalSearchParams } from "expo-router";
 import { IRegisterStepOne, IRegisterStepTwo } from "../../types";
 import { authService } from "../../services";
+import { collectFullCode, otpFieldsDefaults, OTPInput } from "./otp-input";
 
 export function RegisterStepTwo() {
     const router = useRouter();
     const prevData = useLocalSearchParams() as unknown as IRegisterStepOne;
-
     const { handleSubmit, control, formState } =
         useForm<IRegisterStepTwo>({
-            defaultValues: {
-                otp1: "",
-                otp2: "",
-                otp3: "",
-                otp4: "",
-                otp5: "",
-                otp6: "",
-            },
+            defaultValues: otpFieldsDefaults,
         });
-
-    const otpFieldNames = [
-        "otp1",
-        "otp2",
-        "otp3",
-        "otp4",
-        "otp5",
-        "otp6",
-    ] as const;
-
-    const otpInputs = otpFieldNames.map((fieldName, index) => (
-        <View className="flex-row" key={index}>
-            <Controller
-                control={control}
-                name={fieldName}
-                rules={{
-                    required: {
-                        value: true,
-                        message: "Confirmation otp is required",
-                    },
-                    maxLength: 1,
-                }}
-                render={({ field }) => (
-                    <Input
-                        placeholder="___"
-                        onChange={field.onChange}
-                        onChangeText={field.onChange}
-                        value={field.value}
-                        autoCorrect={false}
-                        className="h-[40] w-8 text-center border-grey rounded-2xl"
-                    />
-                )}
-            />
-            {/* <View>
-                <Text>{formState.errors[fieldName]?.message}</Text>
-            </View> */}
-        </View>
-    ));
-
-    const groupedOtp = [];
-    for (let i = 0; i < otpInputs.length; i += 2) {
-        groupedOtp.push(
-            <View className="flex-row gap-2" key={i}>
-                {otpInputs.slice(i, i + 2)}
-            </View>
-        );
-    }
-
     async function onSubmit(data: IRegisterStepTwo) {
-        const otp = otpFieldNames.map((name) => data[name]).join("");
+        const otp = collectFullCode(data)
         console.log("OTP:", otp);
-        await authService.register({  ...prevData, otp });
+        await authService.register({ ...prevData, otp });
         router.replace("/");
     }
 
@@ -88,7 +32,7 @@ export function RegisterStepTwo() {
                 <View>
                     <Text className="text-darkBlue font-medium text-sm self-center pt-8 pb-4 px-4 text-center">
                         Ми надіслали 6-значний код на вашу пошту
-                        (you@example.com). Введіть його нижче, щоб підтвердити
+                        ({prevData.email}). Введіть його нижче, щоб підтвердити
                         акаунт
                     </Text>
                 </View>
@@ -99,9 +43,7 @@ export function RegisterStepTwo() {
                                 Код підтвердження
                             </Text>
                         </View>
-                        <View className="flex-row gap-6 pb-8 ">
-                            {groupedOtp}
-                        </View>
+                        <OTPInput control={control} errors={formState.errors} />
                     </View>
                     <View>
                         <View>
