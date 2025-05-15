@@ -17,15 +17,15 @@ export function Header() {
         actions = actions.concat(getAuthenticatedOnlyActions(onLogout))
     }
     return (
-        <View className="flex-row p-2 bg-white">
+        <View className="flex-row p-2 gap-[30%] bg-white self-center justify-center w-full">
             <View className="self-center items-center justify-center">
-                <Link href="/" asChild>
+                <Link href="/" asChild >
                     <TouchableOpacity>
                         <LogoIcon />
                     </TouchableOpacity>
                 </Link>
             </View>
-            <View className="flex-row gap-2">
+            <View className="flex-row gap-2 max-w-fit">
                 {actions.map((action, i) => <Fragment key={i}>{action}</Fragment>)}
             </View>
         </View>

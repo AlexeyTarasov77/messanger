@@ -20,7 +20,7 @@ export function RootLayout() {
 
   return (
     <RedirectUnauthenticated>
-      <Stack screenOptions={{ header: Header }} />
+      <Stack screenOptions={{ header: Header }}  />
     </RedirectUnauthenticated>
   );
 }

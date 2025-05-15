@@ -1,0 +1,1 @@
+export {UserPostCard} from "./user-post-card"

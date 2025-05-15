@@ -1,45 +1,16 @@
 import { View, Text, Image } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
+import { IUser } from "../../users/types";
 import { IPost } from "../../../shared/types";
 
-interface IPostProps {
+interface IUserPostProps {
+    user: IUser;
     post: IPost;
 }
 
-export function PostCard(props: IPostProps) {
-    const { post } = props;
+export function UserPostCard({user, post}: IUserPostProps) {
     return (
-        <View className="border border-border rounded-2xl p-2 gap-2 bg-white">
-            <View className="flex-row justify-between py-4 px-2">
-                <View>
-                    <View className="flex-row items-center gap-4">
-                        <View className="flex-row">
-                            <View>
-                                <Image
-                                    source={{ uri: post.author?.avatarUrl }}
-                                    className="w-10 h-10"
-                                />
-                            </View>
-                            <View className="absolute bottom-0 right-0">
-                                {post.author?.isOnline ? (
-                                    <ICONS.OnlineIcon width={12} height={12} />
-                                ) : (
-                                    <ICONS.OfflineIcon width={12} height={12} />
-                                )}
-                            </View>
-                        </View>
-                        <View className="font-medium text-sm">
-                            <Text>{post.author?.username}</Text>
-                        </View>
-                    </View>
-                    <View>
-                        <ICONS.Signature />
-                    </View>
-                </View>
-                <View className="self-center">
-                    <ICONS.PostSettingsIcon height={16} />
-                </View>
-            </View>
+        <View>
             <View className="border-t border-border pt-4 px-2">
                 <Text className="flex-wrap font-normal text-sm leading-none">
                     {post.body}

@@ -1,3 +1,5 @@
+import { IPost } from "../../shared/types";
+
 export interface ILoginForm {
     email: string;
     password: string;
@@ -16,6 +18,9 @@ export interface IUser {
     password: string;
     createdAt: string;
     updatedAt: string;
+    createdPosts: IPost[];
+    viewedPosts: IPost[];
+    likedPosts: IPost[];
 }
 
 export interface IRegisterResponse {

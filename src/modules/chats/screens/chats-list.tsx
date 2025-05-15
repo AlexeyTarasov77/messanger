@@ -1,49 +1,78 @@
-import { Link, useRouter } from "expo-router"
-import { TextInput, ScrollView, TouchableOpacity, Text, View, useColorScheme } from "react-native"
-import { StyleSheet } from 'react-native';
+import { Link, useRouter } from "expo-router";
+import {
+    TextInput,
+    ScrollView,
+    TouchableOpacity,
+    Text,
+    View,
+    useColorScheme,
+    Button,
+} from "react-native";
+import { StyleSheet } from "react-native";
 
 import { ICONS } from "../../../shared/ui/icons";
 // import { UserIcon, PenIcon } from "../../../shared/ui/icons"
 
 import { LinearGradient } from "expo-linear-gradient";
 import { verifyInstallation } from "nativewind";
-import { Button } from "../../../shared/ui/button";
-import { Input } from "../../../shared/ui/input";
+// import { Button } from "../../../shared/ui/button";
+// import { Input } from "../../../shared/ui/input";
 // import { UserAvatar } from "../../../shared/ui/userAvatar";
-import { COLOR_PALETTE} from "../../../shared/theme/colors";
+import { COLOR_PALETTE } from "../../../shared/theme/colors";
 
 export function ChatsListScreen() {
-  verifyInstallation();
-  const router = useRouter()
-  const colorScheme = useColorScheme()
+    verifyInstallation();
+    //   const router = useRouter()
+    //   const colorScheme = useColorScheme()
 
-  const colors = colorScheme === "light"
-    ? ([
-      COLOR_PALETTE.lightTheme.gradientColors.top,
-      COLOR_PALETTE.lightTheme.gradientColors.bottom,
-      //   COLOR_PALETTE.lightTheme.border,
-      //   COLOR_PALETTE.lightTheme.text,
-      //   COLOR_PALETTE.lightTheme.background,
-      //   COLOR_PALETTE.lightTheme.shadowColor,
-    ] as const)
-    : ([
-      COLOR_PALETTE.darkTheme.gradientColors.top,
-      COLOR_PALETTE.darkTheme.gradientColors.bottom,
-      //   COLOR_PALETTE.darkTheme.border,
-      //   COLOR_PALETTE.darkTheme.text,
-      //   COLOR_PALETTE.darkTheme.textNext,
-      //   COLOR_PALETTE.darkTheme.background,
-      //   COLOR_PALETTE.darkTheme.shadowColor,
-    ] as const)
+    //   const colors = colorScheme === "light"
+    //     ? ([
+    //       COLOR_PALETTE.lightTheme.gradientColors.top,
+    //       COLOR_PALETTE.lightTheme.gradientColors.bottom,
+    //       //   COLOR_PALETTE.lightTheme.border,
+    //       //   COLOR_PALETTE.lightTheme.text,
+    //       //   COLOR_PALETTE.lightTheme.background,
+    //       //   COLOR_PALETTE.lightTheme.shadowColor,
+    //     ] as const)
+    //     : ([
+    //       COLOR_PALETTE.darkTheme.gradientColors.top,
+    //       COLOR_PALETTE.darkTheme.gradientColors.bottom,
+    //       //   COLOR_PALETTE.darkTheme.border,
+    //       //   COLOR_PALETTE.darkTheme.text,
+    //       //   COLOR_PALETTE.darkTheme.textNext,
+    //       //   COLOR_PALETTE.darkTheme.background,
+    //       //   COLOR_PALETTE.darkTheme.shadowColor,
+    //     ] as const)
 
-  return (
-    <ScrollView className="m-5 gap-5">
+    return (
+        <ScrollView className="m-5 gap-5">
+            <View className="flex-row items-center gap-5">
+                {/* justify-center  */}
+                {/* shadow-lg shadow-[#77B5BF] */}
+                <View>
+                    <Text>Chat list</Text>
+                    <Link href="/users/profile" asChild>
+                        <Button title="Go to profile" />
+                    </Link>
 
-      <View className="flex-row items-center gap-5">
-        {/* justify-center  */}
-        {/* shadow-lg shadow-[#77B5BF] */}
-        <View className="w-20 h-20">
-          <LinearGradient
+                    <Link href="/users/register-step-one" asChild>
+                        <Button title="Register (RegisterStepOne)" />
+                    </Link>
+                    <Link href="/users/register-step-two" asChild>
+                        <Button title="Register (RegisterStepTwo)" />
+                    </Link>
+
+                    <Link href="/users/login" asChild>
+                        <Button title="Login" />
+                    </Link>
+
+                    <Link href="/_sitemap" asChild>
+                        <Button title="Sitemap" />
+                    </Link>
+                </View>
+            </View>
+            {/* <View className="w-20 h-20"> */}
+            {/* <LinearGradient
             colors={colors}
             style={[
               styles.linearGradientUser,
@@ -57,10 +86,10 @@ export function ChatsListScreen() {
             <ICONS.UserIcon className="w-15 h-15" />
 
             {/* <UserIcon className="w-15 h-15" /> */}
-          </LinearGradient>
-        </View>
-        {/* текст Inter */}
-        <Text className="text-textColor text-2xl">Chats</Text>
+            {/* </LinearGradient>
+        </View> */}
+            {/* текст Inter */}
+            {/* <Text className="text-textColor text-2xl">Chats</Text>
       </View>
 
       <TextInput
@@ -102,7 +131,7 @@ export function ChatsListScreen() {
 
               {/* <UserIcon className="w-15 h-15" /> */}
 
-            </LinearGradient>
+            {/* </LinearGradient>
           </View>
 
           <View className="">
@@ -130,55 +159,55 @@ export function ChatsListScreen() {
         </LinearGradient>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => router.navigate("/chats/1")} className="">
+      <TouchableOpacity onPress={() => router.navigate("/chats/1")} className=""> */}
 
-        <ICONS.PenIcon className="w-15 h-15" />
+            {/* <ICONS.PenIcon className="w-15 h-15" /> */}
 
-        {/* <PenIcon className="w-15 h-15" /> */}
+            {/* <PenIcon className="w-15 h-15" /> */}
 
-      </TouchableOpacity>
-      {/* Link может обертывать только компонент Text по дефолту или компонент принимающий проп onPress (какой то из подвидов кнопок) С УКАЗАНИЕМ asChild для Link*/}
+            {/* </TouchableOpacity> */}
+            {/* Link может обертывать только компонент Text по дефолту или компонент принимающий проп onPress (какой то из подвидов кнопок) С УКАЗАНИЕМ asChild для Link*/}
 
-      <Link href="/users/registration"><Text>reg</Text></Link>
-    </ScrollView>
-  )
+            {/* <Link href="/users/registration"><Text>reg</Text></Link>   */}
+        </ScrollView>
+    );
 }
 
-const styles = StyleSheet.create({
-  linearGradientUser: {
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 50,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    borderWidth: 1,
-  },
-  linearGradientMessage: {
-    padding: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-    flexDirection: 'row',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    borderWidth: 1,
-    gap: 10,
-  },
-  linearGradientMissed: {
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 40,
-    borderRadius: 50,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    borderWidth: 1,
-  },
-});
+// const styles = StyleSheet.create({
+//     linearGradientUser: {
+//         padding: 10,
+//         alignItems: "center",
+//         justifyContent: "center",
+//         borderRadius: 50,
+//         shadowColor: "#000",
+//         shadowOffset: { width: 0, height: 2 },
+//         shadowOpacity: 0.25,
+//         shadowRadius: 3.84,
+//         borderWidth: 1,
+//     },
+//     linearGradientMessage: {
+//         padding: 5,
+//         alignItems: "center",
+//         justifyContent: "center",
+//         borderRadius: 20,
+//         flexDirection: "row",
+//         shadowColor: "#000",
+//         shadowOffset: { width: 0, height: 2 },
+//         shadowOpacity: 0.25,
+//         shadowRadius: 3.84,
+//         borderWidth: 1,
+//         gap: 10,
+//     },
+//     linearGradientMissed: {
+//         padding: 10,
+//         alignItems: "center",
+//         justifyContent: "center",
+//         width: 40,
+//         borderRadius: 50,
+//         shadowColor: "#000",
+//         shadowOffset: { width: 0, height: 2 },
+//         shadowOpacity: 0.25,
+//         shadowRadius: 3.84,
+//         borderWidth: 1,
+//     },
+// });
