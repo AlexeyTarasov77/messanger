@@ -1,13 +1,15 @@
 import { ScrollView, View, Text, Image } from "react-native";
-import { user } from "../../../shared/constants/user";
+// import { user } from "../../../shared/constants/user";
 import { ICONS } from "../../../shared/ui/icons";
 import { UserPostCard } from "../components";
+import { useUserCtx } from "../../users/components/users-ctx/context";
 
 export function MyPosts() {
+    const { user } = useUserCtx()
     return (
         <ScrollView className="bg-mainBg pt-4">
             <View className="gap-4 ">
-                {user.createdPosts.map((post) => {
+                {user?.createdPosts?.map((post) => {
                     return (
                         <View className="border border-border rounded-2xl p-2 gap-2 bg-white">
                             <View className="flex-row justify-between py-4 px-2 " >
