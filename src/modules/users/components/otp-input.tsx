@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
-import { IRegisterStepTwo } from "../../types";
+import { IRegisterStepTwo } from "../types";
 import { Control, Controller, FieldError, FieldErrors } from "react-hook-form";
-import { Input } from "../../../../shared/ui/input";
+import { Input } from "../../../shared/ui/input";
 
 const otpFieldNames: (keyof IRegisterStepTwo)[] = [
   "otp1",

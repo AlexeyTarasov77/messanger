@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useLocalSearchParams } from "expo-router";
 import { IRegisterStepOne, IRegisterStepTwo } from "../../types";
 import { authService } from "../../services";
-import { collectFullCode, otpFieldsDefaults, OTPInput } from "./otp-input";
+import { collectFullCode, otpFieldsDefaults, OTPInput } from "../../components/otp-input";
 
 export function RegisterStepTwo() {
     const router = useRouter();
