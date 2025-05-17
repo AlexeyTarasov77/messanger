@@ -1,1 +1,1 @@
-export {UserPostCard} from "./user-post-card"
+export { PostCard } from "./post-card"

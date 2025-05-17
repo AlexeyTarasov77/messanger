@@ -36,7 +36,7 @@ export async function sendReq<T>(
             console.log("Received empty response (204)")
         } else {
             respData = await resp.json();
-            console.log("Response received: ", respData);
+            console.log("Response received. Status: ", resp.status);
         }
         return { ...respData, status: resp.status } as any;
     } catch (err) {

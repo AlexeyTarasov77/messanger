@@ -1,4 +1,4 @@
-import { PostsList } from "../../modules/main/screens/postsList";
+import { PostsList } from "../../modules/posts/screens";
 
 
 export default function IndexScreen() {

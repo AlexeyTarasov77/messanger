@@ -1,60 +1,16 @@
-import { ScrollView, View, Text, Image } from "react-native";
-import { ICONS } from "../../../shared/ui/icons";
-import { UserPostCard } from "../components";
+import { ScrollView, View } from "react-native";
 import { useUserCtx } from "../../users/components/users-ctx/context";
+import { PostCard } from "../components";
 
 export function MyPosts() {
     let { user } = useUserCtx()
     user = user! // assert that user is not null
-    console.log("User", user)
     return (
         <ScrollView className="bg-mainBg pt-4">
             <View className="gap-4 ">
-                {user.createdPosts.map((post) => {
-                    return (
-                        <View className="border border-border rounded-2xl p-2 gap-2 bg-white" key={post.id}>
-                            <View className="flex-row justify-between py-4 px-2 " >
-                                <View>
-                                    <View className="flex-row items-center gap-4">
-                                        <View className="flex-row">
-                                            <View>
-                                                <Image
-                                                    source={{
-                                                        uri: user.avatarUrl,
-                                                    }}
-                                                    className="w-10 h-10"
-                                                />
-                                            </View>
-                                            <View className="absolute bottom-0 right-0">
-                                                {user.isOnline ? (
-                                                    <ICONS.OnlineIcon
-                                                        width={12}
-                                                        height={12}
-                                                    />
-                                                ) : (
-                                                    <ICONS.OfflineIcon
-                                                        width={12}
-                                                        height={12}
-                                                    />
-                                                )}
-                                            </View>
-                                        </View>
-                                        <View className="font-medium text-sm">
-                                            <Text>{user.displayName}</Text>
-                                        </View>
-                                    </View>
-                                    <View>
-                                        <ICONS.Signature />
-                                    </View>
-                                </View>
-                                <View className="self-center">
-                                    <ICONS.PostSettingsIcon height={16} />
-                                </View>
-                            </View>
-                            <UserPostCard post={post}></UserPostCard>
-                        </View>
-                    );
-                })}
+                {user.createdPosts.map((post) =>
+                    <PostCard key={post.id} post={{ ...post, author: user }}></PostCard>
+                )}
             </View>
         </ScrollView>
     );

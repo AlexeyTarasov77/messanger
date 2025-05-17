@@ -19,10 +19,16 @@ export interface IPost {
   }
 }
 
+interface IPostAuthor {
+  id: string;
+  username?: string;
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  isOnline: boolean;
+  avatarUrl?: string;
+}
+
 export interface IPostWithAuthor extends IPost {
-  author: {
-    username: string;
-    avatarUrl: string;
-    isOnline: boolean;
-  };
+  author: IPostAuthor;
 }

@@ -6,13 +6,11 @@ import {
     useEffect,
 } from "react";
 import { authService, usersService } from "../../services";
-import { ILoginForm, IRegisterForm, IUser, IUserExtended } from "../../types";
+import { ILoginForm, IRegisterForm, IUserExtended } from "../../types";
 import { getErrorMessage } from "../../../../shared/utils/errors";
 
-export type User = IUserExtended & { displayName: string, avatarUrl: string }
-
 interface IUserCtx {
-    user: User | null;
+    user: IUserExtended | null;
     isLoading: boolean;
     login: (data: ILoginForm) => Promise<string | void>;
     register: (data: IRegisterForm) => Promise<string | void>;
@@ -28,27 +26,16 @@ export function useUserCtx(): IUserCtx {
 }
 
 export function UsersProvider({ children }: { children: ReactNode }) {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<IUserExtended | null>(null);
     const [token, setToken] = useState("");
     const [isLoading, setIsLoading] = useState(false)
-    const getDisplayName = (user: IUser) => {
-        let finalName;
-        if (user.firstName) {
-            finalName = user.firstName
-            if (user.lastName) {
-                finalName += " " + user.lastName
-            }
-        }
-        return finalName || user.username || user.email
-    }
-    const defaultAvatarUrl = "https://e7.pngegg.com/pngimages/84/165/png-clipart-united-states-avatar-organization-information-user-avatar-service-computer-wallpaper.png"
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 setIsLoading(true)
                 const user = await usersService.getUser();
-                user ? setUser({ ...user, displayName: getDisplayName(user), avatarUrl: user.avatarUrl || defaultAvatarUrl }) : setUser(null);
+                setUser(user)
             } catch (err) {
                 console.log("Не удалось получить пользователя:", err);
                 throw err

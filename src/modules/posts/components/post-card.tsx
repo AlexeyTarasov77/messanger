@@ -1,10 +1,28 @@
 import { View, Text, Image } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
-import { IPost } from "../types";
+import { IPostWithAuthor } from "../types";
+import { UserAvatar } from "../../users/components/avatar";
+import { getUserDisplayName } from "../../users/utils";
 
-export function UserPostCard({ post }: { post: IPost }) {
+export function PostCard({ post }: { post: IPostWithAuthor }) {
     return (
-        <View>
+        <View className="border border-border rounded-2xl p-2 gap-2 bg-white">
+            <View className="flex-row justify-between py-4 px-2">
+                <View>
+                    <View className="flex-row items-center gap-4">
+                        <UserAvatar user={post.author} />
+                        <View className="font-medium text-sm">
+                            <Text>{getUserDisplayName(post.author)}</Text>
+                        </View>
+                    </View>
+                    <View>
+                        <ICONS.Signature />
+                    </View>
+                </View>
+                <View className="self-center">
+                    <ICONS.PostSettingsIcon height={16} />
+                </View>
+            </View>
             <View className="border-t border-border pt-4 px-2">
                 <Text className="flex-wrap font-normal text-sm leading-none">
                     {post.body}
@@ -40,3 +58,4 @@ export function UserPostCard({ post }: { post: IPost }) {
         </View>
     );
 }
+
