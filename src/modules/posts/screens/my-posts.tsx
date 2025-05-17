@@ -1,17 +1,18 @@
 import { ScrollView, View, Text, Image } from "react-native";
-// import { user } from "../../../shared/constants/user";
 import { ICONS } from "../../../shared/ui/icons";
 import { UserPostCard } from "../components";
 import { useUserCtx } from "../../users/components/users-ctx/context";
 
 export function MyPosts() {
-    const { user } = useUserCtx()
+    let { user } = useUserCtx()
+    user = user! // assert that user is not null
+    console.log("User", user)
     return (
         <ScrollView className="bg-mainBg pt-4">
             <View className="gap-4 ">
-                {user?.createdPosts?.map((post) => {
+                {user.createdPosts.map((post) => {
                     return (
-                        <View className="border border-border rounded-2xl p-2 gap-2 bg-white">
+                        <View className="border border-border rounded-2xl p-2 gap-2 bg-white" key={post.id}>
                             <View className="flex-row justify-between py-4 px-2 " >
                                 <View>
                                     <View className="flex-row items-center gap-4">
@@ -19,7 +20,7 @@ export function MyPosts() {
                                             <View>
                                                 <Image
                                                     source={{
-                                                        uri: user?.avatarUrl,
+                                                        uri: user.avatarUrl,
                                                     }}
                                                     className="w-10 h-10"
                                                 />
@@ -39,7 +40,7 @@ export function MyPosts() {
                                             </View>
                                         </View>
                                         <View className="font-medium text-sm">
-                                            <Text>{user.username}</Text>
+                                            <Text>{user.displayName}</Text>
                                         </View>
                                     </View>
                                     <View>
@@ -50,7 +51,7 @@ export function MyPosts() {
                                     <ICONS.PostSettingsIcon height={16} />
                                 </View>
                             </View>
-                            <UserPostCard user={user} post={post} key={post.id}></UserPostCard>
+                            <UserPostCard post={post}></UserPostCard>
                         </View>
                     );
                 })}

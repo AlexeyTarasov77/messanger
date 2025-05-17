@@ -9,16 +9,6 @@ export function Profile() {
     if (!user) {
         return <Redirect href="/users/login" />;
     }
-    const displayName = () => {
-        let finalName;
-        if (user.firstName) {
-            finalName = user.firstName
-            if (user.lastName) {
-                finalName += " " + user.lastName
-            }
-        }
-        return finalName || user.username || user.email
-    }
     const birthDate = user.birthDate && new Date(user.birthDate)
     return (
         <View>
@@ -26,7 +16,7 @@ export function Profile() {
                 <Avatar />
                 <View className="justify-center gap-4 ">
                     <Text className="text-white text-4xl font-semibold ">
-                        {displayName()}
+                        {user.displayName}
                     </Text>
                     <Text className="text-white text-2xl font-light">
                         {user.isOnline ? "У мережі" : "Не у мережi"}

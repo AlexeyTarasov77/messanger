@@ -1,10 +1,9 @@
-import { IPost } from "../../shared/types";
+import { IPost } from "../posts/types";
 
 export interface ILoginForm {
     email: string;
     password: string;
 }
-
 export interface IUser {
     id: string;
     username?: string;
@@ -15,9 +14,11 @@ export interface IUser {
     birthDate?: string;
     isOnline: boolean;
     avatarUrl?: string;
-    password: string;
     createdAt: string;
     updatedAt: string;
+}
+
+export interface IUserExtended extends IUser {
     createdPosts: IPost[];
     viewedPosts: IPost[];
     likedPosts: IPost[];
@@ -47,7 +48,7 @@ export interface IRegisterForm extends IRegisterStepOne {
     otp: string;
 }
 
-export type LoginResponse = {
+export interface ILoginResponse {
     token: string;
-    user: IUser;
+    user: IUserExtended;
 };
