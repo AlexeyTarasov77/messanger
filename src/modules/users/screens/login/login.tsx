@@ -5,6 +5,7 @@ import { Link, useRouter } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { ILoginForm } from "../../types";
 import { useUserCtx } from "../../components/users-ctx/context";
+import { renderError } from "../../../../shared/utils/errors";
 
 export function Login() {
     const router = useRouter();
@@ -23,7 +24,7 @@ export function Login() {
             setError("root", { message: errMsg });
             return;
         }
-        router.replace("/users/profile");
+        router.replace("/");
     }
     return (
         <View className="h-full pt-10 bg-mainBg">
@@ -66,7 +67,8 @@ export function Login() {
                                     value={field.value}
                                     label="Електронна пошта"
                                     autoCorrect={false}
-                                    errMsg={fieldState.error?.message}
+                                    autoCapitalize="none"
+                                    err={fieldState.error}
                                     className="h-[42] w-full"
                                 />
                             );
@@ -90,17 +92,13 @@ export function Login() {
                                     value={field.value}
                                     label="Пароль"
                                     autoCorrect={false}
-                                    errMsg={fieldState.error?.message}
+                                    err={fieldState.error}
                                     className="h-[42] flex-1"
                                 />
                             );
                         }}
                     />
-                    {errors.root && (
-                        <Text className="text-red-500">
-                            {errors.root.message || "Invalid data"}
-                        </Text>
-                    )}
+                    {renderError(errors.root)}
                     <View>
                         <Button
                             label="Увійти"
