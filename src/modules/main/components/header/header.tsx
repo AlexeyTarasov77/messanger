@@ -1,20 +1,16 @@
 import { View, TouchableOpacity } from "react-native";
 import { Link, useRouter } from "expo-router";
-import { LogoIcon } from "../../../../shared/ui/icons/headerIcons";
-import { getAuthenticatedOnlyActions, getBaseActions } from "./actions";
+import { LogoIcon, LogOutIcon, PlusIcon, SettingsIcon } from "../../../../shared/ui/icons/headerIcons";
 import { useUserCtx } from "../../../users/components/users-ctx/context";
-import { Fragment } from "react";
+import { useCreatePostModal } from "../../../posts/components";
 
 export function Header() {
     const router = useRouter()
-    let actions = getBaseActions()
     const { user, logout } = useUserCtx()
+    const { open: createPostModalOpen } = useCreatePostModal()
     const onLogout = () => {
         logout()
         router.navigate("/users/login")
-    }
-    if (user) {
-        actions = actions.concat(getAuthenticatedOnlyActions(onLogout))
     }
     return (
         <View className="flex-row p-2 gap-[30%] bg-white self-center justify-center w-full">
@@ -25,9 +21,22 @@ export function Header() {
                     </TouchableOpacity>
                 </Link>
             </View>
-            <View className="flex-row gap-2 max-w-fit">
-                {actions.map((action, i) => <Fragment key={i}>{action}</Fragment>)}
-            </View>
+            {user &&
+                <View className="flex-row gap-2 max-w-fit">
+                    <TouchableOpacity onPress={() => createPostModalOpen()} className=" border-text border rounded-full p-2 ">
+                        <PlusIcon width={20} height={20} />
+                    </TouchableOpacity>,
+                    <TouchableOpacity className=" border-text border rounded-full p-2 ">
+                        <SettingsIcon width={20} height={20} />
+                    </TouchableOpacity>,
+                    <TouchableOpacity
+                        onPress={onLogout}
+                        className="border-text border rounded-full p-2 "
+                    >
+                        <LogOutIcon width={20} height={20} />
+                    </TouchableOpacity>,
+                </View>
+            }
         </View>
     );
 }

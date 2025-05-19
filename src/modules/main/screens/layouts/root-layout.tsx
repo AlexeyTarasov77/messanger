@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect } from "react";
 import { useColorScheme } from "nativewind";
 import { RedirectUnauthenticated } from "../../components/redirect-unauthenticated";
+import { CreatePostModal } from "../../../posts/screens";
 
 export function RootLayout() {
   const { setColorScheme } = useColorScheme();
@@ -20,7 +21,8 @@ export function RootLayout() {
 
   return (
     <RedirectUnauthenticated>
-      <Stack screenOptions={{ header: Header }}  />
+      <Stack screenOptions={{ header: Header }} />
+      <CreatePostModal />
     </RedirectUnauthenticated>
   );
 }

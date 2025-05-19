@@ -6,14 +6,20 @@ import { Controller, useForm } from "react-hook-form";
 import { IRegisterStepOne } from "../../types";
 import { useRouter } from "expo-router";
 import { authService } from "../../services";
+import { getErrorMessage, renderError } from "../../../../shared/utils/errors";
 
 export function RegisterStepOne() {
     const router = useRouter();
-    const { handleSubmit, control, getValues} = useForm<IRegisterStepOne>({
+    const { handleSubmit, control, getValues, setError, formState: { errors } } = useForm<IRegisterStepOne>({
         defaultValues: { email: "", password: "", confirmPassword: "" },
     });
     async function onSubmit(data: IRegisterStepOne) {
-        await authService.sendOTP(data.email);
+        try {
+            await authService.sendOTP(data.email);
+        } catch (err) {
+            setError("root", { message: getErrorMessage(err) })
+            return
+        }
         router.push({
             pathname: "/users/register-step-two",
             params: {
@@ -21,6 +27,7 @@ export function RegisterStepOne() {
                 password: data.password,
             },
         });
+
     }
     return (
         <View className="h-full pt-10 bg-mainBg">
@@ -59,12 +66,13 @@ export function RegisterStepOne() {
                             return (
                                 <Input
                                     placeholder="you@example.com"
+                                    autoCapitalize="none"
                                     onChange={field.onChange}
                                     onChangeText={field.onChange}
                                     value={field.value}
                                     label="Електронна пошта"
                                     autoCorrect={false}
-                                    errMsg={fieldState.error?.message}
+                                    err={fieldState.error}
                                     className="h-[42] w-full"
                                 />
                             );
@@ -93,7 +101,7 @@ export function RegisterStepOne() {
                                     value={field.value}
                                     label="Пароль"
                                     autoCorrect={false}
-                                    errMsg={fieldState.error?.message}
+                                    err={fieldState.error}
                                     className="h-[42]"
                                 />
                             );
@@ -123,12 +131,13 @@ export function RegisterStepOne() {
                                     value={field.value}
                                     label="Підтверди пароль"
                                     autoCorrect={false}
-                                    errMsg={fieldState.error?.message}
+                                    err={fieldState.error}
                                     className="h-[42] flex-1"
                                 />
                             );
                         }}
                     />
+                    {renderError(errors.root)}
                     <View>
                         <Button
                             label="Створити акаунт"
