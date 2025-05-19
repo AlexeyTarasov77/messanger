@@ -53,11 +53,16 @@ export async function GET<T>(path: string | URL): APIResponse<T> {
 
 export async function POST<T>(
     path: string | URL,
-    data: object,
+    data: any,
 ): APIResponse<T> {
+    const headers: HeadersInit = {}
+    if (!(data instanceof FormData)) {
+        headers["Content-Type"] = "application/json"
+        data = JSON.stringify(data)
+    }
     return await sendReq(path, {
         method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": data instanceof FormData ? "multipart/form-data" : "application/json" },
+        body: data,
+        headers,
     });
 }

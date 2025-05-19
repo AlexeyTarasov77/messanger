@@ -4,15 +4,16 @@ import Modal from "react-native-modal";
 import { ICONS } from "../../../shared/ui/icons";
 import * as ImagePicker from 'expo-image-picker';
 import { Controller, useForm } from "react-hook-form";
-import { Link, useRouter } from "expo-router";
-import { Button } from "../../../shared/ui/button";
 import { Input } from "../../../shared/ui/input/input";
-import { IPost, IPostTag, ICreatePostForm } from "../types";
+import { ICreatePostForm, PostMedia, PostMediaType } from "../types";
 import { useCreatePostModal } from "../components";
+import { postsService } from "../services";
+import { getErrorMessage, renderError } from "../../../shared/utils/errors";
 
 export function CreatePostModal() {
   const { visible, close } = useCreatePostModal()
-  const [images, setImages] = useState<string[]>([]);
+  // images contains array of base64 encoded selected images
+  const [images, setImages] = useState<PostMedia[]>([]);
 
   const {
     handleSubmit,
@@ -37,23 +38,24 @@ export function CreatePostModal() {
       return;
     }
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
+      mediaTypes: "images",
       allowsMultipleSelection: true,
-      base64: false,
+      base64: true,
     });
 
     if (!result.canceled && result.assets) {
       // Добавляем новые URI к уже выбранным фото
-      setImages(prev => [...prev, ...result.assets.map(asset => asset.uri)]);
+      setImages(prev => [...prev, ...result.assets.map(asset => ({ url: String(asset.uri), type: asset.type as PostMediaType }))]);
     }
   };
 
   const onSubmit = async (data: ICreatePostForm) => {
     try {
-
+      data.media = images
+      await postsService.createPost(data)
       close()
     } catch (error) {
+      setError("root", { message: getErrorMessage(error) })
     }
   };
 
@@ -163,13 +165,12 @@ export function CreatePostModal() {
           <View
             style={{ minHeight: 1, maxHeight: 288 }}
             className="mt-2 mb-3 rounded-3xl justify-center"
-          // className="h-72 mt-2 rounded-3xl justify-center"
           >
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {images.map((uri, index) => (
+              {images.map((imageData, index) => (
                 <Image
                   key={index}
-                  source={{ uri }}
+                  source={{ uri: imageData.url }}
                   className="h-72 w-72 mr-2 rounded-3xl"
                   resizeMode="cover"
                 />
@@ -177,7 +178,7 @@ export function CreatePostModal() {
             </ScrollView>
           </View>
         </View>
-
+        {renderError(errors.root)}
         <View className="flex-row justify-end gap-2">
           <TouchableOpacity onPress={pickImage} className="border border-plum p-2 rounded-3xl">
             <ICONS.ImageIcon />
