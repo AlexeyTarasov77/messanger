@@ -40,12 +40,11 @@ export function CreatePost() {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      allowsMultipleSelection: true, // <-- разрешаем выбор нескольких фото
+      allowsMultipleSelection: true, 
       base64: false,
     });
 
     if (!result.canceled && result.assets) {
-      // Добавляем новые URI к уже выбранным фото
       setImages(prev => [...prev, ...result.assets.map(asset => asset.uri)]);
     }
   };
