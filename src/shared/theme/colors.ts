@@ -25,23 +25,23 @@ export const COLOR_PALETTE = {
 export function useColors() {
   const colorScheme = useColorScheme();
   return colorScheme === "light"
-  ? ([
-    COLOR_PALETTE.lightTheme.gradientColors.top,
-    COLOR_PALETTE.lightTheme.gradientColors.bottom,
-    COLOR_PALETTE.lightTheme.border,
-    COLOR_PALETTE.lightTheme.text,
-    COLOR_PALETTE.lightTheme.background,
-    COLOR_PALETTE.lightTheme.shadowColor,
-  ] as const)
-  : ([
-    COLOR_PALETTE.darkTheme.gradientColors.top,
-    COLOR_PALETTE.darkTheme.gradientColors.bottom,
-    COLOR_PALETTE.darkTheme.border,
-    COLOR_PALETTE.darkTheme.text,
-    COLOR_PALETTE.darkTheme.textNext,
-    COLOR_PALETTE.darkTheme.background,
-    COLOR_PALETTE.darkTheme.shadowColor,
-  ] as const)
+    ? ([
+      COLOR_PALETTE.lightTheme.gradientColors.top,
+      COLOR_PALETTE.lightTheme.gradientColors.bottom,
+      // COLOR_PALETTE.lightTheme.border,
+      // COLOR_PALETTE.lightTheme.text,
+      // COLOR_PALETTE.lightTheme.background,
+      // COLOR_PALETTE.lightTheme.shadowColor,
+    ] as const)
+    : ([
+      COLOR_PALETTE.darkTheme.gradientColors.top,
+      COLOR_PALETTE.darkTheme.gradientColors.bottom,
+      COLOR_PALETTE.darkTheme.border,
+      COLOR_PALETTE.darkTheme.text,
+      COLOR_PALETTE.darkTheme.textNext,
+      COLOR_PALETTE.darkTheme.background,
+      COLOR_PALETTE.darkTheme.shadowColor,
+    ] as const)
 }
 
 
@@ -89,7 +89,11 @@ export const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   red: {
-    color: "#c90000"
+    color: "#c90000",
   },
+  plum: {
+    // color: "#543C52",
+    backgroundColor: '#543C52',
+  }
 });
 

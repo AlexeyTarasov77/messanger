@@ -3,11 +3,26 @@ export interface IPostTag {
   name: string;
 }
 
+export interface ICreatePostForm {
+  id: number;
+  link?: string;
+  title: string;
+  subject: string;
+  tags?: IPostTag[];
+  body: string;
+  media: {
+    type: string;
+    url: string;
+  }[];
+}
+
 export interface IPost {
   id: number;
+  link?: string;
   title: string;
+  subject: string;
+  tags?: IPostTag[];
   body: string;
-  tags: IPostTag[];
   media: {
     id: number;
     type: string;

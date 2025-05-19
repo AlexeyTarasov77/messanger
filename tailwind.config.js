@@ -9,9 +9,10 @@ module.exports = {
                 grey: "#81818D",
                 mainBg: "#FAF8FF",
                 slive: "#543C52",
-                darkBlue:"#070A1C"
+                darkBlue: "#070A1C",
+                plum: '#543C52',
             },
-            fontFamily:{
+            fontFamily: {
                 main: "GT Walsheim Pro"
             }
         },
