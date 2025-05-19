@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { GET, POST } from "../../../shared/api/client";
-import { ILoginForm, IRegisterForm, IRegisterResponse, IUser } from "../types";
+import { POST } from "../../../shared/api/client";
+import { ILoginForm, IRegisterForm, IRegisterResponse } from "../types";
 import { AUTH_TOKEN_KEY } from "../../../shared/constants";
 
 export const authService = {
@@ -15,25 +15,28 @@ export const authService = {
         return token;
     },
     register: async (data: IRegisterForm): Promise<IRegisterResponse> => {
+        const formData = new FormData()
+        formData.append("email", data.email)
+        formData.append("password", data.password)
+        formData.append("otp", data.otp)
+
         const resp = await POST<IRegisterResponse>("/users/signup", data);
-        if (resp.success == false) {
+        if (resp.success === false) {
             throw new Error(resp.message);
         }
         await AsyncStorage.setItem(AUTH_TOKEN_KEY, resp.data.token);
         console.log("Успешная регистрация:", resp.data);
         return resp.data;
     },
-
-    getUser: async (): Promise<IUser> => {
-        const resp = await GET<IUser>("/users/me");
-        if (resp.success == false) {
+    sendOTP: async (email: string) => {
+        const resp = await POST("/users/send-otp", { "email": email });
+        if (resp.success === false) {
+            console.log("Failed to send otp token")
             throw new Error(resp.message);
         }
-        return resp.data;
     },
-
     logOut: async () => {
-        await AsyncStorage.removeItem("token");
+        await AsyncStorage.removeItem(AUTH_TOKEN_KEY);
         console.log("Ви вийшли з акаунту.")
     },
 };

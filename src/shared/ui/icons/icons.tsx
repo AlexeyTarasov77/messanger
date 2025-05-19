@@ -1,18 +1,28 @@
 import { EmailIcon } from "./email-icon";
 import { EyeIcon } from "./eye-icon";
 import { EyeSlashIcon } from "./eye-slash-icon";
-import { KeyIcon } from "./key-icon";
-import { UserIcon } from "./user-icon";
+import { KeyIcon } from "./toDel/key-icon";
+import { UserIcon } from "./toDel/user-icon";
 import { PenIcon } from "./pen-icon";
-import { SearchIcon } from "./search-icon";
-import { SettingsIcon } from "./settings-icon";
-import { LikesIcon } from "./likes-icon";
-import { PhoneNumberIcon } from "./phone-number-icon";
-import { LogoIcon } from "./logo-icon";
-import { PlusIcon } from "./plus-icon";
-import { PostSettingsIcon } from "./post-settings-icon";
-import { LogOutIcon } from "./logout-icon";
-
+import { SearchIcon } from "./toDel/search-icon";
+import { SettingsIcon } from "./headerIcons/settings-icon";
+import { LikeIcon } from "./postIcons/like-icon";
+import { PhoneNumberIcon } from "./toDel/phone-number-icon";
+import { LogoIcon } from "./headerIcons/logo-icon";
+import { PlusIcon } from "./headerIcons/plus-icon";
+import { PostSettingsIcon } from "./postIcons/post-settings-icon";
+import { LogOutIcon } from "./headerIcons/logout-icon";
+import { OnlineIcon } from "./postIcons/online-icon";
+import { OfflineIcon } from "./postIcons/offline-icon";
+import { Signature } from "./postIcons/signature";
+import { HomeIcon } from "./tabBarIcons/home-icon";
+import { PostsIcon } from "./tabBarIcons/posts-icon";
+import { FriendsIcon } from "./tabBarIcons/friends-icon";
+import { ChatsIcon } from "./tabBarIcons/chats-icon";
+import { SmileyIcon } from "./smiley-icon";
+import { CloseIcon } from "./close-icon";
+import { SendPostIcon } from "./send-post-icon";
+import { ImageIcon } from "./image-icon";
 
 export const ICONS = {
 	EyeIcon,
@@ -28,6 +38,16 @@ export const ICONS = {
 	PostSettingsIcon,
 	PhoneNumberIcon,
 	SearchIcon,
-	LikesIcon
+	LikeIcon,
+    OnlineIcon,
+    OfflineIcon,
+    Signature,
+    HomeIcon,
+    PostsIcon,
+    FriendsIcon,
+    ChatsIcon,
+    CloseIcon,
+    SmileyIcon,
+    SendPostIcon,
+    ImageIcon,
 };
-

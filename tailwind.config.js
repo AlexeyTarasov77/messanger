@@ -5,11 +5,16 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                bgLightOne: "#7D88AA",
-                bgLight:"#77B5BF",
-                bgDark:"#1C1F26",
-                text:"#543B52",
+                border: "#CDCED2",
+                grey: "#81818D",
+                mainBg: "#FAF8FF",
+                slive: "#543C52",
+                darkBlue: "#070A1C",
+                plum: '#543C52',
             },
+            fontFamily: {
+                main: "GT Walsheim Pro"
+            }
         },
     },
     plugins: [],

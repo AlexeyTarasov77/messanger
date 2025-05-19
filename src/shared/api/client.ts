@@ -30,9 +30,15 @@ export async function sendReq<T>(
             // retry request
             return await sendReq(path, options);
         }
-        const data = await resp.json();
-        console.log("Response received: ", data);
-        return { ...data, status: resp.status };
+        let respData
+        if (resp.status === 204) {
+            respData = { success: true, data: null }
+            console.log("Received empty response (204)")
+        } else {
+            respData = await resp.json();
+            console.log("Response received. Status: ", resp.status);
+        }
+        return { ...respData, status: resp.status } as any;
     } catch (err) {
         console.error("Fetch failed: ", err);
         throw err;
@@ -47,11 +53,11 @@ export async function GET<T>(path: string | URL): APIResponse<T> {
 
 export async function POST<T>(
     path: string | URL,
-    data: object
+    data: object,
 ): APIResponse<T> {
     return await sendReq(path, {
         method: "POST",
         body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": data instanceof FormData ? "multipart/form-data" : "application/json" },
     });
 }

@@ -1,25 +1,27 @@
+import { IPost } from "../posts/types";
+
 export interface ILoginForm {
     email: string;
     password: string;
 }
-
-export interface IRegisterForm extends ILoginForm {
-    username: string;
-    confirmPassword: string
-}
-
 export interface IUser {
     id: string;
+    username?: string;
+    email: string;
+    aboutMe?: string;
     firstName?: string;
     lastName?: string;
-    username: string;
-    email: string
-    phoneNumber: string;
+    birthDate?: string;
     isOnline: boolean;
-    aboutMe?: string;
     avatarUrl?: string;
     createdAt: string;
     updatedAt: string;
+}
+
+export interface IUserExtended extends IUser {
+    createdPosts: IPost[];
+    viewedPosts: IPost[];
+    likedPosts: IPost[];
 }
 
 export interface IRegisterResponse {
@@ -27,4 +29,26 @@ export interface IRegisterResponse {
     user: IUser;
 }
 
+export interface IRegisterStepOne extends ILoginForm {
+    email: string;
+    password: string;
+    confirmPassword?: string;
+}
 
+export interface IRegisterStepTwo {
+    otp1: string;
+    otp2: string;
+    otp3: string;
+    otp4: string;
+    otp5: string;
+    otp6: string;
+}
+
+export interface IRegisterForm extends IRegisterStepOne {
+    otp: string;
+}
+
+export interface ILoginResponse {
+    token: string;
+    user: IUserExtended;
+};

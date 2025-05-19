@@ -1,0 +1,2 @@
+export { postsService } from "./posts";
+
