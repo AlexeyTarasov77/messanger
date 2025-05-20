@@ -26,7 +26,7 @@ export interface IPost {
   subject: string;
   tags?: IPostTag[];
   body: string;
-  media: PostMedia & { id: number; }[];
+  media: (PostMedia & { id: number; })[];
   _count: {
     likedBy: number;
     viewedBy: number
@@ -36,6 +36,7 @@ export interface IPost {
 interface IPostAuthor {
   id: string;
   username?: string;
+  signatureUrl?: string;
   email: string;
   firstName?: string;
   lastName?: string;

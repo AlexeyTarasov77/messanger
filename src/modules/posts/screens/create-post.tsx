@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
 import Modal from "react-native-modal";
 import { ICONS } from "../../../shared/ui/icons";
 import * as ImagePicker from 'expo-image-picker';
@@ -9,12 +9,13 @@ import { ICreatePostForm, PostMedia, PostMediaType } from "../types";
 import { useCreatePostModal } from "../components";
 import { postsService } from "../services";
 import { getErrorMessage, renderError } from "../../../shared/utils/errors";
+import { useUserCtx } from "../../users/components/users-ctx/context";
 
 export function CreatePostModal() {
   const { visible, close } = useCreatePostModal()
+  const { addPost } = useUserCtx()
   // images contains array of base64 encoded selected images
   const [images, setImages] = useState<PostMedia[]>([]);
-
   const {
     handleSubmit,
     control,
@@ -52,7 +53,7 @@ export function CreatePostModal() {
   const onSubmit = async (data: ICreatePostForm) => {
     try {
       data.media = images
-      await postsService.createPost(data)
+      await addPost(data)
       close()
     } catch (error) {
       setError("root", { message: getErrorMessage(error) })

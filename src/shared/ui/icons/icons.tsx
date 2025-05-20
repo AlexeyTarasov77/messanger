@@ -14,7 +14,6 @@ import { PostSettingsIcon } from "./postIcons/post-settings-icon";
 import { LogOutIcon } from "./headerIcons/logout-icon";
 import { OnlineIcon } from "./postIcons/online-icon";
 import { OfflineIcon } from "./postIcons/offline-icon";
-import { Signature } from "./postIcons/signature";
 import { HomeIcon } from "./tabBarIcons/home-icon";
 import { PostsIcon } from "./tabBarIcons/posts-icon";
 import { FriendsIcon } from "./tabBarIcons/friends-icon";
@@ -41,7 +40,6 @@ export const ICONS = {
     LikeIcon,
     OnlineIcon,
     OfflineIcon,
-    Signature,
     HomeIcon,
     PostsIcon,
     FriendsIcon,

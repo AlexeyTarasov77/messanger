@@ -3,6 +3,7 @@ import { ICONS } from "../../../shared/ui/icons";
 import { IPostWithAuthor } from "../types";
 import { UserAvatar } from "../../users/components/avatar";
 import { getUserDisplayName } from "../../users/utils";
+import { UserSignature } from "../../users/components/sig";
 
 export function PostCard({ post }: { post: IPostWithAuthor }) {
     return (
@@ -15,20 +16,21 @@ export function PostCard({ post }: { post: IPostWithAuthor }) {
                             <Text>{getUserDisplayName(post.author)}</Text>
                         </View>
                     </View>
-                    <View>
-                        <ICONS.Signature />
-                    </View>
+                    {post.author.signatureUrl && <UserSignature signatureUrl={post.author.signatureUrl} />}
                 </View>
                 <View className="self-center">
                     <ICONS.PostSettingsIcon height={16} />
                 </View>
             </View>
-            <View className="border-t border-border pt-4 px-2">
+            <View className="border-t border-border pt-4 px-2 gap-4">
+                <Text className="flex-wrap text-lg leading-none font-main font-medium">
+                    {post.title}
+                </Text>
                 <Text className="flex-wrap font-normal text-sm leading-none">
                     {post.body}
                 </Text>
                 <View className="flex-row flex-wrap font-normal text-sm leading-none">
-                    {post.tags.map(tag => (
+                    {post.tags?.map(tag => (
                         <Text className="text-text" key={tag.id}>
                             #{tag.name}
                         </Text>
