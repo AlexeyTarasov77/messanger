@@ -9,6 +9,7 @@ import { ICreatePostForm, PostMedia, PostMediaType } from "../types";
 import { useCreatePostModal } from "../components";
 import { renderError } from "../../../shared/utils/errors";
 import { useUserCtx } from "../../users/components/users-ctx/context";
+import { BinIcon } from "../../../shared/ui/icons/bin-icon";
 
 export function CreatePostModal() {
   const { visible, close } = useCreatePostModal()
@@ -167,12 +168,18 @@ export function CreatePostModal() {
           >
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {images.map((imageData, index) => (
-                <Image
-                  key={index}
-                  source={{ uri: imageData.url }}
-                  className="h-72 w-72 mr-2 rounded-3xl"
-                  resizeMode="cover"
-                />
+                <View key={index} className="mr-2 relative">
+                  <Image
+                    source={{ uri: imageData.url }}
+                    className="h-72 w-72 rounded-3xl"
+                    resizeMode="cover"
+                  />
+                  <View className="absolute w-10 h-10 bg-white top-3 right-3 border rounded-full justify-center items-center">
+                    <TouchableOpacity onPress={() => setImages(images.filter(img => img.url != imageData.url))}>
+                      <BinIcon width={20} height={20} />
+                    </TouchableOpacity>
+                  </View>
+                </View>
               ))}
             </ScrollView>
           </View>

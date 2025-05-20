@@ -22,6 +22,7 @@ import { SmileyIcon } from "./smiley-icon";
 import { CloseIcon } from "./close-icon";
 import { SendPostIcon } from "./send-post-icon";
 import { ImageIcon } from "./image-icon";
+import { BinIcon } from "./bin-icon";
 
 export const ICONS = {
     EyeIcon,
@@ -48,4 +49,5 @@ export const ICONS = {
     SmileyIcon,
     SendPostIcon,
     ImageIcon,
+    BinIcon
 };
