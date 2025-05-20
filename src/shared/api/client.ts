@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SERVER_URL, AUTH_TOKEN_KEY } from "../constants";
-import { APIResponse } from "./types";
+import { APIResponse, IResponseFailure } from "./types";
 
 export async function sendReq<T>(
     path: string | URL,
@@ -66,3 +66,12 @@ export async function POST<T>(
         headers,
     });
 }
+
+export async function DELETE(
+    path: string | URL,
+): APIResponse<null> {
+    return await sendReq(path, {
+        method: "DELETE",
+    });
+}
+

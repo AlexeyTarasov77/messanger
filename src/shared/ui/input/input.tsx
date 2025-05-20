@@ -13,7 +13,7 @@ export function Input({
 }: IInputProps) {
     return (
         <View>
-            {label && <Text className="text-black">{label}</Text>}
+            {!!label && <Text className="text-black">{label}</Text>}
             <View className="flex-row rounded-2xl px-2 border border-grey">
                 <TextInput placeholderTextColor="#CDCDCD" {...props} />
                 {iconRight && (
@@ -31,7 +31,7 @@ function Password(props: Omit<IInputProps, "iconRight">) {
 
     return (
         <View>
-            {label && <Text className="text-dark">{label}</Text>}
+            {!!label && <Text className="text-dark">{label}</Text>}
             <View className="flex-row rounded-2xl border border-grey px-2">
                 <TextInput placeholderTextColor="#CDCDCD" secureTextEntry={isHidden} {...props} />
                 <View className="ml-auto self-center">

@@ -18,6 +18,7 @@ interface IUserCtx {
     register: (data: IRegisterForm) => Promise<string | void>;
     logout: () => void;
     addPost: (data: ICreatePostForm) => Promise<string | void>;
+    removePost: (postId: number) => Promise<string | void>
 }
 
 const UserCtx = createContext<IUserCtx | null>(null);
@@ -65,6 +66,21 @@ export function UsersProvider({ children }: { children: ReactNode }) {
         }
     }
 
+    const removePost = async (postId: number) => {
+        if (!user) {
+            return "Unauthorized"
+        }
+        try {
+            setIsLoading(true)
+            await postsService.deletePost(postId)
+            setUser({ ...user, createdPosts: user.createdPosts.filter(post => post.id !== postId) })
+        } catch (err) {
+            return getErrorMessage(err);
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
     const login = async (data: ILoginForm) => {
         try {
             setIsLoading(true)
@@ -95,7 +111,7 @@ export function UsersProvider({ children }: { children: ReactNode }) {
     }
 
     return (
-        <UserCtx.Provider value={{ user, login, register, isLoading, logout, addPost }}>
+        <UserCtx.Provider value={{ user, login, register, isLoading, logout, addPost, removePost }}>
             {children}
         </UserCtx.Provider>
     );

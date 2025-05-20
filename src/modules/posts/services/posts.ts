@@ -1,10 +1,10 @@
-import { GET, POST } from "../../../shared/api/client";
+import { DELETE, GET, POST } from "../../../shared/api/client";
 import { ICreatePostForm, IPost, IPostWithAuthor } from "../types";
 
 export const postsService = {
   listPosts: async () => {
     const resp = await GET<IPostWithAuthor[]>("/posts/");
-    if (resp.success == false) {
+    if (!resp.success) {
       throw new Error(resp.message);
     }
     return resp.data;
@@ -28,10 +28,15 @@ export const postsService = {
       formData.append(`media`, { uri: item.url, type: `image/${ext}`, name: `media_${i}.${ext}` } as any)
     });
     const resp = await POST<IPost>("/posts/", formData);
-    if (resp.success == false) {
+    if (!resp.success) {
       throw new Error(resp.message);
     }
-    console.log("Created post", resp)
     return resp.data;
+  },
+  deletePost: async (postId: number) => {
+    const resp = await DELETE(`/posts/${postId}`)
+    if (!resp.success) {
+      throw new Error(resp.message);
+    }
   }
 }

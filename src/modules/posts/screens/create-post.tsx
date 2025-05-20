@@ -7,8 +7,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Input } from "../../../shared/ui/input/input";
 import { ICreatePostForm, PostMedia, PostMediaType } from "../types";
 import { useCreatePostModal } from "../components";
-import { postsService } from "../services";
-import { getErrorMessage, renderError } from "../../../shared/utils/errors";
+import { renderError } from "../../../shared/utils/errors";
 import { useUserCtx } from "../../users/components/users-ctx/context";
 
 export function CreatePostModal() {
@@ -51,13 +50,12 @@ export function CreatePostModal() {
   };
 
   const onSubmit = async (data: ICreatePostForm) => {
-    try {
-      data.media = images
-      await addPost(data)
-      close()
-    } catch (error) {
-      setError("root", { message: getErrorMessage(error) })
+    data.media = images
+    const errMsg = await addPost(data)
+    if (errMsg) {
+      return setError("root", { message: errMsg })
     }
+    close()
   };
 
   return (

@@ -26,7 +26,7 @@ export function Profile() {
             </View>
 
             <View className="mt-4 border m-2 rounded-xl p-2 dark:border-bgLight border-white">
-                {birthDate &&
+                {!!birthDate &&
                     <View>
                         <Text className="text-white dark:text-bgLight font-extralight text-2xl">
                             Дата народженяя
