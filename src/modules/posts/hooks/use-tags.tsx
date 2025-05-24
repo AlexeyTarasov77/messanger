@@ -1,22 +1,21 @@
 import { useEffect, useState } from "react";
-import { IPostWithAuthor } from "../types";
+import { IPostTag } from "../types";
 import { postsService } from "../services";
 
-export function usePosts() {
+export function useTags() {
     const [isLoading, setIsLoading] = useState(false);
-    const [posts, setPosts] = useState<IPostWithAuthor[]>([]);
+    const [tags, setTags] = useState<IPostTag[]>([]);
     useEffect(() => {
         const fetchPosts = async () => {
             setIsLoading(true);
             try {
-                const posts = await postsService.listPosts();
-                setPosts(posts);
+                const posts = await postsService.listTags();
+                setTags(tags);
             } finally {
                 setIsLoading(false);
             }
         };
         fetchPosts();
     }, []);
-    return { posts, isLoading };
+    return { tags, isLoading };
 }
-

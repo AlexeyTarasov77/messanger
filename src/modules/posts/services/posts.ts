@@ -1,5 +1,5 @@
 import { DELETE, GET, POST } from "../../../shared/api/client";
-import { ICreatePostForm, IPost, IPostWithAuthor } from "../types";
+import { ICreatePostForm, IPost, IPostTag, IPostWithAuthor } from "../types";
 
 export const postsService = {
   listPosts: async () => {
@@ -38,5 +38,13 @@ export const postsService = {
     if (!resp.success) {
       throw new Error(resp.message);
     }
+  },
+
+  listTags: async () => {
+    const resp = await GET<IPostTag[]>("/posts/tags/");
+    if (!resp.success) {
+      throw new Error(resp.message);
+    }
+    return resp.data;
   }
 }
