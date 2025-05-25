@@ -8,7 +8,7 @@ import {
 import { authService, usersService } from "../../services";
 import { ILoginForm, IRegisterForm, IUserExtended } from "../../types";
 import { getErrorMessage } from "../../../../shared/utils/errors";
-import { ICreatePostForm } from "../../../posts/types";
+import { ICreatePostForm, IPost } from "../../../posts/types";
 import { postsService } from "../../../posts/services";
 
 interface IUserCtx {
@@ -57,7 +57,8 @@ export function UsersProvider({ children }: { children: ReactNode }) {
         }
         try {
             setIsLoading(true)
-            const post = await postsService.createPost(data)
+            const postPartial = await postsService.createPost(data)
+            const post: IPost = { ...data, ...postPartial, _count: { likedBy: 0, viewedBy: 0 } }
             setUser({ ...user, createdPosts: [...user.createdPosts, post] })
         } catch (err) {
             return getErrorMessage(err);
