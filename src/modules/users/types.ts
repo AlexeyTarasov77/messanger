@@ -44,6 +44,12 @@ export interface IRegisterStepTwo {
     otp6: string;
 }
 
+export interface IRegisterStepThree {
+    firstName: string;
+    lastName: string;
+    username: string;
+}
+
 export interface IRegisterForm extends IRegisterStepOne {
     otp: string;
 }

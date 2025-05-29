@@ -11,7 +11,6 @@ import { renderError } from "../../../shared/utils/errors";
 import { useUserCtx } from "../../users/components/users-ctx/context";
 import { BinIcon } from "../../../shared/ui/icons/bin-icon";
 import { Tag } from "../components/tag";
-import { tags } from "react-native-svg/lib/typescript/xmlTags";
 
 export function CreatePostModal() {
     const { visible, close } = useCreatePostModal();

@@ -7,8 +7,14 @@ import { UserSignature } from "../../../users/components/sig";
 import { useState } from "react";
 import { Menu } from "./menu";
 
-export function PostCard({ post, menuEnabled }: { post: IPostWithAuthor, menuEnabled: boolean }) {
-    const [menuOpened, setMenuOpened] = useState(false)
+export function PostCard({
+    post,
+    menuEnabled,
+}: {
+    post: IPostWithAuthor;
+    menuEnabled: boolean;
+}) {
+    const [menuOpened, setMenuOpened] = useState(false);
     return (
         <View className="border border-border rounded-2xl p-2 gap-2 bg-white">
             <View className="flex-row justify-between py-4 px-2">
@@ -19,17 +25,21 @@ export function PostCard({ post, menuEnabled }: { post: IPostWithAuthor, menuEna
                             <Text>{getUserDisplayName(post.author)}</Text>
                         </View>
                     </View>
-                    {!!post.author.signatureUrl && <UserSignature signatureUrl={post.author.signatureUrl} />}
+                    {!!post.author.signatureUrl && (
+                        <UserSignature
+                            signatureUrl={post.author.signatureUrl}
+                        />
+                    )}
                 </View>
                 <View className="self-center relative">
-                    <TouchableOpacity onPress={() => setMenuOpened(!menuOpened)} >
+                    <TouchableOpacity
+                        onPress={() => setMenuOpened(!menuOpened)}
+                    >
                         <ICONS.PostSettingsIcon height={16} />
                     </TouchableOpacity>
-                    {menuEnabled && menuOpened &&
-                        <Menu postId={post.id} />
-                    }
+                    {menuEnabled && menuOpened && <Menu postId={post.id} />}
                 </View>
-            </View >
+            </View>
             <View className="border-t border-border pt-4 px-2 gap-4">
                 <Text className="flex-wrap text-lg leading-none font-main font-medium">
                     {post.title}
@@ -38,14 +48,14 @@ export function PostCard({ post, menuEnabled }: { post: IPostWithAuthor, menuEna
                     {post.body}
                 </Text>
                 <View className="flex-row flex-wrap font-normal text-sm leading-none">
-                    {post.tags?.map(tag => (
+                    {post.tags?.map((tag) => (
                         <Text className="text-text" key={tag.id}>
                             #{tag.name}
                         </Text>
                     ))}
                 </View>
                 <View className="flex-row flex-wrap justify-center">
-                    {post.media.map(media => (
+                    {post.media.map((media) => (
                         <Image
                             key={media.id}
                             source={{ uri: media.url }}
@@ -65,7 +75,6 @@ export function PostCard({ post, menuEnabled }: { post: IPostWithAuthor, menuEna
                     <Text> {post._count.viewedBy} Переглядів</Text>
                 </View>
             </View>
-        </View >
+        </View>
     );
 }
-

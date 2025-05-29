@@ -10,7 +10,7 @@ export function PostsList() {
     <ScrollView className="bg-mainBg pt-4">
       <View className="gap-4 ">
         {posts.map((item) => {
-          return <PostCard menuEnabled={false} post={item} key={item.id}></PostCard>;
+          return <PostCard menuEnabled={false} post={item} key={item.id}/>;
         })}
       </View>
     </ScrollView>
