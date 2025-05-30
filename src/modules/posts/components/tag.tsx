@@ -1,17 +1,35 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { useTags } from "../hooks/use-tags";
+import { IPost, IPostTag } from "../types";
 
-export function Tag() {
+interface TagProps {
+    selectedTags: IPostTag[];
+    onToggle: (tag: IPostTag) => void;
+}
 
+export function Tag({ selectedTags, onToggle }: TagProps) {
     const { tags } = useTags();
 
     return (
         <View className="flex-row flex-wrap font-normal text-sm leading-none">
-            {tags.map((tag) => (
-                <Text className="text-text" key={tag.id}>
-                    #{tag.name}
-                </Text>
-            ))}
+            {tags.map((tag) => {
+                const isSelected = selectedTags.some((t) => t.id === tag.id);
+                return (
+                    <TouchableOpacity
+                        key={tag.id}
+                        onPress={() => onToggle(tag)}
+                        className={`px-3 py-1 rounded-full ${
+                            isSelected ? "bg-plum" : "bg-border"
+                        }`}
+                    >
+                        <Text
+                            className={isSelected ? "text-white" : "text-dark"}
+                        >
+                            #{tag.name}
+                        </Text>
+                    </TouchableOpacity>
+                );
+            })}
         </View>
     );
 }

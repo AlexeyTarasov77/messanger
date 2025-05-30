@@ -141,9 +141,25 @@ export function CreatePostModal() {
                     <Controller
                         control={control}
                         name="tags"
-                        render={() => {
-                            return <Tag />;
-                        }}
+                        render={({ field }) => (
+                            <Tag
+                                selectedTags={field.value}
+                                onToggle={(tag) => {
+                                    const isSelected = field.value.some(
+                                        (t) => t.id === tag.id
+                                    );
+                                    if (isSelected) {
+                                        field.onChange(
+                                            field.value.filter(
+                                                (t) => t.id !== tag.id
+                                            )
+                                        );
+                                    } else {
+                                        field.onChange([...field.value, tag]);
+                                    }
+                                }}
+                            />
+                        )}
                     />
                     <TouchableOpacity className="rounded-full border-slive border-text border p-2 w-8 justify-center items-center">
                         <ICONS.PlusIcon width={14} height={14} />

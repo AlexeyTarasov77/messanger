@@ -6,16 +6,16 @@ export function useTags() {
     const [isLoading, setIsLoading] = useState(false);
     const [tags, setTags] = useState<IPostTag[]>([]);
     useEffect(() => {
-        const fetchPosts = async () => {
+        const fetchTags = async () => {
             setIsLoading(true);
             try {
-                const posts = await postsService.listTags();
+                const tags = await postsService.listTags();
                 setTags(tags);
             } finally {
                 setIsLoading(false);
             }
         };
-        fetchPosts();
+        fetchTags();
     }, []);
     return { tags, isLoading };
 }
