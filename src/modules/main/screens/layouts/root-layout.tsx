@@ -51,7 +51,7 @@ export function RootLayout() {
     });
 
     return (
-        <RedirectUnauthenticated>
+        <RedirectUnauthenticated >
             <Stack screenOptions={{ header: Header }} />
             <CreatePostModal />
             <RegisterStepThree />
