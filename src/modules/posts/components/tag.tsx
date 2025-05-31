@@ -19,11 +19,11 @@ export function Tag({ selectedTags, onToggle }: TagProps) {
                         key={tag.id}
                         onPress={() => onToggle(tag)}
                         className={`px-3 py-1 rounded-full ${
-                            isSelected ? "bg-plum" : "bg-border"
+                            isSelected ? "bg-slive" : "bg-sliveLight"
                         }`}
                     >
                         <Text
-                            className={isSelected ? "text-white" : "text-dark"}
+                            className={isSelected ? "text-sliveLight" : "text-slive"}
                         >
                             #{tag.name}
                         </Text>

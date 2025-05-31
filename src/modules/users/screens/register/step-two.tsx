@@ -7,6 +7,7 @@ import { IRegisterStepOne, IRegisterStepTwo } from "../../types";
 import { authService } from "../../services";
 import { collectFullCode, otpFieldsDefaults, OTPInput } from "../../components/otp-input";
 import { getErrorMessage, renderError } from "../../../../shared/utils/errors";
+import { RegisterStepThree } from "./step-three";
 
 export function RegisterStepTwo() {
     const router = useRouter();

@@ -11,6 +11,9 @@ import { ScrollView } from "react-native-gesture-handler";
 import { useCreatePostModal } from "../../../posts/components";
 import Modal from "react-native-modal";
 import { useRegisterModal } from "../../components/modal-ctx";
+import { ICONS } from "../../../../shared/ui/icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useUserCtx } from "../../components/users-ctx/context";
 
 export function RegisterStepThree() {
     const router = useRouter();
@@ -24,7 +27,11 @@ export function RegisterStepThree() {
         defaultValues: { username: "", firstName: "", lastName: "" },
     });
 
+    const { user } = useUserCtx();
+
     const { visible, close } = useRegisterModal();
+    console.log("MODAL VISIBLE:", visible);
+
     async function onSubmit() {
         // data: IUser
         // try {
@@ -35,31 +42,34 @@ export function RegisterStepThree() {
         // }
         console.log("Деталі відправились на бек");
     }
+    async function closeAndSkip() {
+        if (user) {
+            await AsyncStorage.setItem(
+                `profile_modal_shown_${user.id}`,
+                "true"
+            );
+        }
+        close();
+    }
 
     return (
         <Modal
             isVisible={visible}
-            onBackdropPress={close}
+            onBackdropPress={closeAndSkip}
             coverScreen={false}
             className="bg-white justify-center items-center rounded-2xl my-auto"
             style={{ maxHeight: "60%" }}
         >
             <ScrollView className="h-full pt-10 bg-mainBg">
                 <View className="self-center items-center rounded-2xl bg-white px-4 py-12">
-                    {/* <View className="flex-row gap-4 justify-center">
-                        <View>
-                            <Text className="font-bold text-2xl color-darkBlue border-b">
-                                Peєстрація
-                            </Text>
-                        </View>
-                        <View>
-                            <Link href="/users/login" asChild>
-                                <Text className="font-bold text-2xl color-grey ">
-                                    Авторизація
-                                </Text>
-                            </Link>
-                        </View>
-                    </View> */}
+                    <View className="w-full flex-row justify-end">
+                        <ICONS.CloseIcon
+                            onPress={closeAndSkip}
+                            width={15}
+                            height={15}
+                            fill="#543C52"
+                        />
+                    </View>
                     <View>
                         <Text className="text-darkBlue font-medium text-2xl self-center pt-8 pb-4">
                             Додай деталі про себе

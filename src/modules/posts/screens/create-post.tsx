@@ -206,6 +206,9 @@ export function CreatePostModal() {
                             );
                         }}
                     />
+                    {/* <TouchableOpacity className="rounded-full border-slive border-text border p-2 w-8 justify-center items-center">
+                        <ICONS.PlusIcon width={14} height={14} />
+                    </TouchableOpacity> */}
 
                     <View
                         style={{ minHeight: 1, maxHeight: 288 }}
@@ -246,16 +249,16 @@ export function CreatePostModal() {
                 <View className="flex-row justify-end gap-2">
                     <TouchableOpacity
                         onPress={pickImage}
-                        className="border border-plum p-2 rounded-3xl"
+                        className="border border-slive p-2 rounded-3xl"
                     >
                         <ICONS.ImageIcon />
                     </TouchableOpacity>
-                    <TouchableOpacity className="border border-plum  p-2 rounded-3xl">
+                    <TouchableOpacity className="border border-slive  p-2 rounded-3xl">
                         <ICONS.SmileyIcon />
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={handleSubmit(onSubmit)}
-                        className="flex-row items-center gap-1 bg-plum p-2 rounded-2xl"
+                        className="flex-row items-center gap-1 bg-slive p-2 rounded-2xl"
                     >
                         <Text className="text-white text-center pl-3 pr-3">
                             Публікація

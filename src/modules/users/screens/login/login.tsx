@@ -7,9 +7,10 @@ import { ILoginForm } from "../../types";
 import { useUserCtx } from "../../components/users-ctx/context";
 import { renderError } from "../../../../shared/utils/errors";
 
+
 export function Login() {
     const router = useRouter();
-    const { login } = useUserCtx();
+    const { login, user } = useUserCtx();
     const {
         handleSubmit,
         control,
@@ -18,6 +19,8 @@ export function Login() {
     } = useForm<ILoginForm>({
         defaultValues: { email: "", password: "" },
     });
+
+
     async function onSubmit(data: ILoginForm) {
         const errMsg = await login(data);
         if (errMsg) {
@@ -26,9 +29,11 @@ export function Login() {
         }
         router.replace("/");
     }
+
+
     return (
         <View className="h-full pt-10 bg-mainBg">
-            <View className=" self-center bg-white rounded-2xl px-4 py-12">
+            <View className=" self-center bg-white rounded-2xl px-4 py-12 w-[90%]">
                 <View className="flex-row gap-4 justify-center">
                     <View>
                         <Link href="/users/register-step-one" asChild>
@@ -69,7 +74,7 @@ export function Login() {
                                     autoCorrect={false}
                                     autoCapitalize="none"
                                     err={fieldState.error}
-                                    className="h-[42] w-full"
+                                    className="h-[42] flex-1"
                                 />
                             );
                         }}

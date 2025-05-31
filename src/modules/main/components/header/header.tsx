@@ -14,7 +14,6 @@ export function Header() {
     const router = useRouter();
     const { user, logout } = useUserCtx();
     const { open: createPostModalOpen } = useCreatePostModal();
-    const { open: registerModalOpen } = useRegisterModal();
     const onLogout = () => {
         logout();
         router.navigate("/users/login");
@@ -38,7 +37,6 @@ export function Header() {
                     </TouchableOpacity>
                     ,
                     <TouchableOpacity
-                        onPress={() => registerModalOpen()}
                         className=" border-text border rounded-full p-2 "
                     >
                         <SettingsIcon width={20} height={20} />

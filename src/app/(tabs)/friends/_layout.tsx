@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 
-export default function ContactsLayout() {
+export default function FriendsLayout() {
   return <Stack screenOptions={{
       headerShown: false,
     }} />

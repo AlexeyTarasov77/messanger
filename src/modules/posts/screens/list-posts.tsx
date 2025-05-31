@@ -3,6 +3,7 @@ import { PostCard } from "../components";
 import { usePosts } from "../hooks/use-posts";
 import { Loader } from "../../../shared/ui/loader/loader";
 
+
 export function PostsList() {
   const { posts, isLoading } = usePosts()
   if (isLoading) return <Loader />
