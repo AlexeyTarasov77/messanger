@@ -10,7 +10,7 @@ export function MyPosts() {
     }
     return (
         <ScrollView className="bg-mainBg pt-4">
-            <View className="gap-4 ">
+            <View className="gap-4 pb-8r">
                 {user.createdPosts.map((post) =>
                     <PostCard menuEnabled={true} key={post.id} post={{ ...post, author: user }}/>
                 )}

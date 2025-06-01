@@ -6,16 +6,16 @@ export function Links() {
 
     return (
         <View className="flex-row justify-around py-8 bg-mainBg">
-            <TouchableOpacity onPress={() => router.push("/friends/main")}>
+            <TouchableOpacity onPress={() => router.replace("/friends/main")}>
                 <Text className="font-medium">Головна</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => router.push("/friends/requests")}>
+            <TouchableOpacity onPress={() => router.replace("/friends/requests")}>
                 <Text className="font-medium">Запити</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => router.push("/friends/recommendations")}>
+            <TouchableOpacity onPress={() => router.replace("/friends/recommendations")}>
                 <Text className="font-medium">Рекомендації</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => router.push("/friends/all-friends")}>
+            <TouchableOpacity onPress={() => router.replace("/friends/all-friends")}>
                 <Text className="font-medium">Всі друзі</Text>
             </TouchableOpacity>
         </View>

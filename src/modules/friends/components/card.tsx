@@ -13,16 +13,18 @@ interface ICardProps {
 export function Card(props: ICardProps) {
     const { title, seeAllLink, children } = props;
     return (
-        <ScrollView className="bg-white rounded-lg mb-10">
-            <View className="flex-row justify-between px-2">
-                <Text className="font-medium">{title}</Text>
+        <View className="bg-white rounded-xl border-border border mb-6 pb-2">
+            <View className="flex-row justify-between px-2 py-4">
+                <Text className="font-medium text-base">{title}</Text>
                 {seeAllLink && (
                     <Link href={seeAllLink}>
-                        <Text className="font-medium text-slive">Дивитись всі</Text>
+                        <Text className="font-medium text-base text-slive">
+                            Дивитись всі
+                        </Text>
                     </Link>
                 )}
             </View>
-            {children}
-        </ScrollView>
+            <ScrollView>{children}</ScrollView>
+        </View>
     );
 }
