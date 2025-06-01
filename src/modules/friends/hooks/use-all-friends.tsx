@@ -6,16 +6,17 @@ export function useAllFriends() {
     const [isLoading, setIsLoading] = useState(false);
     const [allFriends, setAllFriends] = useState<IUser[]>([]);
     useEffect(() => {
-        const fetchAllFiriends = async () => {
+        const fetchAllFriends = async () => {
             setIsLoading(true);
             try {
-                const allFriends = await friendsService.requests();
+                const allFriends = await friendsService.allFriends();
+                console.log("Друзі:", allFriends)
                 setAllFriends(allFriends);
             } finally {
                 setIsLoading(false);
             }
         };
-        fetchAllFiriends();
+        fetchAllFriends();
     }, []);
     return { allFriends, isLoading };
 }

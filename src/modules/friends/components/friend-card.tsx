@@ -10,34 +10,34 @@ interface IFriendCardProps {
     lastName: string;
     username: string;
     leftButton: ReactNode;
-    rigthButton: ReactNode;
+    rightButton: ReactNode;
 }
 
 export function FriendCard(props: IFriendCardProps) {
-    const { avatar, isOnline, firstName, lastName, username, leftButton, rigthButton } =
+    const { avatar, isOnline, firstName, lastName, username, leftButton, rightButton } =
         props;
     return (
-        <View>
+        <View className="border-grey rounded-xl">
             <View>
-                <Image source={{ uri: avatar }} className="rounded-full w-" />
+                <Image source={{ uri: avatar }} className="rounded-full w-[96]" />
                 <View className="absolute bottom-0 right-0">
                     {isOnline ? (
-                        <ICONS.OnlineIcon width={12} height={12} />
+                        <ICONS.OnlineIcon width={18} height={18} />
                     ) : (
-                        <ICONS.OfflineIcon width={12} height={12} />
+                        <ICONS.OfflineIcon width={18} height={18} />
                     )}
                 </View>
             </View>
             <View>
-                <Text>{firstName}</Text>
-                <Text>{lastName}</Text>
+                <Text className="">{firstName}</Text>
+                <Text className="">{lastName}</Text>
             </View>
             <View>
-                <Text>{username}</Text>
+                <Text>@{username}</Text>
             </View>
             <View>
                 {leftButton}
-                {rigthButton}
+                {rightButton}
             </View>
         </View>
     );

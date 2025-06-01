@@ -7,6 +7,7 @@ import { Links } from "../components/links";
 
 export function Requests() {
     const { requests, isLoading } = useRequests();
+    console.log("Requests", requests);
     if (isLoading) return <Loader />;
     return (
         <ScrollView>
@@ -14,13 +15,14 @@ export function Requests() {
                 {requests.map((user) => {
                     return (
                         <FriendCard
+                            key={user.id}
                             avatar={user.avatarUrl || ""}
                             isOnline={user.isOnline || false}
                             firstName={user.firstName || ""}
                             lastName={user.lastName || ""}
-                            username={user.username|| ""}
+                            username={user.username || ""}
                             leftButton={undefined}
-                            rigthButton={undefined}
+                            rightButton={undefined}
                         />
                     );
                 })}
