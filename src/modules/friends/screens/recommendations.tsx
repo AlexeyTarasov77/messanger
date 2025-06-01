@@ -15,11 +15,7 @@ export function Recommendations() {
                     return (
                         <FriendCard
                             key={user.id}
-                            avatar={user.avatarUrl || ""}
-                            isOnline={user.isOnline || false}
-                            firstName={user.firstName || ""}
-                            lastName={user.lastName || ""}
-                            username={user.username || ""}
+                            user={user}
                             leftButton={undefined}
                             rightButton={undefined}
                         />

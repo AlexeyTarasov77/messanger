@@ -15,11 +15,7 @@ export function AllFriends() {
                     return (
                         <FriendCard
                             key={friend.id}
-                            avatar={friend.avatarUrl || ""}
-                            isOnline={friend.isOnline || false}
-                            firstName={friend.firstName || ""}
-                            lastName={friend.lastName || ""}
-                            username={friend.username || ""}
+                            user={friend}
                             leftButton={undefined}
                             rightButton={undefined}
                         />

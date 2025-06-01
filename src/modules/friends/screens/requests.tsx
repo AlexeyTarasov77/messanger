@@ -16,13 +16,7 @@ export function Requests() {
                     return (
                         <FriendCard
                             key={user.id}
-                            avatar={user.avatarUrl || ""}
-                            isOnline={user.isOnline || false}
-                            firstName={user.firstName || ""}
-                            lastName={user.lastName || ""}
-                            username={user.username || ""}
-                            leftButton={undefined}
-                            rightButton={undefined}
+                            user={user}
                         />
                     );
                 })}

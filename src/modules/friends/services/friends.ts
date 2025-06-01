@@ -7,7 +7,6 @@ export const friendsService = {
         if (!resp.success) {
             throw new Error(resp.message);
         }
-        console.log(resp.data)
         return resp.data;
     },
     requests: async () => {
@@ -15,7 +14,6 @@ export const friendsService = {
         if (!resp.success) {
             throw new Error(resp.message);
         }
-        console.log(resp.data)
         return resp.data;
     },
     recommendations: async () => {
