@@ -10,9 +10,11 @@ export default function Layout() {
         <SafeAreaProvider >
             <UsersProvider>
                 <CreatePostModalProvider>
-                    <SafeAreaView style={{ flex: 1 }}>
-                        <RootLayout />
-                    </SafeAreaView>
+                    <RegisterModalProvider>
+                        <SafeAreaView style={{ flex: 1 }}>
+                            <RootLayout />
+                        </SafeAreaView>
+                    </RegisterModalProvider>
                 </CreatePostModalProvider>
             </UsersProvider>
         </SafeAreaProvider>

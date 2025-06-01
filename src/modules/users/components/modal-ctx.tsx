@@ -6,8 +6,8 @@ const RegisterModalContext = createContext<{
     close: () => void;
     visible: boolean;
 }>({
-    open: () => {},
-    close: () => {},
+    open: () => { },
+    close: () => { },
     visible: false,
 });
 
