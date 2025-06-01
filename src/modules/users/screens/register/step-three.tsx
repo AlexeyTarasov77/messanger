@@ -3,7 +3,7 @@ import { Button } from "../../../../shared/ui/button";
 import { Input } from "../../../../shared/ui/input";
 import { Link } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
-import { IRegisterStepThree } from "../../types";
+import { IRegisterStepThree, IUser } from "../../types";
 import { useRouter } from "expo-router";
 import { authService } from "../../services";
 import { getErrorMessage, renderError } from "../../../../shared/utils/errors";
@@ -23,7 +23,7 @@ export function RegisterStepThree() {
         setError,
         formState: { errors },
     } = useForm<IRegisterStepThree>({
-        defaultValues: { username: "", firstName: "", lastName: "" },
+        defaultValues: { firstName: "", lastName: "", username: "" },
     });
 
     const { user } = useUserCtx();
@@ -31,14 +31,13 @@ export function RegisterStepThree() {
     const { visible, close } = useRegisterModal();
     console.log("MODAL VISIBLE:", visible);
 
-    async function onSubmit() {
-        // data: IUser
-        // try {
-        //     await authService.register(data.email);
-        // } catch (err) {
-        //     setError("root", { message: getErrorMessage(err) });
-        //     return;
-        // }
+    async function onSubmit(data: IRegisterStepThree) {
+        try {
+            await authService.update(data);
+        } catch (err) {
+            setError("root", { message: getErrorMessage(err) });
+            return;
+        }
         console.log("Деталі відправились на бек");
     }
     async function closeAndSkip() {
@@ -59,115 +58,117 @@ export function RegisterStepThree() {
             className="bg-white justify-center items-center rounded-2xl my-auto"
             style={{ maxHeight: "60%" }}
         >
-            <ScrollView className="h-full pt-10 bg-mainBg">
-                <View className="self-center items-center rounded-2xl bg-white px-4 py-12">
-                    <View className="w-full flex-row justify-end">
-                        <ICONS.CloseIcon
-                            onPress={closeAndSkip}
-                            width={15}
-                            height={15}
-                            fill="#543C52"
-                        />
-                    </View>
-                    <View>
-                        <Text className="text-darkBlue font-medium text-2xl self-center pt-8 pb-4">
-                            Додай деталі про себе
+            <View className="  self-center items-center rounded-2xl bg-white px-4 ">
+                <View className="w-full flex-row justify-end mt-2 pr-4 pt-4">
+                    <ICONS.CloseIcon
+                        onPress={closeAndSkip}
+                        width={15}
+                        height={15}
+                        fill="#543C52"
+                    />
+                </View>
+                <View>
+                    <Text className="text-darkBlue font-medium text-2xl self-center pt-8 pb-4">
+                        Додай деталі про себе
+                    </Text>
+                </View>
+
+                <View className="self-center gap-10 w-[80%]">
+                    <Controller
+                        control={control}
+                        name="firstName"
+                        rules={{
+                            required: {
+                                value: true,
+                                message: "FirstName is required",
+                            },
+                        }}
+                        render={({ field, fieldState }) => {
+                            return (
+                                <Input
+                                    placeholder="Введіть Ваше ім’я"
+                                    onChange={field.onChange}
+                                    onChangeText={field.onChange}
+                                    value={field.value}
+                                    label="Ім'я"
+                                    autoCorrect={false}
+                                    err={fieldState.error}
+                                    className="h-[42] flex-1"
+                                />
+                            );
+                        }}
+                    />
+                    <Controller
+                        control={control}
+                        name="lastName"
+                        rules={{
+                            required: {
+                                value: true,
+                                message: "LastName is required",
+                            },
+                        }}
+                        render={({ field, fieldState }) => {
+                            return (
+                                <Input
+                                    placeholder="Введіть Ваше прізвище"
+                                    onChange={field.onChange}
+                                    onChangeText={field.onChange}
+                                    value={field.value}
+                                    label="Прізвище"
+                                    autoCorrect={false}
+                                    err={fieldState.error}
+                                    className="h-[42] flex-1"
+                                />
+                            );
+                        }}
+                    />
+                    <Controller
+                        control={control}
+                        name="username"
+                        rules={{
+                            required: {
+                                value: true,
+                                message: "Username is required",
+                            },
+                        }}
+                        render={({ field, fieldState }) => {
+                            return (
+                                <Input
+                                    placeholder="@"
+                                    autoCapitalize="none"
+                                    onChange={field.onChange}
+                                    onChangeText={(text) => {
+                                        field.onChange(text.replace(/^@+/, "").replace(/@/g, ""));
+                                    }}
+                                    value={`@${field.value}`}
+                                    // onChangeText={field.onChange}
+                                    // value={field.value}
+                                    label="Ім'я користувача"
+                                    autoCorrect={false}
+                                    err={fieldState.error}
+                                    className="h-[42] flex-1"
+                                />
+                            );
+                        }}
+                    />
+                    <View className="flex-row gap-2 mr-10">
+                        <Text className="h-fit align-top">Або оберіть:</Text>
+                        <Text className="text-green-600 flex-wrap w-[80%]">
+                            (Запропоновані варіанти відповідно до Ім’я та
+                            Прізвища)
                         </Text>
                     </View>
 
-                    <View className="self-center gap-10 w-[80%]">
-                        <Controller
-                            control={control}
-                            name="firstName"
-                            rules={{
-                                required: {
-                                    value: true,
-                                    message: "FirstName is required",
-                                },
-                            }}
-                            render={({ field, fieldState }) => {
-                                return (
-                                    <Input.Password
-                                        placeholder="Введіть Ваше ім’я"
-                                        onChange={field.onChange}
-                                        onChangeText={field.onChange}
-                                        value={field.value}
-                                        label="Ім'я"
-                                        autoCorrect={false}
-                                        err={fieldState.error}
-                                        className="h-[42]"
-                                    />
-                                );
-                            }}
+                    {renderError(errors.root)}
+                    <View className="self-end w-full ">
+                        <Button
+                            label="Продовжити"
+                            onPress={handleSubmit(onSubmit)}
+                            className="h-[40] w-full py-2 px-6 bg-slive border-border rounded-[1234]"
                         />
-                        <Controller
-                            control={control}
-                            name="lastName"
-                            rules={{
-                                required: {
-                                    value: true,
-                                    message: "LastName is required",
-                                },
-                            }}
-                            render={({ field, fieldState }) => {
-                                return (
-                                    <Input.Password
-                                        placeholder="Повтори пароль"
-                                        onChange={field.onChange}
-                                        onChangeText={field.onChange}
-                                        value={field.value}
-                                        label="Підтверди пароль"
-                                        autoCorrect={false}
-                                        err={fieldState.error}
-                                        className="h-[42] flex-1"
-                                    />
-                                );
-                            }}
-                        />
-                        <Controller
-                            control={control}
-                            name="username"
-                            rules={{
-                                required: {
-                                    value: true,
-                                    message: "Username is required",
-                                },
-                            }}
-                            render={({ field, fieldState }) => {
-                                return (
-                                    <Input
-                                        placeholder="@"
-                                        autoCapitalize="none"
-                                        onChange={field.onChange}
-                                        onChangeText={field.onChange}
-                                        value={field.value}
-                                        label=""
-                                        autoCorrect={false}
-                                        err={fieldState.error}
-                                        className="h-[42] w-full"
-                                    />
-                                );
-                            }}
-                        />
-                        <View>
-                            <Text>Або оберіть:</Text>
-                            <Text>
-                                (Запропоновані варіанти відповідно до Ім’я та
-                                Прізвища)
-                            </Text>
-                        </View>
-
-                        {renderError(errors.root)}
-                        <View>
-                            <Button
-                                label="Створити акаунт"
-                                onPress={handleSubmit(onSubmit)}
-                                className="h-[52] w-full self-center bg-slive border-border rounded-[1234] justify-center"
-                            />
-                        </View>
                     </View>
                 </View>
-            </ScrollView>
+            </View>
         </Modal>
     );
 }

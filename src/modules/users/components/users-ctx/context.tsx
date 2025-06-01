@@ -6,7 +6,7 @@ import {
     useEffect,
 } from "react";
 import { authService, usersService } from "../../services";
-import { ILoginForm, IRegisterForm, IUserExtended } from "../../types";
+import { ILoginForm, IRegisterForm, IRegisterStepThree, IUserExtended } from "../../types";
 import { getErrorMessage } from "../../../../shared/utils/errors";
 import { ICreatePostForm, IPost } from "../../../posts/types";
 import { postsService } from "../../../posts/services";
@@ -16,6 +16,7 @@ interface IUserCtx {
     isLoading: boolean;
     login: (data: ILoginForm) => Promise<string | void>;
     register: (data: IRegisterForm) => Promise<string | void>;
+    update:(data: IRegisterStepThree) => Promise<string | void>
     logout: () => void;
     addPost: (data: ICreatePostForm) => Promise<string | void>;
     removePost: (postId: number) => Promise<string | void>
@@ -106,13 +107,24 @@ export function UsersProvider({ children }: { children: ReactNode }) {
         }
     };
 
+    const update = async (data: IRegisterStepThree) => {
+        try {
+            setIsLoading(true)
+            const resp = await authService.update(data);
+            setToken(resp.token);
+        } catch (err) {
+            return getErrorMessage(err);
+        } finally {
+            setIsLoading(false)
+        }
+    };
     const logout = async () => {
         await authService.logOut()
         setUser(null)
     }
 
     return (
-        <UserCtx.Provider value={{ user, login, register, isLoading, logout, addPost, removePost }}>
+        <UserCtx.Provider value={{ user, login, register, update, isLoading, logout, addPost, removePost }}>
             {children}
         </UserCtx.Provider>
     );

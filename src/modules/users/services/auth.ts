@@ -1,6 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { POST } from "../../../shared/api/client";
-import { ILoginForm, IRegisterForm, IRegisterResponse } from "../types";
+import {
+    ILoginForm,
+    IRegisterForm,
+    IRegisterResponse,
+    IRegisterStepThree,
+} from "../types";
 import { AUTH_TOKEN_KEY } from "../../../shared/constants";
 
 export const authService = {
@@ -15,10 +20,10 @@ export const authService = {
         return token;
     },
     register: async (data: IRegisterForm): Promise<IRegisterResponse> => {
-        const formData = new FormData()
-        formData.append("email", data.email)
-        formData.append("password", data.password)
-        formData.append("otp", data.otp)
+        const formData = new FormData();
+        formData.append("email", data.email);
+        formData.append("password", data.password);
+        formData.append("otp", data.otp);
 
         const resp = await POST<IRegisterResponse>("/users/signup", data);
         if (resp.success === false) {
@@ -28,15 +33,30 @@ export const authService = {
         console.log("Успешная регистрация:", resp.data);
         return resp.data;
     },
+
+    update: async (data: IRegisterStepThree): Promise<IRegisterResponse> => {
+        const formData = new FormData();
+        formData.append("username", data.username);
+        formData.append("firstName", data.firstName);
+        formData.append("lastName", data.lastName);
+         const resp = await POST<IRegisterResponse>("/users/update", data);
+        if (resp.success == false) {
+            throw new Error(resp.message);
+        }
+        const token = resp.data;
+        await AsyncStorage.setItem(AUTH_TOKEN_KEY, resp.data.token);
+        console.log("Обновление юзера:", resp.data);
+        return token;
+    },
     sendOTP: async (email: string) => {
-        const resp = await POST("/users/send-otp", { "email": email });
+        const resp = await POST("/users/send-otp", { email: email });
         if (resp.success === false) {
-            console.log("Failed to send otp token")
+            console.log("Failed to send otp token");
             throw new Error(resp.message);
         }
     },
     logOut: async () => {
         await AsyncStorage.removeItem(AUTH_TOKEN_KEY);
-        console.log("Ви вийшли з акаунту.")
+        console.log("Ви вийшли з акаунту.");
     },
 };
