@@ -22,7 +22,7 @@ export function Recommendations() {
                                 className="flex-row items-center gap-1 bg-slive p-2 rounded-[1234]"
                             >
                                 <Text className="text-white text-center pl-3 pr-3">
-                                    Підтвердити
+                                    Додати
                                 </Text>
                             </TouchableOpacity>
                         }

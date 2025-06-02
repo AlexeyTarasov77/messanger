@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { postsService } from "../../posts/services";
 import { IUser } from "../../users/types";
 import { friendsService } from "../services/friends";
 
