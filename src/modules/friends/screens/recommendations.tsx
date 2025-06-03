@@ -6,7 +6,6 @@ import { useRecommendations } from "../hooks/use-recommendations";
 
 export function Recommendations() {
     const { recommendations, isLoading } = useRecommendations();
-    console.log("Recommendations", recommendations);
     if (isLoading) return <Loader />;
     return (
   

@@ -7,7 +7,6 @@ import { Links } from "../components/links";
 
 export function Requests() {
     const { requests, isLoading } = useRequests();
-    console.log("Requests", requests);
     if (isLoading) return <Loader />;
     return (
         <Card title={"Запити"} seeAllLink={"/friends/requests"}>

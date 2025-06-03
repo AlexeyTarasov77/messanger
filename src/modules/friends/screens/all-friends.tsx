@@ -1,13 +1,11 @@
-import { ScrollView, View, Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import { Card } from "../components/card";
 import { FriendCard } from "../components/friend-card";
 import { Loader } from "../../../shared/ui/loader/loader";
 import { useAllFriends } from "../hooks/use-all-friends";
-import { Button } from "../../../shared/ui/button";
 
 export function AllFriends() {
     const { allFriends, isLoading } = useAllFriends();
-    console.log("AllFriends", allFriends);
     if (isLoading) return <Loader />;
     return (
         <Card title={"Всі друзі"} seeAllLink={"/friends/all-friends"}>

@@ -11,7 +11,6 @@ export function useRequests() {
             setIsLoading(true);
             try {
                 const requests = await friendsService.requests();
-                console.log("Requests:", requests)
                 setRequests(requests);
             } finally {
                 setIsLoading(false);

@@ -10,7 +10,6 @@ export function useRecommendations() {
             setIsLoading(true);
             try {
                 const recommendations = await friendsService.recommendations();
-                console.log("Рекомендовані:", recommendations)
                 setRecommendations(recommendations);
             } finally {
                 setIsLoading(false);

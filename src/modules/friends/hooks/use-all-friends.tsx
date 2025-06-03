@@ -10,7 +10,6 @@ export function useAllFriends() {
             setIsLoading(true);
             try {
                 const allFriends = await friendsService.allFriends();
-                console.log("Друзі:", allFriends)
                 setAllFriends(allFriends);
             } finally {
                 setIsLoading(false);
