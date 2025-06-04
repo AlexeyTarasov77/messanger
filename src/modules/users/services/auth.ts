@@ -39,14 +39,22 @@ export const authService = {
         formData.append("username", data.username);
         formData.append("firstName", data.firstName);
         formData.append("lastName", data.lastName);
-         const resp = await POST<IRegisterResponse>("/users/update", data);
-        if (resp.success == false) {
+
+        const resp = await POST<IRegisterResponse>("/users/update", data);
+
+        if (!resp.success) {
             throw new Error(resp.message);
         }
-        const token = resp.data;
-        await AsyncStorage.setItem(AUTH_TOKEN_KEY, resp.data.token);
+
+        const token = resp.data?.token;
+        if (token) {
+            await AsyncStorage.setItem(AUTH_TOKEN_KEY, token);
+        } else {
+            console.log("No token received from update response");
+        }
+
         console.log("Обновление юзера:", resp.data);
-        return token;
+        return resp.data;
     },
     sendOTP: async (email: string) => {
         const resp = await POST("/users/send-otp", { email: email });

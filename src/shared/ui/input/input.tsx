@@ -13,7 +13,7 @@ export function Input({
 }: IInputProps) {
     return (
         <View>
-            {!!label && <Text className="text-black">{label}</Text>}
+            {!!label && <Text className="text-darkBlue">{label}</Text>}
             <View className="flex-row rounded-2xl px-2 border border-grey">
                 <TextInput placeholderTextColor="#CDCDCD" {...props} />
                 {iconRight && (

@@ -37,8 +37,11 @@ export function RegisterStepThree() {
         } catch (err) {
             setError("root", { message: getErrorMessage(err) });
             return;
+        }finally{
+            console.log("деталі збережені")
+            close()
         }
-        console.log("Деталі відправились на бек");
+        
     }
     async function closeAndSkip() {
         if (user) {
@@ -59,7 +62,7 @@ export function RegisterStepThree() {
             style={{ maxHeight: "60%" }}
         >
             <View className="  self-center items-center rounded-2xl bg-white px-4 ">
-                <View className="w-full flex-row justify-end mt-2 pr-4 pt-4">
+                <View className="w-full flex-row justify-end pr-2 pt-4">
                     <ICONS.CloseIcon
                         onPress={closeAndSkip}
                         width={15}
@@ -160,7 +163,7 @@ export function RegisterStepThree() {
                     </View>
 
                     {renderError(errors.root)}
-                    <View className="self-end w-full ">
+                    <View className="self-end bottom-10">
                         <Button
                             label="Продовжити"
                             onPress={handleSubmit(onSubmit)}
