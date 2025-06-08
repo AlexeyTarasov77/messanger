@@ -26,7 +26,7 @@ export function Header() {
                     <TouchableOpacity onPress={() => createPostModalOpen()} className=" border-text border rounded-full p-2 ">
                         <PlusIcon width={20} height={20} />
                     </TouchableOpacity>,
-                    <TouchableOpacity className=" border-text border rounded-full p-2 ">
+                    <TouchableOpacity className=" border-text border rounded-full p-2 " onPress={() => router.navigate("/settings")}>
                         <SettingsIcon width={20} height={20} />
                     </TouchableOpacity>,
                     <TouchableOpacity

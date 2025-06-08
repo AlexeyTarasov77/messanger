@@ -4,6 +4,14 @@ export interface ILoginForm {
     email: string;
     password: string;
 }
+
+export interface IPersonalInfoForm {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    birthDate?: string;
+}
+
 export interface IUser {
     id: string;
     username?: string;

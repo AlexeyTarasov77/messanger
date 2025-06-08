@@ -1,13 +1,13 @@
 import { Image, View } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
+import { DEFAULT_AVATAR_URL } from "../../../shared/constants"
 
 export function UserAvatar({ user }: { user: { avatarUrl?: string, isOnline: boolean } }) {
-  const defaultAvatarUrl = "https://e7.pngegg.com/pngimages/84/165/png-clipart-united-states-avatar-organization-information-user-avatar-service-computer-wallpaper.png"
   return (
     <View className="flex-row">
       <View>
         <Image
-          source={{ uri: user.avatarUrl || defaultAvatarUrl }}
+          source={{ uri: user.avatarUrl || DEFAULT_AVATAR_URL }}
           className="w-10 h-10 rounded-full"
         />
       </View>
