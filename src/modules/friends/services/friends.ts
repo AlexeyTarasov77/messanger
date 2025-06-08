@@ -1,4 +1,4 @@
-import { GET } from "../../../shared/api/client";
+import { GET, POST } from "../../../shared/api/client";
 import { IUser } from "../../users/types";
 
 export const friendsService = {
@@ -21,7 +21,56 @@ export const friendsService = {
         if (!resp.success) {
             throw new Error(resp.message);
         }
-        console.log(resp.data)
         return resp.data;
     },
+
+    block: async (userId: number) => {
+        const resp = await POST<IUser[]>("/users/block-user", { userId });
+        if (!resp.success) {
+            throw new Error(resp.message);
+        }
+        return resp.data;
+    },
+    addFriend: async (fromUserId: number, toUserId: number) => {
+        const resp = await POST<IUser[]>("/users/add-friend", {
+            fromUserId,
+            toUserId,
+        });
+        if (!resp.success) {
+            throw new Error(resp.message);
+        }
+        return resp.data;
+    },
+    deleteFriend: async (fromUserId: number, toUserId: number) => {
+        const resp = await POST<IUser[]>("/users/delete-friend", {
+            fromUserId,
+            toUserId,
+        });
+        if (!resp.success) {
+            throw new Error(resp.message);
+        }
+        return resp.data;
+    },
+    acceptRequest: async (fromUserId: number, toUserId: number) => {
+        const resp = await POST<IUser[]>("/users/accept-request", {
+            fromUserId,
+            toUserId,
+        });
+        if (!resp.success) {
+            throw new Error(resp.message);
+        }
+        return resp.data;
+    },
+    declineRequest: async (fromUserId: number, toUserId: number) => {
+        const resp = await POST<IUser[]>("/users/decline-request", {
+            fromUserId,
+            toUserId,
+        });
+        if (!resp.success) {
+            throw new Error(resp.message);
+        }
+        return resp.data;
+    },
+
+    // message: async () => {}
 };

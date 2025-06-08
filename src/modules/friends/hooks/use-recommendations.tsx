@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { IUser } from "../../users/types";
-import { friendsService } from "../services/friends";
+import { friendsService } from "../services";
 
 export function useRecommendations() {
     const [isLoading, setIsLoading] = useState(false);

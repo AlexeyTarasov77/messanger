@@ -16,6 +16,7 @@ export interface IUser {
     avatarUrl?: string;
     createdAt: string;
     updatedAt: string;
+    blockedById?: number;
 }
 
 export interface IUserExtended extends IUser {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { friendsService } from "../services/friends";
+import { friendsService } from "../services";
 import { IUser } from "../../users/types";
 
 export function useAllFriends() {

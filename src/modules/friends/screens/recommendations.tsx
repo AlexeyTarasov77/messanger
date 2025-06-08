@@ -3,21 +3,28 @@ import { Card } from "../components/card";
 import { FriendCard } from "../components/friend-card";
 import { Loader } from "../../../shared/ui/loader/loader";
 import { useRecommendations } from "../hooks/use-recommendations";
+import { friendsService } from "../services";
+import { useUserCtx } from "../../users/components/users-ctx/context";
 
 export function Recommendations() {
     const { recommendations, isLoading } = useRecommendations();
-    if (isLoading) return <Loader />;
+    const { user } = useUserCtx()
+    if (isLoading || !user) return <Loader />;
     return (
-  
         <Card title={"Рекомендації"} seeAllLink={"/friends/recommendations"}>
-            {recommendations.map((user) => {
+            {recommendations.map((recommendedUser) => {
                 return (
                     <FriendCard
-                        key={user.id}
-                        user={user}
+                        key={recommendedUser.id}
+                        user={recommendedUser}
                         leftButton={
                             <TouchableOpacity
-                                // onPress={}
+                                // onPress={async () => {
+                                //     await friendsService.addFriend(
+                                //         Number(user.id),
+                                //         Number(recommendedUser.id)
+                                //     );
+                                // }}
                                 className="flex-row items-center gap-1 bg-slive p-2 rounded-[1234]"
                             >
                                 <Text className="text-white text-center pl-3 pr-3">
@@ -39,6 +46,5 @@ export function Recommendations() {
                 );
             })}
         </Card>
-
     );
 }
