@@ -15,5 +15,5 @@ export default function Layout() {
         </CreatePostModalProvider>
       </UsersProvider>
     </SafeAreaProvider>
-  )
+  );
 }

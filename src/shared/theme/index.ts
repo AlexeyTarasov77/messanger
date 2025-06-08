@@ -1,5 +1,4 @@
-
-export const defaultTheme = {}
+export const defaultTheme = {};
 export const darkTheme = {
-  ...defaultTheme
-}
+  ...defaultTheme,
+};

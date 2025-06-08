@@ -1,16 +1,20 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
 
 const CreatePostModalContext = createContext<{
   open: () => void;
   close: () => void;
   visible: boolean;
 }>({
-  open: () => { },
-  close: () => { },
+  open: () => {},
+  close: () => {},
   visible: false,
 });
 
-export const CreatePostModalProvider = ({ children }: { children: React.ReactNode }) => {
+export const CreatePostModalProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [visible, setVisible] = useState(false);
 
   return (

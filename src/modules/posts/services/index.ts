@@ -1,2 +1,1 @@
 export { postsService } from "./posts";
-

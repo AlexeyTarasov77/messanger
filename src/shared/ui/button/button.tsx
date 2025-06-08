@@ -20,8 +20,6 @@
 // 	);
 // }
 
-
-
 // function UserAvatarTypeOne(props: IButtonProps) {
 // 	const [image, setImage] = useState<string>("")
 // 	async function onSearch() {
@@ -130,20 +128,14 @@
 
 // Button.UserAvatarTypeOne = UserAvatarTypeOne
 
-
 import { TouchableOpacity, Text } from "react-native";
-import { IButtonProps } from "./button.types"; 
-
+import { IButtonProps } from "./button.types";
 
 export function Button(props: IButtonProps) {
-	const { label, disabled, ...touchableOpacityProps } = props;
-	return (
-		<TouchableOpacity
-			{...touchableOpacityProps}
-			disabled={disabled}
-		>
-			<Text className="self-center text-white text-xl font-bold">{label}</Text>
-		</TouchableOpacity>
-	);
+  const { label, disabled, ...touchableOpacityProps } = props;
+  return (
+    <TouchableOpacity {...touchableOpacityProps} disabled={disabled}>
+      <Text className="self-center text-white text-xl font-bold">{label}</Text>
+    </TouchableOpacity>
+  );
 }
-

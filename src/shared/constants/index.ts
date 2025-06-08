@@ -1,3 +1,3 @@
 export * from "./base";
 export { posts } from "./posts";
-export { DEFAULT_AVATAR_URL } from "./user"
+export { DEFAULT_AVATAR_URL } from "./user";

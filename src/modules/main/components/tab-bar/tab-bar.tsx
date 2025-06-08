@@ -6,7 +6,7 @@ export function TabBar() {
   const tabBarLabelStyle: StyleProp<TextStyle> = {
     color: "black",
     fontWeight: "bold",
-  }
+  };
   return (
     <Tabs screenOptions={{ headerShown: false }}>
       {tabs.map(({ name, title, icon: Icon }) => (
@@ -16,7 +16,9 @@ export function TabBar() {
           options={{
             title,
             tabBarLabelStyle,
-            tabBarIcon: ({ size, focused }) => <Icon active={focused} width={size} height={size} />,
+            tabBarIcon: ({ size, focused }) => (
+              <Icon active={focused} width={size} height={size} />
+            ),
           }}
         />
       ))}
@@ -28,5 +30,4 @@ export function TabBar() {
       />
     </Tabs>
   );
-
 }

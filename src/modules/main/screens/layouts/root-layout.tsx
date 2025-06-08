@@ -12,7 +12,7 @@ export function RootLayout() {
   useEffect(() => {
     const setTheme = async () => {
       const selectedTheme = (await AsyncStorage.getItem(
-        THEME_STORAGE_KEY
+        THEME_STORAGE_KEY,
       )) as ReturnType<typeof useColorScheme>["colorScheme"];
       setColorScheme(selectedTheme || "system");
     };

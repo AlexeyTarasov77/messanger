@@ -1,12 +1,8 @@
-import Svg, { Circle, Path, SvgProps } from "react-native-svg"
+import Svg, { Circle, Path, SvgProps } from "react-native-svg";
 
 export function SettingsIcon(props: SvgProps) {
   return (
-    <Svg
-      viewBox="0 0 21 20"
-      fill="none"
-      {...props}
-    >
+    <Svg viewBox="0 0 21 20" fill="none" {...props}>
       <Circle
         cx={2.34996}
         cy={2.34996}
@@ -22,5 +18,5 @@ export function SettingsIcon(props: SvgProps) {
         fillOpacity={1}
       />
     </Svg>
-  )
+  );
 }

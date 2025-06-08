@@ -1,14 +1,8 @@
-import Svg, { Rect, SvgProps } from "react-native-svg"
+import Svg, { Rect, SvgProps } from "react-native-svg";
 
 export function OnlineIcon(props: SvgProps) {
   return (
-    <Svg
-      width={18}
-      height={18}
-      viewBox="0 0 18 18"
-      fill="none"
-      {...props}
-    >
+    <Svg width={18} height={18} viewBox="0 0 18 18" fill="none" {...props}>
       <Rect
         x={1.875}
         y={1.875}
@@ -29,5 +23,5 @@ export function OnlineIcon(props: SvgProps) {
         strokeOpacity={1}
       />
     </Svg>
-  )
+  );
 }

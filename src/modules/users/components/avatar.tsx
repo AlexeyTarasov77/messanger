@@ -1,8 +1,12 @@
 import { Image, View } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
-import { DEFAULT_AVATAR_URL } from "../../../shared/constants"
+import { DEFAULT_AVATAR_URL } from "../../../shared/constants";
 
-export function UserAvatar({ user }: { user: { avatarUrl?: string, isOnline: boolean } }) {
+export function UserAvatar({
+  user,
+}: {
+  user: { avatarUrl?: string; isOnline: boolean };
+}) {
   return (
     <View className="flex-row">
       <View>
@@ -19,5 +23,5 @@ export function UserAvatar({ user }: { user: { avatarUrl?: string, isOnline: boo
         )}
       </View>
     </View>
-  )
+  );
 }
