@@ -8,14 +8,14 @@ export function Input({
     label,
     err,
     iconRight,
-
+    disabled,
     ...props
 }: IInputProps) {
     return (
         <View>
-            {!!label && <Text className="text-black">{label}</Text>}
-            <View className="flex-row rounded-2xl px-2 border border-grey">
-                <TextInput placeholderTextColor="#CDCDCD" {...props} />
+            {!!label && <Text className={disabled ? "text-gray-400" : "text-black"}>{label}</Text>}
+            <View className={`flex-row rounded-2xl px-2 border ${disabled ? "border-gray-400" : "border-grey"} ${props.className}`}>
+                <TextInput placeholderTextColor="#CDCDCD" {...props} className={disabled ? "text-gray-400" : ""} readOnly={disabled} />
                 {iconRight && (
                     <View style={{ marginLeft: "auto" }}>{iconRight}</View>
                 )}

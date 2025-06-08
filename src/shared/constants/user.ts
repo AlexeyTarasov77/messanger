@@ -1,17 +1,18 @@
+export const DEFAULT_AVATAR_URL = "https://e7.pngegg.com/pngimages/84/165/png-clipart-united-states-avatar-organization-information-user-avatar-service-computer-wallpaper.png"
 export const user = {
     id: "1",
     username: "Lina Li",
     isOnline: true,
-    avatarUrl:"",
-    email:"",
-    password:"",
-    createdAt:"",
-    updatedAt:"",
-    viewedPosts:[],
-    likedPosts:[],
+    avatarUrl: "",
+    email: "",
+    password: "",
+    createdAt: "",
+    updatedAt: "",
+    viewedPosts: [],
+    likedPosts: [],
     createdPosts: [
         {
-            id:1,
+            id: 1,
             body: "Інколи найкращі ідеї народжуються в тиші 🌿 Природа, книга і спокій — усе, що потрібно, аби перезавантажитись.",
             tags: [
                 "відпочинок",

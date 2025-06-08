@@ -6,5 +6,6 @@ export interface IInputProps extends TextInputProps {
     iconRight?: ReactNode,
     err?: FieldError;
     label?: string
+    disabled?: boolean
 }
 
