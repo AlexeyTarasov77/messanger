@@ -1,8 +1,9 @@
+import { View } from "react-native"
 import Svg, { Path, SvgProps } from "react-native-svg"
 
-export function ChatsIcon(props: SvgProps) {
+export function ChatsIcon({ active, ...props }: SvgProps & { active: boolean }) {
   return (
-    <Svg
+    <View className={active ? "border-t-2 border-slive" : ""}><Svg
       width={17}
       height={18}
       viewBox="0 0 17 18"
@@ -23,6 +24,6 @@ export function ChatsIcon(props: SvgProps) {
         strokeLinejoin="round"
         strokeOpacity={1}
       />
-    </Svg>
+    </Svg></View>
   )
 }

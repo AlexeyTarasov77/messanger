@@ -16,10 +16,16 @@ export function TabBar() {
           options={{
             title,
             tabBarLabelStyle,
-            tabBarIcon: ({ size }) => <Icon width={size} height={size} />,
+            tabBarIcon: ({ size, focused }) => <Icon active={focused} width={size} height={size} />,
           }}
         />
       ))}
+      <Tabs.Screen
+        name="settings"
+        options={{
+          href: null,
+        }}
+      />
     </Tabs>
   );
 

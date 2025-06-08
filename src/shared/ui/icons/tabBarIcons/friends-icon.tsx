@@ -1,8 +1,9 @@
+import { View } from "react-native"
 import Svg, { Path, SvgProps } from "react-native-svg"
 
-export function FriendsIcon(props: SvgProps) {
+export function FriendsIcon({ active, ...props }: SvgProps & { active: boolean }) {
   return (
-    <Svg
+    <View className={active ? "border-t-2 border-slive" : ""}><Svg
       width={21}
       height={14}
       viewBox="0 0 21 14"
@@ -15,6 +16,6 @@ export function FriendsIcon(props: SvgProps) {
         fill="#070A1C"
         fillOpacity={1}
       />
-    </Svg>
+    </Svg></View>
   )
 }

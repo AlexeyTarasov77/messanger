@@ -75,3 +75,20 @@ export async function DELETE(
     });
 }
 
+
+export async function PATCH<T>(
+    path: string | URL,
+    data: any,
+): APIResponse<T> {
+    const headers: HeadersInit = {}
+    if (!(data instanceof FormData)) {
+        headers["Content-Type"] = "application/json"
+        data = JSON.stringify(data)
+    }
+    return await sendReq(path, {
+        method: "PATCH",
+        body: data,
+        headers,
+    });
+}
+
