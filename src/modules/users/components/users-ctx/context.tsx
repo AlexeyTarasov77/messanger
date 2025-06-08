@@ -6,7 +6,7 @@ import {
     useEffect,
 } from "react";
 import { authService, usersService } from "../../services";
-import { ILoginForm, IRegisterForm, IUserExtended } from "../../types";
+import { ILoginForm, IRegisterForm, IUser, IUserExtended } from "../../types";
 import { getErrorMessage } from "../../../../shared/utils/errors";
 import { ICreatePostForm, IPost } from "../../../posts/types";
 import { postsService } from "../../../posts/services";
@@ -18,6 +18,7 @@ interface IUserCtx {
     register: (data: IRegisterForm) => Promise<string | void>;
     logout: () => void;
     addPost: (data: ICreatePostForm) => Promise<string | void>;
+    updateUserData: (updatedData: Partial<IUser>) => void;
     removePost: (postId: number) => Promise<string | void>
 }
 
@@ -111,8 +112,13 @@ export function UsersProvider({ children }: { children: ReactNode }) {
         setUser(null)
     }
 
+    const updateUserData = (updatedData: Partial<IUser>) => {
+        if (!user) throw new Error("Not authenticated")
+        setUser({ ...user, ...updatedData })
+    }
+
     return (
-        <UserCtx.Provider value={{ user, login, register, isLoading, logout, addPost, removePost }}>
+        <UserCtx.Provider value={{ user, login, register, isLoading, logout, addPost, removePost, updateUserData }}>
             {children}
         </UserCtx.Provider>
     );

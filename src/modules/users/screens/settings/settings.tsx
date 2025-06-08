@@ -4,8 +4,8 @@ import { Albums } from "./albums"
 import { Text, TouchableOpacity, View } from "react-native"
 
 enum Tabs {
-  PERSONAL_INFO = "Personal info",
-  ALBUMS = "Albums"
+  PERSONAL_INFO = "Особиста інформація",
+  ALBUMS = "Альбоми"
 }
 
 export function SettingsScreen() {

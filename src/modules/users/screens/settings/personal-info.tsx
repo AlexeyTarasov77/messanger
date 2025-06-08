@@ -1,12 +1,15 @@
-import { Image, View, Text } from "react-native";
+import { Image, View, Text, Alert } from "react-native";
 import { useUserCtx } from "../../components/users-ctx/context";
 import { DEFAULT_AVATAR_URL } from "../../../../shared/constants";
 import { getUserDisplayName } from "../../utils";
 import { EditBlock } from "../../components/ edit-block";
 import { ReactNode, useState } from "react";
-import { IPersonalInfoForm, IUser } from "../../types";
+import { IPersonalInfoForm } from "../../types";
 import { Controller, useForm } from "react-hook-form";
 import { Input } from "../../../../shared/ui/input";
+import { usersService } from "../../services";
+import { getErrorMessage } from "../../../../shared/utils/errors";
+import { formatDate } from "../../../../shared/utils/dates";
 
 const Block = ({ children, className }: { children: ReactNode, className?: string }) => {
   return <View className={`bg-white p-4 rounded-xl border-border ${className}`}>
@@ -14,11 +17,20 @@ const Block = ({ children, className }: { children: ReactNode, className?: strin
   </View>
 }
 
-function MainBlock({ user }: { user: IUser }) {
+function MainBlock() {
+  const { user, updateUserData } = useUserCtx()
+  if (!user) return
   const [isEditMode, setIsEditMode] = useState(false)
   const { control, handleSubmit } = useForm<IPersonalInfoForm>({ defaultValues: user })
-  const onSubmit = (data: IPersonalInfoForm) => {
-
+  const onSubmit = async (data: IPersonalInfoForm) => {
+    try {
+      const updatedUser = await usersService.updateUser(data)
+      updateUserData(updatedUser)
+    } catch (err) {
+      Alert.alert("Update failure", getErrorMessage(err))
+      return
+    }
+    setIsEditMode(false)
   }
   return (
     <Block className="gap-6">
@@ -89,7 +101,7 @@ function MainBlock({ user }: { user: IUser }) {
                 disabled={!isEditMode}
                 onChange={field.onChange}
                 onChangeText={field.onChange}
-                value={field.value}
+                value={formatDate(new Date(field.value!), "%d-%m-%YYYY")}
                 label="Дата народження"
                 autoCorrect={false}
                 err={fieldState.error}
@@ -129,7 +141,9 @@ function MainBlock({ user }: { user: IUser }) {
   )
 }
 
-function SignatureOptionsBlock({ user }: { user: IUser }) {
+function SignatureOptionsBlock() {
+  const { user, updateUserData } = useUserCtx()
+  if (!user) return
   const [isEditMode, setIsEditMode] = useState(false)
   const { control, handleSubmit } = useForm<IPersonalInfoForm>({ defaultValues: user })
   const onSubmit = (data: IPersonalInfoForm) => {
@@ -142,7 +156,9 @@ function SignatureOptionsBlock({ user }: { user: IUser }) {
   )
 }
 
-function ProfileCardBlock({ user }: { user: IUser }) {
+function ProfileCardBlock() {
+  const { user, updateUserData } = useUserCtx()
+  if (!user) return
   const [isEditMode, setIsEditMode] = useState(false)
   const { control, handleSubmit } = useForm<IPersonalInfoForm>({ defaultValues: user })
   const onSubmit = (data: IPersonalInfoForm) => {
@@ -175,9 +191,9 @@ export function PersonalInfo() {
   if (!user) return
   return (
     <View className="gap-2">
-      <ProfileCardBlock user={user} />
-      <MainBlock user={user} />
-      <SignatureOptionsBlock user={user} />
+      <ProfileCardBlock />
+      <MainBlock />
+      <SignatureOptionsBlock />
     </View>
   )
 }
