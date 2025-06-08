@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import Svg, { Path, SvgProps } from "react-native-svg";
 
-export function HomeIcon({ active, ...props }: SvgProps & { active: boolean }) {
+export function HomeIcon({ active, ...props }: SvgProps & { active?: boolean }) {
   return (
     <View className={active ? "border-t-2 border-slive" : ""}>
       <Svg width={16} height={16} viewBox="0 0 16 16" fill="none" {...props}>

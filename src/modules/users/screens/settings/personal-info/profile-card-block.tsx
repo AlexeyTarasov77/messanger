@@ -6,7 +6,7 @@ import { usersService } from "../../../services";
 import { getErrorMessage } from "../../../../../shared/utils/errors";
 import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 import { pickImage } from "../../../../../shared/utils/images";
-import { Block } from "./block";
+import { Block } from "../block";
 import { EditBlock } from "../../../components/ edit-block";
 import { ICONS } from "../../../../../shared/ui/icons";
 import { getUserDisplayName } from "../../../utils";
@@ -40,7 +40,7 @@ export function ProfileCardBlock() {
   };
   const userAvatarUrl = user.avatarUrl || DEFAULT_AVATAR_URL
   return (
-    <Block className="gap-4">
+    <Block>
       <EditBlock
         label="Картка профiлю"
         isEditMode={isEditMode}

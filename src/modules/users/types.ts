@@ -1,3 +1,4 @@
+import { Media } from "../main/types";
 import { IPost } from "../posts/types";
 
 export interface ILoginForm {
@@ -31,10 +32,19 @@ export interface IUser {
   updatedAt: string;
 }
 
+export interface IAlbum {
+  id: string;
+  name: string;
+  subject: string;
+  year: number
+  photos: Media[]
+}
+
 export interface IUserExtended extends IUser {
   createdPosts: IPost[];
   viewedPosts: IPost[];
   likedPosts: IPost[];
+  albums: IAlbum[];
 }
 
 export interface IRegisterResponse {

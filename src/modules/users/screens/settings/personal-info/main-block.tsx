@@ -8,7 +8,7 @@ import { Input } from "../../../../../shared/ui/input";
 import { usersService } from "../../../services";
 import { getErrorMessage } from "../../../../../shared/utils/errors";
 import { formatDate } from "../../../../../shared/utils/dates";
-import { Block } from "./block";
+import { Block } from "../block";
 
 
 export function MainBlock() {

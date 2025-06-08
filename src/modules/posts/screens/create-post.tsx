@@ -5,18 +5,19 @@ import { ICONS } from "../../../shared/ui/icons";
 import * as ImagePicker from "expo-image-picker";
 import { Controller, useForm } from "react-hook-form";
 import { Input } from "../../../shared/ui/input/input";
-import { ICreatePostForm, PostMedia, PostMediaType } from "../types";
+import { ICreatePostForm } from "../types";
 import { useCreatePostModal } from "../components";
 import { renderError } from "../../../shared/utils/errors";
 import { useUserCtx } from "../../users/components/users-ctx/context";
 import { BinIcon } from "../../../shared/ui/icons/bin-icon";
 import { pickImage } from "../../../shared/utils/images";
+import { MediaType } from "../../main/types";
 
 export function CreatePostModal() {
   const { visible, close } = useCreatePostModal();
   const { addPost } = useUserCtx();
   // images contains array of base64 encoded selected images
-  const [images, setImages] = useState<PostMedia[]>([]);
+  const [images, setImages] = useState<ICreatePostForm["media"]>([]);
   const {
     handleSubmit,
     control,
@@ -43,7 +44,7 @@ export function CreatePostModal() {
         ...prev,
         ...result.assets.map((asset) => ({
           url: String(asset.uri),
-          type: asset.type as PostMediaType,
+          type: asset.type as MediaType,
         })),
       ]);
     }

@@ -1,1 +1,1 @@
-export { Layout as PersonalInfo } from "./layout"
+export { Layout as PersonalInfoSection } from "./layout"

@@ -4,7 +4,7 @@ import Svg, { Path, SvgProps } from "react-native-svg";
 export function PostsIcon({
   active,
   ...props
-}: SvgProps & { active: boolean }) {
+}: SvgProps & { active?: boolean }) {
   return (
     <View className={active ? "border-t-2 border-slive" : ""}>
       <Svg width={21} height={20} viewBox="0 0 21 20" fill="none" {...props}>

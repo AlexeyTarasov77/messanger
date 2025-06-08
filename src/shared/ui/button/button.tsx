@@ -1,135 +1,5 @@
-// import { TouchableOpacity, Text, View, Image, FlatList } from "react-native";
-// import { IButtonProps } from "./button.types";
-// import GradientBorder from '../gradientBorder/gradientBorder';
-// import { launchImageLibraryAsync, requestMediaLibraryPermissionsAsync } from 'expo-image-picker'
-// import { useState } from "react";
-// import { Controller, useForm } from "react-hook-form";
-// import { posts } from "../../constants";
-
-// const defaultImage = require("../../../../assets/user-image.png");
-
-// export function Button(props: IButtonProps) {
-// 	const { label, disabled, ...touchableOpacityProps } = props;
-// 	return (
-// 		<TouchableOpacity
-// 			{...touchableOpacityProps}
-// 			disabled={disabled}
-// 		>
-// 			<Text className="self-center text-white dark:text-bgLight text-xl font-bold">{label}</Text>
-// 		</TouchableOpacity>
-// 	);
-// }
-
-// function UserAvatarTypeOne(props: IButtonProps) {
-// 	const [image, setImage] = useState<string>("")
-// 	async function onSearch() {
-// 		const result = await requestMediaLibraryPermissionsAsync()
-// 		if (result.status === "granted") {
-// 			const images = await launchImageLibraryAsync({
-// 				mediaTypes: "images",
-// 				allowsEditing: true,
-// 				allowsMultipleSelection: false,
-// 				selectionLimit: 1,
-// 				base64: false,
-// 			});
-// 			if (images.assets) {
-// 				setImage(images.assets[0].uri)
-// 			}
-// 		} else {
-// 		}
-// 	}
-// 	const { label, disabled, ...touchableOpacityProps } = props;
-// 	return (
-// 		<GradientBorder.Button borderRadius={90} borderWidth={3} style={{ padding: 0, }}>
-// 			<TouchableOpacity
-// 				onPress={onSearch}
-// 				{...touchableOpacityProps}
-// 				disabled={disabled}
-// 				style={{
-// 					borderRadius: 60,
-// 				}}>
-// 				<View className="items-center justify-center"
-// 				// style={{
-// 				// 	alignItems: "center",
-// 				// 	justifyContent: "center",
-// 				// 	gap: 5,
-// 				// }}
-// 				>
-// 					<View className="items-center justify-center p-5"
-// 					// style={{
-// 					// 	position: "relative",
-// 					// 	width: 75,
-// 					// 	height: 75,
-// 					// }}
-// 					>
-// 						<Image
-// 							source={image ? { uri: image } : defaultImage}
-// 							className="w-32 h-32 "
-// 							style={{ borderRadius: 60 }}
-// 							resizeMode="cover"
-// 						/>
-// 					</View>
-// 				</View>
-// 			</TouchableOpacity>
-// 		</GradientBorder.Button >
-// 	);
-// }
-
-// Button.UserAvatarTypeOne = UserAvatarTypeOne
-
-// function UserAvatarTypeTwo(props: IButtonProps) {
-// 	const [image, setImage] = useState<string>("")
-// 	async function onSearch() {
-// 		const result = await requestMediaLibraryPermissionsAsync()
-// 		if (result.status === "granted") {
-// 			const images = await launchImageLibraryAsync({
-// 				mediaTypes: "images",
-// 				allowsEditing: true,
-// 				allowsMultipleSelection: false,
-// 				selectionLimit: 1,
-// 				base64: false,
-// 			});
-// 			if (images.assets) {
-// 				setImage(images.assets[0].uri)
-// 			}
-// 		} else {
-// 		}
-// 	}
-// 	const { label, disabled, ...touchableOpacityProps } = props;
-// 	return (
-// 		<GradientBorder.Button borderRadius={90} borderWidth={3} style={{ padding: 0, }}>
-// 			<TouchableOpacity
-// 				onPress={onSearch}
-// 				{...touchableOpacityProps}
-// 				disabled={disabled}
-// 				style={{
-// 					borderRadius: 60,
-// 				}}>
-
-// 				<FlatList
-// 					data={posts}
-// 					renderItem={({ item }) => {
-// 						return (
-// 							<View className="items-center justify-center">
-// 								<View className="items-center justify-center p-5">
-// 									<Image
-// 										source={{ uri: item.author.avatarUrl }}
-// 										className="w-10 h-10"
-// 									/>
-// 								</View>
-// 							</View>)
-// 					}}
-// 				/>
-
-// 			</TouchableOpacity>
-// 		</GradientBorder.Button >
-// 	);
-// }
-
-// Button.UserAvatarTypeOne = UserAvatarTypeOne
-
 import { TouchableOpacity, Text } from "react-native";
-import { IButtonProps } from "./button.types";
+import { IButtonProps, IRoundedButtonProps } from "./button.types";
 
 export function Button(props: IButtonProps) {
   const { label, disabled, ...touchableOpacityProps } = props;
@@ -138,4 +8,18 @@ export function Button(props: IButtonProps) {
       <Text className="self-center text-white text-xl font-bold">{label}</Text>
     </TouchableOpacity>
   );
+}
+
+export function RoundedButton({ label, disabled, filled, className, icon, ...props }: IRoundedButtonProps) {
+  return (
+    <TouchableOpacity
+      className={`flex-row gap-2 rounded-full border border-slive p-3 items-center justify-center ${className} ${filled ? "bg-purple-50" : ""}`}
+      {...props} disabled={disabled}
+    >
+      {icon}
+      {label &&
+        <Text className="text-slive text-lg">{label}</Text>
+      }
+    </TouchableOpacity>
+  )
 }

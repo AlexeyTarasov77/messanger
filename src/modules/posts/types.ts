@@ -1,14 +1,9 @@
+import { Media } from "../main/types";
+
 export interface IPostTag {
   id: number;
   name: string;
 }
-
-export type PostMediaType = "image" | "video";
-
-export type PostMedia = {
-  type: PostMediaType;
-  url: string;
-};
 
 export interface ICreatePostForm {
   link?: string;
@@ -16,7 +11,7 @@ export interface ICreatePostForm {
   subject: string;
   tags: IPostTag[];
   body: string;
-  media: PostMedia[];
+  media: Omit<Media, "id">[];
 }
 
 export interface IPost {
@@ -26,7 +21,7 @@ export interface IPost {
   subject: string;
   tags?: IPostTag[];
   body: string;
-  media: (PostMedia & { id: number })[];
+  media: Media[];
   _count: {
     likedBy: number;
     viewedBy: number;

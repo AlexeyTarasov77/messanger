@@ -4,7 +4,7 @@ import Svg, { Path, SvgProps } from "react-native-svg";
 export function ChatsIcon({
   active,
   ...props
-}: SvgProps & { active: boolean }) {
+}: SvgProps & { active?: boolean }) {
   return (
     <View className={active ? "border-t-2 border-slive" : ""}>
       <Svg width={17} height={18} viewBox="0 0 17 18" fill="none" {...props}>

@@ -1,10 +1,10 @@
 import {
-  TouchableOpacity,
   View,
   TouchableOpacityProps,
-  Text,
 } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
+import { Heading } from "../../../shared/ui/heading/heading";
+import { RoundedButton } from "../../../shared/ui/button/button";
 
 interface IEditBlockProps extends Omit<TouchableOpacityProps, "onPress"> {
   label: string;
@@ -21,27 +21,24 @@ export function EditBlock({
   ...rest
 }: IEditBlockProps) {
   return (
-    <View className="flex-row justify-between items-center">
-      <Text className="text-darkBlue text-lg">{label}</Text>
+    <Heading label={label} action={
       <View className="gap-2 flex-row">
-        <TouchableOpacity
-          className={`flex-row gap-2 rounded-full border border-slive p-3 items-center justify-center ${isEditMode ? "bg-purple-50" : ""}`}
+        <RoundedButton
+          filled={isEditMode}
           {...rest}
           onPress={() => (isEditMode ? onSave() : toggleMode())}
-        >
-          <ICONS.EditIcon width={15} height={15} />
-          {isEditMode && <Text>Зберегти</Text>}
-        </TouchableOpacity>
+          label={isEditMode ? "Зберегти" : undefined}
+          icon={<ICONS.EditIcon width={15} height={15} />}
+        />
         {isEditMode && (
-          <TouchableOpacity
-            className="rounded-full border border-slive p-3 items-center justify-center"
+          <RoundedButton
             {...rest}
             onPress={toggleMode}
-          >
-            <ICONS.CloseIcon width={15} height={15} />
-          </TouchableOpacity>
+            icon={<ICONS.CloseIcon width={15} height={15} />}
+          />
         )}
       </View>
-    </View>
+    }
+    />
   );
 }

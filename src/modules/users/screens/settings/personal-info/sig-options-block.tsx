@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useUserCtx } from "../../../components/users-ctx/context";
 import { useForm } from "react-hook-form";
 import { IPersonalInfoForm } from "../../../types";
-import { Block } from "./block";
+import { Block } from "../block";
 import { EditBlock } from "../../../components/ edit-block";
 
 export function SignatureOptionsBlock() {
@@ -14,7 +14,7 @@ export function SignatureOptionsBlock() {
   });
   const onSubmit = (data: IPersonalInfoForm) => { };
   return (
-    <Block className="gap-4">
+    <Block>
       <EditBlock
         label="Варiанти пiдпису"
         isEditMode={isEditMode}
