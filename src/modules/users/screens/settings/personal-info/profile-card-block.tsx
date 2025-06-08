@@ -17,8 +17,8 @@ export function ProfileCardBlock() {
   const { user, updateUserData } = useUserCtx();
   if (!user) return;
   const [isEditMode, setIsEditMode] = useState(false);
-  const { control, handleSubmit, setValue } = useForm<IProfileCardForm>({
-    defaultValues: user,
+  const { control, handleSubmit, setValue, watch } = useForm<IProfileCardForm>({
+    defaultValues: { ...user, avatarUrl: "" },
   });
   const onSubmit = async (data: IProfileCardForm) => {
     try {
@@ -33,12 +33,12 @@ export function ProfileCardBlock() {
   const pickProfileImage = async () => {
     const result = await pickImage({
       mediaTypes: "images",
-      base64: true,
     });
     if (result && !result.canceled) {
-      setValue("avatarUrl", result.assets[0].base64!);
+      setValue("avatarUrl", result.assets[0].uri);
     }
   };
+  const userAvatarUrl = user.avatarUrl || DEFAULT_AVATAR_URL
   return (
     <Block className="gap-4">
       <EditBlock
@@ -49,13 +49,15 @@ export function ProfileCardBlock() {
       />
       <View className="gap-6 items-center justify-center">
         <View className="relative">
+          {/* using watch in Image.source instead of getValues().avatarUrl 
+          because value in getValues().avatarUrl does not get immediately updated on setValue */}
           <Image
-            source={{ uri: user.avatarUrl || DEFAULT_AVATAR_URL }}
-            className="w-24 h-24 rounded-full"
+            source={{ uri: watch("avatarUrl") || userAvatarUrl }}
+            className={`w-24 h-24 rounded-full ${isEditMode ? "opacity-60" : ""}`}
           />
           {isEditMode && (
-            <TouchableOpacity className="absolute" onPress={pickProfileImage}>
-              <ICONS.SearchIcon width={96} height={96} />
+            <TouchableOpacity className="absolute top-4 left-4" onPress={pickProfileImage}>
+              <ICONS.SearchIcon svg={{ width: 50, height: 50 }} />
             </TouchableOpacity>
           )}
         </View>
@@ -81,7 +83,6 @@ export function ProfileCardBlock() {
                     onChange={field.onChange}
                     onChangeText={field.onChange}
                     value={field.value}
-                    label="Iм'я користувача"
                     autoCorrect={false}
                     err={fieldState.error}
                   />

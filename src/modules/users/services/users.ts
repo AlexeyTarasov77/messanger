@@ -1,4 +1,5 @@
 import { GET, PATCH } from "../../../shared/api/client";
+import { getImageData } from "../../../shared/utils/images";
 import { IUser, IUserExtended } from "../types";
 
 export const usersService = {
@@ -28,6 +29,10 @@ export const usersService = {
     }
     if (data.birthDate) {
       formData.append("birthDate", data.birthDate);
+    }
+    console.log("AVATAR URL", data.avatarUrl)
+    if (data.avatarUrl) {
+      formData.append("avatar", getImageData(data.avatarUrl) as any)
     }
     const resp = await PATCH<IUser>("/users/me/update", formData);
     if (!resp.success) {
