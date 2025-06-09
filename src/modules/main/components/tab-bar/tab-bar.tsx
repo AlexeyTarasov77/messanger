@@ -6,7 +6,7 @@ export function TabBar() {
   const tabBarLabelStyle: StyleProp<TextStyle> = {
     color: "darkBlue",
     fontWeight: "bold",
-  }
+  };
   return (
     <Tabs screenOptions={{ headerShown: false }}>
       {tabs.map(({ name, title, icon: Icon }) => (
@@ -22,5 +22,4 @@ export function TabBar() {
       ))}
     </Tabs>
   );
-
 }

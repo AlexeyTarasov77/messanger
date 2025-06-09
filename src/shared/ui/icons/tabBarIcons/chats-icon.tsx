@@ -1,14 +1,8 @@
-import Svg, { Path, SvgProps } from "react-native-svg"
+import Svg, { Path, SvgProps } from "react-native-svg";
 
 export function ChatsIcon(props: SvgProps) {
   return (
-    <Svg
-      width={17}
-      height={18}
-      viewBox="0 0 17 18"
-      fill="none"
-      {...props}
-    >
+    <Svg width={17} height={18} viewBox="0 0 17 18" fill="none" {...props}>
       <Path
         d="M.985 9a7.515 7.515 0 0115.03 0v4.782c0 .796 0 1.193-.118 1.511a1.88 1.88 0 01-1.104 1.104c-.318.118-.716.118-1.511.118H8.5A7.515 7.515 0 01.985 9z"
         stroke="#070A1C"
@@ -24,5 +18,5 @@ export function ChatsIcon(props: SvgProps) {
         strokeOpacity={1}
       />
     </Svg>
-  )
+  );
 }

@@ -1,22 +1,8 @@
-
-import Svg, {
-    ClipPath,
-    Defs,
-    G,
-    Path,
-
-    SvgProps,
-} from "react-native-svg";
+import Svg, { ClipPath, Defs, G, Path, SvgProps } from "react-native-svg";
 
 export function EyeIcon(props: SvgProps) {
-    return (
-    <Svg
-      width={20}
-      height={20}
-      viewBox="0 0 20 20"
-      fill="none"
-      {...props}
-    >
+  return (
+    <Svg width={20} height={20} viewBox="0 0 20 20" fill="none" {...props}>
       <G
         clipPath="url(#clip0_55_2723)"
         stroke="#81818D"
@@ -41,7 +27,5 @@ export function EyeIcon(props: SvgProps) {
         </ClipPath>
       </Defs>
     </Svg>
-  )
+  );
 }
-
-

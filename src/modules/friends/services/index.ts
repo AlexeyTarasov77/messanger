@@ -1,1 +1,1 @@
-export {friendsService} from "./friends"
+export { friendsService } from "./friends";

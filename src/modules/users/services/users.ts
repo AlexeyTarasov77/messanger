@@ -8,8 +8,8 @@ export const usersService = {
       if (resp.status !== 401) {
         throw new Error(resp.message);
       }
-      return null
+      return null;
     }
     return resp.data;
   },
-}
+};

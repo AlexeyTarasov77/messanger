@@ -1,15 +1,8 @@
-import Svg, { Path, SvgProps } from "react-native-svg"
+import Svg, { Path, SvgProps } from "react-native-svg";
 
 export function PostsIcon(props: SvgProps) {
   return (
-    <Svg
-      width={21}
-      height={20}
-      viewBox="0 0 21 20"
-      fill="none"
-
-      {...props}
-    >
+    <Svg width={21} height={20} viewBox="0 0 21 20" fill="none" {...props}>
       <Path
         d="M2 5a3.333 3.333 0 013.333-3.333h10A3.334 3.334 0 0118.667 5v10a3.333 3.333 0 01-3.334 3.333h-10A3.333 3.333 0 012 15V5z"
         stroke="#070A1C"
@@ -27,5 +20,5 @@ export function PostsIcon(props: SvgProps) {
         strokeOpacity={1}
       />
     </Svg>
-  )
+  );
 }

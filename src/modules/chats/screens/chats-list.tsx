@@ -1,12 +1,12 @@
 import { Link, useRouter } from "expo-router";
 import {
-    TextInput,
-    ScrollView,
-    TouchableOpacity,
-    Text,
-    View,
-    useColorScheme,
-    Button,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+  Text,
+  View,
+  useColorScheme,
+  Button,
 } from "react-native";
 import { StyleSheet } from "react-native";
 
@@ -21,58 +21,58 @@ import { verifyInstallation } from "nativewind";
 import { COLOR_PALETTE } from "../../../shared/theme/colors";
 
 export function ChatsListScreen() {
-    verifyInstallation();
-    //   const router = useRouter()
-    //   const colorScheme = useColorScheme()
+  verifyInstallation();
+  //   const router = useRouter()
+  //   const colorScheme = useColorScheme()
 
-    //   const colors = colorScheme === "light"
-    //     ? ([
-    //       COLOR_PALETTE.lightTheme.gradientColors.top,
-    //       COLOR_PALETTE.lightTheme.gradientColors.bottom,
-    //       //   COLOR_PALETTE.lightTheme.border,
-    //       //   COLOR_PALETTE.lightTheme.text,
-    //       //   COLOR_PALETTE.lightTheme.background,
-    //       //   COLOR_PALETTE.lightTheme.shadowColor,
-    //     ] as const)
-    //     : ([
-    //       COLOR_PALETTE.darkTheme.gradientColors.top,
-    //       COLOR_PALETTE.darkTheme.gradientColors.bottom,
-    //       //   COLOR_PALETTE.darkTheme.border,
-    //       //   COLOR_PALETTE.darkTheme.text,
-    //       //   COLOR_PALETTE.darkTheme.textNext,
-    //       //   COLOR_PALETTE.darkTheme.background,
-    //       //   COLOR_PALETTE.darkTheme.shadowColor,
-    //     ] as const)
+  //   const colors = colorScheme === "light"
+  //     ? ([
+  //       COLOR_PALETTE.lightTheme.gradientColors.top,
+  //       COLOR_PALETTE.lightTheme.gradientColors.bottom,
+  //       //   COLOR_PALETTE.lightTheme.border,
+  //       //   COLOR_PALETTE.lightTheme.text,
+  //       //   COLOR_PALETTE.lightTheme.background,
+  //       //   COLOR_PALETTE.lightTheme.shadowColor,
+  //     ] as const)
+  //     : ([
+  //       COLOR_PALETTE.darkTheme.gradientColors.top,
+  //       COLOR_PALETTE.darkTheme.gradientColors.bottom,
+  //       //   COLOR_PALETTE.darkTheme.border,
+  //       //   COLOR_PALETTE.darkTheme.text,
+  //       //   COLOR_PALETTE.darkTheme.textNext,
+  //       //   COLOR_PALETTE.darkTheme.background,
+  //       //   COLOR_PALETTE.darkTheme.shadowColor,
+  //     ] as const)
 
-    return (
-        <ScrollView className="m-5 gap-5">
-            <View className="flex-row items-center gap-5">
-                {/* justify-center  */}
-                {/* shadow-lg shadow-[#77B5BF] */}
-                <View>
-                    <Text>Chat list</Text>
-                    <Link href="/users/profile" asChild>
-                        <Button title="Go to profile" />
-                    </Link>
+  return (
+    <ScrollView className="m-5 gap-5">
+      <View className="flex-row items-center gap-5">
+        {/* justify-center  */}
+        {/* shadow-lg shadow-[#77B5BF] */}
+        <View>
+          <Text>Chat list</Text>
+          <Link href="/users/profile" asChild>
+            <Button title="Go to profile" />
+          </Link>
 
-                    <Link href="/users/register-step-one" asChild>
-                        <Button title="Register (RegisterStepOne)" />
-                    </Link>
-                    <Link href="/users/register-step-two" asChild>
-                        <Button title="Register (RegisterStepTwo)" />
-                    </Link>
+          <Link href="/users/register-step-one" asChild>
+            <Button title="Register (RegisterStepOne)" />
+          </Link>
+          <Link href="/users/register-step-two" asChild>
+            <Button title="Register (RegisterStepTwo)" />
+          </Link>
 
-                    <Link href="/users/login" asChild>
-                        <Button title="Login" />
-                    </Link>
+          <Link href="/users/login" asChild>
+            <Button title="Login" />
+          </Link>
 
-                    <Link href="/_sitemap" asChild>
-                        <Button title="Sitemap" />
-                    </Link>
-                </View>
-            </View>
-            {/* <View className="w-20 h-20"> */}
-            {/* <LinearGradient
+          <Link href="/_sitemap" asChild>
+            <Button title="Sitemap" />
+          </Link>
+        </View>
+      </View>
+      {/* <View className="w-20 h-20"> */}
+      {/* <LinearGradient
             colors={colors}
             style={[
               styles.linearGradientUser,
@@ -86,10 +86,10 @@ export function ChatsListScreen() {
             <ICONS.UserIcon className="w-15 h-15" />
 
             {/* <UserIcon className="w-15 h-15" /> */}
-            {/* </LinearGradient>
+      {/* </LinearGradient>
         </View> */}
-            {/* текст Inter */}
-            {/* <Text className="text-textColor text-2xl">Chats</Text>
+      {/* текст Inter */}
+      {/* <Text className="text-textColor text-2xl">Chats</Text>
       </View>
 
       <TextInput
@@ -131,7 +131,7 @@ export function ChatsListScreen() {
 
               {/* <UserIcon className="w-15 h-15" /> */}
 
-            {/* </LinearGradient>
+      {/* </LinearGradient>
           </View>
 
           <View className="">
@@ -161,16 +161,16 @@ export function ChatsListScreen() {
 
       <TouchableOpacity onPress={() => router.navigate("/chats/1")} className=""> */}
 
-            {/* <ICONS.PenIcon className="w-15 h-15" /> */}
+      {/* <ICONS.PenIcon className="w-15 h-15" /> */}
 
-            {/* <PenIcon className="w-15 h-15" /> */}
+      {/* <PenIcon className="w-15 h-15" /> */}
 
-            {/* </TouchableOpacity> */}
-            {/* Link может обертывать только компонент Text по дефолту или компонент принимающий проп onPress (какой то из подвидов кнопок) С УКАЗАНИЕМ asChild для Link*/}
+      {/* </TouchableOpacity> */}
+      {/* Link может обертывать только компонент Text по дефолту или компонент принимающий проп onPress (какой то из подвидов кнопок) С УКАЗАНИЕМ asChild для Link*/}
 
-            {/* <Link href="/users/registration"><Text>reg</Text></Link>   */}
-        </ScrollView>
-    );
+      {/* <Link href="/users/registration"><Text>reg</Text></Link>   */}
+    </ScrollView>
+  );
 }
 
 // const styles = StyleSheet.create({

@@ -13,24 +13,31 @@ const otpFieldNames: (keyof IRegisterStepTwo)[] = [
   "otp6",
 ];
 
-export const otpFieldsDefaults = Object.fromEntries(otpFieldNames.map(fieldName => [fieldName, ""]))
-
+export const otpFieldsDefaults = Object.fromEntries(
+  otpFieldNames.map((fieldName) => [fieldName, ""]),
+);
 
 export const collectFullCode = (data: IRegisterStepTwo): string => {
   return otpFieldNames.map((name) => data[name]).join("");
-}
+};
 
-export function OTPInput({ control, errors }: { control: Control<IRegisterStepTwo>, errors: FieldErrors<IRegisterStepTwo> }) {
+export function OTPInput({
+  control,
+  errors,
+}: {
+  control: Control<IRegisterStepTwo>;
+  errors: FieldErrors<IRegisterStepTwo>;
+}) {
   const getError = () => {
     let err: FieldError | undefined;
-    otpFieldNames.forEach(name => {
+    otpFieldNames.forEach((name) => {
       if (errors[name]) {
         err = errors[name];
       }
-    })
-    return err
-  }
-  const inputErr = getError()
+    });
+    return err;
+  };
+  const inputErr = getError();
   const otpInputs = otpFieldNames.map((fieldName, index) => (
     <View className="flex-row" key={index}>
       <Controller
@@ -64,15 +71,13 @@ export function OTPInput({ control, errors }: { control: Control<IRegisterStepTw
     otpInpusPairs.push(
       <View className="flex-row gap-2" key={i}>
         {otpInputs.slice(i, i + 2)}
-      </View>
+      </View>,
     );
   }
   return (
     <View className="flex items-center">
-      <View className="flex-row gap-6 pb-8">
-        {otpInpusPairs}
-      </View>
+      <View className="flex-row gap-6 pb-8">{otpInpusPairs}</View>
       {renderError(inputErr)}
-    </View >
-  )
+    </View>
+  );
 }
