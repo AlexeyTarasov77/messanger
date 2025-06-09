@@ -4,7 +4,7 @@ import { StyleProp, TextStyle } from "react-native";
 
 export function TabBar() {
   const tabBarLabelStyle: StyleProp<TextStyle> = {
-    color: "black",
+    color: "darkBlue",
     fontWeight: "bold",
   };
   return (

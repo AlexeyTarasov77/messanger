@@ -1,6 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { POST } from "../../../shared/api/client";
-import { ILoginForm, IRegisterForm, IRegisterResponse } from "../types";
+import {
+  ILoginForm,
+  IRegisterForm,
+  IRegisterResponse,
+  IRegisterStepThree,
+} from "../types";
 import { AUTH_TOKEN_KEY } from "../../../shared/constants";
 
 export const authService = {

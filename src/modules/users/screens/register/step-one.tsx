@@ -36,7 +36,7 @@ export function RegisterStepOne() {
   }
   return (
     <View className="h-full pt-10 bg-mainBg">
-      <View className="self-center items-center rounded-2xl bg-white px-4 py-12">
+      <View className="self-center items-center rounded-2xl bg-white px-4 py-12 w-[90%]">
         <View className="flex-row gap-4 justify-center">
           <View>
             <Text className="font-bold text-2xl color-darkBlue border-b">
@@ -78,7 +78,7 @@ export function RegisterStepOne() {
                   label="Електронна пошта"
                   autoCorrect={false}
                   err={fieldState.error}
-                  className="h-[42] w-full"
+                  className="h-[42] flex-1"
                 />
               );
             }}
@@ -106,7 +106,7 @@ export function RegisterStepOne() {
                   label="Пароль"
                   autoCorrect={false}
                   err={fieldState.error}
-                  className="h-[42]"
+                  className="h-[42] flex-1"
                 />
               );
             }}

@@ -8,6 +8,7 @@ import {
 } from "../../../../shared/ui/icons/headerIcons";
 import { useUserCtx } from "../../../users/components/users-ctx/context";
 import { useCreatePostModal } from "../../../posts/components";
+import { useRegisterModal } from "../../../users/components/modal-ctx";
 
 export function Header() {
   const router = useRouter();

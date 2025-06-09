@@ -30,6 +30,7 @@ export interface IUser {
   avatarUrl?: string;
   createdAt: string;
   updatedAt: string;
+  blockedById?: number;
 }
 
 export interface IAlbum {
@@ -65,6 +66,12 @@ export interface IRegisterStepTwo {
   otp4: string;
   otp5: string;
   otp6: string;
+}
+
+export interface IRegisterStepThree {
+  firstName: string;
+  lastName: string;
+  username: string;
 }
 
 export interface IRegisterForm extends IRegisterStepOne {

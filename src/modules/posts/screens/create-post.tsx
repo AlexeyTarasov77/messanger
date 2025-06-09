@@ -12,6 +12,7 @@ import { useUserCtx } from "../../users/components/users-ctx/context";
 import { BinIcon } from "../../../shared/ui/icons/bin-icon";
 import { pickImage } from "../../../shared/utils/images";
 import { MediaType } from "../../main/types";
+import { Tag } from "../components/tag";
 
 export function CreatePostModal() {
   const { visible, close } = useCreatePostModal();
@@ -94,6 +95,7 @@ export function CreatePostModal() {
             render={({ field, fieldState }) => {
               return (
                 <Input
+                  className="w-full"
                   placeholder="Напишіть назву публікації"
                   onChange={field.onChange}
                   onChangeText={field.onChange}
@@ -118,6 +120,7 @@ export function CreatePostModal() {
             render={({ field, fieldState }) => {
               return (
                 <Input
+                  className="w-full"
                   placeholder="Напишіть тему публікації"
                   onChange={field.onChange}
                   onChangeText={field.onChange}
@@ -129,6 +132,26 @@ export function CreatePostModal() {
               );
             }}
           />
+          <Controller
+            control={control}
+            name="tags"
+            render={({ field }) => (
+              <Tag
+                selectedTags={field.value}
+                onToggle={(tag) => {
+                  const isSelected = field.value.some((t) => t.id === tag.id);
+                  if (isSelected) {
+                    field.onChange(field.value.filter((t) => t.id !== tag.id));
+                  } else {
+                    field.onChange([...field.value, tag]);
+                  }
+                }}
+              />
+            )}
+          />
+          <TouchableOpacity className="rounded-full border-slive border-text border p-2 w-8 justify-center items-center">
+            <ICONS.PlusIcon width={14} height={14} />
+          </TouchableOpacity>
 
           <Controller
             control={control}
@@ -148,7 +171,7 @@ export function CreatePostModal() {
                   value={field.value}
                   autoCorrect={false}
                   err={fieldState.error}
-                  className=" h-28 align-top"
+                  className=" h-28 align-top w-full"
                 />
               );
             }}
@@ -159,6 +182,7 @@ export function CreatePostModal() {
             render={({ field, fieldState }) => {
               return (
                 <Input
+                  className="w-full"
                   placeholder="Напишіть посилання"
                   onChange={field.onChange}
                   onChangeText={field.onChange}
@@ -170,6 +194,9 @@ export function CreatePostModal() {
               );
             }}
           />
+          {/* <TouchableOpacity className="rounded-full border-slive border-text border p-2 w-8 justify-center items-center">
+                        <ICONS.PlusIcon width={14} height={14} />
+                    </TouchableOpacity> */}
 
           <View
             style={{ minHeight: 1, maxHeight: 288 }}
@@ -207,7 +234,7 @@ export function CreatePostModal() {
           >
             <ICONS.ImageIcon />
           </TouchableOpacity>
-          <TouchableOpacity className="border border-plum  p-2 rounded-3xl">
+          <TouchableOpacity className="border border-slive  p-2 rounded-3xl">
             <ICONS.SmileyIcon />
           </TouchableOpacity>
           <TouchableOpacity

@@ -6,7 +6,12 @@ import {
   useEffect,
 } from "react";
 import { authService, usersService } from "../../services";
-import { ILoginForm, IRegisterForm, IUser, IUserExtended } from "../../types";
+import {
+  ILoginForm,
+  IRegisterForm,
+  IUser,
+  IUserExtended,
+} from "../../types";
 import { getErrorMessage } from "../../../../shared/utils/errors";
 import { ICreatePostForm, IPost } from "../../../posts/types";
 import { postsService } from "../../../posts/services";
@@ -123,7 +128,6 @@ export function UsersProvider({ children }: { children: ReactNode }) {
     if (!user) throw new Error("Not authenticated");
     setUser({ ...user, ...updatedData });
   };
-
   return (
     <UserCtx.Provider
       value={{

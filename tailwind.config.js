@@ -10,7 +10,7 @@ module.exports = {
                 mainBg: "#FAF8FF",
                 slive: "#543C52",
                 darkBlue: "#070A1C",
-                plum: '#543C52',
+                sliveLight:"#E9E5EE"
             },
             fontFamily: {
                 main: "GT Walsheim Pro"

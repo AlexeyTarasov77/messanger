@@ -20,7 +20,7 @@ export function PostCard({
       <View className="flex-row justify-between py-4 px-2">
         <View>
           <View className="flex-row items-center gap-4">
-            <UserAvatar user={post.author} />
+            <UserAvatar user={post.author} width={12} height={12} />
             <View className="font-medium text-sm">
               <Text>{getUserDisplayName(post.author)}</Text>
             </View>
