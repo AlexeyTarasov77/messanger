@@ -11,6 +11,9 @@ export function Requests() {
     const { requests, isLoading } = useRequests();
     const { user } = useUserCtx();
     if (isLoading || !user) return <Loader />;
+    const acceptRequest = async (fromUserId: number) => {
+        await friendsService.acceptRequest(fromUserId);
+    }
     return (
         <Card title={"Запити"} seeAllLink={"/friends/requests"}>
             {requests.map((requestUser) => {
@@ -22,7 +25,6 @@ export function Requests() {
                             <TouchableOpacity
                                 onPress={async () => {
                                     await friendsService.acceptRequest(
-                                        Number(user.id),
                                         Number(requestUser.id)
                                     );
                                 }}
@@ -37,7 +39,6 @@ export function Requests() {
                             <TouchableOpacity
                                 onPress={async () => {
                                     await friendsService.declineRequest(
-                                        Number(user.id),
                                         Number(requestUser.id)
                                     );
                                 }}

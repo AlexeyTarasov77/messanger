@@ -31,9 +31,8 @@ export const friendsService = {
         }
         return resp.data;
     },
-    addFriend: async (fromUserId: number, toUserId: number) => {
+    createFriendRequest: async (toUserId: number) => {
         const resp = await POST<IUser[]>("/users/add-friend", {
-            fromUserId,
             toUserId,
         });
         if (!resp.success) {
@@ -51,20 +50,18 @@ export const friendsService = {
         }
         return resp.data;
     },
-    acceptRequest: async (fromUserId: number, toUserId: number) => {
+    acceptRequest: async (fromUserId: number) => {
         const resp = await POST<IUser[]>("/users/accept-request", {
             fromUserId,
-            toUserId,
         });
         if (!resp.success) {
             throw new Error(resp.message);
         }
         return resp.data;
     },
-    declineRequest: async (fromUserId: number, toUserId: number) => {
+    declineRequest: async (fromUserId: number) => {
         const resp = await POST<IUser[]>("/users/decline-request", {
             fromUserId,
-            toUserId,
         });
         if (!resp.success) {
             throw new Error(resp.message);

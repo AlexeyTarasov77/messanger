@@ -19,12 +19,11 @@ export function Recommendations() {
                         user={recommendedUser}
                         leftButton={
                             <TouchableOpacity
-                                // onPress={async () => {
-                                //     await friendsService.addFriend(
-                                //         Number(user.id),
-                                //         Number(recommendedUser.id)
-                                //     );
-                                // }}
+                                onPress={async () => {
+                                    await friendsService.createFriendRequest(
+                                        Number(recommendedUser.id)
+                                    );
+                                }}
                                 className="flex-row items-center gap-1 bg-slive p-2 rounded-[1234]"
                             >
                                 <Text className="text-white text-center pl-3 pr-3">
