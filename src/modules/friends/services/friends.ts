@@ -1,4 +1,4 @@
-import { GET, POST } from "../../../shared/api/client";
+import { DELETE, GET, POST } from "../../../shared/api/client";
 import { IUser } from "../../users/types";
 
 export const friendsService = {
@@ -32,7 +32,7 @@ export const friendsService = {
     return resp.data;
   },
   createFriendRequest: async (toUserId: number) => {
-    const resp = await POST<IUser[]>("/users/add-friend", {
+    const resp = await POST<IUser[]>("/users/requests/create", {
       toUserId,
     });
     if (!resp.success) {
@@ -40,18 +40,14 @@ export const friendsService = {
     }
     return resp.data;
   },
-  deleteFriend: async (fromUserId: number, toUserId: number) => {
-    const resp = await POST<IUser[]>("/users/delete-friend", {
-      fromUserId,
-      toUserId,
-    });
+  deleteFriend: async (friendId: number) => {
+    const resp = await DELETE("/users/delete-friend/" + friendId);
     if (!resp.success) {
       throw new Error(resp.message);
     }
-    return resp.data;
   },
   acceptRequest: async (fromUserId: number) => {
-    const resp = await POST<IUser[]>("/users/accept-request", {
+    const resp = await POST<IUser[]>("/users/requests/accept", {
       fromUserId,
     });
     if (!resp.success) {
@@ -60,9 +56,7 @@ export const friendsService = {
     return resp.data;
   },
   declineRequest: async (fromUserId: number) => {
-    const resp = await POST<IUser[]>("/users/decline-request", {
-      fromUserId,
-    });
+    const resp = await DELETE("/users/requests/decline/" + fromUserId);
     if (!resp.success) {
       throw new Error(resp.message);
     }

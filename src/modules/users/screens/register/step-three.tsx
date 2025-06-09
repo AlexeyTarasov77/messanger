@@ -5,7 +5,7 @@ import { Link } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { IRegisterStepThree, IUser } from "../../types";
 import { useRouter } from "expo-router";
-import { authService } from "../../services";
+import { authService, usersService } from "../../services";
 import { getErrorMessage, renderError } from "../../../../shared/utils/errors";
 import { ScrollView } from "react-native";
 import Modal from "react-native-modal";
@@ -33,7 +33,7 @@ export function RegisterStepThree() {
 
   async function onSubmit(data: IRegisterStepThree) {
     try {
-      await authService.update(data);
+      await usersService.updateUser(data);
     } catch (err) {
       setError("root", { message: getErrorMessage(err) });
       return;

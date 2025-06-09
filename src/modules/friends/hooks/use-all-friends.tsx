@@ -17,5 +17,5 @@ export function useAllFriends() {
     };
     fetchAllFriends();
   }, []);
-  return { allFriends, isLoading };
+  return { allFriends, isLoading, setAllFriends };
 }

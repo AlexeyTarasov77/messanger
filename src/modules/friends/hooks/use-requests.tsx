@@ -17,5 +17,5 @@ export function useRequests() {
     };
     fetchRequests();
   }, []);
-  return { requests, isLoading };
+  return { requests, isLoading, setRequests };
 }
