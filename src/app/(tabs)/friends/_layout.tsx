@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { Links } from "../../../modules/friends/components/links";
+import { Links } from "../../../modules/friends/components/links-bar";
 
 export default function FriendsLayout() {
     return (
@@ -7,8 +7,7 @@ export default function FriendsLayout() {
             <Links />
             <Stack
                 screenOptions={{
-                    headerShown: false,
-                    
+                    headerShown: false,   
                 }}
                 
             />

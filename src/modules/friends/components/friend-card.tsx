@@ -23,7 +23,7 @@ export function FriendCard(props: IFriendCardProps) {
                 <Text className="text-2xl font-bold">{getUserDisplayName(user)}</Text>
             </View>
             <View>
-                <Text className=" text-black font-medium">@{getUserDisplayName(user)}</Text>
+                <Text className=" text-black font-medium">@{user.username}</Text>
             </View>
             <View className="flex-row justify-center gap-2 ">
                 {leftButton}

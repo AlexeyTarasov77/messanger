@@ -3,7 +3,7 @@ import { FriendCard } from "../components/friend-card";
 import { Card } from "../components/card";
 import { useRequests } from "../hooks/use-requests";
 import { Loader } from "../../../shared/ui/loader/loader";
-import { Links } from "../components/links";
+import { Links } from "../components/links-bar";
 import { friendsService } from "../services";
 import { useUserCtx } from "../../users/components/users-ctx/context";
 
