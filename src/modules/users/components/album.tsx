@@ -23,7 +23,7 @@ export function Album({ albumData }: { albumData: IAlbum }) {
       <Text className="text-darkBlue">Фотографіїї</Text>
       <View className="flex-row justify-between items-center flex-wrap">
         {albumData.photos.map(photo => (
-          <View className="relative mt-3" key={photo.id} style={{ flex: 1 }}>
+          <View className="relative mt-3" key={photo.id} >
             <Image source={{ uri: photo.url }} className="rounded-xl" width={160} height={160} />
             <View className="absolute top-28 left-16 gap-2 flex-row">
               <RoundedButton filled icon={<ICONS.EyeIcon width={20} height={20} />} />
