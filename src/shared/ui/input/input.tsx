@@ -4,6 +4,36 @@ import { ICONS } from "../icons";
 import { useState } from "react";
 import { renderError } from "../../utils/errors";
 
+// export function Input({
+//   label,
+//   err,
+//   iconRight,
+//   disabled,
+//   ...props
+// }: IInputProps) {
+//   return (
+//     <View>
+//       {!!label && (
+//         <Text className={disabled ? "text-gray-400" : "text-black"}>
+//           {label}
+//         </Text>
+//       )}
+//       <View
+//         className={`flex-row rounded-2xl px-2 border ${disabled ? "border-gray-400" : "border-grey"} ${props.className}`}
+//       >
+//         <TextInput
+//           placeholderTextColor="#CDCDCD"
+//           {...props}
+//           className={disabled ? "text-gray-400" : ""}
+//           readOnly={disabled}
+//         />
+//         {iconRight && <View style={{ marginLeft: "auto" }}>{iconRight}</View>}
+//       </View>
+//       {renderError(err)}
+//     </View>
+//   );
+// }
+
 export function Input({
   label,
   err,
@@ -24,7 +54,7 @@ export function Input({
         <TextInput
           placeholderTextColor="#CDCDCD"
           {...props}
-          className={disabled ? "text-gray-400" : ""}
+          className={`w-full  ${disabled ? "text-gray-400" : " "} ${props.className}`}
           readOnly={disabled}
         />
         {iconRight && <View style={{ marginLeft: "auto" }}>{iconRight}</View>}

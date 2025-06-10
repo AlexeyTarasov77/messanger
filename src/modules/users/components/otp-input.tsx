@@ -59,7 +59,7 @@ export function OTPInput({
             maxLength={1}
             autoCapitalize="none"
             autoCorrect={false}
-            className="h-[40] w-8 text-center border-grey rounded-2xl"
+            className="h-[40] w-10 text-center border-grey rounded-2xl"
           />
         )}
       />

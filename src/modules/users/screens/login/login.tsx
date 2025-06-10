@@ -68,7 +68,7 @@ export function Login() {
                   autoCorrect={false}
                   autoCapitalize="none"
                   err={fieldState.error}
-                  className="h-[42] flex-1"
+                  className="h-[42]"
                 />
               );
             }}

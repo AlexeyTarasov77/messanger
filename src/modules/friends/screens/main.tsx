@@ -8,6 +8,7 @@ export function Main() {
     <ScrollView className="bg-mainBg flex-1">
       <Requests />
       <Recommendations />
+      
       <AllFriends />
     </ScrollView>
   );

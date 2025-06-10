@@ -78,7 +78,7 @@ export function RegisterStepOne() {
                   label="Електронна пошта"
                   autoCorrect={false}
                   err={fieldState.error}
-                  className="h-[42] flex-1"
+                  className="h-[42]"
                 />
               );
             }}

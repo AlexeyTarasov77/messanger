@@ -92,7 +92,7 @@ export function RegisterStepThree() {
                   label="Ім'я"
                   autoCorrect={false}
                   err={fieldState.error}
-                  className="h-[42] flex-1"
+                  className="h-[42]"
                 />
               );
             }}
@@ -116,7 +116,7 @@ export function RegisterStepThree() {
                   label="Прізвище"
                   autoCorrect={false}
                   err={fieldState.error}
-                  className="h-[42] flex-1"
+                  className="h-[42]"
                 />
               );
             }}
@@ -145,7 +145,7 @@ export function RegisterStepThree() {
                   label="Ім'я користувача"
                   autoCorrect={false}
                   err={fieldState.error}
-                  className="h-[42] flex-1"
+                  className="h-[42]"
                 />
               );
             }}
