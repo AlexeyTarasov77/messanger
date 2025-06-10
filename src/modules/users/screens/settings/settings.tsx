@@ -16,8 +16,8 @@ export function SettingsScreen() {
   };
   const CurrentTabComponent = tabComponents[currentTab];
   return (
-    <ScrollView>
-      <View className="flex-row gap-4 ml-4 mt-5 mb-5">
+    <ScrollView className="bg-mainBg">
+      <View className="flex-row gap-4 ml-4 mt-5 mb-5 ">
         {Object.values(Tabs).map((tabName, i) => (
           <View key={i} className="gap-2">
             <TouchableOpacity onPress={() => setCurrentTab(tabName)}>

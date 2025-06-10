@@ -9,7 +9,7 @@ export const Block = ({
   className?: string;
 }) => {
   return (
-    <View className={`bg-white p-4 rounded-xl border-border gap-4 ${className}`}>
+    <View className={`bg-white p-4 rounded-xl border-border gap-4 border ${className}`}>
       {children}
     </View>
   );

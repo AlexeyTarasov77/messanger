@@ -15,7 +15,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useUserCtx } from "../../components/users-ctx/context";
 
 export function RegisterStepThree() {
-  const router = useRouter();
   const {
     handleSubmit,
     control,
