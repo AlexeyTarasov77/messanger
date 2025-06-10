@@ -11,7 +11,7 @@ export default function Layout() {
       <UsersProvider>
         <CreatePostModalProvider>
           <RegisterModalProvider>
-            <SafeAreaView style={{ flex: 1 }}>
+            <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
               <RootLayout />
             </SafeAreaView>
           </RegisterModalProvider>
