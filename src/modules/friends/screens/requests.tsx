@@ -62,7 +62,7 @@ export function Requests() {
                             <TouchableOpacity
                                 // onPress={async () => declineRequest(Number(requestUser.id))}
                                 onPress={() => {
-                                    open(() =>
+                                    open(async () =>
                                         declineRequest(Number(requestUser.id))
                                     );
                                 }}

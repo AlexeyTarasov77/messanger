@@ -5,18 +5,22 @@ import { UsersProvider } from "../modules/users/components/users-ctx/context";
 import { CreatePostModalProvider } from "../modules/posts/components";
 import { RegisterModalProvider } from "../modules/users/components/modal-ctx";
 
+import { DeleteUserModalProvider } from "../modules/friends/components/delete-modal-ctx";
+
 export default function Layout() {
-  return (
-    <SafeAreaProvider>
-      <UsersProvider>
-        <CreatePostModalProvider>
-          <RegisterModalProvider>
-            <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
-              <RootLayout />
-            </SafeAreaView>
-          </RegisterModalProvider>
-        </CreatePostModalProvider>
-      </UsersProvider>
-    </SafeAreaProvider>
-  );
+    return (
+        <SafeAreaProvider>
+            <UsersProvider>
+                <CreatePostModalProvider>
+                    <DeleteUserModalProvider>
+                        <RegisterModalProvider>
+                            <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
+                                <RootLayout />
+                            </SafeAreaView>
+                        </RegisterModalProvider>
+                    </DeleteUserModalProvider>
+                </CreatePostModalProvider>
+            </UsersProvider>
+        </SafeAreaProvider>
+    );
 }
