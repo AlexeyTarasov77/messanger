@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
 import Modal from "react-native-modal";
 import { ICONS } from "../../../shared/ui/icons";
@@ -66,7 +66,7 @@ export function CreatePostModal() {
       onBackdropPress={close}
       coverScreen={false}
       className="bg-white justify-center items-center rounded-2xl my-auto"
-      style={{ maxHeight: "60%" }}
+      style={{ maxHeight: "70%" }}
     >
       <ScrollView className="p-4 gap-2 flex-1">
         <View className="w-full flex-row justify-end">
@@ -78,7 +78,7 @@ export function CreatePostModal() {
           />
         </View>
         <Text className="text-xl font-bold">Створення публікації</Text>
-        <View className="gap-4">
+        <View className="gap-2">
           <Controller
             control={control}
             name="title"
@@ -239,9 +239,9 @@ export function CreatePostModal() {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={handleSubmit(onSubmit)}
-            className="flex-row items-center gap-1 bg-plum p-2 rounded-2xl"
+            className="flex-row items-center gap-1 bg-slive p-2 rounded-2xl"
           >
-            <Text className="text-white text-center pl-3 pr-3">Публікація</Text>
+            <Text className="text-white text-center px-3">Публікація</Text>
             <ICONS.SendPostIcon width={20} height={20} />
           </TouchableOpacity>
         </View>
