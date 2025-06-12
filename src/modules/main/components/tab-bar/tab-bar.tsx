@@ -17,7 +17,7 @@ export function TabBar() {
             title,
             tabBarLabelStyle,
             tabBarIcon: ({ size, focused }) => (
-              <Icon active={focused} width={size} height={size} />
+              <Icon active={focused} width={size} height={size}/>
             ),
           }}
         />

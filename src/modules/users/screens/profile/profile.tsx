@@ -1,60 +1,97 @@
-import { View, Text } from "react-native";
-import { Avatar } from "../../../../shared/ui/avatar";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { useUserCtx } from "../../components/users-ctx/context";
-import { Redirect } from "expo-router";
-import { formatDate } from "../../../../shared/utils/dates";
+import { Link, Redirect } from "expo-router";
 import { getUserDisplayName } from "../../utils";
+import { UserAvatar } from "../../components/avatar";
+import { ICONS } from "../../../../shared/ui/icons";
+import { MyPosts, PostsList } from "../../../posts/screens";
 
 export function Profile() {
-  const { user } = useUserCtx();
-  if (!user) {
-    return <Redirect href="/users/login" />;
-  }
-  const birthDate = user.birthDate && new Date(user.birthDate);
-  return (
-    <View>
-      <View className="flex-row gap-10 py-6 px-2">
-        <Avatar />
-        <View className="justify-center gap-4 ">
-          <Text className="text-white text-4xl font-semibold ">
-            {getUserDisplayName(user)}
-          </Text>
-          <Text className="text-white text-2xl font-light">
-            {user.isOnline ? "У мережі" : "Не у мережi"}
-          </Text>
-        </View>
-      </View>
+    //TODO: добавить хук и ендпоинт для получения юзера по id(включая альбомы и посты, и вообще все)
+    const { user } = useUserCtx();
+    if (!user) {
+        return <Redirect href="/users/login" />;
+    }
+    const birthDate = user.birthDate && new Date(user.birthDate);
+    return (
+        <ScrollView className="bg-mainBg h-full">
+            <View className="gap-10 py-6 bg-white border-border justify-center items-center">
+                <UserAvatar
+                    user={user}
+                    width={18}
+                    height={18}
+                    className="w-28 h-28"
+                />
+                <View className="justify-center items-center gap-2 ">
+                    <Text className=" text-4xl font-semibold ">
+                        {getUserDisplayName(user)}
+                    </Text>
 
-      <View className="mt-4 border m-2 rounded-xl p-2 dark:border-bgLight border-white">
-        {!!birthDate && (
-          <View>
-            <Text className="text-white dark:text-bgLight font-extralight text-2xl">
-              Дата народженяя
-            </Text>
-            <Text className="text-white dark:text-bgLight font-normal text-2xl">
-              {formatDate(birthDate, "%d-%m-%YYYY")}
-            </Text>
-          </View>
-        )}
-        <View className="h-px w-full bg-white dark:bg-bgLight my-4" />
-        <View>
-          <Text className="text-white dark:text-bgLight font-extralight text-2xl">
-            Про себе
-          </Text>
-          <Text className="text-white dark:text-bgLight font-normal text-2xl">
-            {user.aboutMe}
-          </Text>
-        </View>
-        <View className="h-px w-full bg-white dark:bg-bgLight my-4" />
-        <View>
-          <Text className="text-white dark:text-bgLight font-extralight text-2xl">
-            Ім'я користувача
-          </Text>
-          <Text className="text-white dark:text-bgLight font-normal text-2xl">
-            @{user.username}
-          </Text>
-        </View>
-      </View>
-    </View>
-  );
+                    <Text className="justify-center items-center font-normal text-2xl">
+                        @{user.username}
+                    </Text>
+                </View>
+                <View className="flex-row justify-between items-center">
+                    <View className="border-r border-border justify-center items-center flex-1">
+                        <Text className="self-center font-bold justify-center text-xl">3</Text>
+                        <Text className="text-grey justify-center text-xl">Дописи</Text>
+                    </View>
+                    <View className="border-r border-border justify-center items-center flex-1">
+                        <Text className="self-center font-bold justify-center text-xl">12.1K</Text>
+                        <Text className="text-grey justify-center text-xl">Читачі</Text>
+                    </View>
+                    <View className="border-r border-border justify-center items-center flex-1">
+                        <Text className="self-center font-bold justify-center text-xl">222</Text>
+                        <Text className="text-grey justify-center text-xl">Друзі</Text>
+                    </View>
+                </View>
+                <View className="flex-row justify-between items-center gap-4">
+                    <TouchableOpacity
+                        // onPress={() => acceptRequest(Number(requestUser.id))}
+                        className="flex-row items-center gap-1 bg-slive p-2 rounded-[1234]"
+                    >
+                        <Text className="text-white text-center px-3">
+                            Підтвердити
+                        </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        // onPress={async () => declineRequest(Number(requestUser.id))}
+                        // onPress={() => {
+                        //     open(async () =>
+                        //         declineRequest(Number(requestUser.id))
+                        //     );
+                        // }}
+                        className="flex-row items-center gap-1 border border-slive p-2 rounded-[1234]"
+                    >
+                        <Text className="text-slive text-center pl-3 pr-3">
+                            Видалити
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+
+            {/* albums */}
+            <View className="mt-4 border-border m-2 rounded-xl p-2 bg-white">
+                <View className="bg-white rounded-xl mb-6 pb-2">
+                    <View className="flex-row justify-between px-2 py-4 border-b border-border">
+                        <View>
+                            <ICONS.PostsIcon stroke={"#CDCED2"} />
+                            <Text className="font-medium text-grey text-base">
+                                Альбоми
+                            </Text>
+                        </View>
+                        <Link href="/">
+                            <Text className="font-medium text-base text-slive">
+                                Дивитись всі
+                            </Text>
+                        </Link>
+                    </View>
+                    <ScrollView></ScrollView>
+                </View>
+            </View>
+            {/* Posts */}
+            <View className="mt-4 border-border m-2 rounded-xl p-2 bg-white"><PostsList/></View>
+        </ScrollView>
+    );
 }

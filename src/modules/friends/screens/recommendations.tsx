@@ -26,7 +26,7 @@ export function Recommendations() {
                 }}
                 className="flex-row items-center gap-1 bg-slive p-2 rounded-[1234]"
               >
-                <Text className="text-white text-center pl-3 pr-3">Додати</Text>
+                <Text className="text-white text-center px-3">Додати</Text>
               </TouchableOpacity>
             }
             rightButton={
@@ -34,7 +34,7 @@ export function Recommendations() {
                 // onPress={}
                 className="flex-row items-center gap-1 border border-slive p-2 rounded-[1234]"
               >
-                <Text className="text-slive text-center pl-3 pr-3">
+                <Text className="text-slive text-center px-3">
                   Видалити
                 </Text>
               </TouchableOpacity>
