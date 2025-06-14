@@ -1,13 +1,9 @@
 import { EmailIcon } from "./email-icon";
 import { EyeIcon } from "./eye-icon";
 import { EyeSlashIcon } from "./eye-slash-icon";
-import { KeyIcon } from "./toDel/key-icon";
-import { UserIcon } from "./toDel/user-icon";
 import { PenIcon } from "./pen-icon";
-import { SearchIcon } from "./toDel/search-icon";
 import { SettingsIcon } from "./headerIcons/settings-icon";
 import { LikeIcon } from "./postIcons/like-icon";
-import { PhoneNumberIcon } from "./toDel/phone-number-icon";
 import { LogoIcon } from "./headerIcons/logo-icon";
 import { PlusIcon } from "./headerIcons/plus-icon";
 import { PostSettingsIcon } from "./postIcons/post-settings-icon";
@@ -24,21 +20,19 @@ import { SendPostIcon } from "./send-post-icon";
 import { ImageIcon } from "./image-icon";
 import { BinIcon } from "./bin-icon";
 import { EditIcon } from "./edit-icon";
+import { AlbumIcon } from "./album-icon";
+import { SearchIcon } from "./search-icon";
 
 export const ICONS = {
   EyeIcon,
   EyeSlashIcon,
-  KeyIcon,
   EmailIcon,
-  UserIcon,
   PenIcon,
   LogoIcon,
   LogOutIcon,
   SettingsIcon,
   PlusIcon,
   PostSettingsIcon,
-  PhoneNumberIcon,
-  SearchIcon,
   LikeIcon,
   OnlineIcon,
   OfflineIcon,
@@ -52,4 +46,6 @@ export const ICONS = {
   ImageIcon,
   BinIcon,
   EditIcon,
+  AlbumIcon,
+  SearchIcon
 };

@@ -9,7 +9,6 @@ import { CreatePostModal } from "../../../posts/screens";
 import { RegisterStepThree } from "../../../users/screens";
 import { useUserCtx } from "../../../users/components/users-ctx/context";
 import { useRegisterModal } from "../../../users/components/modal-ctx";
-import { DeleteUserModalProvider } from "../../../friends/components/delete-modal-ctx";
 import { DeleteUserModal } from "../../../friends/components";
 
 function RegisterModalCheck() {

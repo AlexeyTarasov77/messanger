@@ -1,18 +1,21 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { useUserCtx } from "../../components/users-ctx/context";
-import { Link, Redirect } from "expo-router";
+import { Link, Redirect, useLocalSearchParams } from "expo-router";
 import { getUserDisplayName } from "../../utils";
 import { UserAvatar } from "../../components/avatar";
 import { ICONS } from "../../../../shared/ui/icons";
 import { MyPosts, PostsList } from "../../../posts/screens";
+import { useGetUserById } from "../../hooks/use-get-user-by-id";
+import { UserPosts } from "../../components/user-posts";
+import { usersService } from "../../services";
 
 export function Profile() {
-    //TODO: добавить хук и ендпоинт для получения юзера по id(включая альбомы и посты, и вообще все)
-    const { user } = useUserCtx();
+    const { id } = useLocalSearchParams();
+    const userId = Number(id);
+    const { user, isLoading } = useGetUserById(userId);
     if (!user) {
-        return <Redirect href="/users/login" />;
+        return "User does not exist";
     }
-    const birthDate = user.birthDate && new Date(user.birthDate);
     return (
         <ScrollView className="bg-mainBg h-full">
             <View className="gap-10 py-6 bg-white border-border justify-center items-center">
@@ -33,16 +36,28 @@ export function Profile() {
                 </View>
                 <View className="flex-row justify-between items-center">
                     <View className="border-r border-border justify-center items-center flex-1">
-                        <Text className="self-center font-bold justify-center text-xl">3</Text>
-                        <Text className="text-grey justify-center text-xl">Дописи</Text>
+                        <Text className="self-center font-bold justify-center text-xl">
+                            3
+                        </Text>
+                        <Text className="text-grey justify-center text-xl">
+                            Дописи
+                        </Text>
                     </View>
                     <View className="border-r border-border justify-center items-center flex-1">
-                        <Text className="self-center font-bold justify-center text-xl">12.1K</Text>
-                        <Text className="text-grey justify-center text-xl">Читачі</Text>
+                        <Text className="self-center font-bold justify-center text-xl">
+                            12.1K
+                        </Text>
+                        <Text className="text-grey justify-center text-xl">
+                            Читачі
+                        </Text>
                     </View>
                     <View className="border-r border-border justify-center items-center flex-1">
-                        <Text className="self-center font-bold justify-center text-xl">222</Text>
-                        <Text className="text-grey justify-center text-xl">Друзі</Text>
+                        <Text className="self-center font-bold justify-center text-xl">
+                            222
+                        </Text>
+                        <Text className="text-grey justify-center text-xl">
+                            Друзі
+                        </Text>
                     </View>
                 </View>
                 <View className="flex-row justify-between items-center gap-4">
@@ -75,8 +90,8 @@ export function Profile() {
             <View className="mt-4 border-border m-2 rounded-xl p-2 bg-white">
                 <View className="bg-white rounded-xl mb-6 pb-2">
                     <View className="flex-row justify-between px-2 py-4 border-b border-border">
-                        <View>
-                            <ICONS.PostsIcon stroke={"#CDCED2"} />
+                        <View className="flex-row gap-2">
+                            <ICONS.AlbumIcon stroke={"#81818D"} />
                             <Text className="font-medium text-grey text-base">
                                 Альбоми
                             </Text>
@@ -87,11 +102,20 @@ export function Profile() {
                             </Text>
                         </Link>
                     </View>
+                    <View className="pt-4 gap-2">
+                        <Text className="font-bold">Настрій</Text>
+                        <View className="flex-row gap-4">
+                            <Text>Природа</Text>
+                            <Text className="text-grey"> 2025 рік</Text>
+                        </View>
+                    </View>
                     <ScrollView></ScrollView>
                 </View>
             </View>
             {/* Posts */}
-            <View className="mt-4 border-border m-2 rounded-xl p-2 bg-white"><PostsList/></View>
+            <View className="mt-4 border-border m-2 rounded-xl p-2 bg-white"></View>
+            {/* <PostsList /> */}
+            <UserPosts />
         </ScrollView>
     );
 }
