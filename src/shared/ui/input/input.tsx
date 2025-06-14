@@ -2,60 +2,57 @@ import { Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
 import { IInputProps } from "./input.types";
 import { ICONS } from "../icons";
 import { useState } from "react";
+import { renderError } from "../../utils/errors";
 
 export function Input({
     label,
-    errMsg,
+    err,
+    iconLeft,
     iconRight,
-
+    disabled,
     ...props
 }: IInputProps) {
-       return (
+    return (
         <View>
-            {label && <Text className="text-black">{label}</Text>}
-            <View className="flex-row rounded-2xl px-2 border border-grey">
-                <TextInput placeholderTextColor="#CDCDCD"{...props} />
+            {!!label && <Text className={disabled ? "text-gray-400" : "text-black"}>{label}</Text>}
+            <View className={`flex-row gap-1 items-center rounded-2xl px-2 border ${disabled ? "border-gray-400" : "border-grey"} ${props.className}`}>
+                {iconLeft && (
+                    <View style={{}}>{iconLeft}</View>
+                )}
+                <TextInput placeholderTextColor="#CDCDCD" {...props} className={disabled ? "text-gray-400" : ""} readOnly={disabled} />
                 {iconRight && (
                     <View style={{ marginLeft: "auto" }}>{iconRight}</View>
                 )}
             </View>
-            {errMsg && (
-                <View>
-                    <Text>{errMsg}</Text>
-                </View>
-            )}
+            {renderError(err)}
         </View>
     );
 }
 
-function CreatePost(props: Omit<IInputProps, "iconRight">) {
-    const { label, errMsg } = props;
-    const [isHidden, setIsHidden] = useState(true);
-
+function InputSearch(props: Omit<IInputProps, "iconLeft">) {
+    const { err } = props;
     return (
-        <View>
-            {label && <Text className="text-black">{label}</Text>}
-            <View>
-                <TextInput className="border p-2 rounded-xl" {...props} />
-            </View>
-            {errMsg && (
-                <View>
-                    <Text>{errMsg}</Text>
+        <View className="">
+            <View className="flex-row gap-1 items-center rounded-2xl px-2 border border-grey">
+                <View className=" self-center">
+                    <ICONS.SearchIcon width={20} height={20} />
                 </View>
-            )}
+                <TextInput placeholderTextColor="#81818D" {...props} />
+            </View>
+            {renderError(err)}
         </View>
     );
 }
 
-Input.CreatePost = CreatePost;
+Input.InputSearch = InputSearch;
 
 function Password(props: Omit<IInputProps, "iconRight">) {
-    const { label, errMsg } = props;
+    const { label, err } = props;
     const [isHidden, setIsHidden] = useState(true);
 
     return (
         <View>
-            {label && <Text className="text-dark">{label}</Text>}
+            {!!label && <Text className="text-dark">{label}</Text>}
             <View className="flex-row rounded-2xl border border-grey px-2">
                 <TextInput placeholderTextColor="#CDCDCD" secureTextEntry={isHidden} {...props} />
                 <View className="ml-auto self-center">
@@ -72,42 +69,9 @@ function Password(props: Omit<IInputProps, "iconRight">) {
                     </TouchableWithoutFeedback>
                 </View>
             </View>
-            {errMsg && (
-                <View>
-                    <Text>{errMsg}</Text>
-                </View>
-            )}
+            {renderError(err)}
         </View>
     );
 }
 
 Input.Password = Password;
-
-// function Comment(props: Omit<IInputProps, "iconLeft" | "iconRight">) {
-//     const { label, errMsg } = props;
-//     const [isHidden, setIsHidden] = useState(true);
-
-//     return (
-//         <View>
-//             {label && <Text className="text-white dark:text-bgLight">{label}</Text>}
-
-//             <GradientBorder borderRadius={20} borderWidth={3} style={{ padding: 0 }}>
-//                 <View className="flex-row bg-bgLight dark:bg-bgDark rounded-xl px-2">
-//                     <View className="mr-2 self-center">
-//                         <ICONS.KeyIcon width={30} height={30} />
-//                     </View>
-//                     <TextInput placeholderTextColor="#CDCDCD" style={{ color: "#FFFFFF", }} secureTextEntry={isHidden} {...props} />
-//                 </View>
-//             </GradientBorder>
-//             {
-//                 errMsg && (
-//                     <View>
-//                         <Text>{errMsg}</Text>
-//                     </View>
-//                 )
-//             }
-//         </View >
-//     );
-// }
-
-// Input.Comment = Comment;

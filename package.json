@@ -20,7 +20,7 @@
     "expo-system-ui": "~5.0.7",
     "install": "^0.13.0",
     "nativewind": "^4.1.23",
-    "npx": "^3.0.0",
+    "npx": "^10.2.2",
     "react": "19.0.0",
     "react-hook-form": "^7.56.1",
     "react-native": "0.79.2",

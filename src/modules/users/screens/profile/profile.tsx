@@ -3,6 +3,7 @@ import { Avatar } from "../../../../shared/ui/avatar";
 import { useUserCtx } from "../../components/users-ctx/context";
 import { Redirect } from "expo-router";
 import { formatDate } from "../../../../shared/utils/dates";
+import { getUserDisplayName } from "../../utils";
 
 export function Profile() {
     const { user } = useUserCtx()
@@ -16,7 +17,7 @@ export function Profile() {
                 <Avatar />
                 <View className="justify-center gap-4 ">
                     <Text className="text-white text-4xl font-semibold ">
-                        {user.displayName}
+                        {getUserDisplayName(user)}
                     </Text>
                     <Text className="text-white text-2xl font-light">
                         {user.isOnline ? "У мережі" : "Не у мережi"}
@@ -25,7 +26,7 @@ export function Profile() {
             </View>
 
             <View className="mt-4 border m-2 rounded-xl p-2 dark:border-bgLight border-white">
-                {birthDate &&
+                {!!birthDate &&
                     <View>
                         <Text className="text-white dark:text-bgLight font-extralight text-2xl">
                             Дата народженяя

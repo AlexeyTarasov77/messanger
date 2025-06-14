@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SERVER_URL, AUTH_TOKEN_KEY } from "../constants";
-import { APIResponse } from "./types";
+import { APIResponse, IResponseFailure } from "./types";
 
 export async function sendReq<T>(
     path: string | URL,
@@ -53,11 +53,25 @@ export async function GET<T>(path: string | URL): APIResponse<T> {
 
 export async function POST<T>(
     path: string | URL,
-    data: object,
+    data: any,
 ): APIResponse<T> {
+    const headers: HeadersInit = {}
+    if (!(data instanceof FormData)) {
+        headers["Content-Type"] = "application/json"
+        data = JSON.stringify(data)
+    }
     return await sendReq(path, {
         method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": data instanceof FormData ? "multipart/form-data" : "application/json" },
+        body: data,
+        headers,
     });
 }
+
+export async function DELETE(
+    path: string | URL,
+): APIResponse<null> {
+    return await sendReq(path, {
+        method: "DELETE",
+    });
+}
+

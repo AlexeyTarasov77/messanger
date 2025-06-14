@@ -3,17 +3,20 @@ export interface IPostTag {
   name: string;
 }
 
+export type PostMediaType = "image" | "video"
+
+export type PostMedia = {
+  type: PostMediaType;
+  url: string;
+}
+
 export interface ICreatePostForm {
-  id: number;
   link?: string;
   title: string;
   subject: string;
-  tags?: IPostTag[];
+  tags: IPostTag[];
   body: string;
-  media: {
-    type: string;
-    url: string;
-  }[];
+  media: PostMedia[];
 }
 
 export interface IPost {
@@ -23,11 +26,7 @@ export interface IPost {
   subject: string;
   tags?: IPostTag[];
   body: string;
-  media: {
-    id: number;
-    type: string;
-    url: string;
-  }[];
+  media: (PostMedia & { id: number; })[];
   _count: {
     likedBy: number;
     viewedBy: number
@@ -37,6 +36,7 @@ export interface IPost {
 interface IPostAuthor {
   id: string;
   username?: string;
+  signatureUrl?: string;
   email: string;
   firstName?: string;
   lastName?: string;

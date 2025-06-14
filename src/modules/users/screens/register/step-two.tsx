@@ -6,18 +6,24 @@ import { useLocalSearchParams } from "expo-router";
 import { IRegisterStepOne, IRegisterStepTwo } from "../../types";
 import { authService } from "../../services";
 import { collectFullCode, otpFieldsDefaults, OTPInput } from "../../components/otp-input";
+import { getErrorMessage, renderError } from "../../../../shared/utils/errors";
 
 export function RegisterStepTwo() {
     const router = useRouter();
     const prevData = useLocalSearchParams() as unknown as IRegisterStepOne;
-    const { handleSubmit, control, formState } =
+    const { handleSubmit, control, formState, setError } =
         useForm<IRegisterStepTwo>({
             defaultValues: otpFieldsDefaults,
         });
     async function onSubmit(data: IRegisterStepTwo) {
         const otp = collectFullCode(data)
         console.log("OTP:", otp);
-        await authService.register({ ...prevData, otp });
+        try {
+            await authService.register({ ...prevData, otp });
+        } catch (err) {
+            setError("root", { message: getErrorMessage(err) })
+            return
+        }
         router.replace("/");
     }
 
@@ -44,6 +50,9 @@ export function RegisterStepTwo() {
                             </Text>
                         </View>
                         <OTPInput control={control} errors={formState.errors} />
+                    </View>
+                    <View className="mb-3">
+                        {renderError(formState.errors.root)}
                     </View>
                     <View>
                         <View>

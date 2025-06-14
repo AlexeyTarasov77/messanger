@@ -1,10 +1,14 @@
-import { View, Text, Image } from "react-native";
-import { ICONS } from "../../../shared/ui/icons";
-import { IPostWithAuthor } from "../types";
-import { UserAvatar } from "../../users/components/avatar";
-import { getUserDisplayName } from "../../users/utils";
+import { View, Text, Image, TouchableOpacity } from "react-native";
+import { ICONS } from "../../../../shared/ui/icons";
+import { IPostWithAuthor } from "../../types";
+import { UserAvatar } from "../../../users/components/avatar";
+import { getUserDisplayName } from "../../../users/utils";
+import { UserSignature } from "../../../users/components/sig";
+import { useState } from "react";
+import { Menu } from "./menu";
 
-export function PostCard({ post }: { post: IPostWithAuthor }) {
+export function PostCard({ post, menuEnabled }: { post: IPostWithAuthor, menuEnabled: boolean }) {
+    const [menuOpened, setMenuOpened] = useState(false)
     return (
         <View className="border border-border rounded-2xl p-2 gap-2 bg-white">
             <View className="flex-row justify-between py-4 px-2">
@@ -15,20 +19,26 @@ export function PostCard({ post }: { post: IPostWithAuthor }) {
                             <Text>{getUserDisplayName(post.author)}</Text>
                         </View>
                     </View>
-                    <View>
-                        <ICONS.Signature />
-                    </View>
+                    {!!post.author.signatureUrl && <UserSignature signatureUrl={post.author.signatureUrl} />}
                 </View>
-                <View className="self-center">
-                    <ICONS.PostSettingsIcon height={16} />
+                <View className="self-center relative">
+                    <TouchableOpacity onPress={() => setMenuOpened(!menuOpened)} >
+                        <ICONS.PostSettingsIcon height={16} />
+                    </TouchableOpacity>
+                    {menuEnabled && menuOpened &&
+                        <Menu postId={post.id} />
+                    }
                 </View>
-            </View>
-            <View className="border-t border-border pt-4 px-2">
+            </View >
+            <View className="border-t border-border pt-4 px-2 gap-4">
+                <Text className="flex-wrap text-lg leading-none font-main font-medium">
+                    {post.title}
+                </Text>
                 <Text className="flex-wrap font-normal text-sm leading-none">
                     {post.body}
                 </Text>
                 <View className="flex-row flex-wrap font-normal text-sm leading-none">
-                    {post.tags.map(tag => (
+                    {post.tags?.map(tag => (
                         <Text className="text-text" key={tag.id}>
                             #{tag.name}
                         </Text>
@@ -55,7 +65,7 @@ export function PostCard({ post }: { post: IPostWithAuthor }) {
                     <Text> {post._count.viewedBy} Переглядів</Text>
                 </View>
             </View>
-        </View>
+        </View >
     );
 }
 

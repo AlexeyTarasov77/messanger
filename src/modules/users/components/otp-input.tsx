@@ -2,6 +2,7 @@ import { View, Text } from "react-native";
 import { IRegisterStepTwo } from "../types";
 import { Control, Controller, FieldError, FieldErrors } from "react-hook-form";
 import { Input } from "../../../shared/ui/input";
+import { renderError } from "../../../shared/utils/errors";
 
 const otpFieldNames: (keyof IRegisterStepTwo)[] = [
   "otp1",
@@ -29,6 +30,7 @@ export function OTPInput({ control, errors }: { control: Control<IRegisterStepTw
     })
     return err
   }
+  const inputErr = getError()
   const otpInputs = otpFieldNames.map((fieldName, index) => (
     <View className="flex-row" key={index}>
       <Controller
@@ -47,6 +49,8 @@ export function OTPInput({ control, errors }: { control: Control<IRegisterStepTw
             onChange={field.onChange}
             onChangeText={field.onChange}
             value={field.value}
+            maxLength={1}
+            autoCapitalize="none"
             autoCorrect={false}
             className="h-[40] w-8 text-center border-grey rounded-2xl"
           />
@@ -68,9 +72,7 @@ export function OTPInput({ control, errors }: { control: Control<IRegisterStepTw
       <View className="flex-row gap-6 pb-8">
         {otpInpusPairs}
       </View>
-      <Text className="text-red-500">
-        {getError()?.message || "Invalid data"}
-      </Text>
-    </View>
+      {renderError(inputErr)}
+    </View >
   )
 }

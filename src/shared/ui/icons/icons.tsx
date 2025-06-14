@@ -14,7 +14,6 @@ import { PostSettingsIcon } from "./postIcons/post-settings-icon";
 import { LogOutIcon } from "./headerIcons/logout-icon";
 import { OnlineIcon } from "./postIcons/online-icon";
 import { OfflineIcon } from "./postIcons/offline-icon";
-import { Signature } from "./postIcons/signature";
 import { HomeIcon } from "./tabBarIcons/home-icon";
 import { PostsIcon } from "./tabBarIcons/posts-icon";
 import { FriendsIcon } from "./tabBarIcons/friends-icon";
@@ -23,25 +22,28 @@ import { SmileyIcon } from "./smiley-icon";
 import { CloseIcon } from "./close-icon";
 import { SendPostIcon } from "./send-post-icon";
 import { ImageIcon } from "./image-icon";
+import { BinIcon } from "./bin-icon";
+import { EditIcon } from "./edit-icon";
+import { MessagesIcon } from "./messages-icon";
+
 
 export const ICONS = {
-	EyeIcon,
-	EyeSlashIcon,
-	KeyIcon,
-	EmailIcon,
-	UserIcon,
+    EyeIcon,
+    EyeSlashIcon,
+    KeyIcon,
+    EmailIcon,
+    UserIcon,
     PenIcon,
     LogoIcon,
     LogOutIcon,
     SettingsIcon,
     PlusIcon,
-	PostSettingsIcon,
-	PhoneNumberIcon,
-	SearchIcon,
-	LikeIcon,
+    PostSettingsIcon,
+    PhoneNumberIcon,
+    SearchIcon,
+    LikeIcon,
     OnlineIcon,
     OfflineIcon,
-    Signature,
     HomeIcon,
     PostsIcon,
     FriendsIcon,
@@ -50,4 +52,7 @@ export const ICONS = {
     SmileyIcon,
     SendPostIcon,
     ImageIcon,
+    BinIcon,
+    EditIcon,
+    MessagesIcon,
 };

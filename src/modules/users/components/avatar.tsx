@@ -1,18 +1,23 @@
 import { Image, View } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
+import { IUserAvatarProps } from "./avatar.types";
+import { DEFAULT_AVATAR_URL } from "../../../shared/constants"
 
-export function UserAvatar({ user }: { user: { avatarUrl?: string, isOnline: boolean } }) {
-  const defaultAvatarUrl = "https://e7.pngegg.com/pngimages/84/165/png-clipart-united-states-avatar-organization-information-user-avatar-service-computer-wallpaper.png"
+export function UserAvatar({ 
+  avatarUrl, 
+  isOnline, 
+  ...props 
+}: IUserAvatarProps) {
   return (
     <View className="flex-row">
       <View>
         <Image
-          source={{ uri: user.avatarUrl || defaultAvatarUrl }}
+          source={{ uri: avatarUrl || DEFAULT_AVATAR_URL }}
           className="w-10 h-10 rounded-full"
         />
       </View>
       <View className="absolute bottom-0 right-0">
-        {user.isOnline ? (
+        {isOnline ? (
           <ICONS.OnlineIcon width={12} height={12} />
         ) : (
           <ICONS.OfflineIcon width={12} height={12} />
@@ -21,3 +26,18 @@ export function UserAvatar({ user }: { user: { avatarUrl?: string, isOnline: boo
     </View>
   )
 }
+
+function UserAvatarWithoutOnline(props: Omit<IUserAvatarProps, "isOnline">) {
+  return (
+    <View className="flex-row">
+      <View>
+        <Image
+          source={{ uri: props.avatarUrl || DEFAULT_AVATAR_URL }}
+          className="w-10 h-10 rounded-full"
+        />
+      </View>
+    </View>
+  );
+}
+
+UserAvatar.UserAvatarWithoutOnline = UserAvatarWithoutOnline;
