@@ -83,11 +83,3 @@ export async function PATCH<T>(path: string | URL, data: any): APIResponse<T> {
   });
 }
 
-export async function DELETE(
-    path: string | URL,
-): APIResponse<null> {
-    return await sendReq(path, {
-        method: "DELETE",
-    });
-}
-
