@@ -41,6 +41,21 @@ export interface IAlbum {
   photos: Media[]
 }
 
+interface IAlbumAuthor {
+  id: string;
+  username?: string;
+  signatureUrl?: string;
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  isOnline: boolean;
+  avatarUrl?: string;
+}
+
+export interface IAlbumWithAuthor extends IAlbum {
+    author: IAlbumAuthor
+}
+
 export interface IUserExtended extends IUser {
   createdPosts: IPost[];
   viewedPosts: IPost[];

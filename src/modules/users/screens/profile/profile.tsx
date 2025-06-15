@@ -8,6 +8,7 @@ import { MyPosts, PostsList } from "../../../posts/screens";
 import { useGetUserById } from "../../hooks/use-get-user-by-id";
 import { UserPosts } from "../../components/user-posts";
 import { usersService } from "../../services";
+import { UserAlbums } from "../../components/user-albums";
 
 export function Profile() {
     const { id } = useLocalSearchParams();
@@ -102,19 +103,10 @@ export function Profile() {
                             </Text>
                         </Link>
                     </View>
-                    <View className="pt-4 gap-2">
-                        <Text className="font-bold">Настрій</Text>
-                        <View className="flex-row gap-4">
-                            <Text>Природа</Text>
-                            <Text className="text-grey"> 2025 рік</Text>
-                        </View>
-                    </View>
-                    <ScrollView></ScrollView>
+                   <UserAlbums userId={userId}/>
                 </View>
             </View>
             {/* Posts */}
-            <View className="mt-4 border-border m-2 rounded-xl p-2 bg-white"></View>
-            {/* <PostsList /> */}
             <UserPosts userId={userId} />
         </ScrollView>
     );
