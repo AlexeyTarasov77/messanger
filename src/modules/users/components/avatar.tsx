@@ -36,3 +36,18 @@ export function UserAvatar({
         </View>
     );
 }
+
+function UserAvatarWithoutOnline(props: Omit<IUserAvatarProps, "isOnline">) {
+  return (
+    <View className="flex-row">
+      <View>
+        <Image
+          source={{ uri: props.avatarUrl || DEFAULT_AVATAR_URL }}
+          className="w-10 h-10 rounded-full"
+        />
+      </View>
+    </View>
+  );
+}
+
+UserAvatar.UserAvatarWithoutOnline = UserAvatarWithoutOnline;

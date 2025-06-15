@@ -8,17 +8,14 @@ import {
   useColorScheme,
   Button,
 } from "react-native";
-import { StyleSheet } from "react-native";
-
 import { ICONS } from "../../../shared/ui/icons";
-// import { UserIcon, PenIcon } from "../../../shared/ui/icons"
-
-import { LinearGradient } from "expo-linear-gradient";
 import { verifyInstallation } from "nativewind";
-// import { Button } from "../../../shared/ui/button";
-// import { Input } from "../../../shared/ui/input";
-// import { UserAvatar } from "../../../shared/ui/userAvatar";
-import { COLOR_PALETTE } from "../../../shared/theme/colors";
+import { Input } from "../../../shared/ui/input";
+import { UserAvatar } from "../../../modules/users/components/avatar"
+import { Controller, useForm } from "react-hook-form";
+import { ChatListCard } from "../../../modules/chats/components/chat-card";
+import { IChatListSearch, IUsers } from "../types";
+// import { getUserDisplayName } from "../../../users/utils";
 
 export function ChatsListScreen() {
   verifyInstallation();
@@ -81,9 +78,23 @@ export function ChatsListScreen() {
                 // ? COLOR_PALETTE.lightTheme.border
                 // : COLOR_PALETTE.darkTheme.border
               },
-            ]}
-          >
-            <ICONS.UserIcon className="w-15 h-15" />
+            }}
+            render={({ field, fieldState }) => {
+              return (
+                <Input.InputSearch
+                  placeholder="Пошук"
+                  autoCapitalize="none"
+                  onChange={field.onChange}
+                  onChangeText={field.onChange}
+                  value={field.value}
+                  label=""
+                  autoCorrect={false}
+                  err={fieldState.error}
+                  className="h-[42] "
+                />
+              );
+            }}
+          />
 
             {/* <UserIcon className="w-15 h-15" /> */}
       {/* </LinearGradient>
@@ -173,41 +184,3 @@ export function ChatsListScreen() {
   );
 }
 
-// const styles = StyleSheet.create({
-//     linearGradientUser: {
-//         padding: 10,
-//         alignItems: "center",
-//         justifyContent: "center",
-//         borderRadius: 50,
-//         shadowColor: "#000",
-//         shadowOffset: { width: 0, height: 2 },
-//         shadowOpacity: 0.25,
-//         shadowRadius: 3.84,
-//         borderWidth: 1,
-//     },
-//     linearGradientMessage: {
-//         padding: 5,
-//         alignItems: "center",
-//         justifyContent: "center",
-//         borderRadius: 20,
-//         flexDirection: "row",
-//         shadowColor: "#000",
-//         shadowOffset: { width: 0, height: 2 },
-//         shadowOpacity: 0.25,
-//         shadowRadius: 3.84,
-//         borderWidth: 1,
-//         gap: 10,
-//     },
-//     linearGradientMissed: {
-//         padding: 10,
-//         alignItems: "center",
-//         justifyContent: "center",
-//         width: 40,
-//         borderRadius: 50,
-//         shadowColor: "#000",
-//         shadowOffset: { width: 0, height: 2 },
-//         shadowOpacity: 0.25,
-//         shadowRadius: 3.84,
-//         borderWidth: 1,
-//     },
-// });

@@ -5,6 +5,13 @@ export interface IPostTag {
   name: string;
 }
 
+export type PostMediaType = "image" | "video"
+
+export type PostMedia = {
+  type: PostMediaType;
+  url: string;
+}
+
 export interface ICreatePostForm {
   link?: string;
   title: string;
