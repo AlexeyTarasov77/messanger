@@ -1,13 +1,10 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-import { useUserCtx } from "../../components/users-ctx/context";
-import { Link, Redirect, useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { getUserDisplayName } from "../../utils";
 import { UserAvatar } from "../../components/avatar";
 import { ICONS } from "../../../../shared/ui/icons";
-import { MyPosts, PostsList } from "../../../posts/screens";
 import { useGetUserById } from "../../hooks/use-get-user-by-id";
 import { UserPosts } from "../../components/user-posts";
-import { usersService } from "../../services";
 import { UserAlbums } from "../../components/user-albums";
 
 export function Profile() {
@@ -88,26 +85,44 @@ export function Profile() {
             </View>
 
             {/* albums */}
-            <View className="mt-4 border-border m-2 rounded-xl p-2 bg-white">
-                <View className="bg-white rounded-xl mb-6 pb-2">
-                    <View className="flex-row justify-between px-2 py-4 border-b border-border">
-                        <View className="flex-row gap-2">
-                            <ICONS.AlbumIcon stroke={"#81818D"} />
-                            <Text className="font-medium text-grey text-base">
-                                Альбоми
-                            </Text>
+            {user.albums && user.albums.length > 0 ? (
+                <View className="mt-4 border-border m-2 rounded-xl p-2 bg-white">
+                    <View className="bg-white rounded-xl mb-6 pb-2">
+                        <View className="flex-row justify-between px-2 py-4 border-b border-border">
+                            <View className="flex-row gap-2">
+                                <ICONS.AlbumIcon stroke={"#81818D"} />
+                                <Text className="font-medium text-grey text-base">
+                                    Альбоми
+                                </Text>
+                            </View>
+                            <Link href="/">
+                                <Text className="font-medium text-base text-slive">
+                                    Дивитись всі
+                                </Text>
+                            </Link>
                         </View>
-                        <Link href="/">
-                            <Text className="font-medium text-base text-slive">
-                                Дивитись всі
-                            </Text>
-                        </Link>
+
+                        <UserAlbums userId={userId} />
                     </View>
-                   <UserAlbums userId={userId}/>
                 </View>
-            </View>
-            {/* Posts */}
-            <UserPosts userId={userId} />
+            ) : (
+                <View className="bg-white p-4 border-border m-2 rounded-xl ">
+                    <Text className="text-slive pl-2">
+                        У цього користувача немає альбомів.
+                    </Text>
+                </View>
+            )}
+
+            {/* posts */}
+            {user.createdPosts && user.createdPosts.length > 0 ? (
+                <UserPosts userId={userId} />
+            ) : (
+                <View className="bg-white p-4 border-border m-2 rounded-xl ">
+                    <Text className="text-slive pl-2">
+                        У цього користувача немає постів.
+                    </Text>
+                </View>
+            )}
         </ScrollView>
     );
 }

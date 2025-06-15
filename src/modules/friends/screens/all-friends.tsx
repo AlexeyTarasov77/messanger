@@ -1,4 +1,4 @@
-import { Alert, Text, TouchableOpacity } from "react-native";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 import { Card } from "../components/card";
 import { FriendCard } from "../components/friend-card";
 import { Loader } from "../../../shared/ui/loader/loader";
@@ -24,7 +24,7 @@ export function AllFriends() {
             allFriends.filter((friend) => Number(friend.id) !== friendId)
         );
     };
-    return (
+    return allFriends && allFriends.length > 0 ? (
         <Card title={"Всі друзі"} seeAllLink={"/friends/all-friends"}>
             {allFriends.map((friend) => {
                 return (
@@ -60,5 +60,11 @@ export function AllFriends() {
                 );
             })}
         </Card>
+    ) : (
+        <View className="bg-white p-4 border-border m-2 rounded-xl ">
+            <Text className="text-slive pl-2">
+                У тебе немає друзів.
+            </Text>
+        </View>
     );
 }

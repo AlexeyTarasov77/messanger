@@ -39,7 +39,7 @@ export function Requests() {
     const declineRequest = async (fromUserId: number) =>
         removeRequest(fromUserId, "decline");
 
-    return (
+    return requests && requests.length > 0 ? (
         <Card title={"Запити"} seeAllLink={"/friends/requests"}>
             {requests.map((requestUser) => {
                 return (
@@ -77,5 +77,9 @@ export function Requests() {
                 );
             })}
         </Card>
+    ) : (
+        <View className="bg-white p-4 border-border m-2 rounded-xl ">
+            <Text className="text-slive pl-2">У тебе немає запитів.</Text>
+        </View>
     );
 }
