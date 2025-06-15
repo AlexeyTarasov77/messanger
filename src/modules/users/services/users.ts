@@ -41,7 +41,7 @@ export const usersService = {
         return resp.data;
     },
     getUserById: async (userId: number): Promise<IUserExtended | null> => {
-        const resp = await GET<IUserExtended>("/users/" + userId);
+        const resp = await GET<IUserExtended>(`/users/${userId}`);
         if (resp.success == false) {
             if (resp.status !== 401) {
                 throw new Error(resp.message);

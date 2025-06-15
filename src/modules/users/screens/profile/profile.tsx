@@ -115,7 +115,7 @@ export function Profile() {
             {/* Posts */}
             <View className="mt-4 border-border m-2 rounded-xl p-2 bg-white"></View>
             {/* <PostsList /> */}
-            <UserPosts />
+            <UserPosts userId={userId} />
         </ScrollView>
     );
 }

@@ -11,7 +11,7 @@ export function useGetUserById(userId: number) {
         const fetchUser = async () => {
             try {
                 setIsLoading(true);
-                const user = await usersService.getUserById(userId);
+                const user = await usersService.getUserById(Number(userId));
                 setUser(user);
             } catch (err) {
                 console.log("Не удалось получить пользователя:", err);
