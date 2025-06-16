@@ -13,7 +13,7 @@ export type PostMedia = {
 }
 
 export interface ICreatePostForm {
-  link?: string;
+  links: { id: number, value: string }[]
   title: string;
   subject: string;
   tags: IPostTag[];

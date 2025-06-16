@@ -17,8 +17,8 @@ export const postsService = {
     formData.append("subject", data.subject);
     formData.append("body", data.body);
 
-    if (data.link) {
-      formData.append("link", data.link);
+    if (data.links) {
+      data.links.map(link => formData.append("links", link.value))
     }
     data.tags.forEach((tag) => {
       formData.append(`tags`, tag.name);

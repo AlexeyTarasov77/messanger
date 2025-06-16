@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
 import Modal from "react-native-modal";
 import { ICONS } from "../../../shared/ui/icons";
-import * as ImagePicker from "expo-image-picker";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { Input } from "../../../shared/ui/input/input";
 import { ICreatePostForm } from "../types";
 import { useCreatePostModal } from "../components";
@@ -13,12 +12,14 @@ import { BinIcon } from "../../../shared/ui/icons/bin-icon";
 import { pickImage } from "../../../shared/utils/images";
 import { MediaType } from "../../main/types";
 import { Tag } from "../components/tag";
+import { RoundedButton } from "../../../shared/ui/button/button";
 
 export function CreatePostModal() {
   const { visible, close } = useCreatePostModal();
   const { addPost } = useUserCtx();
   // images contains array of base64 encoded selected images
   const [images, setImages] = useState<ICreatePostForm["media"]>([]);
+
   const {
     handleSubmit,
     control,
@@ -29,9 +30,14 @@ export function CreatePostModal() {
       title: "",
       subject: "",
       body: "",
-      link: "",
       tags: [],
+      media: [],
+      links: []
     },
+  });
+  const { fields: linkInputs, append } = useFieldArray({
+    control,
+    name: "links",
   });
 
   const pickPostImages = async () => {
@@ -52,6 +58,7 @@ export function CreatePostModal() {
   };
 
   const onSubmit = async (data: ICreatePostForm) => {
+    console.log("submitted data", data)
     data.media = images;
     const errMsg = await addPost(data);
     if (errMsg) {
@@ -59,6 +66,10 @@ export function CreatePostModal() {
     }
     close();
   };
+
+  useEffect(() => {
+    append({ value: "", id: 0 })
+  }, [])
 
   return (
     <Modal
@@ -171,32 +182,41 @@ export function CreatePostModal() {
                   value={field.value}
                   autoCorrect={false}
                   err={fieldState.error}
-                  className=" h-28 align-top w-full"
+                  className="h-28 align-top w-full"
                 />
               );
             }}
           />
-          <Controller
-            control={control}
-            name="link"
-            render={({ field, fieldState }) => {
-              return (
-                <Input
-                  className="w-full"
-                  placeholder="Напишіть посилання"
-                  onChange={field.onChange}
-                  onChangeText={field.onChange}
-                  value={field.value}
-                  label="Посилання"
-                  autoCorrect={false}
-                  err={fieldState.error}
-                />
-              );
-            }}
-          />
-          {/* <TouchableOpacity className="rounded-full border-slive border-text border p-2 w-8 justify-center items-center">
-                        <ICONS.PlusIcon width={14} height={14} />
-                    </TouchableOpacity> */}
+
+          {linkInputs.map((input, i) => {
+
+            const tag = (
+              <Controller
+                key={input.id}
+                control={control}
+                name={`links.${i}.value` as const}
+                render={({ field, fieldState }) => {
+                  return (
+                    <Input
+                      className="w-full"
+                      placeholder="Напишіть посилання"
+                      onChange={field.onChange}
+                      onChangeText={field.onChange}
+                      value={field.value || ""}
+                      label="Посилання"
+                      autoCorrect={false}
+                      err={fieldState.error}
+                    />
+                  );
+                }}
+              />
+            )
+            return i + 1 == linkInputs.length ? <View className="flex-row w-10/12 items-center gap-2" key={input.id}>
+              {tag}
+              <RoundedButton className="w-5 h-5 translate-y-1/2" icon={<ICONS.PlusIcon width={15} height={15} onPress={() => append({ value: "", id: i + 1 })} />} />
+            </View> : tag
+          }
+          )}
 
           <View
             style={{ minHeight: 1, maxHeight: 288 }}
