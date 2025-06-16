@@ -213,7 +213,11 @@ export function CreatePostModal() {
             )
             return i + 1 == linkInputs.length ? <View className="flex-row w-10/12 items-center gap-2" key={input.id}>
               {tag}
-              <RoundedButton className="w-5 h-5 translate-y-1/2" icon={<ICONS.PlusIcon width={15} height={15} onPress={() => append({ value: "", id: i + 1 })} />} />
+              <RoundedButton
+                className="w-5 h-5 translate-y-1/2"
+                onPress={() => append({ value: "", id: i + 1 })}
+                icon={<ICONS.PlusIcon width={15} height={15} />}
+              />
             </View> : tag
           }
           )}

@@ -7,7 +7,7 @@ export function TabBar() {
     color: "darkBlue",
     fontWeight: "bold",
     marginTop: 6,
-    fontSize: 12
+    fontSize: 12,
   };
   return (
     <Tabs screenOptions={{ headerShown: false, tabBarActiveTintColor: "darkBlue" }}>

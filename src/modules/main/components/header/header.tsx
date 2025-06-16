@@ -8,12 +8,13 @@ import {
 } from "../../../../shared/ui/icons/headerIcons";
 import { useUserCtx } from "../../../users/components/users-ctx/context";
 import { useCreatePostModal } from "../../../posts/components";
+import { LinkItem } from "./link-item";
 
 
 export function Header() {
   const router = useRouter();
   const { user, logout } = useUserCtx();
-  const { open: createPostModalOpen } = useCreatePostModal();
+  const { open: createPostModalOpen, visible: postModalVisible } = useCreatePostModal();
   const onLogout = () => {
     logout();
     router.navigate("/users/login");
@@ -29,26 +30,24 @@ export function Header() {
       </View>
       {user && (
         <View className="flex-row gap-2 max-w-fit">
-          <TouchableOpacity
+          <LinkItem
             onPress={() => createPostModalOpen()}
-            className=" border-text border rounded-full p-2 "
+            focused={postModalVisible}
           >
             <PlusIcon width={20} height={20} />
-          </TouchableOpacity>
+          </LinkItem>
           ,
-          <TouchableOpacity
-            className=" border-text border rounded-full p-2 "
-            onPress={() => router.navigate("/settings")}
+          <LinkItem
+            path="/settings"
           >
             <SettingsIcon width={20} height={20} />
-          </TouchableOpacity>
+          </LinkItem>
           ,
-          <TouchableOpacity
+          <LinkItem
             onPress={onLogout}
-            className="border-text border rounded-full p-2 "
           >
             <LogOutIcon width={20} height={20} />
-          </TouchableOpacity>
+          </LinkItem>
           ,
         </View>
       )}

@@ -69,7 +69,7 @@ export function UsersProvider({ children }: { children: ReactNode }) {
         ...postPartial,
         _count: { likedBy: 0, viewedBy: 0 },
       };
-      setUser({ ...user, createdPosts: [...user.createdPosts, post] });
+      setUser({ ...user, createdPosts: [post, ...user.createdPosts] });
     } catch (err) {
       return getErrorMessage(err);
     } finally {

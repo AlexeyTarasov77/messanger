@@ -13,7 +13,7 @@ export function Button(props: IButtonProps) {
 export function RoundedButton({ label, disabled, filled, className, icon, ...props }: IRoundedButtonProps) {
   return (
     <TouchableOpacity
-      className={`flex-row gap-2 rounded-full border border-slive p-3 items-center justify-center ${className} ${filled ? "bg-purple-50" : ""}`}
+      className={`flex-row gap-2 rounded-full border border-slive p-3 items-center justify-center ${className} ${filled ? "bg-purple-100" : ""}`}
       {...props} disabled={disabled}
     >
       {icon}
