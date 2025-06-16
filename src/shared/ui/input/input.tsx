@@ -49,7 +49,7 @@ export function Input({
         </Text>
       )}
       <View
-        className={`flex-row rounded-2xl px-2 border ${disabled ? "border-gray-400" : "border-grey"} ${props.className}`}
+        className={`flex-row rounded-xl px-4 py-2 border ${disabled ? "border-gray-400" : "border-grey"} ${props.className}`}
       >
         <TextInput
           placeholderTextColor="#CDCDCD"
@@ -63,6 +63,22 @@ export function Input({
     </View>
   );
 }
+function InputSearch(props: Omit<IInputProps, "iconLeft">) {
+  const { err } = props;
+  return (
+    <View className="">
+      <View className="flex-row gap-1 items-center rounded-2xl px-2 border border-grey">
+        <View className=" self-center">
+          <ICONS.SearchIcon svg={{ width: 20, height: 20 }} />
+        </View>
+        <TextInput placeholderTextColor="#81818D" {...props} />
+      </View>
+      {renderError(err)}
+    </View>
+  );
+}
+
+Input.InputSearch = InputSearch;
 
 function Password(props: Omit<IInputProps, "iconRight">) {
   const { label, err } = props;

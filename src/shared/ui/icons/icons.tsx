@@ -22,12 +22,14 @@ import { BinIcon } from "./bin-icon";
 import { EditIcon } from "./edit-icon";
 import { AlbumIcon } from "./album-icon";
 import { SearchIcon } from "./search-icon";
+import { MessagesIcon } from "./messages-icon";
 
 export const ICONS = {
   EyeIcon,
   EyeSlashIcon,
   EmailIcon,
   PenIcon,
+  MessagesIcon,
   LogoIcon,
   LogOutIcon,
   SettingsIcon,

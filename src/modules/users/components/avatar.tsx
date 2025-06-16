@@ -3,22 +3,23 @@ import { ICONS } from "../../../shared/ui/icons";
 import { DEFAULT_AVATAR_URL } from "../../../shared/constants";
 import { useRouter } from "expo-router";
 
+interface IUserAvatarProps {
+    user: { avatarUrl?: string; isOnline: boolean, id: string };
+    className?: string;
+    width: number;
+    height: number;
+}
 
 export function UserAvatar({
     user,
     className,
     width,
     height,
-}: {
-    user: { avatarUrl?: string; isOnline: boolean, id: string };
-    className?: string;
-    width: number;
-    height: number;
-}) {
+}: IUserAvatarProps) {
     const router = useRouter()
     return (
         <View className="flex-row">
-            <TouchableOpacity onPress={()=>{router.replace(`/profile/${user.id}`)}}>
+            <TouchableOpacity onPress={() => { router.replace(`/profile/${user.id}`) }}>
                 <View>
                     <Image
                         source={{ uri: user.avatarUrl || DEFAULT_AVATAR_URL }}
@@ -37,17 +38,17 @@ export function UserAvatar({
     );
 }
 
-function UserAvatarWithoutOnline(props: Omit<IUserAvatarProps, "isOnline">) {
-  return (
-    <View className="flex-row">
-      <View>
-        <Image
-          source={{ uri: props.avatarUrl || DEFAULT_AVATAR_URL }}
-          className="w-10 h-10 rounded-full"
-        />
-      </View>
-    </View>
-  );
+function UserAvatarWithoutOnline({ user: { avatarUrl } }: Omit<IUserAvatarProps, "isOnline">) {
+    return (
+        <View className="flex-row">
+            <View>
+                <Image
+                    source={{ uri: avatarUrl || DEFAULT_AVATAR_URL }}
+                    className="w-10 h-10 rounded-full"
+                />
+            </View>
+        </View>
+    );
 }
 
 UserAvatar.UserAvatarWithoutOnline = UserAvatarWithoutOnline;

@@ -56,7 +56,6 @@ export function MainBlock() {
                 label="Iм'я"
                 autoCorrect={false}
                 err={fieldState.error}
-                className="px-4 py-3 rounded-xl"
               />
             );
           }}
@@ -81,7 +80,6 @@ export function MainBlock() {
                 label="Прізвище"
                 autoCorrect={false}
                 err={fieldState.error}
-                className="px-4 py-3 rounded-xl"
               />
             );
           }}
@@ -106,7 +104,6 @@ export function MainBlock() {
                 label="Дата народження"
                 autoCorrect={false}
                 err={fieldState.error}
-                className="px-4 py-3 rounded-xl"
               />
             );
           }}
@@ -131,7 +128,6 @@ export function MainBlock() {
                 label="Електронна адреса"
                 autoCorrect={false}
                 err={fieldState.error}
-                className="px-4 py-3 rounded-xl"
               />
             );
           }}
