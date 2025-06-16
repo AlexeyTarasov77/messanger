@@ -2,6 +2,8 @@ import { Tabs } from "expo-router";
 import { tabs } from "./tabs";
 import { StyleProp, Text, TextStyle } from "react-native";
 
+const excludedTabnames = ["settings", "profile/[id]"]
+
 export function TabBar() {
   const tabBarLabelStyle: StyleProp<TextStyle> = {
     color: "darkBlue",
@@ -24,12 +26,14 @@ export function TabBar() {
           }}
         />
       ))}
-      <Tabs.Screen
-        name="settings"
-        options={{
-          href: null,
-        }}
-      />
+      {excludedTabnames.map(name => (
+        <Tabs.Screen
+          name={name}
+          options={{
+            href: null,
+          }}
+        />
+      ))}
     </Tabs>
   );
 }
