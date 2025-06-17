@@ -11,7 +11,7 @@ export function UserAlbums({ userId }: { userId: number }) {
     }
     return (
         <ScrollView className="bg-white pt-4">
-            <View className="gap-4 pb-8r">
+            <View className="gap-4 pb-8r flex-row flex-wrap">
                 {user.albums.map((album) => (
                     <AlbumCard
                         key={album.id}

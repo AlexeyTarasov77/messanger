@@ -49,7 +49,7 @@ export function Input({
         </Text>
       )}
       <View
-        className={`flex-row rounded-xl px-4 py-2 border ${disabled ? "border-gray-400" : "border-grey"} ${props.className}`}
+        className={`flex-row rounded-xl px-4  border ${disabled ? "border-gray-400" : "border-grey"} ${props.className}`}
       >
         <TextInput
           placeholderTextColor="#CDCDCD"
@@ -87,7 +87,7 @@ function Password(props: Omit<IInputProps, "iconRight">) {
   return (
     <View>
       {!!label && <Text className="text-dark">{label}</Text>}
-      <View className="flex-row rounded-2xl border border-grey px-2">
+      <View className="flex-row rounded-2xl border border-grey px-2 pl-2">
         <TextInput
           placeholderTextColor="#CDCDCD"
           secureTextEntry={isHidden}

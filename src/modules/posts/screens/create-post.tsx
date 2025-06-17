@@ -15,261 +15,321 @@ import { Tag } from "../components/tag";
 import { RoundedButton } from "../../../shared/ui/button/button";
 
 export function CreatePostModal() {
-  const { visible, close } = useCreatePostModal();
-  const { addPost } = useUserCtx();
-  // images contains array of base64 encoded selected images
-  const [images, setImages] = useState<ICreatePostForm["media"]>([]);
+    const { visible, close } = useCreatePostModal();
+    const { addPost } = useUserCtx();
+    // images contains array of base64 encoded selected images
+    const [images, setImages] = useState<ICreatePostForm["media"]>([]);
 
-  const {
-    handleSubmit,
-    control,
-    setError,
-    formState: { errors },
-  } = useForm<ICreatePostForm>({
-    defaultValues: {
-      title: "",
-      subject: "",
-      body: "",
-      tags: [],
-      media: [],
-      links: []
-    },
-  });
-  const { fields: linkInputs, append } = useFieldArray({
-    control,
-    name: "links",
-  });
-
-  const pickPostImages = async () => {
-    const result = await pickImage({
-      mediaTypes: "images",
-      allowsMultipleSelection: true,
-      base64: true,
+    const {
+        handleSubmit,
+        control,
+        setError,
+        formState: { errors },
+    } = useForm<ICreatePostForm>({
+        defaultValues: {
+            title: "",
+            subject: "",
+            body: "",
+            tags: [],
+            media: [],
+            links: [],
+        },
     });
-    if (result && !result.canceled && result.assets) {
-      setImages((prev) => [
-        ...prev,
-        ...result.assets.map((asset) => ({
-          url: String(asset.uri),
-          type: asset.type as MediaType,
-        })),
-      ]);
-    }
-  };
+    const { fields: linkInputs, append } = useFieldArray({
+        control,
+        name: "links",
+    });
 
-  const onSubmit = async (data: ICreatePostForm) => {
-    console.log("submitted data", data)
-    data.media = images;
-    const errMsg = await addPost(data);
-    if (errMsg) {
-      return setError("root", { message: errMsg });
-    }
-    close();
-  };
+    const { fields: tagInputs } = useFieldArray({
+        control,
+        name: "tags",
+    });
 
-  useEffect(() => {
-    append({ value: "", id: 0 })
-  }, [])
+    const pickPostImages = async () => {
+        const result = await pickImage({
+            mediaTypes: "images",
+            allowsMultipleSelection: true,
+            base64: true,
+        });
+        if (result && !result.canceled && result.assets) {
+            setImages((prev) => [
+                ...prev,
+                ...result.assets.map((asset) => ({
+                    url: String(asset.uri),
+                    type: asset.type as MediaType,
+                })),
+            ]);
+        }
+    };
 
-  return (
-    <Modal
-      isVisible={visible}
-      onBackdropPress={close}
-      coverScreen={false}
-      className="bg-white justify-center items-center rounded-2xl my-auto"
-      style={{ maxHeight: "70%" }}
-    >
-      <ScrollView className="p-4 gap-2 flex-1">
-        <View className="w-full flex-row justify-end">
-          <ICONS.CloseIcon
-            onPress={close}
-            width={15}
-            height={15}
-            fill="#543C52"
-          />
-        </View>
-        <Text className="text-xl font-bold">Створення публікації</Text>
-        <View className="gap-2">
-          <Controller
-            control={control}
-            name="title"
-            rules={{
-              required: {
-                value: true,
-                message: "Назва публікації обов’язкова",
-              },
-              maxLength: {
-                value: 50,
-                message: "Максимум 50 символів",
-              },
-            }}
-            render={({ field, fieldState }) => {
-              return (
-                <Input
-                  className="w-full"
-                  placeholder="Напишіть назву публікації"
-                  onChange={field.onChange}
-                  onChangeText={field.onChange}
-                  value={field.value}
-                  label="Назва публікації"
-                  autoCorrect={false}
-                  err={fieldState.error}
-                />
-              );
-            }}
-          />
+    const onSubmit = async (data: ICreatePostForm) => {
+        console.log("submitted data", data);
+        data.media = images;
+        const errMsg = await addPost(data);
+        if (errMsg) {
+            return setError("root", { message: errMsg });
+        }
+        close();
+    };
 
-          <Controller
-            control={control}
-            name="subject"
-            rules={{
-              required: {
-                value: true,
-                message: "Тема публікації обов’язкова",
-              },
-            }}
-            render={({ field, fieldState }) => {
-              return (
-                <Input
-                  className="w-full"
-                  placeholder="Напишіть тему публікації"
-                  onChange={field.onChange}
-                  onChangeText={field.onChange}
-                  value={field.value}
-                  label="Тема публікації"
-                  autoCorrect={false}
-                  err={fieldState.error}
-                />
-              );
-            }}
-          />
-          <Controller
-            control={control}
-            name="tags"
-            render={({ field }) => (
-              <Tag
-                selectedTags={field.value}
-                onToggle={(tag) => {
-                  const isSelected = field.value.some((t) => t.id === tag.id);
-                  if (isSelected) {
-                    field.onChange(field.value.filter((t) => t.id !== tag.id));
-                  } else {
-                    field.onChange([...field.value, tag]);
-                  }
-                }}
-              />
-            )}
-          />
-          <TouchableOpacity className="rounded-full border-slive border-text border p-2 w-8 justify-center items-center">
-            <ICONS.PlusIcon width={14} height={14} />
-          </TouchableOpacity>
+    useEffect(() => {
+        append({ value: "", id: 0 });
+    }, []);
 
-          <Controller
-            control={control}
-            name="body"
-            rules={{
-              required: {
-                value: true,
-                message: "Тема публікації обов’язкова",
-              },
-            }}
-            render={({ field, fieldState }) => {
-              return (
-                <Input
-                  placeholder="Введіть текст..."
-                  onChange={field.onChange}
-                  onChangeText={field.onChange}
-                  value={field.value}
-                  autoCorrect={false}
-                  err={fieldState.error}
-                  className="h-28 align-top w-full"
-                />
-              );
-            }}
-          />
-
-          {linkInputs.map((input, i) => {
-
-            const tag = (
-              <Controller
-                key={input.id}
-                control={control}
-                name={`links.${i}.value` as const}
-                render={({ field, fieldState }) => {
-                  return (
-                    <Input
-                      className="w-full"
-                      placeholder="Напишіть посилання"
-                      onChange={field.onChange}
-                      onChangeText={field.onChange}
-                      value={field.value || ""}
-                      label="Посилання"
-                      autoCorrect={false}
-                      err={fieldState.error}
+    return (
+        <Modal
+            isVisible={visible}
+            onBackdropPress={close}
+            coverScreen={false}
+            className="bg-white justify-center items-center rounded-2xl my-auto"
+            style={{ maxHeight: "70%" }}
+        >
+            <ScrollView className="p-4 gap-2 flex-1">
+                <View className="w-full flex-row justify-end">
+                    <ICONS.CloseIcon
+                        onPress={close}
+                        width={15}
+                        height={15}
+                        fill="#543C52"
                     />
-                  );
-                }}
-              />
-            )
-            return i + 1 == linkInputs.length ? <View className="flex-row w-10/12 items-center gap-2" key={input.id}>
-              {tag}
-              <RoundedButton
-                className="w-5 h-5 translate-y-1/2"
-                onPress={() => append({ value: "", id: i + 1 })}
-                icon={<ICONS.PlusIcon width={15} height={15} />}
-              />
-            </View> : tag
-          }
-          )}
-
-          <View
-            style={{ minHeight: 1, maxHeight: 288 }}
-            className="mt-2 mb-3 rounded-3xl justify-center"
-          >
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {images.map((imageData, index) => (
-                <View key={index} className="mr-2 relative">
-                  <Image
-                    source={{ uri: imageData.url }}
-                    className="h-72 w-72 rounded-3xl"
-                    resizeMode="cover"
-                  />
-                  <View className="absolute w-10 h-10 bg-white top-3 right-3 border rounded-full justify-center items-center">
-                    <TouchableOpacity
-                      onPress={() =>
-                        setImages(
-                          images.filter((img) => img.url != imageData.url),
-                        )
-                      }
-                    >
-                      <BinIcon width={20} height={20} />
-                    </TouchableOpacity>
-                  </View>
                 </View>
-              ))}
+                <Text className="text-xl font-bold">Створення публікації</Text>
+                <View className="gap-2">
+                    <Controller
+                        control={control}
+                        name="title"
+                        rules={{
+                            required: {
+                                value: true,
+                                message: "Назва публікації обов’язкова",
+                            },
+                            maxLength: {
+                                value: 50,
+                                message: "Максимум 50 символів",
+                            },
+                        }}
+                        render={({ field, fieldState }) => {
+                            return (
+                                <Input
+                                    className="w-full"
+                                    placeholder="Напишіть назву публікації"
+                                    onChange={field.onChange}
+                                    onChangeText={field.onChange}
+                                    value={field.value}
+                                    label="Назва публікації"
+                                    autoCorrect={false}
+                                    err={fieldState.error}
+                                />
+                            );
+                        }}
+                    />
+
+                    <Controller
+                        control={control}
+                        name="subject"
+                        rules={{
+                            required: {
+                                value: true,
+                                message: "Тема публікації обов’язкова",
+                            },
+                        }}
+                        render={({ field, fieldState }) => {
+                            return (
+                                <Input
+                                    className="w-full"
+                                    placeholder="Напишіть тему публікації"
+                                    onChange={field.onChange}
+                                    onChangeText={field.onChange}
+                                    value={field.value}
+                                    label="Тема публікації"
+                                    autoCorrect={false}
+                                    err={fieldState.error}
+                                />
+                            );
+                        }}
+                    />
+
+                    {tagInputs.map((input, i) => {
+                        const tag = (
+                            <Controller
+                            key={input.id}
+                                control={control}
+                                name="tags"
+                                render={({ field }) => (
+                                    <Tag
+                                        selectedTags={field.value}
+                                        onToggle={(tag) => {
+                                            const isSelected = field.value.some(
+                                                (t) => t.id === tag.id
+                                            );
+                                            if (isSelected) {
+                                                field.onChange(
+                                                    field.value.filter(
+                                                        (t) => t.id !== tag.id
+                                                    )
+                                                );
+                                            } else {
+                                                field.onChange([
+                                                    ...field.value,
+                                                    tag,
+                                                ]);
+                                            }
+                                        }}
+                                    />
+                                )}
+                            />
+                        );
+                        return i + 1 == linkInputs.length ? (
+                            <View
+                                className="flex-row w-10/12 items-center gap-2"
+                                key={input.id}
+                            >
+                                {tag}
+                                <RoundedButton
+                                    className="w-5 h-5 translate-y-1/2"
+                                    onPress={() =>
+                                        append({ value: "", id: i + 1 })
+                                    }
+                                    icon={
+                                        <ICONS.PlusIcon
+                                            width={15}
+                                            height={15}
+                                        />
+                                    }
+                                />
+                            </View>
+                        ) : (
+                            tag
+                        );
+                    })}
+
+                    <Controller
+                        control={control}
+                        name="body"
+                        rules={{
+                            required: {
+                                value: true,
+                                message: "Тема публікації обов’язкова",
+                            },
+                        }}
+                        render={({ field, fieldState }) => {
+                            return (
+                                <Input
+                                    placeholder="Введіть текст..."
+                                    onChange={field.onChange}
+                                    onChangeText={field.onChange}
+                                    value={field.value}
+                                    autoCorrect={false}
+                                    err={fieldState.error}
+                                    className="h-28 align-top w-full"
+                                />
+                            );
+                        }}
+                    />
+
+                    {linkInputs.map((input, i) => {
+                        const tag = (
+                            <Controller
+                                key={input.id}
+                                control={control}
+                                name={`links.${i}.value` as const}
+                                render={({ field, fieldState }) => {
+                                    return (
+                                        <Input
+                                            className="w-full"
+                                            placeholder="Напишіть посилання"
+                                            onChange={field.onChange}
+                                            onChangeText={field.onChange}
+                                            value={field.value || ""}
+                                            label="Посилання"
+                                            autoCorrect={false}
+                                            err={fieldState.error}
+                                        />
+                                    );
+                                }}
+                            />
+                        );
+                        return i + 1 == linkInputs.length ? (
+                            <View
+                                className="flex-row w-10/12 items-center gap-2"
+                                key={input.id}
+                            >
+                                {tag}
+                                <RoundedButton
+                                    className="w-5 h-5 translate-y-1/2"
+                                    onPress={() =>
+                                        append({ value: "", id: i + 1 })
+                                    }
+                                    icon={
+                                        <ICONS.PlusIcon
+                                            width={15}
+                                            height={15}
+                                        />
+                                    }
+                                />
+                            </View>
+                        ) : (
+                            tag
+                        );
+                    })}
+
+                    <View
+                        style={{ minHeight: 1, maxHeight: 288 }}
+                        className="mt-2 mb-3 rounded-3xl justify-center"
+                    >
+                        <ScrollView
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                        >
+                            {images.map((imageData, index) => (
+                                <View key={index} className="mr-2 relative">
+                                    <Image
+                                        source={{ uri: imageData.url }}
+                                        className="h-72 w-72 rounded-3xl"
+                                        resizeMode="cover"
+                                    />
+                                    <View className="absolute w-10 h-10 bg-white top-3 right-3 border rounded-full justify-center items-center">
+                                        <TouchableOpacity
+                                            onPress={() =>
+                                                setImages(
+                                                    images.filter(
+                                                        (img) =>
+                                                            img.url !=
+                                                            imageData.url
+                                                    )
+                                                )
+                                            }
+                                        >
+                                            <BinIcon width={20} height={20} />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            ))}
+                        </ScrollView>
+                    </View>
+                </View>
+                {renderError(errors.root)}
+                <View className="flex-row justify-end gap-2">
+                    <TouchableOpacity
+                        onPress={pickPostImages}
+                        className="border border-plum p-2 rounded-3xl"
+                    >
+                        <ICONS.ImageIcon />
+                    </TouchableOpacity>
+                    <TouchableOpacity className="border border-slive  p-2 rounded-3xl">
+                        <ICONS.SmileyIcon />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={handleSubmit(onSubmit)}
+                        className="flex-row items-center gap-1 bg-slive p-2 rounded-2xl"
+                    >
+                        <Text className="text-white text-center px-3">
+                            Публікація
+                        </Text>
+                        <ICONS.SendPostIcon width={20} height={20} />
+                    </TouchableOpacity>
+                </View>
             </ScrollView>
-          </View>
-        </View>
-        {renderError(errors.root)}
-        <View className="flex-row justify-end gap-2">
-          <TouchableOpacity
-            onPress={pickPostImages}
-            className="border border-plum p-2 rounded-3xl"
-          >
-            <ICONS.ImageIcon />
-          </TouchableOpacity>
-          <TouchableOpacity className="border border-slive  p-2 rounded-3xl">
-            <ICONS.SmileyIcon />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={handleSubmit(onSubmit)}
-            className="flex-row items-center gap-1 bg-slive p-2 rounded-2xl"
-          >
-            <Text className="text-white text-center px-3">Публікація</Text>
-            <ICONS.SendPostIcon width={20} height={20} />
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </Modal>
-  );
+        </Modal>
+    );
 }
