@@ -19,6 +19,9 @@ export function Links() {
                         pathname === link.path && "border-t-2 border-slive"
                     )}
                 >
+                    <View className="items-center py-2">
+                        <link.icon />
+                    </View>
                     <Text
                         className={clsx(
                             "font-medium",
@@ -29,9 +32,7 @@ export function Links() {
                     >
                         {link.label}
                     </Text>
-                    <View className="items-center">
-                        <link.icon />
-                    </View>
+                    
                 </TouchableOpacity>
             ))}
         </View>
