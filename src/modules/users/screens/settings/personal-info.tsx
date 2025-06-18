@@ -2,7 +2,7 @@ import { Image, View, Text } from "react-native";
 import { useUserCtx } from "../../components/users-ctx/context";
 import { DEFAULT_AVATAR_URL } from "../../../../shared/constants";
 import { getUserDisplayName } from "../../utils";
-import { EditBlock } from "../../components/ edit-block";
+import { EditBlock } from "../../components/edit-block";
 import { ReactNode, useState } from "react";
 import { IPersonalInfoForm, IUser } from "../../types";
 import { Controller, useForm } from "react-hook-form";

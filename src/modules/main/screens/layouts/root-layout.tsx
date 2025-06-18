@@ -21,7 +21,11 @@ export function RootLayout() {
 
   return (
     <RedirectUnauthenticated>
-      <Stack screenOptions={{ header: Header }} />
+      {/* <Stack.Screen name="/users/index.tsx" options={{ header: () => <Header /> }} />
+      <Stack.Screen name="/users/chats-list" options={{ header: () => <Header.HeaderChats /> }} /> */}
+
+      {/* <Stack screenOptions={{ header: () => <Header /> }} /> */}
+      <Stack screenOptions={{ header: () => <Header.HeaderChats /> }} />
       <CreatePostModal />
     </RedirectUnauthenticated>
   );
