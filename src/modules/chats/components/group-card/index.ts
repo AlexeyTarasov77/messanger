@@ -1,1 +1,1 @@
-export {GroupCard} from "./group-card"
+export {GroupCard} from "./card"
