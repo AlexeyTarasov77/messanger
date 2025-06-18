@@ -1,5 +1,5 @@
-import { ChatsListScreen } from "../../../modules/chats/screens";
+import { ContactsScreen } from "../../../modules/chats/screens";
 
-export default function ChatsListRoute() {
-  return <ChatsListScreen />;
+export default function ContactsRoute() {
+  return <ContactsScreen />;
 }

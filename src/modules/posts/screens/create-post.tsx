@@ -312,7 +312,7 @@ export function CreatePostModal() {
                 <View className="flex-row justify-end gap-2">
                     <TouchableOpacity
                         onPress={pickPostImages}
-                        className="border border-plum p-2 rounded-3xl"
+                        className="border border-slive p-2 rounded-3xl"
                     >
                         <ICONS.ImageIcon />
                     </TouchableOpacity>

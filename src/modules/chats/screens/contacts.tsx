@@ -3,13 +3,13 @@ import { ScrollView, Text, View, Button } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
 import { verifyInstallation } from "nativewind";
 import { Input } from "../../../shared/ui/input";
-import { UserAvatar } from "../../../modules/users/components/avatar";
+import { UserAvatar } from "../../users/components/avatar";
 import { Controller, useForm } from "react-hook-form";
-import { ChatListCard } from "../../../modules/chats/components/chat-card";
-import { IChatListSearch, IUsers } from "../types";
+import { ChatListCard } from "../components/chat-card";
+import { IChatListSearch, IUser } from "../types";
 // import { getUserDisplayName } from "../../../users/utils";
 
-export function ChatsListScreen() {
+export function ContactsScreen() {
     verifyInstallation();
     const router = useRouter();
     const {
@@ -41,10 +41,9 @@ export function ChatsListScreen() {
                 <View className="flex-row items-center m-5 gap-5">
                     <View className="w-full gap-5">
                         <View className="flex-row items-center gap-2">
-                            <ICONS.FriendsIcon
+                            <ICONS.ContactsIcon
                                 width={20}
                                 height={20}
-                                fill="#81818D"
                             />
                             <Text className="color-grey dark:text-bgLight font-medium text-xl ">
                                 Контакти

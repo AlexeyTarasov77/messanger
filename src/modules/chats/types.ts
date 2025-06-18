@@ -20,12 +20,12 @@ export interface IMessagesListCard {
 }
 
 export interface IMessageCard {
-  user: IUsers;
+  user?: IUser;
   message: string;
   time: string;
 }
 
-export interface IUsers {
+export interface IUser {
   username?: string;
   firstName?: string;
   lastName?: string;
