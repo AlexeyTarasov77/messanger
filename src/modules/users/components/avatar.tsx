@@ -2,9 +2,11 @@ import { Image, TouchableOpacity, View } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
 import { DEFAULT_AVATAR_URL } from "../../../shared/constants";
 import { useRouter } from "expo-router";
+import { IUserAvatar } from "../types";
+import { getUserAvatar } from "../utils";
 
 interface IUserAvatarProps {
-    user: { avatarUrl?: string; isOnline: boolean, id: string };
+    user: { isOnline: boolean, id: string, profile: { avatars: IUserAvatar[] } };
     className?: string;
     width: number;
     height: number;
@@ -22,7 +24,7 @@ export function UserAvatar({
             <TouchableOpacity onPress={() => { router.replace(`/profile/${user.id}`) }}>
                 <View>
                     <Image
-                        source={{ uri: user.avatarUrl || DEFAULT_AVATAR_URL }}
+                        source={{ uri: getUserAvatar(user)?.image || DEFAULT_AVATAR_URL }}
                         className={`rounded-full ${className}`}
                     />
                 </View>
@@ -38,12 +40,12 @@ export function UserAvatar({
     );
 }
 
-function UserAvatarWithoutOnline({ user: { avatarUrl } }: Omit<IUserAvatarProps, "isOnline">) {
+function UserAvatarWithoutOnline({ user }: Omit<IUserAvatarProps, "isOnline">) {
     return (
         <View className="flex-row">
             <View>
                 <Image
-                    source={{ uri: avatarUrl || DEFAULT_AVATAR_URL }}
+                    source={{ uri: getUserAvatar(user)?.image || DEFAULT_AVATAR_URL }}
                     className="w-10 h-10 rounded-full"
                 />
             </View>

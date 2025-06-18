@@ -16,7 +16,7 @@ export function MainBlock() {
   if (!user) return;
   const [isEditMode, setIsEditMode] = useState(false);
   const { control, handleSubmit } = useForm<IPersonalInfoForm>({
-    defaultValues: user,
+    defaultValues: { ...user, date_of_birth: user.profile.date_of_birth },
   });
   const onSubmit = async (data: IPersonalInfoForm) => {
     try {
@@ -39,7 +39,7 @@ export function MainBlock() {
       <View className="gap-4">
         <Controller
           control={control}
-          name="firstName"
+          name="first_name"
           rules={{
             required: {
               value: true,
@@ -63,7 +63,7 @@ export function MainBlock() {
 
         <Controller
           control={control}
-          name="lastName"
+          name="last_name"
           rules={{
             required: {
               value: true,
@@ -87,7 +87,7 @@ export function MainBlock() {
 
         <Controller
           control={control}
-          name="birthDate"
+          name="date_of_birth"
           rules={{
             required: {
               value: true,

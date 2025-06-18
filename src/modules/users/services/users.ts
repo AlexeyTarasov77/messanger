@@ -13,16 +13,16 @@ export const usersService = {
         }
         return resp.data;
     },
-    updateUser: async (data: Partial<IUser>): Promise<IUser> => {
+    updateUser: async (data: Partial<IUser & { birthDate: string, avatar: string }>): Promise<IUser> => {
         const formData = new FormData();
         if (data.username) {
             formData.append("username", data.username);
         }
-        if (data.firstName) {
-            formData.append("firstName", data.firstName);
+        if (data.first_name) {
+            formData.append("firstName", data.first_name);
         }
-        if (data.lastName) {
-            formData.append("lastName", data.lastName);
+        if (data.last_name) {
+            formData.append("lastName", data.last_name);
         }
         if (data.email) {
             formData.append("email", data.email);
@@ -30,9 +30,8 @@ export const usersService = {
         if (data.birthDate) {
             formData.append("birthDate", data.birthDate);
         }
-        console.log("AVATAR URL", data.avatarUrl);
-        if (data.avatarUrl) {
-            formData.append("avatar", getImageData(data.avatarUrl) as any);
+        if (data.avatar) {
+            formData.append("avatar", getImageData(data.avatar) as any);
         }
         const resp = await PATCH<IUser>("/users/me/update", formData);
         if (!resp.success) {

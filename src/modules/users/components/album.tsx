@@ -3,6 +3,7 @@ import { Heading } from "../../../shared/ui/heading/heading";
 import { IAlbum } from "../types";
 import { RoundedButton } from "../../../shared/ui/button/button";
 import { ICONS } from "../../../shared/ui/icons";
+import { buildImageUrl } from "../../../shared/utils/images";
 
 export function Album({ albumData }: { albumData: IAlbum }) {
   return (
@@ -22,9 +23,9 @@ export function Album({ albumData }: { albumData: IAlbum }) {
       <View className="border border-grey" />
       <Text className="text-darkBlue">Фотографіїї</Text>
       <View className="flex-row justify-between items-center flex-wrap">
-        {albumData.photos.map(photo => (
+        {albumData.images.map(photo => (
           <View className="relative mt-3" key={photo.id} >
-            <Image source={{ uri: photo.url }} className="rounded-xl" width={160} height={160} />
+            <Image source={{ uri: buildImageUrl(photo) }} className="rounded-xl" width={160} height={160} />
             <View className="absolute top-28 left-16 gap-2 flex-row">
               <RoundedButton filled icon={<ICONS.EyeIcon width={20} height={20} />} />
               <RoundedButton filled icon={<ICONS.BinIcon width={20} height={20} />} />

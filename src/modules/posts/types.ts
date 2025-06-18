@@ -1,4 +1,5 @@
-import { Media } from "../main/types";
+import { MediaImage } from "../main/types";
+import { IUserAvatar } from "../users/types";
 
 export interface IPostTag {
   id: number;
@@ -17,33 +18,33 @@ export interface ICreatePostForm {
   title: string;
   subject: string;
   tags: IPostTag[];
-  body: string;
-  media: Omit<Media, "id">[];
+  content: string;
+  images: string[];
 }
 
 export interface IPost {
   id: number;
-  link?: string;
   title: string;
-  subject: string;
   tags?: IPostTag[];
-  body: string;
-  media: Media[];
+  content: string;
+  images: MediaImage[];
   _count: {
-    likedBy: number;
-    viewedBy: number;
+    likes: number;
+    views: number;
   };
 }
 
 interface IPostAuthor {
   id: string;
   username?: string;
-  signatureUrl?: string;
   email: string;
-  firstName?: string;
-  lastName?: string;
+  first_name?: string;
+  last_name?: string;
   isOnline: boolean;
-  avatarUrl?: string;
+  profile: {
+    signature?: string;
+    avatars: IUserAvatar[]
+  }
 }
 
 export interface IPostWithAuthor extends IPost {

@@ -1,4 +1,4 @@
-import { Media } from "../main/types";
+import { MediaImage } from "../main/types";
 import { IPost } from "../posts/types";
 
 export interface ILoginForm {
@@ -11,26 +11,28 @@ export interface IProfileCardForm {
   username?: string;
 }
 
+export interface IUserAvatar {
+  id: string;
+  shown: boolean;
+  active: boolean;
+  image: string;
+}
+
 export interface IPersonalInfoForm {
-  firstName?: string;
-  lastName?: string;
+  first_name?: string;
+  last_name?: string;
   email?: string;
-  birthDate?: string;
+  date_of_birth?: string;
 }
 
 export interface IUser {
   id: string;
   username?: string;
   email: string;
-  aboutMe?: string;
-  firstName?: string;
-  lastName?: string;
-  birthDate?: string;
+  first_name?: string;
+  last_name?: string;
   isOnline: boolean;
-  avatarUrl?: string;
-  createdAt: string;
-  updatedAt: string;
-  blockedById?: number;
+  date_joined: string;
 }
 
 export interface IAlbum {
@@ -38,7 +40,7 @@ export interface IAlbum {
   name: string;
   subject: string;
   year: number
-  photos: Media[]
+  images: MediaImage[]
 }
 
 interface IAlbumAuthor {
@@ -53,14 +55,16 @@ interface IAlbumAuthor {
 }
 
 export interface IAlbumWithAuthor extends IAlbum {
-    author: IAlbumAuthor
+  author: IAlbumAuthor
 }
 
 export interface IUserExtended extends IUser {
-  createdPosts: IPost[];
-  viewedPosts: IPost[];
-  likedPosts: IPost[];
-  albums: IAlbum[];
+  profile: {
+    posts: IPost[]
+    date_of_birth: string;
+    albums: IAlbum[];
+    avatars: IUserAvatar[]
+  }
 }
 
 export interface IRegisterResponse {

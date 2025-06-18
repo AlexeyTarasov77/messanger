@@ -9,8 +9,7 @@ import { useCreatePostModal } from "../components";
 import { renderError } from "../../../shared/utils/errors";
 import { useUserCtx } from "../../users/components/users-ctx/context";
 import { BinIcon } from "../../../shared/ui/icons/bin-icon";
-import { pickImage } from "../../../shared/utils/images";
-import { MediaType } from "../../main/types";
+import { buildImageUrl, pickImage } from "../../../shared/utils/images";
 import { Tag } from "../components/tag";
 import { RoundedButton } from "../../../shared/ui/button/button";
 
@@ -18,7 +17,7 @@ export function CreatePostModal() {
   const { visible, close } = useCreatePostModal();
   const { addPost } = useUserCtx();
   // images contains array of base64 encoded selected images
-  const [images, setImages] = useState<ICreatePostForm["media"]>([]);
+  const [images, setImages] = useState<ICreatePostForm["images"]>([]);
 
   const {
     handleSubmit,
@@ -29,9 +28,9 @@ export function CreatePostModal() {
     defaultValues: {
       title: "",
       subject: "",
-      body: "",
+      content: "",
       tags: [],
-      media: [],
+      images: [],
       links: []
     },
   });
@@ -49,17 +48,15 @@ export function CreatePostModal() {
     if (result && !result.canceled && result.assets) {
       setImages((prev) => [
         ...prev,
-        ...result.assets.map((asset) => ({
-          url: String(asset.uri),
-          type: asset.type as MediaType,
-        })),
+        ...result.assets.map((asset) => (
+          String(asset.uri))),
       ]);
     }
   };
 
   const onSubmit = async (data: ICreatePostForm) => {
     console.log("submitted data", data)
-    data.media = images;
+    data.images = images;
     const errMsg = await addPost(data);
     if (errMsg) {
       return setError("root", { message: errMsg });
@@ -166,7 +163,7 @@ export function CreatePostModal() {
 
           <Controller
             control={control}
-            name="body"
+            name="content"
             rules={{
               required: {
                 value: true,
@@ -227,10 +224,10 @@ export function CreatePostModal() {
             className="mt-2 mb-3 rounded-3xl justify-center"
           >
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {images.map((imageData, index) => (
+              {images.map((currImg, index) => (
                 <View key={index} className="mr-2 relative">
                   <Image
-                    source={{ uri: imageData.url }}
+                    source={{ uri: currImg }}
                     className="h-72 w-72 rounded-3xl"
                     resizeMode="cover"
                   />
@@ -238,7 +235,7 @@ export function CreatePostModal() {
                     <TouchableOpacity
                       onPress={() =>
                         setImages(
-                          images.filter((img) => img.url != imageData.url),
+                          images.filter((img) => img !== currImg),
                         )
                       }
                     >

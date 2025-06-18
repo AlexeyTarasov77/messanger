@@ -45,6 +45,7 @@ export function UsersProvider({ children }: { children: ReactNode }) {
       try {
         setIsLoading(true);
         const user = await usersService.getUser();
+        console.log("FETCHED USER", user)
         setUser(user);
       } catch (err) {
         console.log("Не удалось получить пользователя:", err);
@@ -67,9 +68,9 @@ export function UsersProvider({ children }: { children: ReactNode }) {
       const post: IPost = {
         ...data,
         ...postPartial,
-        _count: { likedBy: 0, viewedBy: 0 },
+        _count: { likes: 0, views: 0 },
       };
-      setUser({ ...user, createdPosts: [post, ...user.createdPosts] });
+      setUser({ ...user, profile: { ...user.profile, posts: [post, ...user.profile.posts] } });
     } catch (err) {
       return getErrorMessage(err);
     } finally {
@@ -86,7 +87,7 @@ export function UsersProvider({ children }: { children: ReactNode }) {
       await postsService.deletePost(postId);
       setUser({
         ...user,
-        createdPosts: user.createdPosts.filter((post) => post.id !== postId),
+        profile: { ...user.profile, posts: user.profile.posts.filter((post) => post.id !== postId) }
       });
     } catch (err) {
       return getErrorMessage(err);

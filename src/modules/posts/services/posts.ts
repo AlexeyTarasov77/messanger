@@ -15,7 +15,7 @@ export const postsService = {
 
     formData.append("title", data.title);
     formData.append("subject", data.subject);
-    formData.append("body", data.body);
+    formData.append("body", data.content);
 
     if (data.links) {
       data.links.map(link => link.value && formData.append("links", link.value))
@@ -23,8 +23,8 @@ export const postsService = {
     data.tags.forEach((tag) => {
       formData.append(`tags`, tag.name);
     });
-    data.media.forEach((item) =>
-      formData.append(`media`, getImageData(item.url) as any),
+    data.images.forEach((item) =>
+      formData.append(`media`, getImageData(item) as any),
     );
     const resp = await POST<IPost>("/posts/", formData);
     if (!resp.success) {

@@ -23,7 +23,7 @@ function RegisterModalCheck() {
       const wasShown = await AsyncStorage.getItem(
         `profile_modal_shown_${user.id}`,
       );
-      const missing = !user.firstName || !user.lastName || !user.username;
+      const missing = !user.first_name || !user.last_name || !user.username;
 
       if (!wasShown && missing) {
         setTimeout(() => {
@@ -57,7 +57,7 @@ export function RootLayout() {
       <CreatePostModal />
       <RegisterStepThree />
       <RegisterModalCheck />
-      <DeleteUserModal/>
+      <DeleteUserModal />
     </RedirectUnauthenticated>
   );
 }

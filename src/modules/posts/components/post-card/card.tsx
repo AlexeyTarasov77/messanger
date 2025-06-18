@@ -6,6 +6,7 @@ import { getUserDisplayName } from "../../../users/utils";
 import { UserSignature } from "../../../users/components/sig";
 import { useState } from "react";
 import { Menu } from "./menu";
+import { buildImageUrl } from "../../../../shared/utils/images";
 
 export function PostCard({
   post,
@@ -25,8 +26,8 @@ export function PostCard({
               <Text>{getUserDisplayName(post.author)}</Text>
             </View>
           </View>
-          {!!post.author.signatureUrl && (
-            <UserSignature signatureUrl={post.author.signatureUrl} />
+          {!!post.author.profile.signature && (
+            <UserSignature signatureUrl={post.author.profile.signature} />
           )}
         </View>
         <View className="self-center relative">
@@ -41,7 +42,7 @@ export function PostCard({
           {post.title}
         </Text>
         <Text className="flex-wrap font-normal text-sm leading-none">
-          {post.body}
+          {post.content}
         </Text>
         <View className="flex-row flex-wrap font-normal text-sm leading-none">
           {post.tags?.map((tag) => (
@@ -51,10 +52,10 @@ export function PostCard({
           ))}
         </View>
         <View className="flex-row flex-wrap justify-center">
-          {post.media.map((media) => (
+          {post.images.map((media) => (
             <Image
               key={media.id}
-              source={{ uri: media.url }}
+              source={{ uri: buildImageUrl(media) }}
               className="rounded-2xl m-2 w-40 h-60"
             />
           ))}
@@ -63,12 +64,12 @@ export function PostCard({
       <View className="flex-row gap-4">
         <View className="flex-row items-center">
           <ICONS.LikeIcon width={20} height={20} />
-          <Text> {post._count.likedBy} Вподобань</Text>
+          <Text> {post._count.likes} Вподобань</Text>
         </View>
 
         <View className="flex-row ">
           <ICONS.EyeIcon width={20} height={20} />
-          <Text> {post._count.viewedBy} Переглядів</Text>
+          <Text> {post._count.views} Переглядів</Text>
         </View>
       </View>
     </View>

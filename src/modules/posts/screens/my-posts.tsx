@@ -1,4 +1,4 @@
-import { ScrollView, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import { useUserCtx } from "../../users/components/users-ctx/context";
 import { PostCard } from "../components";
 import { Redirect } from "expo-router";
@@ -10,8 +10,11 @@ export function MyPosts() {
   }
   return (
     <ScrollView className="bg-mainBg pt-4">
+      {!user.profile.posts.length &&
+        <Text className="text-2xl text-center text-slive">В тебе ще нема жодних постiв. Нажми на плюс вверху экрану щоб створити!</Text>
+      }
       <View className="gap-4 pb-8r">
-        {user.createdPosts.map((post) => (
+        {user.profile.posts.map((post) => (
           <PostCard
             menuEnabled={true}
             key={post.id}

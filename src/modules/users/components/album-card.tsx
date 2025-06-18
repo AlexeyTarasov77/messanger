@@ -1,5 +1,6 @@
 import { View, Text, ScrollView, Image } from "react-native";
 import { IAlbumWithAuthor } from "../types";
+import { buildImageUrl } from "../../../shared/utils/images";
 
 export function AlbumCard({ album }: { album: IAlbumWithAuthor }) {
     return (
@@ -12,10 +13,10 @@ export function AlbumCard({ album }: { album: IAlbumWithAuthor }) {
                 </View>
             </View>
             <ScrollView className="flex-row flex-wrap ">
-                {album.photos.map((photo) => (
+                {album.images.map((photo) => (
                     <Image
                         key={photo.id}
-                        source={{ uri: photo.url }}
+                        source={{ uri: buildImageUrl(photo) }}
                         className="rounded-2xl m-2 w-40 h-60"
                     />
                 ))}
