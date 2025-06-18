@@ -4,13 +4,13 @@ import { UserAvatar } from "../../../users/components/avatar";
 import { useLocalSearchParams, useRouter } from "expo-router";
 
 export function MessageCard({ user, message, time }: IMessageCard) {
-    const params = useLocalSearchParams();
+    const {id} = useLocalSearchParams();
     const router = useRouter();
     return (
         <TouchableOpacity
             className="flex-row items-center gap-2"
             onPress={() => {
-                router.replace(`/chats/${params.id}`);
+                router.push(`/chats/${id}`);
             }}
         >
             {/* <UserAvatar user={user?} /> */}
