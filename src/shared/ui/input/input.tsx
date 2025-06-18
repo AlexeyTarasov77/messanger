@@ -39,6 +39,7 @@ export function Input({
   err,
   iconRight,
   disabled,
+  className,
   ...props
 }: IInputProps) {
   return (
@@ -49,12 +50,12 @@ export function Input({
         </Text>
       )}
       <View
-        className={`flex-row rounded-xl px-4 py-2 border ${disabled ? "border-gray-400" : "border-grey"} ${props.className}`}
+        className={`flex-row rounded-xl px-4 py-2 border ${disabled ? "border-gray-400" : "border-grey"} ${className}`}
       >
         <TextInput
           placeholderTextColor="#CDCDCD"
           {...props}
-          className={`w-full  ${disabled ? "text-gray-400" : " "} ${props.className}`}
+          className={`w-full  ${disabled ? "text-gray-400" : " "} `}
           readOnly={disabled}
         />
         {iconRight && <View style={{ marginLeft: "auto" }}>{iconRight}</View>}

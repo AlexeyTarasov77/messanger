@@ -28,6 +28,7 @@ export function TabBar() {
       ))}
       {excludedTabnames.map(name => (
         <Tabs.Screen
+          key={name}
           name={name}
           options={{
             href: null,

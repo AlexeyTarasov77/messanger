@@ -1,5 +1,5 @@
 import { View, TouchableOpacity } from "react-native";
-import { Link, useRouter } from "expo-router";
+import { Link, usePathname, useRouter } from "expo-router";
 import {
   LogoIcon,
   LogOutIcon,
@@ -9,12 +9,31 @@ import {
 import { useUserCtx } from "../../../users/components/users-ctx/context";
 import { useCreatePostModal } from "../../../posts/components";
 import { LinkItem } from "./link-item";
+import { HeaderAction, useHeaderCtx } from "./context";
+import { useEffect, useState } from "react";
+
 
 
 export function Header() {
   const router = useRouter();
+  const defaultHeaderActions: HeaderAction[] = Object.values(HeaderAction) as HeaderAction[]
+  const [showedActions, setShowedActions] = useState<HeaderAction[]>(defaultHeaderActions)
   const { user, logout } = useUserCtx();
-  const { open: createPostModalOpen, visible: postModalVisible } = useCreatePostModal();
+  const { visible: postModalVisible, open: openPostModal } = useCreatePostModal();
+  const currPath = usePathname()
+  useEffect(() => {
+    const friendPathRegexp = new RegExp("\/friends.*")
+    const profilePathRegexp = new RegExp("\/profile.*")
+    const chatsPathRegexp = new RegExp("\/chats.*")
+    if (friendPathRegexp.test(currPath) || profilePathRegexp.test(currPath)) {
+      setShowedActions(showedActions.filter(showedAction => showedAction !== HeaderAction.CREATE))
+    } else if (chatsPathRegexp.test(currPath)) {
+      setShowedActions(showedActions.filter(showedAction => showedAction !== HeaderAction.SETTINGS))
+    } else {
+      setShowedActions(defaultHeaderActions)
+    }
+  }, [currPath])
+
   const onLogout = () => {
     logout();
     router.navigate("/users/login");
@@ -30,25 +49,30 @@ export function Header() {
       </View>
       {user && (
         <View className="flex-row gap-2 max-w-fit">
-          <LinkItem
-            onPress={() => createPostModalOpen()}
-            focused={postModalVisible}
-          >
-            <PlusIcon width={20} height={20} />
-          </LinkItem>
+          {showedActions.includes(HeaderAction.CREATE) &&
+            <LinkItem
+              onPress={openPostModal}
+              focused={postModalVisible}
+            >
+              <PlusIcon width={20} height={20} />
+            </LinkItem>
+          }
           ,
-          <LinkItem
-            path="/settings"
-          >
-            <SettingsIcon width={20} height={20} />
-          </LinkItem>
+          {showedActions.includes(HeaderAction.SETTINGS) &&
+            <LinkItem
+              path="/settings"
+            >
+              <SettingsIcon width={20} height={20} />
+            </LinkItem>
+          }
           ,
-          <LinkItem
-            onPress={onLogout}
-          >
-            <LogOutIcon width={20} height={20} />
-          </LinkItem>
-          ,
+          {showedActions.includes(HeaderAction.LOGOUT) &&
+            <LinkItem
+              onPress={onLogout}
+            >
+              <LogOutIcon width={20} height={20} />
+            </LinkItem>
+          }
         </View>
       )}
     </View>
