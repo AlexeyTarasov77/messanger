@@ -8,35 +8,23 @@ export enum HeaderAction {
 }
 type callbackT = () => void
 
-interface IHeaderCtx {
-  showedActions: HeaderAction[];
-  removeShowedAction: (action: HeaderAction) => void;
-  addShowedAction: (action: HeaderAction) => void;
-  createActionCallback: callbackT
+interface ICreateActionCtx {
   setCreateActionCallback: (callback: callbackT) => void
+  createActionCallback: callbackT
 }
 
-const HeaderCtx = createContext<IHeaderCtx | null>(null);
+const CreateActionCtx = createContext<ICreateActionCtx | null>(null)
 
-export function useHeaderCtx(): IHeaderCtx {
-  const ctx = useContext(HeaderCtx);
+export function CreateActionProvider({ children }: { children: ReactNode }) {
+  const { open: createPostModalOpen } = useCreatePostModal();
+  const [createActionCallback, setCreateActionCallback] = useState(() => createPostModalOpen)
+  return <CreateActionCtx.Provider value={{ createActionCallback, setCreateActionCallback }}>{children}</CreateActionCtx.Provider>
+}
+
+
+export function useCreateActionCtx(): ICreateActionCtx {
+  const ctx = useContext(CreateActionCtx);
   if (!ctx) throw new Error("ctx not provided");
   return ctx;
 }
 
-const defaultHeaderActions: HeaderAction[] = Object.values(HeaderAction) as HeaderAction[]
-
-export function HeaderProvider({ children }: { children: ReactNode }) {
-  const { open: createPostModalOpen } = useCreatePostModal();
-  const [showedActions, setShowedActions] = useState<HeaderAction[]>(defaultHeaderActions)
-  const [createActionCallback, setCreateActionCallback] = useState(() => createPostModalOpen)
-  const removeShowedAction = (action: HeaderAction) => {
-    console.log("ACTION REMOVED", action)
-    setShowedActions(showedActions.filter(showedAction => showedAction !== action))
-  }
-  const addShowedAction = (action: HeaderAction) => {
-    console.log("ACTION ADDED", action)
-    setShowedActions([...showedActions, action])
-  }
-  return <HeaderCtx.Provider value={{ showedActions, removeShowedAction, addShowedAction, createActionCallback, setCreateActionCallback }}>{children}</HeaderCtx.Provider>
-}

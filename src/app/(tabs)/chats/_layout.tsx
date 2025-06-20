@@ -1,10 +1,10 @@
 import { Stack } from "expo-router";
-import { Links } from "../../../modules/chats/components/links-bar";
+import { NavBar } from "../../../modules/chats/components/navbar";
 
 export default function ChatsLayout() {
     return (
         <>
-            <Links />
+            <NavBar />
             <Stack
                 screenOptions={{
                     headerShown: false,

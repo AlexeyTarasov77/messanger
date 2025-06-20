@@ -6,7 +6,6 @@ import { CreatePostModalProvider } from "../modules/posts/components";
 import { RegisterModalProvider } from "../modules/users/components/modal-ctx";
 
 import { DeleteUserModalProvider } from "../modules/friends/components/delete-modal-ctx";
-import { HeaderProvider } from "../modules/main/components/header";
 import { CreateGroupModalProvider } from "../modules/chats/components/modal-ctx";
 
 export default function Layout() {
@@ -17,11 +16,9 @@ export default function Layout() {
                     <DeleteUserModalProvider>
                         <RegisterModalProvider>
                             <CreateGroupModalProvider>
-                                <HeaderProvider>
-                                    <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
-                                        <RootLayout />
-                                    </SafeAreaView>
-                                </HeaderProvider>
+                                <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
+                                    <RootLayout />
+                                </SafeAreaView>
                             </CreateGroupModalProvider>
                         </RegisterModalProvider>
                     </DeleteUserModalProvider>

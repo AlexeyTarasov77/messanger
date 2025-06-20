@@ -8,8 +8,8 @@ import { getUserAvatar } from "../utils";
 export interface IUserAvatarProps {
     user: { isOnline: boolean, id: string, profile: { avatars: IUserAvatar[] } };
     className?: string;
-    width: number;
-    height: number;
+    width?: number;
+    height?: number;
     showIsOnline?: boolean;
 }
 

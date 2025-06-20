@@ -1,7 +1,6 @@
 import { Link, useRouter } from "expo-router";
 import { ScrollView, TouchableOpacity, Text, View, Button } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
-import { verifyInstallation } from "nativewind";
 import { Input } from "../../../shared/ui/input";
 import { UserAvatar } from "../../users/components/avatar";
 import { Controller, useForm } from "react-hook-form";
@@ -9,7 +8,6 @@ import { IChatListSearch, IUser } from "../types";
 import { MessageCard } from "../components/message-card";
 
 export function MessagesScreen() {
-    verifyInstallation();
     const router = useRouter();
     const {
         handleSubmit,

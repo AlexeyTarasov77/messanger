@@ -1,11 +1,12 @@
 import { Text, TouchableOpacity } from "react-native";
-import { IUserAvatarProps, UserAvatar } from "../../../users/components/avatar";
+import { UserAvatar } from "../../../users/components/avatar";
 import { getUserDisplayName } from "../../../users/utils";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { IUserExtended } from "../../../users/types";
 
 export function ChatListCard({
     user
-}: { user: IUserAvatarProps["user"] }) {
+}: { user: IUserExtended }) {
     const { id } = useLocalSearchParams()
     const router = useRouter();
     return (
@@ -16,12 +17,12 @@ export function ChatListCard({
             className="flex-row items-center gap-4 p-3 "
         >
             <UserAvatar
-                width={50}
-                height={50}
                 user={user}
+                showIsOnline={false}
+                className="w-12 h-12"
             />
             <Text className="text-base font-medium">
-                getUserDisplayName(user)
+                {getUserDisplayName(user)}
             </Text>
         </TouchableOpacity>
     );

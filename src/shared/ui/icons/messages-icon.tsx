@@ -20,7 +20,7 @@ export function MessagesIcon(props: SvgProps) {
             </Mask>
             <Path
                 d="M0 7.515C0 3.373 3.373 0 7.515 0v0c4.142 0 7.515 3.358 7.515 7.5v6.53a1 1 0 01-1 1H7.5c-4.142 0-7.5-3.373-7.5-7.515v0z"
-                stroke="##81818D"
+                stroke="#81818D"
                 strokeWidth={3.34}
                 mask="url(#a)"
             />

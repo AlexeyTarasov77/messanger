@@ -4,7 +4,7 @@ import { links } from "./links";
 import clsx from "clsx";
 
 
-export function Links() {
+export function NavBar() {
     const router = useRouter();
     const pathname = usePathname();
 
@@ -32,7 +32,7 @@ export function Links() {
                     >
                         {link.label}
                     </Text>
-                    
+
                 </TouchableOpacity>
             ))}
         </View>

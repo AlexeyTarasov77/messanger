@@ -1,11 +1,3 @@
-// import * as ImagePicker from 'expo-image-picker';
-// import { Controller, useForm } from "react-hook-form";
-// import { Input } from "../../../shared/ui/input/input";
-// import { ICreateGroupForm, GroupMedia } from "../types";
-// import { renderError } from "../../../shared/utils/errors";
-// import { Link, useRouter } from "expo-router";
-// import { useUserCtx } from "../../users/components/users-ctx/context";
-
 import { useCreateGroupModal } from "../components/modal-ctx";
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";

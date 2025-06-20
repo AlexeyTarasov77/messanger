@@ -3,19 +3,26 @@ import { Link, usePathname, useRouter } from "expo-router";
 import { ICONS } from "../../../../shared/ui/icons";
 import { LogoIcon, LogOutIcon, PlusIcon, SettingsIcon } from "../../../../shared/ui/icons/headerIcons";
 import { LinkItem } from "./link-item";
-import { HeaderAction } from "./context";
 import { useEffect, useState } from "react";
 import { useUserCtx } from "../../../users/components/users-ctx/context";
 import { useCreatePostModal } from "../../../posts/components";
+import { useCreateGroupModal } from "../../../chats/components";
 
 
+export enum HeaderAction {
+  SETTINGS,
+  CREATE,
+  LOGOUT
+}
 
 export function Header() {
   const router = useRouter();
   const defaultHeaderActions: HeaderAction[] = Object.values(HeaderAction) as HeaderAction[]
   const [showedActions, setShowedActions] = useState<HeaderAction[]>(defaultHeaderActions)
   const { user, logout } = useUserCtx();
-  const { visible: postModalVisible, open: openPostModal } = useCreatePostModal();
+  const { open: openPostModal } = useCreatePostModal();
+  const { open: openGroupModal } = useCreateGroupModal();
+  const [createActionCallback, setCreateActionCallback] = useState(() => openPostModal)
   const currPath = usePathname()
   useEffect(() => {
     const friendPathRegexp = new RegExp("\/friends.*")
@@ -24,6 +31,7 @@ export function Header() {
     if (friendPathRegexp.test(currPath) || profilePathRegexp.test(currPath)) {
       setShowedActions(showedActions.filter(showedAction => showedAction !== HeaderAction.CREATE))
     } else if (chatsPathRegexp.test(currPath)) {
+      setCreateActionCallback(() => openGroupModal)
       setShowedActions(showedActions.filter(showedAction => showedAction !== HeaderAction.SETTINGS))
     } else {
       setShowedActions(defaultHeaderActions)
@@ -47,8 +55,8 @@ export function Header() {
         <View className="flex-row gap-2 max-w-fit">
           {showedActions.includes(HeaderAction.CREATE) &&
             <LinkItem
-              onPress={openPostModal}
-              focused={postModalVisible}
+              onPress={createActionCallback}
+              focused={false}
             >
               <PlusIcon width={20} height={20} />
             </LinkItem>
