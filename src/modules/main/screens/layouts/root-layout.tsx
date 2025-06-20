@@ -1,4 +1,5 @@
 import { Header } from "../../components";
+import { CreateGroupModal } from "../../../chats/screens";
 import { Stack } from "expo-router";
 import { THEME_STORAGE_KEY } from "../../../../shared/constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -58,6 +59,7 @@ export function RootLayout() {
       <RegisterStepThree />
       <RegisterModalCheck />
       <DeleteUserModal />
+      <CreateGroupModal />
     </RedirectUnauthenticated>
   );
 }

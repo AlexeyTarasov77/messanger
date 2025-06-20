@@ -1,10 +1,6 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import { ICONS } from "../../../../shared/ui/icons";
+import { View, Text, TouchableOpacity } from "react-native";
 import { IChatListCard } from "../../types";
 import { UserAvatar } from "../../../users/components/avatar";
-import { getUserDisplayName } from "../../../users/utils";
-import { UserSignature } from "../../../users/components/sig";
-import { useState } from "react";
 import { useRouter } from "expo-router";
 
 export function ChatListCard({ avatarUrl, username, firstName, lastName }: IChatListCard) {

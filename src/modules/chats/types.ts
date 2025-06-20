@@ -25,6 +25,18 @@ export interface IMessageCard {
   time: string;
 }
 
+export interface ICreateGroupForm {
+  name: string;
+  users: IUsers[];
+  avatarUrl?: string;
+  media: GroupMedia[];
+}
+
+export type GroupMedia = {
+  type: "image";
+  url: string;
+}
+
 export interface IUsers {
   username?: string;
   firstName?: string;

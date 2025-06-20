@@ -1,16 +1,12 @@
-import { View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import { Link, usePathname, useRouter } from "expo-router";
-import {
-  LogoIcon,
-  LogOutIcon,
-  PlusIcon,
-  SettingsIcon,
-} from "../../../../shared/ui/icons/headerIcons";
+import { ICONS } from "../../../../shared/ui/icons";
+import { LogoIcon, LogOutIcon, PlusIcon, SettingsIcon } from "../../../../shared/ui/icons/headerIcons";
+import { LinkItem } from "./link-item";
+import { HeaderAction } from "./context";
+import { useEffect, useState } from "react";
 import { useUserCtx } from "../../../users/components/users-ctx/context";
 import { useCreatePostModal } from "../../../posts/components";
-import { LinkItem } from "./link-item";
-import { HeaderAction, useHeaderCtx } from "./context";
-import { useEffect, useState } from "react";
 
 
 
@@ -78,3 +74,4 @@ export function Header() {
     </View>
   );
 }
+
