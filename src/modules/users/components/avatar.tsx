@@ -1,12 +1,12 @@
 import { Image, View } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
-import { IUserAvatarProps } from "./avatar.types";
+import { IUserAvatarProps, IGroupCardProps } from "./avatar.types";
 import { DEFAULT_AVATAR_URL } from "../../../shared/constants"
 
-export function UserAvatar({ 
-  avatarUrl, 
-  isOnline, 
-  ...props 
+export function UserAvatar({
+  avatarUrl,
+  isOnline,
+  ...props
 }: IUserAvatarProps) {
   return (
     <View className="flex-row">
@@ -26,6 +26,24 @@ export function UserAvatar({
     </View>
   )
 }
+
+export function UserIsInGroup({
+  isInGroup,
+  ...props
+}: IGroupCardProps) {
+  return (
+    <View className="flex-row">
+      <View className="">
+        {isInGroup ? (
+          <ICONS.CheckMarkIcon width={16} height={16} />
+        ) : (
+          <View></View>
+        )}
+      </View>
+    </View>
+  )
+}
+
 
 function UserAvatarWithoutOnline(props: Omit<IUserAvatarProps, "isOnline">) {
   return (

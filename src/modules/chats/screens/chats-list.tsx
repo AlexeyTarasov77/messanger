@@ -73,9 +73,11 @@ export function ChatsListScreen() {
               }}
             />
             <View>
+              
               <TouchableOpacity onPress={open}>
                 <Text>Открыть модалку</Text>
               </TouchableOpacity>
+
               <ChatListCard
                 username="Cameron_Williamson_21"
                 firstName="Cameron"

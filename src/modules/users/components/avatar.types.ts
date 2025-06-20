@@ -4,3 +4,7 @@ export interface IUserAvatarProps extends TextInputProps {
     avatarUrl?: string;
     isOnline: boolean;
 }
+
+export interface IGroupCardProps {
+    isInGroup: boolean;
+}

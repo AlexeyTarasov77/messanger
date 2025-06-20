@@ -4,6 +4,7 @@ import { ICONS } from "../../../../shared/ui/icons";
 import { LogoIcon, LogOutIcon, PlusIcon, SettingsIcon } from "../../../../shared/ui/icons/headerIcons";
 import { useUserCtx } from "../../../users/components/users-ctx/context";
 import { useCreatePostModal } from "../../../posts/components";
+import { useCreateGroupModal } from "../../../chats/components";
 
 export function Header({}) {
     const router = useRouter()
@@ -45,7 +46,8 @@ export function Header({}) {
 function HeaderChats() {
     const router = useRouter();
     const { user, logout } = useUserCtx()
-    const { open: createPostModalOpen } = useCreatePostModal()
+    const { open: createGroupModalOpen } = useCreateGroupModal()
+    const { open: CreateGroupModal } = useCreateGroupModal()
     const onLogout = () => {
         router.navigate("/users/login")
     }
@@ -67,7 +69,7 @@ function HeaderChats() {
                 </View>
                 {user &&
                     <View className="flex-row gap-2 max-w-fit">
-                        <TouchableOpacity onPress={() => createPostModalOpen()} className=" border-text border rounded-full p-2 ">
+                        <TouchableOpacity onPress={() => createGroupModalOpen()} className=" border-text border rounded-full p-2 ">
                             <PlusIcon width={20} height={20} />
                         </TouchableOpacity>,
                         <TouchableOpacity

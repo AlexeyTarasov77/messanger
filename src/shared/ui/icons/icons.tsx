@@ -25,6 +25,7 @@ import { ImageIcon } from "./image-icon";
 import { BinIcon } from "./bin-icon";
 import { EditIcon } from "./edit-icon";
 import { MessagesIcon } from "./messages-icon";
+import { CheckMarkIcon } from "./check-mark-icon";
 
 
 export const ICONS = {
@@ -55,4 +56,5 @@ export const ICONS = {
     BinIcon,
     EditIcon,
     MessagesIcon,
+    CheckMarkIcon,
 };

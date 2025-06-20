@@ -25,6 +25,11 @@ export interface IMessageCard {
   time: string;
 }
 
+export interface IGroupCard {
+  user: IUsers;
+  isInGroup: boolean;
+}
+
 export interface ICreateGroupForm {
   name: string;
   users: IUsers[];

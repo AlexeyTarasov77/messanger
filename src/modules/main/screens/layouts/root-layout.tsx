@@ -27,7 +27,7 @@ export function RootLayout() {
 
       {/* <Stack screenOptions={{ header: () => <Header /> }} /> */}
       <Stack screenOptions={{ header: () => <Header.HeaderChats /> }} />
-      {/* <CreatePostModal  /> */}
+      <CreatePostModal  />
       <CreateGroupModal />
     </RedirectUnauthenticated>
   );
