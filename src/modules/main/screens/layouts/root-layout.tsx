@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useColorScheme } from "nativewind";
 import { RedirectUnauthenticated } from "../../components/redirect-unauthenticated";
 import { CreatePostModal } from "../../../posts/screens";
+import { CreateGroupModal } from "../../../chats/screens";
 
 export function RootLayout() {
   const { setColorScheme } = useColorScheme();
@@ -26,7 +27,8 @@ export function RootLayout() {
 
       {/* <Stack screenOptions={{ header: () => <Header /> }} /> */}
       <Stack screenOptions={{ header: () => <Header.HeaderChats /> }} />
-      <CreatePostModal />
+      {/* <CreatePostModal  /> */}
+      <CreateGroupModal />
     </RedirectUnauthenticated>
   );
 }

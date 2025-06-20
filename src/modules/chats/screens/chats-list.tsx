@@ -4,6 +4,7 @@ import {
   Text,
   View,
   Button,
+  TouchableOpacity,
 } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
 import { verifyInstallation } from "nativewind";
@@ -11,10 +12,13 @@ import { Input } from "../../../shared/ui/input";
 import { Controller, useForm } from "react-hook-form";
 import { ChatListCard } from "../../../modules/chats/components/chat-card";
 import { IChatListSearch, IUsers } from "../types";
+import { CreateGroupModal } from "../screens/create-group";
+import { useCreateGroupModal } from "../components/modal-ctx";
 
 export function ChatsListScreen() {
   verifyInstallation();
   const router = useRouter();
+  const { open } = useCreateGroupModal();
   const { handleSubmit, control, getValues, setError, formState: { errors } } = useForm<IChatListSearch>({
     defaultValues: {
       username: "",
@@ -68,8 +72,10 @@ export function ChatsListScreen() {
                 );
               }}
             />
-
             <View>
+              <TouchableOpacity onPress={open}>
+                <Text>Открыть модалку</Text>
+              </TouchableOpacity>
               <ChatListCard
                 username="Cameron_Williamson_21"
                 firstName="Cameron"
