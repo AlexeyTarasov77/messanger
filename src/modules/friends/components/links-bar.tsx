@@ -8,7 +8,7 @@ export function Links() {
   const pathname = usePathname();
 
   return (
-    <View className="flex-row justify-around bg-mainBg border-b border-gray-300 py-4">
+    <View className="flex-row justify-around bg-white border-b border-gray-300 py-4">
       {links.map((link) => (
         <TouchableOpacity
           key={link.path}

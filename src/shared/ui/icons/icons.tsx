@@ -23,6 +23,8 @@ import { EditIcon } from "./edit-icon";
 import { AlbumIcon } from "./album-icon";
 import { SearchIcon } from "./search-icon";
 import { MessagesIcon } from "./messages-icon";
+import { BackIcon } from "./back-icon";
+import { ContactsIcon } from "./contacts-icon";
 
 export const ICONS = {
   EyeIcon,
@@ -49,5 +51,7 @@ export const ICONS = {
   BinIcon,
   EditIcon,
   AlbumIcon,
-  SearchIcon
+  SearchIcon,
+  BackIcon,
+  ContactsIcon
 };

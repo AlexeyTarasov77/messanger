@@ -63,11 +63,15 @@ export function CreatePostModal() {
     }
     close();
   };
+  const { fields: tagInputs } = useFieldArray({
+    control,
+    name: "tags",
+  });
+
 
   useEffect(() => {
-    append({ value: "", id: 0 })
-  }, [])
-
+    append({ value: "", id: 0 });
+  }, []);
   return (
     <Modal
       isVisible={visible}
@@ -140,26 +144,60 @@ export function CreatePostModal() {
               );
             }}
           />
-          <Controller
-            control={control}
-            name="tags"
-            render={({ field }) => (
-              <Tag
-                selectedTags={field.value}
-                onToggle={(tag) => {
-                  const isSelected = field.value.some((t) => t.id === tag.id);
-                  if (isSelected) {
-                    field.onChange(field.value.filter((t) => t.id !== tag.id));
-                  } else {
-                    field.onChange([...field.value, tag]);
-                  }
-                }}
+
+          {tagInputs.map((input, i) => {
+            const tag = (
+              <Controller
+                key={input.id}
+                control={control}
+                name="tags"
+                render={({ field }) => (
+                  <Tag
+                    selectedTags={field.value}
+                    onToggle={(tag) => {
+                      const isSelected = field.value.some(
+                        (t) => t.id === tag.id
+                      );
+                      if (isSelected) {
+                        field.onChange(
+                          field.value.filter(
+                            (t) => t.id !== tag.id
+                          )
+                        );
+                      } else {
+                        field.onChange([
+                          ...field.value,
+                          tag,
+                        ]);
+                      }
+                    }}
+                  />
+                )}
               />
-            )}
-          />
-          <TouchableOpacity className="rounded-full border-slive border-text border p-2 w-8 justify-center items-center">
-            <ICONS.PlusIcon width={14} height={14} />
-          </TouchableOpacity>
+            );
+            return i + 1 == linkInputs.length ? (
+              <View
+                className="flex-row w-10/12 items-center gap-2"
+                key={input.id}
+              >
+                {tag}
+                <RoundedButton
+                  className="w-5 h-5 translate-y-1/2"
+                  onPress={() =>
+                    append({ value: "", id: i + 1 })
+                  }
+                  icon={
+                    <ICONS.PlusIcon
+                      width={15}
+                      height={15}
+                    />
+                  }
+                />
+              </View>
+            ) : (
+              tag
+            );
+          })}
 
           <Controller
             control={control}
@@ -186,7 +224,6 @@ export function CreatePostModal() {
           />
 
           {linkInputs.map((input, i) => {
-
             const tag = (
               <Controller
                 key={input.id}
@@ -207,27 +244,43 @@ export function CreatePostModal() {
                   );
                 }}
               />
-            )
-            return i + 1 == linkInputs.length ? <View className="flex-row w-10/12 items-center gap-2" key={input.id}>
-              {tag}
-              <RoundedButton
-                className="w-5 h-5 translate-y-1/2"
-                onPress={() => append({ value: "", id: i + 1 })}
-                icon={<ICONS.PlusIcon width={15} height={15} />}
-              />
-            </View> : tag
-          }
-          )}
+            );
+            return i + 1 == linkInputs.length ? (
+              <View
+                className="flex-row w-10/12 items-center gap-2"
+                key={input.id}
+              >
+                {tag}
+                <RoundedButton
+                  className="w-5 h-5 translate-y-1/2"
+                  onPress={() =>
+                    append({ value: "", id: i + 1 })
+                  }
+                  icon={
+                    <ICONS.PlusIcon
+                      width={15}
+                      height={15}
+                    />
+                  }
+                />
+              </View>
+            ) : (
+              tag
+            );
+          })}
 
           <View
             style={{ minHeight: 1, maxHeight: 288 }}
             className="mt-2 mb-3 rounded-3xl justify-center"
           >
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {images.map((currImg, index) => (
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+            >
+              {images.map((imageData, index) => (
                 <View key={index} className="mr-2 relative">
                   <Image
-                    source={{ uri: currImg }}
+                    source={{ uri: imageData }}
                     className="h-72 w-72 rounded-3xl"
                     resizeMode="cover"
                   />
@@ -235,7 +288,10 @@ export function CreatePostModal() {
                     <TouchableOpacity
                       onPress={() =>
                         setImages(
-                          images.filter((img) => img !== currImg),
+                          images.filter(
+                            (img) =>
+                              img != imageData
+                          )
                         )
                       }
                     >
@@ -251,7 +307,7 @@ export function CreatePostModal() {
         <View className="flex-row justify-end gap-2">
           <TouchableOpacity
             onPress={pickPostImages}
-            className="border border-plum p-2 rounded-3xl"
+            className="border border-slive p-2 rounded-3xl"
           >
             <ICONS.ImageIcon />
           </TouchableOpacity>
@@ -262,7 +318,9 @@ export function CreatePostModal() {
             onPress={handleSubmit(onSubmit)}
             className="flex-row items-center gap-1 bg-slive p-2 rounded-2xl"
           >
-            <Text className="text-white text-center px-3">Публікація</Text>
+            <Text className="text-white text-center px-3">
+              Публікація
+            </Text>
             <ICONS.SendPostIcon width={20} height={20} />
           </TouchableOpacity>
         </View>

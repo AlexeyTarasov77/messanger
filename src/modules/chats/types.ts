@@ -20,14 +20,14 @@ export interface IMessagesListCard {
 }
 
 export interface IMessageCard {
-  user: IUsers;
+  user?: IUser;
   message: string;
   time: string;
 }
 
 export interface ICreateGroupForm {
   name: string;
-  users: IUsers[];
+  users: IUser[];
   avatarUrl?: string;
   media: GroupMedia[];
 }
@@ -37,7 +37,7 @@ export type GroupMedia = {
   url: string;
 }
 
-export interface IUsers {
+export interface IUser {
   username?: string;
   firstName?: string;
   lastName?: string;

@@ -5,11 +5,12 @@ import { useRouter } from "expo-router";
 import { IUserAvatar } from "../types";
 import { getUserAvatar } from "../utils";
 
-interface IUserAvatarProps {
+export interface IUserAvatarProps {
     user: { isOnline: boolean, id: string, profile: { avatars: IUserAvatar[] } };
     className?: string;
     width: number;
     height: number;
+    showIsOnline?: boolean;
 }
 
 export function UserAvatar({
@@ -17,8 +18,12 @@ export function UserAvatar({
     className,
     width,
     height,
+    showIsOnline
 }: IUserAvatarProps) {
     const router = useRouter()
+    if (showIsOnline === undefined) {
+        showIsOnline = true
+    }
     return (
         <View className="flex-row">
             <TouchableOpacity onPress={() => { router.replace(`/profile/${user.id}`) }}>
@@ -28,29 +33,17 @@ export function UserAvatar({
                         className={`rounded-full ${className}`}
                     />
                 </View>
-                <View className="absolute bottom-0 right-1">
-                    {user.isOnline ? (
-                        <ICONS.OnlineIcon width={width} height={height} />
-                    ) : (
-                        <ICONS.OfflineIcon width={width} height={height} />
-                    )}
-                </View>
+                {showIsOnline &&
+                    <View className="absolute bottom-0 right-1">
+                        {user.isOnline ? (
+                            <ICONS.OnlineIcon width={width} height={height} />
+                        ) : (
+                            <ICONS.OfflineIcon width={width} height={height} />
+                        )}
+                    </View>
+                }
             </TouchableOpacity>
         </View>
     );
 }
 
-function UserAvatarWithoutOnline({ user }: Omit<IUserAvatarProps, "isOnline">) {
-    return (
-        <View className="flex-row">
-            <View>
-                <Image
-                    source={{ uri: getUserAvatar(user)?.image || DEFAULT_AVATAR_URL }}
-                    className="w-10 h-10 rounded-full"
-                />
-            </View>
-        </View>
-    );
-}
-
-UserAvatar.UserAvatarWithoutOnline = UserAvatarWithoutOnline;
