@@ -1,11 +1,7 @@
-import * as ImagePicker from 'expo-image-picker';
-import { Controller, useForm } from "react-hook-form";
 import { Input } from "../../../shared/ui/input/input";
-import { ICreateGroupForm, GroupMedia } from "../types";
-import { renderError } from "../../../shared/utils/errors";
 import { useCreateGroupModal } from "../components/modal-ctx";
-import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
+import React, { useState } from "react";
+import { View, Text, ScrollView } from "react-native";
 import Modal from "react-native-modal";
 import { ICONS } from "../../../shared/ui/icons";
 import { UserAvatar } from '../../users/components/avatar';
@@ -14,6 +10,7 @@ import { UICheckbox } from '../../../shared/ui/checkbox/checkbox';
 import { Loader } from '../../../shared/ui/loader/loader';
 import { useAllFriends } from '../../friends/hooks/use-all-friends';
 import { IUser } from '../../users/types';
+import { RoundedButton } from '../../../shared/ui/button/button';
 
 export function CreateGroupModal() {
   const { visible, close } = useCreateGroupModal()
@@ -29,6 +26,11 @@ export function CreateGroupModal() {
   const onSubmit = () => {
     close()
   };
+  const onCancel = () => {
+    setSelectedMembersIds([])
+    setSearchQuery("")
+    close()
+  }
   const groupedContacts: Record<string, IUser[] | undefined> = {}
   filteredContacts.forEach(contact => {
     const firstLetter = getUserDisplayName(contact)[0].toUpperCase()
@@ -90,17 +92,8 @@ export function CreateGroupModal() {
         </View>
 
         <View className="flex-row justify-end gap-2">
-          <TouchableOpacity
-            onPress={close}
-            className="border border-plum  p-2 rounded-3xl">
-            <Text className="text-plum text-center pl-3 pr-3">Скасувати</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={onSubmit}
-            className="flex-row items-center gap-1 bg-slive p-2 rounded-2xl">
-            <Text className="text-white text-center pl-3 pr-3">Далі</Text>
-          </TouchableOpacity>
+          <RoundedButton className="py-0" onPress={onCancel} label="Скасувати" />
+          <RoundedButton className="py-0" onPress={onSubmit} label="Далі" filled darkFill />
         </View>
       </View>
     </Modal>
