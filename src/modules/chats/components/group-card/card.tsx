@@ -1,6 +1,4 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { IMessageCard, IUser } from "../../types";
-import { UserAvatar } from "../../../users/components/avatar";
 import { useLocalSearchParams, useRouter } from "expo-router";
 
 export interface IGropCard {
@@ -12,7 +10,7 @@ export interface IGropCard {
 }
 
 export function GroupCard({ participant, name, message, time }: IGropCard) {
-    const {id} = useLocalSearchParams()
+    const { id } = useLocalSearchParams()
     const router = useRouter();
     return (
         <TouchableOpacity

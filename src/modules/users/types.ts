@@ -33,6 +33,10 @@ export interface IUser {
   last_name?: string;
   isOnline: boolean;
   date_joined: string;
+  profile: {
+    date_of_birth: string;
+    avatars: IUserAvatar[]
+  }
 }
 
 export interface IAlbum {

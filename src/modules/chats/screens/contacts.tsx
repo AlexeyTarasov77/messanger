@@ -2,13 +2,11 @@ import { Link, useRouter } from "expo-router";
 import { ScrollView, Text, View, Button } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
 import { Input } from "../../../shared/ui/input";
-import { UserAvatar } from "../../users/components/avatar";
 import { Controller, useForm } from "react-hook-form";
 import { ChatListCard } from "../components/chat-card";
-import { IChatListSearch, IUser } from "../types";
 import { useAllFriends } from "../../friends/hooks/use-all-friends";
 import { Loader } from "../../../shared/ui/loader/loader";
-import { IUserExtended } from "../../users/types";
+import { IChatListSearch } from "../types";
 
 export function ContactsScreen() {
     const router = useRouter();
@@ -78,7 +76,7 @@ export function ContactsScreen() {
                                 );
                             }}
                         />
-                        {contacts.map(contact => <ChatListCard key={contact.id} user={contact as IUserExtended} />)}
+                        {contacts.map(contact => <ChatListCard key={contact.id} user={contact} />)}
 
                     </View>
                 </View>

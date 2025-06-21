@@ -1,3 +1,4 @@
+import { IUser } from "../users/types";
 
 export interface IChatListSearch {
   username?: string;
@@ -37,10 +38,3 @@ export type GroupMedia = {
   url: string;
 }
 
-export interface IUser {
-  username?: string;
-  firstName?: string;
-  lastName?: string;
-  avatarUrl?: string;
-  isOnline: boolean;
-}

@@ -2,9 +2,10 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import { IMessageCard, IUser } from "../../types";
 import { UserAvatar } from "../../../users/components/avatar";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { getUserDisplayName } from "../../../users/utils";
 
 export function MessageCard({ user, message, time }: IMessageCard) {
-    const {id} = useLocalSearchParams();
+    const { id } = useLocalSearchParams();
     const router = useRouter();
     return (
         <TouchableOpacity
@@ -16,7 +17,7 @@ export function MessageCard({ user, message, time }: IMessageCard) {
             {/* <UserAvatar user={user?} /> */}
             <View className="flex-1">
                 <Text className="font-medium text-lg">
-                    {user?.firstName} {user?.lastName}
+                    {getUserDisplayName(user)}
                 </Text>
                 <Text className="text-sm text-gray-600" numberOfLines={1}>
                     {message}

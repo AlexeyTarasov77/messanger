@@ -2,11 +2,11 @@ import { Text, TouchableOpacity } from "react-native";
 import { UserAvatar } from "../../../users/components/avatar";
 import { getUserDisplayName } from "../../../users/utils";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { IUserExtended } from "../../../users/types";
+import { IUser } from "../../../users/types";
 
 export function ChatListCard({
     user
-}: { user: IUserExtended }) {
+}: { user: IUser }) {
     const { id } = useLocalSearchParams()
     const router = useRouter();
     return (
