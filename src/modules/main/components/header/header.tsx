@@ -29,10 +29,10 @@ export function Header() {
     const profilePathRegexp = new RegExp("\/profile.*")
     const chatsPathRegexp = new RegExp("\/chats.*")
     if (friendPathRegexp.test(currPath) || profilePathRegexp.test(currPath)) {
-      setShowedActions(showedActions.filter(showedAction => showedAction !== HeaderAction.CREATE))
+      setShowedActions(defaultHeaderActions.filter(showedAction => showedAction !== HeaderAction.CREATE))
     } else if (chatsPathRegexp.test(currPath)) {
       setCreateActionCallback(() => openGroupModal)
-      setShowedActions(showedActions.filter(showedAction => showedAction !== HeaderAction.SETTINGS))
+      setShowedActions(defaultHeaderActions.filter(showedAction => showedAction !== HeaderAction.SETTINGS))
     } else {
       setShowedActions(defaultHeaderActions)
     }
