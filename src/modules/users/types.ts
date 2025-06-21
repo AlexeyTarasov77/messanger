@@ -44,7 +44,7 @@ export interface IAlbum {
   name: string;
   topic: { id: number, name: string };
   created_at: string;
-  images: MediaImage[]
+  images: { image: MediaImage }[]
   shown: boolean;
 }
 

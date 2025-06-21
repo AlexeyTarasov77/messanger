@@ -1,6 +1,5 @@
 import * as ImagePicker from "expo-image-picker";
 import { Alert } from "react-native";
-import { MediaImage } from "../../modules/main/types";
 
 export const pickImage = async (options: ImagePicker.ImagePickerOptions) => {
   const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();

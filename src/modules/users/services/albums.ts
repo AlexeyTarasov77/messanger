@@ -1,5 +1,5 @@
 import { PATCH } from "../../../shared/api/client";
-import { getImageData } from "../../../shared/utils/images";
+import { buildImageUrl, getImageData } from "../../../shared/utils/images";
 import { IAlbum } from "../types";
 
 export const albumsService = {
@@ -11,12 +11,12 @@ export const albumsService = {
     if (data.topic) {
       formData.append("topic_id", String(data.topic.id))
     }
-    if (data.shown) {
+    if (data.shown !== undefined) {
       formData.append("shown", String(data.shown))
     }
     if (data.images) {
       data.images.forEach((item) =>
-        formData.append("images", getImageData(item.file) as any),
+        formData.append("images", getImageData(buildImageUrl(item.image)) as any),
       );
     }
     const resp = await PATCH<IAlbum>("/users/albums/" + albumId, formData)
