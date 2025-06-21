@@ -40,11 +40,12 @@ export interface IUser {
 }
 
 export interface IAlbum {
-  id: string;
+  id: number;
   name: string;
-  subject: string;
-  year: number
+  topic: { id: number, name: string };
+  created_at: string;
   images: MediaImage[]
+  shown: boolean;
 }
 
 interface IAlbumAuthor {

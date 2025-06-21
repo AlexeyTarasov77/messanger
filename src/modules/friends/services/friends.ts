@@ -19,7 +19,7 @@ export const friendsService = {
     return resp.data;
   },
   recommendations: async () => {
-    const resp = await GET<IUser[]>("/users/list-users");
+    const resp = await GET<IUser[]>("/users/recommendations");
     if (!resp.success) {
       throw new Error(resp.message);
     }
