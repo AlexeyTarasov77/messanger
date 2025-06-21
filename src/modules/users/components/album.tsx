@@ -8,6 +8,7 @@ import { capitalize } from "../../../shared/utils/base";
 import { albumsService } from "../services/albums";
 import { getErrorMessage } from "../../../shared/utils/errors";
 import { useState } from "react";
+import { UserPhoto } from "./photo";
 
 export function Album({ albumData: initialAlbumData }: { albumData: IAlbum }) {
   const [album, setAlbum] = useState(initialAlbumData)
@@ -57,15 +58,9 @@ export function Album({ albumData: initialAlbumData }: { albumData: IAlbum }) {
       <Text className="text-darkBlue">Фотографіїї</Text>
       <View className="flex-row justify-between items-center flex-wrap">
         {album.images.map(({ image }) => (
-          <View className="relative mt-3" key={image.id} >
-            <Image source={{ uri: buildImageUrl(image) }} className="rounded-xl" width={160} height={160} />
-            <View className="absolute top-28 left-16 gap-2 flex-row">
-              <RoundedButton filled icon={<ICONS.EyeIcon width={20} height={20} />} />
-              <RoundedButton filled icon={<ICONS.BinIcon width={20} height={20} />} />
-            </View>
-          </View>
+          <UserPhoto imageURI={buildImageUrl(image)} className="mt-3" btnsClassname="top-28 left-16" iconsSize={20} imgSize={160} key={image.id} />
         ))}
-        <View className="mt-3 w-40 h-40 border-dashed border border-grey justify-center items-center">
+        <View className="mt-3 w-[160] h-40 border-dashed border border-grey justify-center items-center">
           <RoundedButton onPress={async () => await addAlbumImage()} icon={<ICONS.PlusIcon width={20} height={20} />} />
         </View>
 
