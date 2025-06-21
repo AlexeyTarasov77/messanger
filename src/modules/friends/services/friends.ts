@@ -1,5 +1,7 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { DELETE, GET, POST } from "../../../shared/api/client";
 import { IUser } from "../../users/types";
+import { EXCLUDED_RECOMMENDED_USERS_KEY } from "../../../shared/constants";
 
 export const friendsService = {
   allFriends: async () => {
@@ -32,7 +34,7 @@ export const friendsService = {
     return resp.data;
   },
   createFriendRequest: async (toUserId: number) => {
-    const resp = await POST<IUser[]>("/users/requests/create", {
+    const resp = await POST<{ id: string }>("/users/requests/create", {
       toUserId,
     });
     if (!resp.success) {
@@ -61,6 +63,12 @@ export const friendsService = {
       throw new Error(resp.message);
     }
     return resp.data;
+  },
+  removeRecommendedUser: async (userId: string) => {
+    const prevIdsStr = await AsyncStorage.getItem(EXCLUDED_RECOMMENDED_USERS_KEY)
+    const prevIds = prevIdsStr?.split(",") || []
+    if (prevIds.includes(userId)) return
+    await AsyncStorage.setItem(EXCLUDED_RECOMMENDED_USERS_KEY, [...prevIds, userId].join(","))
   },
 
   // message: async () => {}

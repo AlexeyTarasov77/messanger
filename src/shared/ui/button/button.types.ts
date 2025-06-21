@@ -9,4 +9,5 @@ export interface IButtonProps extends TouchableOpacityProps {
 export interface IRoundedButtonProps extends IButtonProps {
   icon?: ReactNode;
   filled?: boolean;
+  darkFill?: boolean;
 }

@@ -17,5 +17,5 @@ export function useRecommendations() {
     };
     fetchRecommendations();
   }, []);
-  return { recommendations, isLoading };
+  return { recommendations, isLoading, setRecommendations };
 }
