@@ -12,7 +12,7 @@ import Modal from "react-native-modal";
 import { useRegisterModal } from "../../components/modal-ctx";
 import { ICONS } from "../../../../shared/ui/icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useUserCtx } from "../../components/users-ctx/context";
+import { useUserCtx } from "../../components/users-ctx";
 
 export function RegisterStepThree() {
   const {

@@ -4,7 +4,7 @@ import { ICONS } from "../../../../shared/ui/icons";
 import { LogoIcon, LogOutIcon, PlusIcon, SettingsIcon } from "../../../../shared/ui/icons/headerIcons";
 import { LinkItem } from "./link-item";
 import { useEffect, useState } from "react";
-import { useUserCtx } from "../../../users/components/users-ctx/context";
+import { useUserCtx } from "../../../users/components/users-ctx";
 import { useCreatePostModal } from "../../../posts/components";
 import { useCreateGroupModal } from "../../../chats/components";
 

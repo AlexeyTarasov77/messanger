@@ -5,7 +5,7 @@ import {
   TouchableOpacityProps,
   Alert,
 } from "react-native";
-import { useUserCtx } from "../../../users/components/users-ctx/context";
+import { useUserCtx } from "../../../users/components/users-ctx";
 
 export function MenuBtn({
   label,

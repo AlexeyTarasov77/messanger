@@ -1,5 +1,5 @@
 import { ScrollView, Text, View } from "react-native";
-import { useUserCtx } from "../../users/components/users-ctx/context";
+import { useUserCtx } from "../../users/components/users-ctx";
 import { PostCard } from "../components";
 import { Redirect } from "expo-router";
 

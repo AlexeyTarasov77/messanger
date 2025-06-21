@@ -8,7 +8,7 @@ import { useColorScheme } from "nativewind";
 import { RedirectUnauthenticated } from "../../components/redirect-unauthenticated";
 import { CreatePostModal } from "../../../posts/screens";
 import { RegisterStepThree } from "../../../users/screens";
-import { useUserCtx } from "../../../users/components/users-ctx/context";
+import { useUserCtx } from "../../../users/components/users-ctx";
 import { useRegisterModal } from "../../../users/components/modal-ctx";
 import { DeleteUserModal } from "../../../friends/components";
 

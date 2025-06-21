@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import { RoundedButton } from "../../../../../shared/ui/button/button";
 import { Heading } from "../../../../../shared/ui/heading/heading";
 import { ICONS } from "../../../../../shared/ui/icons";
-import { useUserCtx } from "../../../components/users-ctx/context";
+import { useUserCtx } from "../../../components/users-ctx";
 import { Block } from "../block";
 import { Album } from "../../../components/album";
 
@@ -11,8 +11,8 @@ export function AlbumsList() {
     if (!user) return;
     return (
         <View className="gap-3">
-            {user.albums ? (
-                user.albums.map((album) => (
+            {user.profile.albums ? (
+                user.profile.albums.map((album) => (
                     <Block key={album.id}>
                         <Album albumData={album} />
                     </Block>

@@ -7,7 +7,7 @@ import { Input } from "../../../shared/ui/input/input";
 import { ICreatePostForm } from "../types";
 import { useCreatePostModal } from "../components";
 import { renderError } from "../../../shared/utils/errors";
-import { useUserCtx } from "../../users/components/users-ctx/context";
+import { useUserCtx } from "../../users/components/users-ctx";
 import { BinIcon } from "../../../shared/ui/icons/bin-icon";
 import { buildImageUrl, pickImage } from "../../../shared/utils/images";
 import { Tag } from "../components/tag";

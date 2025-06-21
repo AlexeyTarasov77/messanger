@@ -4,7 +4,7 @@ import { FriendCard } from "../components/friend-card";
 import { Loader } from "../../../shared/ui/loader/loader";
 import { useRecommendations } from "../hooks/use-recommendations";
 import { friendsService } from "../services";
-import { useUserCtx } from "../../users/components/users-ctx/context";
+import { useUserCtx } from "../../users/components/users-ctx";
 
 export function Recommendations() {
   const { recommendations, isLoading } = useRecommendations();

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useUserCtx } from "../../../components/users-ctx/context";
+import { useUserCtx } from "../../../components/users-ctx";
 import { useForm } from "react-hook-form";
 import { IPersonalInfoForm } from "../../../types";
 import { Block } from "../block";

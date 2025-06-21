@@ -1,5 +1,5 @@
 import { Redirect } from "expo-router";
-import { useUserCtx } from "../../users/components/users-ctx/context";
+import { useUserCtx } from "../../users/components/users-ctx";
 import { ReactNode } from "react";
 import { usePathname } from "expo-router";
 import { Loader } from "../../../shared/ui/loader/loader";

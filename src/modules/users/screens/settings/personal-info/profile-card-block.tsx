@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useUserCtx } from "../../../components/users-ctx/context";
+import { useUserCtx } from "../../../components/users-ctx";
 import { Controller, useForm } from "react-hook-form";
 import { IProfileCardForm } from "../../../types";
 import { usersService } from "../../../services";
@@ -9,7 +9,7 @@ import { pickImage } from "../../../../../shared/utils/images";
 import { Block } from "../block";
 import { EditBlock } from "../../../components/ edit-block";
 import { ICONS } from "../../../../../shared/ui/icons";
-import { getUserDisplayName } from "../../../utils";
+import { getUserAvatar, getUserDisplayName } from "../../../utils";
 import { DEFAULT_AVATAR_URL } from "../../../../../shared/constants";
 import { Input } from "../../../../../shared/ui/input";
 
@@ -38,7 +38,6 @@ export function ProfileCardBlock() {
       setValue("avatarUrl", result.assets[0].uri);
     }
   };
-  const userAvatarUrl = user.avatarUrl || DEFAULT_AVATAR_URL
   return (
     <Block>
       <EditBlock
@@ -52,7 +51,7 @@ export function ProfileCardBlock() {
           {/* using watch in Image.source instead of getValues().avatarUrl 
           because value in getValues().avatarUrl does not get immediately updated on setValue */}
           <Image
-            source={{ uri: watch("avatarUrl") || userAvatarUrl }}
+            source={{ uri: watch("avatarUrl") || getUserAvatar(user)?.image || DEFAULT_AVATAR_URL }}
             className={`w-24 h-24 rounded-full ${isEditMode ? "opacity-60" : ""}`}
           />
           {isEditMode && (

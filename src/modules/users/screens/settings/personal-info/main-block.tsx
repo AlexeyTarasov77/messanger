@@ -1,5 +1,5 @@
 import { View, Alert } from "react-native";
-import { useUserCtx } from "../../../components/users-ctx/context";
+import { useUserCtx } from "../../../components/users-ctx";
 import { EditBlock } from "../../../components/ edit-block";
 import { useState } from "react";
 import { IPersonalInfoForm } from "../../../types";

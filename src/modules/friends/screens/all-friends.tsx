@@ -3,7 +3,7 @@ import { Card } from "../components/card";
 import { FriendCard } from "../components/friend-card";
 import { Loader } from "../../../shared/ui/loader/loader";
 import { useAllFriends } from "../hooks/use-all-friends";
-import { useUserCtx } from "../../users/components/users-ctx/context";
+import { useUserCtx } from "../../users/components/users-ctx";
 import { friendsService } from "../services";
 import { getErrorMessage } from "../../../shared/utils/errors";
 import { useDeleteUserModal } from "../components/delete-modal-ctx";

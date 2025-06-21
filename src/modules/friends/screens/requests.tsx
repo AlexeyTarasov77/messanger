@@ -5,7 +5,7 @@ import { useRequests } from "../hooks/use-requests";
 import { Loader } from "../../../shared/ui/loader/loader";
 import { Links } from "../components/links-bar";
 import { friendsService } from "../services";
-import { useUserCtx } from "../../users/components/users-ctx/context";
+import { useUserCtx } from "../../users/components/users-ctx";
 import { getErrorMessage } from "../../../shared/utils/errors";
 import { useDeleteUserModal } from "../components/delete-modal-ctx";
 
