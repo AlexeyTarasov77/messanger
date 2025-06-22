@@ -21,13 +21,13 @@ export function PostCard({
       <View className="flex-row justify-between py-4 px-2">
         <View>
           <View className="flex-row items-center gap-4">
-            <UserAvatar user={post.author} width={12} height={12} className="w-12 h-12" />
+            <UserAvatar user={{ profile: post.author, ...post.author.user }} width={12} height={12} className="w-12 h-12" />
             <View className="font-medium text-sm">
-              <Text>{getUserDisplayName(post.author)}</Text>
+              <Text>{getUserDisplayName(post.author.user)}</Text>
             </View>
           </View>
-          {!!post.author.profile.signature && (
-            <UserSignature signatureUrl={post.author.profile.signature} />
+          {!!post.author.signature && (
+            <UserSignature signatureUrl={post.author.signature} />
           )}
         </View>
         <View className="self-center relative">
@@ -44,8 +44,8 @@ export function PostCard({
         <Text className="flex-wrap font-normal text-sm leading-none">
           {post.content}
         </Text>
-        <View className="flex-row flex-wrap font-normal text-sm leading-none">
-          {post.tags?.map((tag) => (
+        <View className="flex-row flex-wrap font-normal text-sm leading-none gap-1">
+          {post.tags?.map(({ tag }) => (
             <Text className="text-text" key={tag.id}>
               #{tag.name}
             </Text>

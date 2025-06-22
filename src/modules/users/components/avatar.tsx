@@ -6,7 +6,7 @@ import { IUserAvatar } from "../types";
 import { getUserAvatar } from "../utils";
 
 export interface IUserAvatarProps {
-    user: { isOnline: boolean, id: string, profile: { avatars: IUserAvatar[] } };
+    user: { isOnline: boolean, id: number, profile: { avatars: IUserAvatar[] } };
     className?: string;
     width?: number;
     height?: number;

@@ -44,7 +44,8 @@ export interface IAlbum {
   name: string;
   topic: { id: number, name: string };
   created_at: string;
-  images: { image: MediaImage }[]
+  images: { image: MediaImage }[];
+  preview_image?: string;
   shown: boolean;
 }
 
@@ -70,6 +71,10 @@ export interface IUserExtended extends IUser {
     albums: IAlbum[];
     avatars: IUserAvatar[]
   }
+}
+
+export interface IUserProfile extends IUserExtended {
+  friendsCount: number
 }
 
 export interface IRegisterResponse {

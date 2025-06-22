@@ -224,7 +224,7 @@ export function CreatePostModal() {
           />
 
           {linkInputs.map((input, i) => {
-            const tag = (
+            const inputTag = (
               <Controller
                 key={input.id}
                 control={control}
@@ -250,7 +250,7 @@ export function CreatePostModal() {
                 className="flex-row w-10/12 items-center gap-2"
                 key={input.id}
               >
-                {tag}
+                {inputTag}
                 <RoundedButton
                   className="w-5 h-5 translate-y-1/2"
                   onPress={() =>
@@ -265,7 +265,7 @@ export function CreatePostModal() {
                 />
               </View>
             ) : (
-              tag
+              inputTag
             );
           })}
 

@@ -18,7 +18,7 @@ export function MyPosts() {
           <PostCard
             menuEnabled={true}
             key={post.id}
-            post={{ ...post, author: user }}
+            post={{ ...post, author: { user: user, ...user.profile } }}
           />
         ))}
       </View>

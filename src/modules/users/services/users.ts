@@ -1,6 +1,6 @@
 import { GET, PATCH } from "../../../shared/api/client";
 import { getImageData } from "../../../shared/utils/images";
-import { IUser, IUserExtended } from "../types";
+import { IUser, IUserExtended, IUserProfile } from "../types";
 
 export const usersService = {
     getUser: async (): Promise<IUserExtended | null> => {
@@ -39,14 +39,21 @@ export const usersService = {
         }
         return resp.data;
     },
-    getUserById: async (userId: number): Promise<IUserExtended | null> => {
-        const resp = await GET<IUserExtended>(`/users/${userId}`);
+    getUserById: async (userId: number): Promise<IUserProfile | null> => {
+        const resp = await GET<IUserProfile>(`/users/${userId}`);
         if (resp.success == false) {
-            if (resp.status !== 401) {
+            if (resp.status !== 404) {
                 throw new Error(resp.message);
             }
             return null;
         }
         return resp.data;
     },
+    getFriendsCount: async (): Promise<number> => {
+        const resp = await GET<{ count: number }>("/users/friends/count")
+        if (resp.success == false) {
+            throw new Error(resp.message);
+        }
+        return resp.data.count;
+    }
 };

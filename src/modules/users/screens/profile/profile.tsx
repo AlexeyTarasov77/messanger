@@ -1,19 +1,25 @@
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-import { Link, useLocalSearchParams } from "expo-router";
+import { View, Text, ScrollView, TouchableOpacity, Alert } from "react-native";
+import { Link, Redirect, useLocalSearchParams } from "expo-router";
 import { getUserDisplayName } from "../../utils";
 import { UserAvatar } from "../../components/avatar";
 import { ICONS } from "../../../../shared/ui/icons";
 import { useGetUserById } from "../../hooks/use-get-user-by-id";
-import { UserPosts } from "../../components/user-posts";
-import { UserAlbums } from "../../components/user-albums";
+import { Loader } from "../../../../shared/ui/loader/loader";
+import { PostCard } from "../../../posts/components";
+import { AlbumPreview } from "../../components/album-preview";
 
 export function Profile() {
     const { id } = useLocalSearchParams();
     const userId = Number(id);
-    const { user, isLoading } = useGetUserById(userId);
-    if (!user) {
-        return "User does not exist";
+    const { user, isLoading, error } = useGetUserById(userId);
+    if (isLoading) {
+        return <Loader />
     }
+    if (error) {
+        Alert.alert("Не удалось получить пользователя", error)
+        return
+    }
+    if (!user) return <Redirect href="/not-found" />
     return (
         <ScrollView className="bg-mainBg h-full">
             <View className="gap-10 py-6 bg-white border-border justify-center items-center">
@@ -35,7 +41,7 @@ export function Profile() {
                 <View className="flex-row justify-between items-center">
                     <View className="border-r border-border justify-center items-center flex-1">
                         <Text className="self-center font-bold justify-center text-xl">
-                            3
+                            {user.profile.posts.length}
                         </Text>
                         <Text className="text-grey justify-center text-xl">
                             Дописи
@@ -51,7 +57,7 @@ export function Profile() {
                     </View>
                     <View className="border-r border-border justify-center items-center flex-1">
                         <Text className="self-center font-bold justify-center text-xl">
-                            222
+                            {user.friendsCount}
                         </Text>
                         <Text className="text-grey justify-center text-xl">
                             Друзі
@@ -85,7 +91,7 @@ export function Profile() {
             </View>
 
             {/* albums */}
-            {user.albums && user.albums.length > 0 ? (
+            {user.profile.albums.length ? (
                 <View className="mt-4 border-border m-2 rounded-xl p-2 bg-white">
                     <View className="bg-white rounded-xl mb-6 pb-2">
                         <View className="flex-row justify-between px-2 py-4 border-b border-border">
@@ -102,7 +108,16 @@ export function Profile() {
                             </Link>
                         </View>
 
-                        <UserAlbums userId={userId} />
+                        <ScrollView className="bg-white pt-4">
+                            <View className="gap-4 pb-8r flex-row flex-wrap">
+                                {user.profile.albums.map((album) => (
+                                    <AlbumPreview
+                                        key={album.id}
+                                        album={album}
+                                    />
+                                ))}
+                            </View>
+                        </ScrollView>
                     </View>
                 </View>
             ) : (
@@ -113,9 +128,18 @@ export function Profile() {
                 </View>
             )}
 
-            {/* posts */}
-            {user.createdPosts && user.createdPosts.length > 0 ? (
-                <UserPosts userId={userId} />
+            {user.profile.posts.length ? (
+                <ScrollView className="bg-white pt-4">
+                    <View className="gap-4 pb-8r">
+                        {user.profile.posts.map((post) => (
+                            <PostCard
+                                menuEnabled={true}
+                                key={post.id}
+                                post={{ ...post, author: { user: user, ...user.profile } }}
+                            />
+                        ))}
+                    </View>
+                </ScrollView>
             ) : (
                 <View className="bg-white p-4 border-border m-2 rounded-xl ">
                     <Text className="text-slive pl-2">

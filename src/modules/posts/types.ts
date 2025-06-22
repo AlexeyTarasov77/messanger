@@ -25,7 +25,7 @@ export interface ICreatePostForm {
 export interface IPost {
   id: number;
   title: string;
-  tags?: IPostTag[];
+  tags?: { tag: IPostTag }[];
   content: string;
   images: MediaImage[];
   _count: {
@@ -35,16 +35,16 @@ export interface IPost {
 }
 
 interface IPostAuthor {
-  id: string;
-  username?: string;
-  email: string;
-  first_name?: string;
-  last_name?: string;
-  isOnline: boolean;
-  profile: {
-    signature?: string;
-    avatars: IUserAvatar[]
+  user: {
+    id: number;
+    username?: string;
+    email: string;
+    first_name?: string;
+    last_name?: string;
+    isOnline: boolean;
   }
+  signature?: string;
+  avatars: IUserAvatar[]
 }
 
 export interface IPostWithAuthor extends IPost {

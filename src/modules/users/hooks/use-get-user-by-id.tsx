@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { usersService } from "../services";
-import { IUserExtended } from "../types";
+import { IUserProfile } from "../types";
+import { getErrorMessage } from "../../../shared/utils/errors";
 
 export function useGetUserById(userId: number) {
     const [isLoading, setIsLoading] = useState(false);
-    const [user, setUser] = useState<IUserExtended | null>(null);
+    const [user, setUser] = useState<IUserProfile | null>(null);
+    const [error, setError] = useState("")
 
     useEffect(() => {
         if (!userId || isNaN(userId)) return;
@@ -15,7 +17,7 @@ export function useGetUserById(userId: number) {
                 setUser(user);
             } catch (err) {
                 console.log("Не удалось получить пользователя:", err);
-                throw err;
+                setError(getErrorMessage(err))
             } finally {
                 setIsLoading(false);
             }
@@ -23,5 +25,5 @@ export function useGetUserById(userId: number) {
 
         fetchUser();
     }, []);
-    return { user, isLoading };
+    return { user, isLoading, error };
 }
