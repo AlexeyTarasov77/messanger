@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
 import { ICONS } from "../../../../shared/ui/icons";
 import { IPostWithAuthor } from "../../types";
 import { UserAvatar } from "../../../users/components/avatar";
@@ -7,6 +7,7 @@ import { UserSignature } from "../../../users/components/sig";
 import { useState } from "react";
 import { Menu } from "./menu";
 import { buildImageUrl } from "../../../../shared/utils/images";
+import { useUserCtx } from "../../../users/components/users-ctx";
 
 export function PostCard({
   post,
@@ -16,6 +17,15 @@ export function PostCard({
   menuEnabled: boolean;
 }) {
   const [menuOpened, setMenuOpened] = useState(false);
+  const { removePost } = useUserCtx()
+  const handlePostEdit = async () => { }
+  const handlePostRemove = async () => {
+    const errMsg = await removePost(post.id)
+    if (errMsg) {
+      Alert.alert("Failed to remove post", errMsg)
+    }
+    setMenuOpened(false)
+  }
   return (
     <View className="border border-border rounded-2xl p-2 gap-2 bg-white">
       <View className="flex-row justify-between py-4 px-2">
@@ -34,7 +44,7 @@ export function PostCard({
           <TouchableOpacity onPress={() => setMenuOpened(!menuOpened)}>
             <ICONS.PostSettingsIcon height={16} />
           </TouchableOpacity>
-          {menuEnabled && menuOpened && <Menu postId={post.id} />}
+          {menuEnabled && menuOpened && <Menu onRemove={handlePostRemove} onEdit={handlePostEdit} />}
         </View>
       </View>
       <View className="border-t border-border pt-4 px-2 gap-4">

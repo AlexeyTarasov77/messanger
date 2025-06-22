@@ -26,7 +26,6 @@ export function MainBlock() {
     try {
       const format = "DD-MM-YYYY"
       const date = data.date_of_birth ? dayjs(data.date_of_birth, format) : undefined
-      console.log("Parsed date", date?.toDate().toDateString())
       if (!date?.isValid()) {
         setError("date_of_birth", { message: "Invalid date! Specify date in format: " + format })
         return
