@@ -1,10 +1,11 @@
 import { Heading } from "../../../../../shared/ui/heading/heading";
 import { RoundedButton } from "../../../../../shared/ui/button/button";
 import { ICONS } from "../../../../../shared/ui/icons";
-import { ScrollView, View } from "react-native";
+import { View } from "react-native";
 import { Block } from "../block";
 import { useUserCtx } from "../../../components/users-ctx";
 import { UserPhoto } from "../../../components/photo";
+import { UICarousel } from "../../../../../shared/ui/carousel/carousel";
 
 export function MainBlock() {
   const { user } = useUserCtx()
@@ -14,11 +15,14 @@ export function MainBlock() {
         <RoundedButton label="Додати фото" icon={<ICONS.PostsIcon />} />
       }
       />
-      <ScrollView horizontal>
-        {user?.profile.avatars.map(avatar => (
-          <UserPhoto btnsClassname="top-[150] left-[100]" imageURI={avatar.image} key={avatar.id} />
-        ))}
-      </ScrollView>
+      <UICarousel
+        data={user?.profile.avatars!}
+        renderItem={({ item }) => (
+          <View className="flex items-center justify-center">
+            <UserPhoto imgSize={300} btnsClassname="top-[180] left-[180]" imageURI={item.image} key={item.id} />
+          </View>
+        )}
+      />
     </Block>
 
   )
