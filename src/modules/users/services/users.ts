@@ -1,3 +1,4 @@
+import { Dayjs } from "dayjs";
 import { GET, PATCH } from "../../../shared/api/client";
 import { getImageData } from "../../../shared/utils/images";
 import { IUser, IUserExtended, IUserProfile } from "../types";
@@ -13,22 +14,22 @@ export const usersService = {
         }
         return resp.data;
     },
-    updateUser: async (data: Partial<IUser & { birthDate: string, avatar: string }>): Promise<IUser> => {
+    updateUser: async (data: Partial<IUser & { date_of_birth: Dayjs, avatar: string }>): Promise<IUser> => {
         const formData = new FormData();
         if (data.username) {
             formData.append("username", data.username);
         }
         if (data.first_name) {
-            formData.append("firstName", data.first_name);
+            formData.append("first_name", data.first_name);
         }
         if (data.last_name) {
-            formData.append("lastName", data.last_name);
+            formData.append("last_name", data.last_name);
         }
         if (data.email) {
             formData.append("email", data.email);
         }
-        if (data.birthDate) {
-            formData.append("birthDate", data.birthDate);
+        if (data.date_of_birth) {
+            formData.append("date_of_birth", data.date_of_birth.format("YYYY-MM-DD"));
         }
         if (data.avatar) {
             formData.append("avatar", getImageData(data.avatar) as any);

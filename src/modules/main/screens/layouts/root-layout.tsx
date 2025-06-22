@@ -11,6 +11,7 @@ import { RegisterStepThree } from "../../../users/screens";
 import { useUserCtx } from "../../../users/components/users-ctx";
 import { useRegisterModal } from "../../../users/components/modal-ctx";
 import { DeleteUserModal } from "../../../friends/components";
+import { useSetup } from "./setup";
 
 function RegisterModalCheck() {
   const { user } = useUserCtx();
@@ -40,18 +41,10 @@ function RegisterModalCheck() {
   return null;
 }
 
-export function RootLayout() {
-  const { setColorScheme } = useColorScheme();
-  useEffect(() => {
-    const setTheme = async () => {
-      const selectedTheme = (await AsyncStorage.getItem(
-        THEME_STORAGE_KEY,
-      )) as ReturnType<typeof useColorScheme>["colorScheme"];
-      setColorScheme(selectedTheme || "system");
-    };
-    setTheme();
-  });
 
+
+export function RootLayout() {
+  useSetup()
   return (
     <RedirectUnauthenticated>
       <Stack screenOptions={{ header: Header }} />

@@ -9,18 +9,29 @@ import { usersService } from "../../../services";
 import { getErrorMessage } from "../../../../../shared/utils/errors";
 import { formatDate } from "../../../../../shared/utils/dates";
 import { Block } from "../block";
+import dayjs from "dayjs";
 
 
 export function MainBlock() {
   const { user, updateUserData } = useUserCtx();
   if (!user) return;
   const [isEditMode, setIsEditMode] = useState(false);
-  const { control, handleSubmit } = useForm<IPersonalInfoForm>({
-    defaultValues: { ...user, date_of_birth: user.profile.date_of_birth },
+  const { control, handleSubmit, setError } = useForm<IPersonalInfoForm>({
+    defaultValues: {
+      ...user,
+      date_of_birth: formatDate(new Date(user.profile.date_of_birth), "%d-%m-%YYYY")
+    },
   });
   const onSubmit = async (data: IPersonalInfoForm) => {
     try {
-      const updatedUser = await usersService.updateUser(data);
+      const format = "DD-MM-YYYY"
+      const date = data.date_of_birth ? dayjs(data.date_of_birth, format) : undefined
+      console.log("Parsed date", date?.toDate().toDateString())
+      if (!date?.isValid()) {
+        setError("date_of_birth", { message: "Invalid date! Specify date in format: " + format })
+        return
+      }
+      const updatedUser = await usersService.updateUser({ ...data, date_of_birth: date });
       updateUserData(updatedUser);
     } catch (err) {
       Alert.alert("Update failure", getErrorMessage(err));
@@ -100,7 +111,7 @@ export function MainBlock() {
                 disabled={!isEditMode}
                 onChange={field.onChange}
                 onChangeText={field.onChange}
-                value={formatDate(new Date(field.value!), "%d-%m-%YYYY")}
+                value={field.value}
                 label="Дата народження"
                 autoCorrect={false}
                 err={fieldState.error}

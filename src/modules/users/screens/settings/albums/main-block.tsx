@@ -16,7 +16,8 @@ export function MainBlock() {
       }
       />
       <UICarousel
-        data={user?.profile.avatars!}
+        // sort by ids assuming that id is sequential growing number to show newest avatars first
+        data={(user?.profile.avatars!).sort((a, b) => Number(a.id) > Number(b.id) ? -1 : 1)}
         renderItem={({ item }) => (
           <View className="flex items-center justify-center">
             <UserPhoto imgSize={300} btnsClassname="top-[180] left-[180]" imageURI={item.image} key={item.id} />

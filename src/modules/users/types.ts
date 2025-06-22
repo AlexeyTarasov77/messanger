@@ -7,7 +7,7 @@ export interface ILoginForm {
 }
 
 export interface IProfileCardForm {
-  avatarUrl?: string;
+  avatar?: string;
   username?: string;
 }
 
