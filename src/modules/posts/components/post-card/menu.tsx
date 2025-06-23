@@ -3,38 +3,38 @@ import {
   TouchableOpacity,
   View,
   TouchableOpacityProps,
-  Alert,
 } from "react-native";
-import { useUserCtx } from "../../../users/components/users-ctx";
+import { ICONS } from "../../../../shared/ui/icons";
+import { SvgProps } from "react-native-svg";
 
 export function MenuBtn({
   label,
+  Icon,
   ...props
-}: { label: string } & TouchableOpacityProps) {
+}: { label: string, Icon: (props: SvgProps) => React.JSX.Element } & TouchableOpacityProps) {
   return (
     <TouchableOpacity
       {...props}
-      className="w-full transition-colors hover:bg-plum"
+      className="w-full"
     >
-      <Text className="self-center text-lg">{label}</Text>
+      <View className="gap-2 flex-row items-center">
+        <Icon width={20} height={20} />
+        <Text className="text-lg">{label}</Text>
+      </View>
     </TouchableOpacity>
   );
 }
 
-export function Menu({ postId }: { postId: number }) {
-  const { removePost } = useUserCtx();
+export function Menu({ onEdit, onRemove }: { onEdit: () => void, onRemove: () => void }) {
   return (
-    <View className="absolute top-1/4 right-1/2 shadow-lg rounded-xl w-24 p-3 bg-slate-200 z-10">
-      <MenuBtn label="Delete" onPress={async () => await removePost(postId)} />
-      <View className="border" />
+    <View className="absolute top-1/4 right-1/2 shadow-lg rounded-xl p-4 gap-4 bg-sliveLight z-10 w-80">
+      <View className="ml-auto"><ICONS.PostSettingsIcon height={16} /></View>
+      <MenuBtn Icon={ICONS.BinIcon} label="Видалити публікацію" onPress={onRemove} />
+      <View className="border border-border" />
       <MenuBtn
-        label="Edit"
-        onPress={() =>
-          Alert.alert(
-            "Not implemented",
-            "This functionallity not implemented yet",
-          )
-        }
+        Icon={ICONS.PenIcon}
+        label="Редагувати допис"
+        onPress={onEdit}
       />
     </View>
   );

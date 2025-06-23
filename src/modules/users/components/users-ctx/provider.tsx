@@ -43,6 +43,7 @@ export function UsersProvider({ children }: { children: ReactNode }) {
       const post: IPost = {
         ...data,
         ...postPartial,
+        tags: data.tags.map(tag => ({ tag })),
         _count: { likes: 0, views: 0 },
       };
       setUser({ ...user, profile: { ...user.profile, posts: [post, ...user.profile.posts] } });

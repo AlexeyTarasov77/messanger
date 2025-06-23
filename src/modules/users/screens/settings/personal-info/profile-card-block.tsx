@@ -18,7 +18,7 @@ export function ProfileCardBlock() {
   if (!user) return;
   const [isEditMode, setIsEditMode] = useState(false);
   const { control, handleSubmit, setValue, watch } = useForm<IProfileCardForm>({
-    defaultValues: { ...user, avatarUrl: "" },
+    defaultValues: { ...user, avatar: "" },
   });
   const onSubmit = async (data: IProfileCardForm) => {
     try {
@@ -35,7 +35,7 @@ export function ProfileCardBlock() {
       mediaTypes: "images",
     });
     if (result && !result.canceled) {
-      setValue("avatarUrl", result.assets[0].uri);
+      setValue("avatar", result.assets[0].uri);
     }
   };
   return (
@@ -51,7 +51,7 @@ export function ProfileCardBlock() {
           {/* using watch in Image.source instead of getValues().avatarUrl 
           because value in getValues().avatarUrl does not get immediately updated on setValue */}
           <Image
-            source={{ uri: watch("avatarUrl") || getUserAvatar(user)?.image || DEFAULT_AVATAR_URL }}
+            source={{ uri: watch("avatar") || getUserAvatar(user)?.image || DEFAULT_AVATAR_URL }}
             className={`w-24 h-24 rounded-full ${isEditMode ? "opacity-60" : ""}`}
           />
           {isEditMode && (

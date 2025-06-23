@@ -1,18 +1,17 @@
-import { ScrollView, Alert, View, Text, TouchableOpacity } from "react-native";
+import { Alert, View, Text, TouchableOpacity } from "react-native";
 import { FriendCard } from "../components/friend-card";
 import { Card } from "../components/card";
 import { useRequests } from "../hooks/use-requests";
 import { Loader } from "../../../shared/ui/loader/loader";
-import { Links } from "../components/links-bar";
 import { friendsService } from "../services";
 import { useUserCtx } from "../../users/components/users-ctx";
 import { getErrorMessage } from "../../../shared/utils/errors";
-import { useDeleteUserModal } from "../components/delete-modal-ctx";
+import { ModalName, useModal } from "../../../shared/context/modal";
 
 export function Requests() {
     const { requests, isLoading, setRequests } = useRequests();
     const { user } = useUserCtx();
-    const { open } = useDeleteUserModal();
+    const { open } = useModal();
     if (isLoading || !user) return <Loader />;
 
     const removeRequest = async (
@@ -62,8 +61,13 @@ export function Requests() {
                             <TouchableOpacity
                                 // onPress={async () => declineRequest(Number(requestUser.id))}
                                 onPress={() => {
-                                    open(async () =>
-                                        declineRequest(Number(requestUser.id))
+                                    open({
+                                        name: ModalName.CONFIRMATION, props: {
+                                            onConfirm: async () =>
+                                                declineRequest(Number(requestUser.id)),
+                                            label: "Ви дійсно хочете видалити користувача?"
+                                        }
+                                    }
                                     );
                                 }}
                                 className="flex-row items-center gap-1 border border-slive p-2 rounded-[1234]"

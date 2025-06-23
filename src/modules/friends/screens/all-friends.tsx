@@ -6,12 +6,12 @@ import { useAllFriends } from "../hooks/use-all-friends";
 import { useUserCtx } from "../../users/components/users-ctx";
 import { friendsService } from "../services";
 import { getErrorMessage } from "../../../shared/utils/errors";
-import { useDeleteUserModal } from "../components/delete-modal-ctx";
+import { ModalName, useModal } from "../../../shared/context/modal";
 
 export function AllFriends() {
     const { allFriends, isLoading, setAllFriends } = useAllFriends();
     const { user } = useUserCtx();
-    const { open } = useDeleteUserModal();
+    const { open } = useModal();
     if (isLoading || !user) return <Loader />;
     const deleteFriend = async (friendId: number) => {
         try {
@@ -45,9 +45,13 @@ export function AllFriends() {
                             <TouchableOpacity
                                 // onPress={async () => deleteFriend(Number(friend.id))}
                                 onPress={() => {
-                                    open(async () =>
-                                        deleteFriend(Number(friend.id))
-                                    );
+                                    open({
+                                        name: ModalName.CONFIRMATION, props: {
+                                            onConfirm: async () =>
+                                                deleteFriend(Number(friend.id)),
+                                            label: "Ви дійсно хочете видалити користувача?"
+                                        }
+                                    });
                                 }}
                                 className="flex-row items-center gap-1 border border-slive p-2 rounded-[1234]"
                             >

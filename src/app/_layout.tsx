@@ -1,29 +1,17 @@
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import "../styles/global.css";
-import { RootLayout } from "../modules/main/screens/layouts/root-layout";
+import { RootLayout } from "../modules/main/screens/layouts/root";
 import { UsersProvider } from "../modules/users/components/users-ctx";
-import { CreatePostModalProvider } from "../modules/posts/components";
-import { RegisterModalProvider } from "../modules/users/components/modal-ctx";
-
-import { DeleteUserModalProvider } from "../modules/friends/components/delete-modal-ctx";
-import { CreateGroupModalProvider } from "../modules/chats/components/modal-ctx";
+import { ModalProvider } from "../shared/context/modal";
 
 export default function Layout() {
     return (
         <SafeAreaProvider>
-            <UsersProvider>
-                <CreatePostModalProvider>
-                    <DeleteUserModalProvider>
-                        <RegisterModalProvider>
-                            <CreateGroupModalProvider>
-                                <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
-                                    <RootLayout />
-                                </SafeAreaView>
-                            </CreateGroupModalProvider>
-                        </RegisterModalProvider>
-                    </DeleteUserModalProvider>
-                </CreatePostModalProvider>
-            </UsersProvider>
+            <ModalProvider><UsersProvider>
+                <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
+                    <RootLayout />
+                </SafeAreaView>
+            </UsersProvider></ModalProvider>
         </SafeAreaProvider>
     );
 }

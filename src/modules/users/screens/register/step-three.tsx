@@ -4,21 +4,18 @@ import { Input } from "../../../../shared/ui/input";
 import { Link } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { IRegisterStepThree, IUser } from "../../types";
-import { useRouter } from "expo-router";
-import { authService, usersService } from "../../services";
+import { usersService } from "../../services";
 import { getErrorMessage, renderError } from "../../../../shared/utils/errors";
-import { ScrollView } from "react-native";
 import Modal from "react-native-modal";
-import { useRegisterModal } from "../../components/modal-ctx";
 import { ICONS } from "../../../../shared/ui/icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useUserCtx } from "../../components/users-ctx";
+import { IModalBaseProps } from "../../../main/types";
 
-export function RegisterStepThree() {
+export function RegisterStepThree({ close, isVisible }: IModalBaseProps) {
   const {
     handleSubmit,
     control,
-    getValues,
     setError,
     formState: { errors },
   } = useForm<IRegisterStepThree>({
@@ -26,9 +23,6 @@ export function RegisterStepThree() {
   });
 
   const { user } = useUserCtx();
-
-  const { visible, close } = useRegisterModal();
-  console.log("MODAL VISIBLE:", visible);
 
   async function onSubmit(data: IRegisterStepThree) {
     try {
@@ -50,7 +44,7 @@ export function RegisterStepThree() {
 
   return (
     <Modal
-      isVisible={visible}
+      isVisible={isVisible}
       onBackdropPress={closeAndSkip}
       coverScreen={false}
       className="bg-white justify-center items-center rounded-2xl my-auto"

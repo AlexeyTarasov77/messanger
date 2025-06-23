@@ -4,3 +4,8 @@ export type MediaImage = {
   file: string;
   filename: string;
 };
+
+export interface IModalBaseProps {
+  isVisible: boolean;
+  close: () => void;
+}
