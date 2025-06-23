@@ -1,12 +1,10 @@
 import { Text, View, TouchableOpacity } from "react-native";
 import { Link, usePathname, useRouter } from "expo-router";
-import { ICONS } from "../../../../shared/ui/icons";
 import { LogoIcon, LogOutIcon, PlusIcon, SettingsIcon } from "../../../../shared/ui/icons/headerIcons";
 import { LinkItem } from "./link-item";
 import { useEffect, useState } from "react";
 import { useUserCtx } from "../../../users/components/users-ctx";
-import { useCreatePostModal } from "../../../posts/components";
-import { useCreateGroupModal } from "../../../chats/components";
+import { ModalName, useModal } from "../../../../shared/context/modal";
 
 
 export enum HeaderAction {
@@ -20,9 +18,10 @@ export function Header() {
   const defaultHeaderActions: HeaderAction[] = Object.values(HeaderAction) as HeaderAction[]
   const [showedActions, setShowedActions] = useState<HeaderAction[]>(defaultHeaderActions)
   const { user, logout } = useUserCtx();
-  const { open: openPostModal } = useCreatePostModal();
-  const { open: openGroupModal } = useCreateGroupModal();
-  const [createActionCallback, setCreateActionCallback] = useState(() => openPostModal)
+  const { open: openModal } = useModal()
+  // const { open: openPostModal } = useModal();
+  // const { open: openGroupModal } = useCreateGroupModal();
+  const [createActionCallback, setCreateActionCallback] = useState(() => () => openModal({ name: ModalName.CREATE_POST }))
   const currPath = usePathname()
   useEffect(() => {
     const friendPathRegexp = new RegExp("\/friends.*")
@@ -31,10 +30,11 @@ export function Header() {
     if (friendPathRegexp.test(currPath) || profilePathRegexp.test(currPath)) {
       setShowedActions(defaultHeaderActions.filter(showedAction => showedAction !== HeaderAction.CREATE))
     } else if (chatsPathRegexp.test(currPath)) {
-      setCreateActionCallback(() => openGroupModal)
+      setCreateActionCallback(() => () => openModal({ name: ModalName.CREATE_CHAT }))
       setShowedActions(defaultHeaderActions.filter(showedAction => showedAction !== HeaderAction.SETTINGS))
     } else {
       setShowedActions(defaultHeaderActions)
+      setCreateActionCallback(() => () => openModal({ name: ModalName.CREATE_POST }))
     }
   }, [currPath])
 

@@ -8,7 +8,7 @@ import {
   IUser,
   IUserExtended,
 } from "../../types";
-import { ICreatePostForm, IPost } from "../../../posts/types";
+import { ICreatePostForm } from "../../../posts/types";
 
 interface IUserCtx {
   user: IUserExtended | null;

@@ -1,5 +1,4 @@
 import { Input } from "../../../shared/ui/input/input";
-import { useCreateGroupModal } from "../components/modal-ctx";
 import React, { useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import Modal from "react-native-modal";
@@ -11,10 +10,10 @@ import { Loader } from '../../../shared/ui/loader/loader';
 import { useAllFriends } from '../../friends/hooks/use-all-friends';
 import { IUser } from '../../users/types';
 import { RoundedButton } from '../../../shared/ui/button/button';
+import { IModalBaseProps } from "../../main/types";
 
-export function CreateGroupModal() {
-  const { visible, close } = useCreateGroupModal()
-  const [selectedMembersIds, setSelectedMembersIds] = useState<string[]>([])
+export function CreateGroupModal({ close, isVisible }: IModalBaseProps) {
+  const [selectedMembersIds, setSelectedMembersIds] = useState<number[]>([])
   const [searchQuery, setSearchQuery] = useState<string>("")
   const { allFriends: contacts, isLoading } = useAllFriends()
   if (isLoading) {
@@ -40,7 +39,7 @@ export function CreateGroupModal() {
     groupedContacts[firstLetter].push(contact)
   })
   return (
-    <Modal isVisible={visible} onBackdropPress={close} coverScreen={false} className="bg-white justify-center items-center rounded-2xl my-auto" style={{ maxHeight: "60%" }}>
+    <Modal isVisible={isVisible} onBackdropPress={close} coverScreen={false} className="bg-white justify-center items-center rounded-2xl my-auto" style={{ maxHeight: "60%" }}>
       <View className="pr-9 pl-9 p-6 flex-1 ">
 
         <View className='gap-4'>

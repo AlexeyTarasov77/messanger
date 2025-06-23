@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useColorScheme } from "nativewind";
 import { useEffect } from "react";
-import { THEME_STORAGE_KEY } from "../../../../shared/constants";
+import { THEME_STORAGE_KEY } from "../../../../../shared/constants";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat"
 

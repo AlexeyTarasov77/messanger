@@ -3,9 +3,7 @@ import {
   TouchableOpacity,
   View,
   TouchableOpacityProps,
-  Alert,
 } from "react-native";
-import { useUserCtx } from "../../../users/components/users-ctx";
 import { ICONS } from "../../../../shared/ui/icons";
 import { SvgProps } from "react-native-svg";
 
@@ -30,7 +28,7 @@ export function MenuBtn({
 export function Menu({ onEdit, onRemove }: { onEdit: () => void, onRemove: () => void }) {
   return (
     <View className="absolute top-1/4 right-1/2 shadow-lg rounded-xl p-4 gap-4 bg-sliveLight z-10 w-80">
-      <View className="ml-auto">  <ICONS.PostSettingsIcon height={16} /> </View>
+      <View className="ml-auto"><ICONS.PostSettingsIcon height={16} /></View>
       <MenuBtn Icon={ICONS.BinIcon} label="Видалити публікацію" onPress={onRemove} />
       <View className="border border-border" />
       <MenuBtn
