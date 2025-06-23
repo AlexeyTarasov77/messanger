@@ -8,7 +8,7 @@ import { ICreatePostForm } from "../types";
 import { renderError } from "../../../shared/utils/errors";
 import { useUserCtx } from "../../users/components/users-ctx";
 import { BinIcon } from "../../../shared/ui/icons/bin-icon";
-import { buildImageUrl, pickImage } from "../../../shared/utils/images";
+import { pickImage } from "../../../shared/utils/images";
 import { Tag } from "../components/tag";
 import { RoundedButton } from "../../../shared/ui/button/button";
 import { IModalBaseProps } from "../../main/types";

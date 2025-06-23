@@ -3,10 +3,10 @@ import { ScrollView, Text, View, Button } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
 import { Input } from "../../../shared/ui/input";
 import { Controller, useForm } from "react-hook-form";
-import { ChatListCard } from "../components/chat-card";
 import { useAllFriends } from "../../friends/hooks/use-all-friends";
 import { Loader } from "../../../shared/ui/loader/loader";
 import { IChatListSearch } from "../types";
+import { ContactCard } from "../components/contact-card";
 
 export function ContactsScreen() {
     const router = useRouter();
@@ -76,7 +76,7 @@ export function ContactsScreen() {
                                 );
                             }}
                         />
-                        {contacts.map(contact => <ChatListCard key={contact.id} user={contact} />)}
+                        {contacts.map(contact => <ContactCard key={contact.id} user={contact} />)}
 
                     </View>
                 </View>

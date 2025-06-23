@@ -1,37 +1,10 @@
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { ScrollView, TouchableOpacity, Text, View, Button } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
-import { Input } from "../../../shared/ui/input";
-import { UserAvatar } from "../../users/components/avatar";
-import { Controller, useForm } from "react-hook-form";
-import { IChatListSearch, IUser } from "../types";
 import { MessageCard } from "../components/message-card";
 
 export function MessagesScreen() {
     const router = useRouter();
-    const {
-        handleSubmit,
-        control,
-        getValues,
-        setError,
-        formState: { errors },
-    } = useForm<IChatListSearch>({
-        defaultValues: {
-            username: "",
-            firstName: "",
-            lastName: "",
-        },
-    });
-    async function onSubmit(data: IChatListSearch) {
-        router.push({
-            pathname: "/users/settings",
-            params: {
-                username: data.username,
-                firstName: data.firstName,
-                lastName: data.lastName,
-            },
-        });
-    }
     return (
         <View className="bg-mainBg h-full">
             <ScrollView className="bg-white border border-border rounded-xl mt-3 mb-3">

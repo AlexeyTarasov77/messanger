@@ -11,6 +11,7 @@ export interface IUserAvatarProps {
     width?: number;
     height?: number;
     showIsOnline?: boolean;
+    redirectUrl?: string
 }
 
 export function UserAvatar({
@@ -18,7 +19,8 @@ export function UserAvatar({
     className,
     width,
     height,
-    showIsOnline
+    showIsOnline,
+    redirectUrl,
 }: IUserAvatarProps) {
     const router = useRouter()
     if (showIsOnline === undefined) {
@@ -26,7 +28,7 @@ export function UserAvatar({
     }
     return (
         <View className="flex-row">
-            <TouchableOpacity onPress={() => { router.replace(`/profile/${user.id}`) }}>
+            <TouchableOpacity onPress={() => { redirectUrl || router.replace(`/profile/${user.id}`) }}>
                 <View>
                     <Image
                         source={{ uri: getUserAvatar(user)?.image || DEFAULT_AVATAR_URL }}
