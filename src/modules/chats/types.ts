@@ -43,7 +43,7 @@ export interface ChatGroup {
   avatar: string | null;
 }
 
-export interface PersonalChat extends ChatGroupWithLastMsg {
+export interface PersonalChatWithLastMsg extends ChatGroupWithLastMsg {
   withUser: IUser
 }
 

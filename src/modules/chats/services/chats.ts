@@ -1,5 +1,5 @@
 import { GET } from "../../../shared/api/client";
-import { ChatGroupWithLastMsg, ChatGroupWithRelations } from "../types";
+import { ChatGroupWithLastMsg, ChatGroupWithRelations, PersonalChatWithLastMsg } from "../types";
 
 export const chatsService = {
   listGroupChats: async () => {
@@ -10,7 +10,7 @@ export const chatsService = {
     return resp.data;
   },
   listPersonalChats: async () => {
-    const resp = await GET<ChatGroupWithLastMsg[]>("/messanger/chats/personal");
+    const resp = await GET<PersonalChatWithLastMsg[]>("/messanger/chats/personal");
     if (!resp.success) {
       throw new Error(resp.message);
     }

@@ -1,11 +1,11 @@
 import { ScrollView, View, Text, TouchableOpacity } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
-import { useUserChats } from "../hooks";
+import { useGroupChats } from "../hooks";
 import { Loader } from "../../../shared/ui/loader/loader";
 import { ChatCard } from "../components/chat-card";
 
 export function GroupMessagesScreen() {
-    const { isLoading, chats } = useUserChats()
+    const { isLoading, chats } = useGroupChats()
     if (isLoading) return <Loader />
     return (
         <View className="bg-mainBg h-full">

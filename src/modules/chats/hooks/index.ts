@@ -1,3 +1,3 @@
 export { useChat } from "./use-chat";
-export { useUserChats } from "./use-user-chats";
+export { useGroupChats, usePersonalChats } from "./use-user-chats";
 

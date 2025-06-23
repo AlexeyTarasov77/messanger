@@ -16,7 +16,7 @@ export function ChatCard({ chat, user }: { chat: ChatGroupWithLastMsg, user?: IU
       onPress={() => { router.push(`/chats/groups/${chat.id}`) }}
     >
       {user ?
-        <UserAvatar user={user} /> :
+        <UserAvatar className="w-12 h-12" user={user} /> :
         <View>
           <Image
             source={{ uri: chat.avatar || DEFAULT_AVATAR_URL }}
