@@ -12,7 +12,8 @@ import { ICreatePostForm, IPost } from "../../../../posts/types";
 import { postsService } from "../../../../posts/services";
 import { getErrorMessage } from "../../../../../shared/utils/errors";
 import { UserCtx } from "./context";
-import { albumsService } from "../../services/albums";
+import { albumsService } from "../../../services/albums";
+
 
 export function UsersProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<IUserExtended | null>(null);
