@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
-import Modal from "react-native-modal";
 import { ICONS } from "../../../shared/ui/icons";
 import {
     Controller,

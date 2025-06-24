@@ -45,6 +45,7 @@ export function ModalRoot() {
     [ModalName.CREATE_POST]: CreatePostModal,
     [ModalName.FIRST_LOGIN]: RegisterStepThree,
     [ModalName.UPDATE_POST]: UpdatePostModal,
+    // [ModalName.CREATE_ALBUM] : CreateAlbumModal,
     [ModalName.CREATE_CHAT]: CreateGroupModal,
     [ModalName.CONFIRMATION]: ConfirmationModal,
   }
