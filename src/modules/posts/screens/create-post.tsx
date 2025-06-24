@@ -37,7 +37,6 @@ export function CreatePostModal({ close, isVisible }: IModalBaseProps) {
     control,
     name: "links",
   });
-
   const pickPostImages = async () => {
     const result = await pickImage({
       mediaTypes: "images",

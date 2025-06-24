@@ -24,6 +24,6 @@ export function useGetUserById(userId: number) {
         };
 
         fetchUser();
-    }, []);
+    }, [userId]);
     return { user, isLoading, error };
 }
