@@ -72,25 +72,6 @@ export function PostForm({
         close();
     };
 
-    // const createTag = async (name: string) => {
-    //     // try {
-    //     //     const newTag = await postsService.createTag(name);
-    //     //     setTags((prev) => [...prev, newTag]);
-    //     // } catch (error) {
-    //     //     console.error("Не удалось создать тег:", error);
-    //     // }
-    //     // try {
-    //     //     const newTag = await postsService.createTag(name);
-
-    //     //     if (!newTag || typeof newTag !== "object" || !("id" in newTag))
-    //     //         return;
-
-    //     //     setTags((prev) => [...prev, newTag]); // newTag: IPostTag
-    //     // } catch (error) {
-    //     //     console.error("Не удалось создать тег:", error);
-    //     // }
-
-    // };
     const createTag = async (name: string) => {
         try {
             const newTag = await postsService.createTag(name);
