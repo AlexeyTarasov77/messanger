@@ -1,15 +1,16 @@
 import { ScrollView, View, Text, TouchableOpacity } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
-import { Input } from "../../../shared/ui/input";
-import { MessageCard } from "../components/message-card";
-import { GroupCard } from "../components/group-card";
+import { useGroupChats } from "../hooks";
+import { Loader } from "../../../shared/ui/loader/loader";
+import { ChatCard } from "../components/chat-card";
 
 export function GroupMessagesScreen() {
+    const { isLoading, chats } = useGroupChats()
+    if (isLoading) return <Loader />
     return (
         <View className="bg-mainBg h-full">
             <ScrollView className="bg-white border border-border rounded-xl mt-3 mb-3">
                 <View className="flex-row items-center m-5 gap-5">
-                    {/* justify-center  */}
                     <View className="w-full gap-5">
                         <View className="flex-row items-center gap-2">
                             <ICONS.MessagesIcon
@@ -21,19 +22,9 @@ export function GroupMessagesScreen() {
                                 Групові чати
                             </Text>
                         </View>
-
-                        <GroupCard
-                            participant="Mila"
-                            message="Привіт! Як справи ?"
-                            time="09:41"
-                            name="New Group"
-                        />
-                         <GroupCard
-                            participant="Mila"
-                            message="Привіт! Як справи ?"
-                            time="09:41"
-                            name="New Group2"
-                        />
+                        {chats.map(chat => (
+                            <ChatCard key={chat.id} chat={chat} />
+                        ))}
 
                     </View>
                 </View>

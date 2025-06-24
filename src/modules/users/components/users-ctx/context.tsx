@@ -17,6 +17,7 @@ interface IUserCtx {
   register: (data: IRegisterForm) => Promise<string | void>;
   logout: () => void;
   addPost: (data: ICreatePostForm) => Promise<string | void>;
+  updatePost: (data: Partial<ICreatePostForm>, postId: number) => Promise<string | void>;
   updateUserData: (updatedData: Partial<IUser>) => void;
   removePost: (postId: number) => Promise<string | void>;
 }

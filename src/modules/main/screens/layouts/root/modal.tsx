@@ -6,6 +6,7 @@ import { useUserCtx } from "../../../../users/components/users-ctx";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { IModal, ModalName, useModal } from "../../../../../shared/context/modal";
 import { ConfirmationModal } from "../../../../../shared/ui/confirmation-modal/modal";
+import { UpdatePostModal } from "../../../../posts/screens/update-post";
 
 function RegisterModalCheck() {
   const { user } = useUserCtx();
@@ -43,7 +44,7 @@ export function ModalRoot() {
   const modalsComponents = {
     [ModalName.CREATE_POST]: CreatePostModal,
     [ModalName.FIRST_LOGIN]: RegisterStepThree,
-    // [ModalName.UPDATE_POST]: UpdatePostModal,
+    [ModalName.UPDATE_POST]: UpdatePostModal,
     [ModalName.CREATE_CHAT]: CreateGroupModal,
     [ModalName.CONFIRMATION]: ConfirmationModal,
   }
@@ -52,9 +53,5 @@ export function ModalRoot() {
     {Object.entries(modalsComponents).map(([name, Component]) =>
       <Component key={name} isVisible={!!activeModals[name]} close={close} {...activeModals[name]?.props} />
     )}
-    {/* <RegisterStepThree /> */}
-    {/* <CreatePostModal /> */}
-    {/* <DeleteUserModal /> */}
-    {/* <CreateGroupModal /> */}
   </>
 }
