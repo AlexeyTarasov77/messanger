@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Menu } from "./menu";
 import { buildImageUrl } from "../../../../shared/utils/images";
 import { useUserCtx } from "../../../users/components/users-ctx";
+import { ModalName, useModal } from "../../../../shared/context/modal";
 
 export function PostCard({
   post,
@@ -18,7 +19,10 @@ export function PostCard({
 }) {
   const [menuOpened, setMenuOpened] = useState(false);
   const { removePost } = useUserCtx()
-  const handlePostEdit = async () => { }
+  const { open } = useModal()
+  const handlePostEdit = async () => {
+    open({ name: ModalName.UPDATE_POST, props: { postId: post.id } })
+  }
   const handlePostRemove = async () => {
     const errMsg = await removePost(post.id)
     if (errMsg) {
@@ -55,7 +59,7 @@ export function PostCard({
           {post.content}
         </Text>
         <View className="flex-row flex-wrap font-normal text-sm leading-none gap-1">
-          {post.tags?.map(({ tag }) => (
+          {post.tags?.map(tag => (
             <Text className="text-text" key={tag.id}>
               #{tag.name}
             </Text>

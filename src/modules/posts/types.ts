@@ -14,7 +14,7 @@ export type PostMedia = {
 }
 
 export interface ICreatePostForm {
-  links: { id: number, value: string }[]
+  links: { id: number, url: string }[]
   title: string;
   subject: string;
   tags: IPostTag[];
@@ -25,9 +25,10 @@ export interface ICreatePostForm {
 export interface IPost {
   id: number;
   title: string;
-  tags?: { tag: IPostTag }[];
+  tags: IPostTag[];
   content: string;
   images: MediaImage[];
+  links?: { id: number, url: string }[]
   _count: {
     likes: number;
     views: number;

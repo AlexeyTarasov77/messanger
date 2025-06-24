@@ -33,6 +33,27 @@ export function UsersProvider({ children }: { children: ReactNode }) {
     fetchUser();
   }, [token]);
 
+
+  const updatePost = async (data: Partial<ICreatePostForm>, postId: number): Promise<string | void> => {
+    if (!user) {
+      return "Unauthorized";
+    }
+    try {
+      setIsLoading(true);
+      const updatedPost = await postsService.updatePost(data, postId);
+      const oldPost = user.profile.posts.find(post => post.id === postId)!
+      const newPost: IPost = {
+        ...oldPost,
+        ...updatedPost,
+      };
+      setUser({ ...user, profile: { ...user.profile, posts: [newPost, ...user.profile.posts.filter(post => post.id !== oldPost.id)] } });
+    } catch (err) {
+      return getErrorMessage(err);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   const addPost = async (data: ICreatePostForm): Promise<string | void> => {
     if (!user) {
       return "Unauthorized";
@@ -43,7 +64,6 @@ export function UsersProvider({ children }: { children: ReactNode }) {
       const post: IPost = {
         ...data,
         ...postPartial,
-        tags: data.tags.map(tag => ({ tag })),
         _count: { likes: 0, views: 0 },
       };
       setUser({ ...user, profile: { ...user.profile, posts: [post, ...user.profile.posts] } });
@@ -53,6 +73,7 @@ export function UsersProvider({ children }: { children: ReactNode }) {
       setIsLoading(false);
     }
   };
+
 
   const removePost = async (postId: number) => {
     if (!user) {
@@ -114,6 +135,7 @@ export function UsersProvider({ children }: { children: ReactNode }) {
         isLoading,
         logout,
         addPost,
+        updatePost,
         removePost,
         updateUserData,
       }}
