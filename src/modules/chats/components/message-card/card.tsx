@@ -1,10 +1,11 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { IMessageCard, IUser } from "../../types";
-import { UserAvatar } from "../../../users/components/avatar";
+import { ChatMessageWithAuthor } from "../../types";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { getUserDisplayName } from "../../../users/utils";
+import { formatDate } from "../../../../shared/utils/dates";
+import { UserAvatar } from "../../../users/components/avatar";
 
-export function MessageCard({ user, message, time }: IMessageCard) {
+export function MessageCard({ msg, isOwnMsg }: { msg: ChatMessageWithAuthor, isOwnMsg: boolean }) {
     const { id } = useLocalSearchParams();
     const router = useRouter();
     return (
@@ -14,16 +15,16 @@ export function MessageCard({ user, message, time }: IMessageCard) {
                 router.push(`/chats/${id}`);
             }}
         >
-            {/* <UserAvatar user={user?} /> */}
+            <UserAvatar user={msg.author} />
             <View className="flex-1">
                 <Text className="font-medium text-lg">
-                    {getUserDisplayName(user)}
+                    {getUserDisplayName(msg.author)}
                 </Text>
                 <Text className="text-sm text-gray-600" numberOfLines={1}>
-                    {message}
+                    {msg.content}
                 </Text>
             </View>
-            <Text className="text-xs text-gray-400 ml-auto">{time}</Text>
+            <Text className="text-xs text-gray-400 ml-auto">{formatDate(new Date(msg.sent_at), "%H:%M")}</Text>
         </TouchableOpacity>
     );
 }

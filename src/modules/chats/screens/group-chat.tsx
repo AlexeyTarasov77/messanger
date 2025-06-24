@@ -4,13 +4,19 @@ import { ICONS } from "../../../shared/ui/icons";
 import { Input } from "../../../shared/ui/input";
 import { useChat } from "../hooks";
 import { Loader } from "../../../shared/ui/loader/loader";
+import { MessageCard } from "../components";
+import { IUser } from "../../users/types";
+import { useUserCtx } from "../../users/components/users-ctx";
 
 export function GroupChatScreen() {
   const { id } = useLocalSearchParams()
   const { isLoading, chat } = useChat(Number(id))
   const router = useRouter()
+  const { user } = useUserCtx()
   if (isLoading) return <Loader />
   if (!chat) return <Redirect href="/not-found" />
+  const chatMembersMap: Record<number, IUser> = {}
+  chat.members.forEach(member => chatMembersMap[member.id] = member)
   return (
     <View className="bg-mainBg h-full">
       <View className="bg-white border border-border rounded-xl mt-3 mb-3">
@@ -40,7 +46,11 @@ export function GroupChatScreen() {
             <ICONS.PostSettingsIcon width={20} height={20} />
           </View>
         </View>
-        <ScrollView></ScrollView>
+        <ScrollView>
+          {chat.messages.map(msg => (
+            <MessageCard key={msg.id} msg={{ ...msg, author: chatMembersMap[msg.author_id] }} isOwnMsg={msg.author_id === user?.id} />
+          ))}
+        </ScrollView>
         <View className="flex-row p-6 bottom-0 ">
           <Input placeholder="Повідомлення" className="w-5/6 h-12" />
           <View className="flex-row gap-2">

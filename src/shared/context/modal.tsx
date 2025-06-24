@@ -27,7 +27,6 @@ export const ModalProvider = ({
   children,
 }: PropsWithChildren) => {
   const [modals, setModals] = useState<IModal[]>([])
-  console.log("ACTIVE MODALS", modals)
   return (
     <ModalContext.Provider
       value={{
