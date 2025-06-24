@@ -1,5 +1,5 @@
 import { MediaImage } from "../main/types";
-import { IPost } from "../posts/types";
+import { IPost, IPostTag } from "../posts/types";
 
 export interface ILoginForm {
   email: string;
@@ -47,6 +47,12 @@ export interface IAlbum {
   images: { image: MediaImage }[];
   preview_image?: string;
   shown: boolean;
+}
+
+export interface ICreateAlbumForm {
+    name: string;
+    topic: { id: number, name: string };
+    created_at: string;
 }
 
 interface IAlbumAuthor {

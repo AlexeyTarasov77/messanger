@@ -75,7 +75,7 @@ export const postsService = {
         return resp.data;
     },
     createTag: async (name: string) => {
-        const resp = await POST<IPostTag>("/posts/create-tag/", { name: name });
+        const resp = await POST<IPostTag>("/posts/create-tag/", { name });
         if (!resp.success) {
             throw new Error(resp.message);
         }

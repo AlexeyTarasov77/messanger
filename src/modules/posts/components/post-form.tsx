@@ -8,12 +8,12 @@ import {
     UseFormProps,
 } from "react-hook-form";
 import { Input } from "../../../shared/ui/input/input";
-import { ICreatePostForm } from "../types";
+import { ICreatePostForm, IPostTag } from "../types";
 import { renderError } from "../../../shared/utils/errors";
 import { BinIcon } from "../../../shared/ui/icons/bin-icon";
 import { pickImage } from "../../../shared/utils/images";
 import { Tag } from "../components/tag";
-import { RoundedButton } from "../../../shared/ui/button/button";
+import { Button, RoundedButton } from "../../../shared/ui/button/button";
 import { useTags } from "../hooks/use-tags";
 import { postsService } from "../services";
 
@@ -30,7 +30,7 @@ export function PostForm({
     const [images, setImages] = useState<ICreatePostForm["images"]>([]);
     const [showCreateTagInput, setShowCreateTagInput] = useState(false);
     const [newTagName, setNewTagName] = useState("");
-    const { setTags } = useTags();
+    const { tags, setTags } = useTags();
 
     const {
         handleSubmit,
@@ -38,7 +38,11 @@ export function PostForm({
         setError,
         formState: { errors },
     } = useForm<ICreatePostForm>({ defaultValues });
-    const { fields: linkInputs, append } = useFieldArray({
+    const {
+        fields: linkInputs,
+        append,
+        remove,
+    } = useFieldArray({
         control,
         name: "links",
     });
@@ -67,11 +71,26 @@ export function PostForm({
         console.log("CLOSING MODAL");
         close();
     };
-    const { fields: tagInputs } = useFieldArray({
-        control,
-        name: "tags",
-    });
 
+    // const createTag = async (name: string) => {
+    //     // try {
+    //     //     const newTag = await postsService.createTag(name);
+    //     //     setTags((prev) => [...prev, newTag]);
+    //     // } catch (error) {
+    //     //     console.error("Не удалось создать тег:", error);
+    //     // }
+    //     // try {
+    //     //     const newTag = await postsService.createTag(name);
+
+    //     //     if (!newTag || typeof newTag !== "object" || !("id" in newTag))
+    //     //         return;
+
+    //     //     setTags((prev) => [...prev, newTag]); // newTag: IPostTag
+    //     // } catch (error) {
+    //     //     console.error("Не удалось создать тег:", error);
+    //     // }
+
+    // };
     const createTag = async (name: string) => {
         try {
             const newTag = await postsService.createTag(name);
@@ -115,6 +134,32 @@ export function PostForm({
                         );
                     }}
                 />
+
+                <Controller
+                    control={control}
+                    name="subject"
+                    rules={{
+                        required: {
+                            value: !isPartialForm,
+                            message: "Тема публікації обов’язкова",
+                        },
+                    }}
+                    render={({ field, fieldState }) => {
+                        return (
+                            <Input
+                                className="w-full"
+                                placeholder="Напишіть тему публікації"
+                                onChange={field.onChange}
+                                onChangeText={field.onChange}
+                                value={field.value}
+                                label="Тема публікації"
+                                autoCorrect={false}
+                                err={fieldState.error}
+                            />
+                        );
+                    }}
+                />
+
                 <Controller
                     control={control}
                     name="tags"
@@ -151,7 +196,7 @@ export function PostForm({
                 />
             </View>
 
-            {showCreateTagInput && (
+             {showCreateTagInput && (
                 <View className="flex-row items-center gap w-full">
                     <Input
                         className="w-10/12"
@@ -171,81 +216,13 @@ export function PostForm({
                     </TouchableOpacity>
                 </View>
             )}
-            <Controller
-                control={control}
-                name="subject"
-                rules={{
-                    required: {
-                        value: !isPartialForm,
-                        message: "Тема публікації обов’язкова",
-                    },
-                }}
-                render={({ field, fieldState }) => {
-                    return (
-                        <Input
-                            className="w-full"
-                            placeholder="Напишіть тему публікації"
-                            onChange={field.onChange}
-                            onChangeText={field.onChange}
-                            value={field.value}
-                            label="Тема публікації"
-                            autoCorrect={false}
-                            err={fieldState.error}
-                        />
-                    );
-                }}
-            />
-
-            {tagInputs.map((input, i) => {
-                const tag = (
-                    <Controller
-                        key={input.id}
-                        control={control}
-                        name="tags"
-                        render={({ field }) => (
-                            <Tag
-                                selectedTags={field.value}
-                                onToggle={(tag) => {
-                                    const isSelected = field.value.some(
-                                        (t) => t.id === tag.id
-                                    );
-                                    if (isSelected) {
-                                        field.onChange(
-                                            field.value.filter(
-                                                (t) => t.id !== tag.id
-                                            )
-                                        );
-                                    } else {
-                                        field.onChange([...field.value, tag]);
-                                    }
-                                }}
-                            />
-                        )}
-                    />
-                );
-                return i + 1 == linkInputs.length ? (
-                    <View
-                        className="flex-row w-10/12 items-center gap-2"
-                        key={input.id}
-                    >
-                        {tag}
-                        <RoundedButton
-                            className="w-5 h-5 translate-y-1/2"
-                            onPress={() => append({ url: "", id: i + 1 })}
-                            icon={<ICONS.PlusIcon width={15} height={15} />}
-                        />
-                    </View>
-                ) : (
-                    tag
-                );
-            })}
 
             <Controller
                 control={control}
                 name="content"
                 rules={{
                     required: {
-                        value: !isPartialForm,
+                        value: true,
                         message: "Тема публікації обов’язкова",
                     },
                 }}
@@ -258,12 +235,13 @@ export function PostForm({
                             value={field.value}
                             autoCorrect={false}
                             err={fieldState.error}
-                            className="h-28 align-top w-full"
+                            numberOfLines={4}
+                            multiline
+                            className="h-28 align-top w-full flex-wrap"
                         />
                     );
                 }}
             />
-
             {linkInputs.map((input, i) => {
                 const inputTag = (
                     <Controller
@@ -288,15 +266,34 @@ export function PostForm({
                 );
                 return i + 1 == linkInputs.length ? (
                     <View
-                        className="flex-row w-10/12 items-center gap-2"
+                        className="flex-row w-10/12 items-center gap-2 flex-1"
                         key={input.id}
                     >
                         {inputTag}
                         <RoundedButton
-                            className="w-5 h-5 translate-y-1/2"
+                            className="w-5 h-5 translate-y-1/2 flex-1"
                             onPress={() => append({ url: "", id: i + 1 })}
                             icon={<ICONS.PlusIcon width={15} height={15} />}
                         />
+                        {i >= 1 ? (
+                            <RoundedButton
+                                className="w-5 h-5 translate-y-1/2 "
+                                onPress={() => {
+                                    if (i >= 1) {
+                                        remove(i - 1);
+                                    }
+                                }}
+                                icon={
+                                    <ICONS.CrossIcon
+                                        width={15}
+                                        height={15}
+                                        fill="#543B52"
+                                    />
+                                }
+                            />
+                        ) : (
+                            ""
+                        )}
                     </View>
                 ) : (
                     inputTag
