@@ -94,7 +94,7 @@ export function AlbumForm({
                 />
                 <Controller
                     control={control}
-                    name="topic"
+                    name="created_at"
                     rules={{
                         required: {
                             value: !isPartialForm,

@@ -1,5 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import {
+    IAlbum,
+    ICreateAlbumForm,
   ILoginForm,
   IRegisterForm,
   IUser,
@@ -10,6 +12,7 @@ import { ICreatePostForm, IPost } from "../../../posts/types";
 import { postsService } from "../../../posts/services";
 import { getErrorMessage } from "../../../../shared/utils/errors";
 import { UserCtx } from "./context";
+import { albumsService } from "../../services/albums";
 
 export function UsersProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<IUserExtended | null>(null);
@@ -117,6 +120,25 @@ export function UsersProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const addAlbum = async (data: ICreateAlbumForm): Promise<string | void> => {
+    if (!user) {
+      return "Unauthorized";
+    }
+    try {
+      setIsLoading(true);
+      const albumPartial = await albumsService.createAlbum(data);
+      const album: IAlbum = {
+        ...data,
+        ...albumPartial,
+      };
+      setUser({ ...user, profile: { ...user.profile, albums: [album, ...user.profile.albums] } });
+    } catch (err) {
+      return getErrorMessage(err);
+    } finally {
+      setIsLoading(false);
+    }
+  } 
+
   const logout = async () => {
     await authService.logOut();
     setUser(null);
@@ -137,6 +159,7 @@ export function UsersProvider({ children }: { children: ReactNode }) {
         addPost,
         updatePost,
         removePost,
+        addAlbum,
         updateUserData,
       }}
     >
