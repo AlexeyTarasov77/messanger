@@ -21,7 +21,8 @@ export function CreatePostModal(modalProps: IModalBaseProps) {
           links: []
         }}
         onSubmit={onSubmit}
+        onSuccess={modalProps.close}
       />
     </PostModal>
-  ) 
+  )
 }

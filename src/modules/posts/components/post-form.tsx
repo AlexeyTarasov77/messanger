@@ -21,10 +21,12 @@ export function PostForm({
     defaultValues,
     onSubmit,
     isPartialForm,
+    onSuccess
 }: {
     defaultValues: UseFormProps<ICreatePostForm>["defaultValues"];
     onSubmit: (data: ICreatePostForm) => Promise<string | void>;
     isPartialForm?: boolean;
+    onSuccess?: () => void;
 }) {
     // images contains array of base64 encoded selected images
     const [images, setImages] = useState<ICreatePostForm["images"]>([]);
@@ -37,6 +39,8 @@ export function PostForm({
         control,
         setError,
         formState: { errors },
+        setValue,
+        getValues
     } = useForm<ICreatePostForm>({ defaultValues });
     const {
         fields: linkInputs,
@@ -47,6 +51,18 @@ export function PostForm({
         name: "links",
     });
 
+    const onFormSubmit = async (data: ICreatePostForm) => {
+        data.images.push(...images);
+        const errMsg = await onSubmit(data);
+        if (errMsg) {
+            return setError("root", { message: errMsg });
+        }
+        onSuccess && onSuccess();
+    };
+    const { fields: tagInputs } = useFieldArray({
+        control,
+        name: "tags",
+    });
     const pickPostImages = async () => {
         const result = await pickImage({
             mediaTypes: "images",
@@ -76,6 +92,8 @@ export function PostForm({
         try {
             const newTag = await postsService.createTag(name);
             setTags((prev) => [...prev, newTag]);
+            console.log("Current tags", getValues("tags"))
+            // setValue("tags", [...getValues("tags"), newTag])
         } catch (error) {
             console.error("Не удалось создать тег:", error);
         }
@@ -146,6 +164,7 @@ export function PostForm({
                     name="tags"
                     render={({ field }) => (
                         <Tag
+                            tags={tags}
                             selectedTags={field.value}
                             onToggle={(tag) => {
                                 const isSelected = field.value.some(
@@ -177,24 +196,33 @@ export function PostForm({
                 />
             </View>
 
-             {showCreateTagInput && (
-                <View className="flex-row items-center gap w-full">
+            {showCreateTagInput && (
+                <View className="flex-row items-center w-full mb-3">
                     <Input
                         className="w-10/12"
                         value={newTagName}
                         onChangeText={setNewTagName}
                         placeholder="Новий тег..."
                     />
-                    <TouchableOpacity
+                    {/* <TouchableOpacity */}
+                    {/*     onPress={async () => { */}
+                    {/*         await createTag(newTagName); */}
+                    {/*         setNewTagName(""); */}
+                    {/*         setShowCreateTagInput(false); */}
+                    {/*     }} */}
+                    {/*     className="p-2 bg-slive rounded-2xl flex-1 w-full" */}
+                    {/* > */}
+                    {/*     <ICONS.PlusIcon width={20} height={20} /> */}
+                    {/*     <Text className="text-white">Додати</Text> */}
+                    {/* </TouchableOpacity> */}
+                    <RoundedButton
                         onPress={async () => {
                             await createTag(newTagName);
                             setNewTagName("");
                             setShowCreateTagInput(false);
                         }}
-                        className="p-2 bg-slive rounded-2xl flex-1 w-full"
-                    >
-                        <Text className="text-white">Додати</Text>
-                    </TouchableOpacity>
+                        icon={<ICONS.PlusIcon width={15} height={15} />}
+                    />
                 </View>
             )}
 

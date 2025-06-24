@@ -14,6 +14,13 @@ export const usersService = {
         }
         return resp.data;
     },
+    checkAuthenticated: async (): Promise<boolean> => {
+        const resp = await GET<{ isAuthenticated: boolean }>("/users/check-auth");
+        if (resp.success == false) {
+            throw new Error(resp.message);
+        }
+        return resp.data.isAuthenticated;
+    },
     updateUser: async (data: Partial<IUser & { date_of_birth: Dayjs, avatar: string }>): Promise<IUser> => {
         const formData = new FormData();
         if (data.username) {

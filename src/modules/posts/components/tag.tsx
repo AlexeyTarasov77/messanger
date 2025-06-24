@@ -5,11 +5,11 @@ import { IPost, IPostTag } from "../types";
 interface TagProps {
   selectedTags: IPostTag[];
   onToggle: (tag: IPostTag) => void;
+  tags: IPostTag[]
 }
 
-export function Tag({ selectedTags, onToggle }: TagProps) {
-  const { tags } = useTags();
-
+export function Tag({ selectedTags, onToggle, tags }: TagProps) {
+  // const { tags } = useTags();
   return (
     <View className="flex-row flex-wrap font-normal text-sm leading-none">
       {tags.map((tag) => {
@@ -18,9 +18,8 @@ export function Tag({ selectedTags, onToggle }: TagProps) {
           <TouchableOpacity
             key={tag.id}
             onPress={() => onToggle(tag)}
-            className={`px-3 py-1 rounded-full ${
-              isSelected ? "bg-slive" : "bg-sliveLight"
-            }`}
+            className={`px-3 py-1 rounded-full ${isSelected ? "bg-slive" : "bg-sliveLight"
+              }`}
           >
             <Text className={isSelected ? "text-sliveLight" : "text-slive"}>
               #{tag.name}

@@ -17,7 +17,7 @@ export const chatsService = {
     return resp.data;
   },
   getChat: async (chatId: number) => {
-    const resp = await GET<ChatGroupWithRelations>("/messager/chats/" + String(chatId));
+    const resp = await GET<ChatGroupWithRelations>("/messanger/chats/" + String(chatId));
     if (!resp.success) {
       throw new Error(resp.message);
     }

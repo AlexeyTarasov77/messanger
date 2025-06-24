@@ -21,5 +21,6 @@ export function UpdatePostModal({ postId, ...modalProps }: IModalBaseProps & { p
     }}
     onSubmit={onSubmit}
     isPartialForm={true}
+    onSuccess={modalProps.close}
   />}</PostModal>)
 }

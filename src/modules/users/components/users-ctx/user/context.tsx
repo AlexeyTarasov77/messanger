@@ -1,19 +1,14 @@
 import { createContext, useContext } from "react";
 import {
     ICreateAlbumForm,
-    ILoginForm,
-    IRegisterForm,
     IUser,
     IUserExtended,
-} from "../../types";
-import { ICreatePostForm } from "../../../posts/types";
+} from "../../../types";
+import { ICreatePostForm } from "../../../../posts/types";
 
 interface IUserCtx {
     user: IUserExtended | null;
     isLoading: boolean;
-    login: (data: ILoginForm) => Promise<string | void>;
-    register: (data: IRegisterForm) => Promise<string | void>;
-    logout: () => void;
     addPost: (data: ICreatePostForm) => Promise<string | void>;
     updatePost: (
         data: Partial<ICreatePostForm>,
