@@ -66,45 +66,54 @@ export function CreatePostModal({ close, isVisible }: IModalBaseProps) {
         close();
     };
 
-    const createTag = async (data: ICreateTagForm) => {
-        console.log("create tag", data);
-    };
+    // const createTag = async (data: ICreateTagForm) => {
+    //     console.log("create tag", data);
+    // };
+    // const createTag = async (title: string) => {
+    // try {
+    //     const newTag = await tagsService.create({ title }); // создать на сервере
+    //     setAllTags((prev) => [...prev, newTag]); // добавить в локальный список
+    // } catch (err) {
+    //     console.error("Помилка при створенні тегу:", err);
+    // }
+// };
 
-    const addInputToCreateTag = async () => {
-        return (
-            <Controller
-                control={control}
-                name="title"
-                rules={{
-                    required: {
-                        value: true,
-                        message: "Назва публікації обов’язкова",
-                    },
-                    maxLength: {
-                        value: 50,
-                        message: "Максимум 50 символів",
-                    },
-                }}
-                render={({ field, fieldState }) => {
-                    return (
-                        <Input
-                            placeholder="Введіть текст..."
-                            onChange={field.onChange}
-                            onChangeText={field.onChange}
-                            value={field.value}
-                            autoCorrect={false}
-                            err={fieldState.error}
-                            className="h-28 align-top w-full"
-                        />
-                    );
-                }}
-            />
-        );
-    };
+    // function addInputToCreateTag() {
+    //     return (
+    //         <Controller
+    //             control={control}
+    //             name="title"
+    //             rules={{
+    //                 required: {
+    //                     value: true,
+    //                     message: "Назва публікації обов’язкова",
+    //                 },
+    //                 maxLength: {
+    //                     value: 50,
+    //                     message: "Максимум 50 символів",
+    //                 },
+    //             }}
+    //             render={({ field, fieldState }) => {
+    //                 return (
+    //                     <Input
+    //                         placeholder="Введіть текст..."
+    //                         onChange={field.onChange}
+    //                         onChangeText={field.onChange}
+    //                         value={field.value}
+    //                         autoCorrect={false}
+    //                         err={fieldState.error}
+    //                         className="h-28 align-top w-full"
+    //                     />
+    //                 );
+    //             }}
+    //         />
+    //     );
+    // }
 
     useEffect(() => {
         append({ value: "", id: 0 });
     }, []);
+
     return (
         <Modal
             isVisible={isVisible}
@@ -203,36 +212,16 @@ export function CreatePostModal({ close, isVisible }: IModalBaseProps) {
                     />
                     <RoundedButton
                         className="w-5 h-5 mb-2"
-                        onPress={() => {
-                            <Controller
-                                control={control}
-                                name="title"
-                                rules={{
-                                    required: {
-                                        value: true,
-                                        message: "Назва публікації обов’язкова",
-                                    },
-                                    maxLength: {
-                                        value: 50,
-                                        message: "Максимум 50 символів",
-                                    },
-                                }}
-                                render={({ field, fieldState }) => {
-                                    return (
-                                        <Input
-                                            placeholder="Введіть текст..."
-                                            onChange={field.onChange}
-                                            onChangeText={field.onChange}
-                                            value={field.value}
-                                            autoCorrect={false}
-                                            err={fieldState.error}
-                                            className="h-28 align-top w-full"
-                                        />
-                                    );
-                                }}
-                            />;
-                        }}
-                        icon={<ICONS.PlusIcon width={15} height={15} />}
+                        // onPress={() => {
+                        //      <View>{addInputToCreateTag()}</View>;
+                        // }}
+                        icon={
+                            <ICONS.PlusForPostIcon
+                                width={15}
+                                height={15}
+                                fill="#543B52"
+                            />
+                        }
                     />
                 </View>
 
@@ -293,7 +282,13 @@ export function CreatePostModal({ close, isVisible }: IModalBaseProps) {
                             <RoundedButton
                                 className="w-5 h-5 translate-y-1/2 flex-1"
                                 onPress={() => append({ value: "", id: i + 1 })}
-                                icon={<ICONS.PlusIcon width={15} height={15} />}
+                                icon={
+                                    <ICONS.PlusForPostIcon
+                                        width={15}
+                                        height={15}
+                                        fill="#543B52"
+                                    />
+                                }
                             />
 
                             {i >= 1 ? (
@@ -305,7 +300,7 @@ export function CreatePostModal({ close, isVisible }: IModalBaseProps) {
                                         }
                                     }}
                                     icon={
-                                        <ICONS.CloseIcon
+                                        <ICONS.CrossIcon
                                             width={15}
                                             height={15}
                                             fill="#543B52"
