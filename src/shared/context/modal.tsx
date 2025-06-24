@@ -13,6 +13,7 @@ export enum ModalName {
   UPDATE_POST,
   CREATE_CHAT,
   UPDATE_CHAT,
+  CREATE_ALBUM,
   FIRST_LOGIN,
   CONFIRMATION
 }

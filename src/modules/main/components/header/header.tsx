@@ -27,10 +27,14 @@ export function Header() {
     const friendPathRegexp = new RegExp("\/friends.*")
     const profilePathRegexp = new RegExp("\/profile.*")
     const chatsPathRegexp = new RegExp("\/chats.*")
+    const settingsPathRegexp = new RegExp("\/settings.*")
     if (friendPathRegexp.test(currPath) || profilePathRegexp.test(currPath)) {
       setShowedActions(defaultHeaderActions.filter(showedAction => showedAction !== HeaderAction.CREATE))
     } else if (chatsPathRegexp.test(currPath)) {
       setCreateActionCallback(() => () => openModal({ name: ModalName.CREATE_CHAT }))
+      setShowedActions(defaultHeaderActions.filter(showedAction => showedAction !== HeaderAction.SETTINGS))
+    } else if (settingsPathRegexp.test(currPath)) {
+      setCreateActionCallback(() => () => openModal({ name: ModalName.CREATE_ALBUM }))
       setShowedActions(defaultHeaderActions.filter(showedAction => showedAction !== HeaderAction.SETTINGS))
     } else {
       setShowedActions(defaultHeaderActions)
