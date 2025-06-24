@@ -17,5 +17,5 @@ export function useTags() {
     };
     fetchTags();
   }, []);
-  return { tags, isLoading };
+  return { tags, isLoading, setTags };
 }

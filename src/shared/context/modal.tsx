@@ -13,6 +13,7 @@ export enum ModalName {
   UPDATE_POST,
   CREATE_CHAT,
   UPDATE_CHAT,
+  CREATE_ALBUM,
   FIRST_LOGIN,
   CONFIRMATION
 }
@@ -26,6 +27,7 @@ export const ModalProvider = ({
   children,
 }: PropsWithChildren) => {
   const [modals, setModals] = useState<IModal[]>([])
+  console.log("ACTIVE MODALS", modals)
   return (
     <ModalContext.Provider
       value={{

@@ -6,6 +6,10 @@ export interface IPostTag {
   name: string;
 }
 
+export interface ICreateTagForm {
+    name: string
+}
+
 export type PostMediaType = "image" | "video"
 
 export type PostMedia = {
@@ -21,6 +25,7 @@ export interface ICreatePostForm {
   content: string;
   images: string[];
 }
+
 
 export interface IPost {
   id: number;
