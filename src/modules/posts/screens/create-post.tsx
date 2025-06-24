@@ -12,9 +12,15 @@ import { pickImage } from "../../../shared/utils/images";
 import { Tag } from "../components/tag";
 import { RoundedButton } from "../../../shared/ui/button/button";
 import { IModalBaseProps } from "../../main/types";
+import { postsService } from "../services";
+import { useTags } from "../hooks/use-tags";
 
 export function CreatePostModal({ close, isVisible }: IModalBaseProps) {
     const { addPost } = useUserCtx();
+    const [showCreateTagInput, setShowCreateTagInput] = useState(false);
+    const [newTagName, setNewTagName] = useState("");
+    const { setTags } = useTags();
+
     // images contains array of base64 encoded selected images
     const [images, setImages] = useState<ICreatePostForm["images"]>([]);
 
@@ -66,49 +72,14 @@ export function CreatePostModal({ close, isVisible }: IModalBaseProps) {
         close();
     };
 
-    // const createTag = async (data: ICreateTagForm) => {
-    //     console.log("create tag", data);
-    // };
-    // const createTag = async (title: string) => {
-    // try {
-    //     const newTag = await tagsService.create({ title }); // создать на сервере
-    //     setAllTags((prev) => [...prev, newTag]); // добавить в локальный список
-    // } catch (err) {
-    //     console.error("Помилка при створенні тегу:", err);
-    // }
-// };
-
-    // function addInputToCreateTag() {
-    //     return (
-    //         <Controller
-    //             control={control}
-    //             name="title"
-    //             rules={{
-    //                 required: {
-    //                     value: true,
-    //                     message: "Назва публікації обов’язкова",
-    //                 },
-    //                 maxLength: {
-    //                     value: 50,
-    //                     message: "Максимум 50 символів",
-    //                 },
-    //             }}
-    //             render={({ field, fieldState }) => {
-    //                 return (
-    //                     <Input
-    //                         placeholder="Введіть текст..."
-    //                         onChange={field.onChange}
-    //                         onChangeText={field.onChange}
-    //                         value={field.value}
-    //                         autoCorrect={false}
-    //                         err={fieldState.error}
-    //                         className="h-28 align-top w-full"
-    //                     />
-    //                 );
-    //             }}
-    //         />
-    //     );
-    // }
+    const createTag = async (name: string) => {
+        try {
+            const newTag = await postsService.createTag(name);
+            setTags((prev) => [...prev, newTag]);
+        } catch (error) {
+            console.error("Не удалось создать тег:", error);
+        }
+    };
 
     useEffect(() => {
         append({ value: "", id: 0 });
@@ -212,9 +183,7 @@ export function CreatePostModal({ close, isVisible }: IModalBaseProps) {
                     />
                     <RoundedButton
                         className="w-5 h-5 mb-2"
-                        // onPress={() => {
-                        //      <View>{addInputToCreateTag()}</View>;
-                        // }}
+                        onPress={() => setShowCreateTagInput(true)}
                         icon={
                             <ICONS.PlusForPostIcon
                                 width={15}
@@ -224,6 +193,30 @@ export function CreatePostModal({ close, isVisible }: IModalBaseProps) {
                         }
                     />
                 </View>
+
+                {showCreateTagInput && (
+                    <View className="flex-row items-center gap w-full">
+                        <Input
+                            className="w-10/12"
+                            value={newTagName}
+                            onChangeText={setNewTagName}
+                            placeholder="Новий тег..."
+                        />
+                        {/* <View className="flex-row w-10/12 items-center gap-2">
+                            
+                        </View> */}
+                        <TouchableOpacity
+                            onPress={async () => {
+                                await createTag(newTagName);
+                                setNewTagName("");
+                                setShowCreateTagInput(false);
+                            }}
+                            className="p-2 bg-slive rounded-2xl flex-1 w-full"
+                        >
+                            <Text className="text-white">Додати</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
 
                 <Controller
                     control={control}
