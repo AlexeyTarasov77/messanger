@@ -1,3 +1,30 @@
+// import { ICreatePostForm } from "../types";
+// import { useUserCtx } from "../../users/components/users-ctx";
+// import { IModalBaseProps } from "../../main/types";
+// import { PostForm } from "../components/post-form";
+// import { PostModal } from "../components/post-modal";
+
+// export function CreatePostModal(modalProps: IModalBaseProps) {
+//   const { addPost } = useUserCtx();
+//   const onSubmit = async (data: ICreatePostForm): Promise<string | void> => {
+//     return await addPost(data)
+//   }
+//   return (
+//     <PostModal {...modalProps} heading="Створення публікації">
+//       <PostForm
+//         defaultValues={{
+//           title: "",
+//           subject: "",
+//           content: "",
+//           tags: [],
+//           images: [],
+//           links: []
+//         }}
+//         onSubmit={onSubmit}
+//       />
+//     </PostModal>
+//   ) 
+// }
 import { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
 import Modal from "react-native-modal";
@@ -81,9 +108,9 @@ export function CreatePostModal({ close, isVisible }: IModalBaseProps) {
         }
     };
 
-    useEffect(() => {
-        append({ value: "", id: 0 });
-    }, []);
+    // useEffect(() => {
+    //     append({ value: "", id: 0 });
+    // }, []);
 
     return (
         <Modal
@@ -244,7 +271,7 @@ export function CreatePostModal({ close, isVisible }: IModalBaseProps) {
                     }}
                 />
 
-                {linkInputs.map((input, i) => {
+                {/* {linkInputs.map((input, i) => {
                     const inputTag = (
                         <Controller
                             key={input.id}
@@ -307,7 +334,7 @@ export function CreatePostModal({ close, isVisible }: IModalBaseProps) {
                     ) : (
                         inputTag
                     );
-                })}
+                })} */}
 
                 <View
                     style={{ minHeight: 1, maxHeight: 288 }}
