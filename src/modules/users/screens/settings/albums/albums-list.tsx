@@ -5,9 +5,11 @@ import { ICONS } from "../../../../../shared/ui/icons";
 import { useUserCtx } from "../../../components/users-ctx";
 import { Block } from "../block";
 import { Album } from "../../../components/album";
+import { ModalName, useModal } from "../../../../../shared/context/modal";
 
 export function AlbumsList() {
     const { user } = useUserCtx();
+    const { open: openModal } = useModal();
     if (!user) return;
     return (
         <View className="gap-3">
@@ -27,7 +29,7 @@ export function AlbumsList() {
                     label="Немає ще жодного альбому"
                     action={
                         <RoundedButton
-                            // onPress={}
+                            onPress={() => {openModal({ name: ModalName.CREATE_ALBUM })}}
                             icon={<ICONS.PlusIcon width={20} height={20} />}
                         />
                     }
