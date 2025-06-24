@@ -4,11 +4,11 @@ import {
   IRegisterForm,
   IUser,
   IUserExtended,
-} from "../../types";
-import { authService, usersService } from "../../services";
-import { ICreatePostForm, IPost } from "../../../posts/types";
-import { postsService } from "../../../posts/services";
-import { getErrorMessage } from "../../../../shared/utils/errors";
+} from "../../../types";
+import { authService, usersService } from "../../../services";
+import { ICreatePostForm, IPost } from "../../../../posts/types";
+import { postsService } from "../../../../posts/services";
+import { getErrorMessage } from "../../../../../shared/utils/errors";
 import { UserCtx } from "./context";
 
 export function UsersProvider({ children }: { children: ReactNode }) {

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
-import Modal from "react-native-modal";
 import { ICONS } from "../../../shared/ui/icons";
 import { Controller, useFieldArray, useForm, UseFormProps } from "react-hook-form";
 import { Input } from "../../../shared/ui/input/input";
@@ -48,12 +47,10 @@ export function PostForm({ defaultValues, onSubmit, isPartialForm }:
 
   const onFormSubmit = async (data: ICreatePostForm) => {
     data.images.push(...images);
-    console.log("BEFORE onSubmit")
     const errMsg = await onSubmit(data);
     if (errMsg) {
       return setError("root", { message: errMsg });
     }
-    console.log("CLOSING MODAL")
     close();
   };
   const { fields: tagInputs } = useFieldArray({

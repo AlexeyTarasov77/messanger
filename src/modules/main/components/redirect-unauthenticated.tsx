@@ -1,5 +1,5 @@
 import { Redirect } from "expo-router";
-import { useUserCtx } from "../../users/components/users-ctx";
+import { useAuthCtx } from "../../users/components/users-ctx";
 import { ReactNode } from "react";
 import { usePathname } from "expo-router";
 import { Loader } from "../../../shared/ui/loader/loader";
@@ -7,12 +7,12 @@ import { Loader } from "../../../shared/ui/loader/loader";
 export function RedirectUnauthenticated({ children }: { children: ReactNode }) {
   const unauthenticatedRoutes = ["/users/login", "/users/register"];
   const pathname = usePathname();
-  const { user, isLoading } = useUserCtx();
+  const { isAuthenticated, isLoading } = useAuthCtx();
   if (isLoading) {
     return <Loader />;
   }
   console.log("Current path", pathname);
-  if (user) {
+  if (isAuthenticated) {
     return children;
   }
   for (let i = 0; i < unauthenticatedRoutes.length; i++) {
