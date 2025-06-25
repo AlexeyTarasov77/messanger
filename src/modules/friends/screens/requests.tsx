@@ -59,7 +59,6 @@ export function Requests() {
                         }
                         rightButton={
                             <TouchableOpacity
-                                // onPress={async () => declineRequest(Number(requestUser.id))}
                                 onPress={() => {
                                     open({
                                         name: ModalName.CONFIRMATION, props: {
