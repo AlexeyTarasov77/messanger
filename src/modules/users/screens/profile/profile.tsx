@@ -26,33 +26,44 @@ export function Profile() {
     }
     if (!user) return <Redirect href="/not-found" />;
 
-    // check if userFriend
+    let content;
+    const isFriend = allFriends.some((friend) => friend.id === user.id);
+    const hasRequest = requests.some((request) => request.id === user.id);
 
-    // check if userRequest
-
-    if (allFriends.includes(user)) {
-        return (
-            <View>
+    if (isFriend) {
+        content = (
+            <View className="flex-row justify-between items-center gap-4">
+                <TouchableOpacity className="bg-slive p-2 rounded-[1234]">
+                    <Text className="text-white px-3">Повідомлення</Text>
+                </TouchableOpacity>
+                <TouchableOpacity className="border border-slive p-2 rounded-[1234]">
+                    <Text className="text-slive px-3">Видалити</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    } else if (hasRequest) {
+        content = (
+            <View className="flex-row justify-between items-center gap-4">
+                <TouchableOpacity className="bg-slive p-2 rounded-[1234]">
+                    <Text className="text-white px-3">Підтвердити</Text>
+                </TouchableOpacity>
+                <TouchableOpacity className="border border-slive p-2 rounded-[1234]">
+                    <Text className="text-slive px-3">Видалити</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    } else {
+        content = (
+            <View className="flex-row justify-between items-center gap-4">
                 <TouchableOpacity
-                    // onPress={}
+                    // onPress={async () => await createFriendRequest(recommendedUser.id)}
                     className="flex-row items-center gap-1 bg-slive p-2 rounded-[1234]"
                 >
-                    <Text className="text-white text-center px-3">
-                        Повідомлення
-                    </Text>
+                    <Text className="text-white text-center px-3">Додати</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    // onPress={async () => deleteFriend(Number(friend.id))}
-                    // onPress={() => {
-                    //     open({
-                    //         name: ModalName.CONFIRMATION, props: {
-                    //             onConfirm: async () =>
-                    //                 deleteFriend(Number(friend.id)),
-                    //             label: "Ви дійсно хочете видалити користувача?"
-                    //         }
-                    //     });
-                    // }}
+                    // onPress={async () => await removeRecommendedUser(recommendedUser.id)}
                     className="flex-row items-center gap-1 border border-slive p-2 rounded-[1234]"
                 >
                     <Text className="text-slive text-center px-3">
@@ -62,7 +73,6 @@ export function Profile() {
             </View>
         );
     }
-
     return (
         <ScrollView className="bg-mainBg h-full">
             <View className="gap-10 py-6 bg-white border-border justify-center items-center">
@@ -110,31 +120,7 @@ export function Profile() {
                         </Text>
                     </View>
                 </View>
-                <View className="flex-row justify-between items-center gap-4">
-                    {/* <TouchableOpacity
-                        // onPress={() => acceptRequest(Number(requestUser.id))}
-                        className="flex-row items-center gap-1 bg-slive p-2 rounded-[1234]"
-                    >
-                        <Text className="text-white text-center px-3">
-                            Підтвердити
-                        </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        // onPress={async () => declineRequest(Number(requestUser.id))}
-                        // onPress={() => {
-                        //     open(async () =>
-                        //         declineRequest(Number(requestUser.id))
-                        //     );
-                        // }}
-                        className="flex-row items-center gap-1 border border-slive p-2 rounded-[1234]"
-                    >
-                        <Text className="text-slive text-center pl-3 pr-3">
-                            Видалити
-                        </Text>
-                    </TouchableOpacity> */}
-                    {}
-                </View>
+                <View>{content}</View>
             </View>
 
             {/* albums */}
