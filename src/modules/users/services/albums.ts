@@ -33,8 +33,9 @@ export const albumsService = {
     createAlbum: async (data: ICreateAlbumForm) => {
         const formData = new FormData();
         formData.append("name", data.name);
-        formData.append("topic", data.topic.name);
-        formData.append("created_at", data.created_at);
+        formData.append("topic_id", String(data.topic_id));
+        console.log(formData)
+        // formData.append("created_at", data.created_at);
 
         const resp = await POST<IAlbum>("/users/albums/", formData);
         if (!resp.success) {

@@ -77,16 +77,6 @@ export function PostForm({
         }
     };
 
-    const onFormSubmit = async (data: ICreatePostForm) => {
-        data.images.push(...images);
-        console.log("BEFORE onSubmit");
-        const errMsg = await onSubmit(data);
-        if (errMsg) {
-            return setError("root", { message: errMsg });
-        }
-        console.log("CLOSING MODAL");
-        close();
-    };
 
     const createTag = async (name: string) => {
         try {
@@ -217,6 +207,7 @@ export function PostForm({
                     {/* </TouchableOpacity> */}
                     <RoundedButton
                         onPress={async () => {
+                            if (!newTagName.trim()) return;
                             await createTag(newTagName);
                             setNewTagName("");
                             setShowCreateTagInput(false);

@@ -4,12 +4,12 @@ import { Input } from "../../../../shared/ui/input/input";
 import { Link, useRouter } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { ILoginForm } from "../../types";
-import { useUserCtx } from "../../components/users-ctx";
+import { useAuthCtx, useUserCtx } from "../../components/users-ctx";
 import { renderError } from "../../../../shared/utils/errors";
 
 export function Login() {
   const router = useRouter();
-  const { login } = useUserCtx();
+  const { login } = useAuthCtx();
   const {
     handleSubmit,
     control,

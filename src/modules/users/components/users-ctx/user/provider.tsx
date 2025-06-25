@@ -97,30 +97,6 @@ export function UsersProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const login = async (data: ILoginForm) => {
-    try {
-      setIsLoading(true);
-      const token = await authService.login(data);
-      setToken(token);
-    } catch (err) {
-      return getErrorMessage(err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const register = async (data: IRegisterForm) => {
-    try {
-      setIsLoading(true);
-      const resp = await authService.register(data);
-      setToken(resp.token);
-    } catch (err) {
-      return getErrorMessage(err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const addAlbum = async (data: ICreateAlbumForm): Promise<string | void> => {
     if (!user) {
       return "Unauthorized";
@@ -140,10 +116,6 @@ export function UsersProvider({ children }: { children: ReactNode }) {
     }
   } 
 
-  const logout = async () => {
-    await authService.logOut();
-    setUser(null);
-  };
 
   const updateUserData = (updatedData: Partial<IUser>) => {
     if (!user) throw new Error("Not authenticated");
@@ -153,10 +125,7 @@ export function UsersProvider({ children }: { children: ReactNode }) {
     <UserCtx.Provider
       value={{
         user,
-        login,
-        register,
         isLoading,
-        logout,
         addPost,
         updatePost,
         removePost,

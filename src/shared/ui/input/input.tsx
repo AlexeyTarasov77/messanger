@@ -5,6 +5,37 @@ import { useState } from "react";
 import { renderError } from "../../utils/errors";
 
 
+// export function Input({
+//   label,
+//   err,
+//   iconRight,
+//   disabled,
+//   className,
+//   ...props
+// }: IInputProps) {
+//   return (
+//     <View>
+//       {!!label && (
+//         <Text className={disabled ? "text-gray-400" : "text-black"}>
+//           {label}
+//         </Text>
+//       )}
+//       <View
+//         className={`flex-row rounded-xl px-3 py-3 border ${disabled ? "border-gray-400" : "border-grey"} ${className}`}
+//       >
+//         <TextInput
+//           placeholderTextColor="#CDCDCD"
+//           {...props}
+//           className={`w-full  ${disabled ? "text-gray-400" : " "} `}
+//           readOnly={disabled}
+//         />
+//         {iconRight && <View style={{ marginLeft: "auto" }}>{iconRight}</View>}
+//       </View>
+//       {renderError(err)}
+//     </View>
+//   );
+// }
+
 export function Input({
   label,
   err,
@@ -35,6 +66,8 @@ export function Input({
     </View>
   );
 }
+
+
 function InputSearch(props: Omit<IInputProps, "iconLeft">) {
   const { err } = props;
   return (
