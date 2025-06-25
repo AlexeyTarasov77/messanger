@@ -7,19 +7,62 @@ import { useGetUserById } from "../../hooks/use-get-user-by-id";
 import { Loader } from "../../../../shared/ui/loader/loader";
 import { PostCard } from "../../../posts/components";
 import { AlbumPreview } from "../../components/album-preview";
+import { useAllFriends } from "../../../friends/hooks/use-all-friends";
+import { useRequests } from "../../../friends/hooks/use-requests";
+import { ModalName } from "../../../../shared/context/modal";
 
 export function Profile() {
     const { id } = useLocalSearchParams();
     const userId = Number(id);
     const { user, isLoading, error } = useGetUserById(userId);
+    const { allFriends } = useAllFriends();
+    const { requests } = useRequests();
     if (isLoading) {
-        return <Loader />
+        return <Loader />;
     }
     if (error) {
-        Alert.alert("Не удалось получить пользователя", error)
-        return
+        Alert.alert("Не удалось получить пользователя", error);
+        return;
     }
-    if (!user) return <Redirect href="/not-found" />
+    if (!user) return <Redirect href="/not-found" />;
+
+    // check if userFriend
+
+    // check if userRequest
+
+    if (allFriends.includes(user)) {
+        return (
+            <View>
+                <TouchableOpacity
+                    // onPress={}
+                    className="flex-row items-center gap-1 bg-slive p-2 rounded-[1234]"
+                >
+                    <Text className="text-white text-center px-3">
+                        Повідомлення
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    // onPress={async () => deleteFriend(Number(friend.id))}
+                    // onPress={() => {
+                    //     open({
+                    //         name: ModalName.CONFIRMATION, props: {
+                    //             onConfirm: async () =>
+                    //                 deleteFriend(Number(friend.id)),
+                    //             label: "Ви дійсно хочете видалити користувача?"
+                    //         }
+                    //     });
+                    // }}
+                    className="flex-row items-center gap-1 border border-slive p-2 rounded-[1234]"
+                >
+                    <Text className="text-slive text-center px-3">
+                        Видалити
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        );
+    }
+
     return (
         <ScrollView className="bg-mainBg h-full">
             <View className="gap-10 py-6 bg-white border-border justify-center items-center">
@@ -49,7 +92,10 @@ export function Profile() {
                     </View>
                     <View className="border-r border-border justify-center items-center flex-1">
                         <Text className="self-center font-bold justify-center text-xl">
-                            12.1K
+                            {user.profile.posts.reduce(
+                                (sum, post) => sum + post._count.views,
+                                0
+                            )}
                         </Text>
                         <Text className="text-grey justify-center text-xl">
                             Читачі
@@ -65,7 +111,7 @@ export function Profile() {
                     </View>
                 </View>
                 <View className="flex-row justify-between items-center gap-4">
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         // onPress={() => acceptRequest(Number(requestUser.id))}
                         className="flex-row items-center gap-1 bg-slive p-2 rounded-[1234]"
                     >
@@ -86,7 +132,8 @@ export function Profile() {
                         <Text className="text-slive text-center pl-3 pr-3">
                             Видалити
                         </Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
+                    {}
                 </View>
             </View>
 
@@ -135,7 +182,10 @@ export function Profile() {
                             <PostCard
                                 menuEnabled={true}
                                 key={post.id}
-                                post={{ ...post, author: { user: user, ...user.profile } }}
+                                post={{
+                                    ...post,
+                                    author: { user: user, ...user.profile },
+                                }}
                             />
                         ))}
                     </View>

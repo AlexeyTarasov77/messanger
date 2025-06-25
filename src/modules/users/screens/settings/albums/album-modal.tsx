@@ -1,4 +1,4 @@
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Platform, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import Modal from "react-native-modal";
 import { ICONS } from "../../../../../shared/ui/icons";
@@ -16,7 +16,7 @@ export function AlbumModal({
             onBackdropPress={close}
             coverScreen={false}
             className="bg-white justify-center items-center rounded-2xl my-auto"
-            style={{ maxHeight: "40%" }}
+            style={Platform.OS == "ios" ? {maxHeight: "60%"} : {maxHeight: "40%"}}
         >
             <ScrollView className="p-4 gap-2 flex-1">
                 <View className="w-full flex-row justify-end">
