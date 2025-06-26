@@ -117,3 +117,8 @@ export interface ILoginResponse {
     token: string;
     user: IUserExtended;
 }
+
+
+export interface Socket {
+    
+}
