@@ -10,7 +10,7 @@ import { ModalName, useModal } from "../../../../../shared/context/modal";
 export function AlbumsList() {
     const { user } = useUserCtx();
     const { open: openModal } = useModal();
-    if (!user) return;
+    if (!user || !user.profile || !user.profile.albums) return;
     return (
         <View className="gap-3">
             {user.profile.albums ? (

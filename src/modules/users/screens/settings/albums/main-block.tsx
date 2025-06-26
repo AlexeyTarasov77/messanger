@@ -9,6 +9,7 @@ import { UICarousel } from "../../../../../shared/ui/carousel/carousel";
 
 export function MainBlock() {
   const { user } = useUserCtx()
+  if (!user|| !user.profile) return
   return (
     <Block>
       <Heading label="Мої фото" action={

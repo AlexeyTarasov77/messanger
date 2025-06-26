@@ -25,6 +25,7 @@ export function PostModal({
                         height={15}
                         fill="#543C52"
                     />
+                    
                 </View>
                 <Text className="text-xl font-bold">{heading}</Text>
                 {children}

@@ -46,14 +46,14 @@ export function RegisterStepTwo() {
             його нижче, щоб підтвердити акаунт
           </Text>
         </View>
-        <View className="self-center ">
-          <View className="gap-2 pb-3 ">
+        <View className="w-[80%]">
+          <View className="gap-2 pb-3">
             <View>
               <Text className="color-darkBlue text-base font-normal">
                 Код підтвердження
               </Text>
             </View>
-            <OTPInput control={control} errors={formState.errors} />
+            <OTPInput  control={control} errors={formState.errors} />
           </View>
           <View className="mb-3">{renderError(formState.errors.root)}</View>
           <View>

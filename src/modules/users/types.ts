@@ -104,8 +104,8 @@ export interface IRegisterStepTwo {
 }
 
 export interface IRegisterStepThree {
-    firstName: string;
-    lastName: string;
+    first_name: string;
+    last_name: string;
     username: string;
 }
 
