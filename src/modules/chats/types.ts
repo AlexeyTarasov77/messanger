@@ -70,7 +70,7 @@ export interface ChatGroupWithLastMsg extends ChatGroup {
 export interface ChatGroupWithRelations extends ChatGroup {
   admin: IUser;
   members: IUser[];
-  messages: ChatMessage[];
+  messages: ChatMessageWithRelations[];
 }
 
 export interface ChatGroupWithMembers extends ChatGroup {
