@@ -13,8 +13,14 @@ import { ModalName } from "../../../../shared/context/modal";
 
 export function Profile() {
     const { id } = useLocalSearchParams();
+
     const userId = Number(id);
     const { user, isLoading, error } = useGetUserById(userId);
+    // console.log("Profile posts:", user?.profile.posts);
+    console.log(
+        "PostCard tags:",
+        JSON.stringify(user?.profile.posts.map((post) => post.tags))
+    );
     const { allFriends } = useAllFriends();
     const { requests } = useRequests();
     if (isLoading) {
@@ -171,6 +177,7 @@ export function Profile() {
                                 post={{
                                     ...post,
                                     author: { user: user, ...user.profile },
+                                    tags: post.tags.map((t: any) => t.tag),
                                 }}
                             />
                         ))}
