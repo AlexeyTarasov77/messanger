@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Alert } from "react-native";
 import { Button } from "../../../../shared/ui/button";
 import { Input } from "../../../../shared/ui/input";
 import { Link } from "expo-router";
@@ -19,7 +19,7 @@ export function RegisterStepThree({ close, isVisible }: IModalBaseProps) {
     setError,
     formState: { errors },
   } = useForm<IRegisterStepThree>({
-    defaultValues: { firstName: "", lastName: "", username: "" },
+    defaultValues: { first_name: "", last_name: "", username: "" },
   });
 
   const { user } = useUserCtx();
@@ -31,7 +31,8 @@ export function RegisterStepThree({ close, isVisible }: IModalBaseProps) {
       setError("root", { message: getErrorMessage(err) });
       return;
     } finally {
-      console.log("деталі збережені");
+      console.log("деталі збережені:", data);
+      Alert.alert("Деталі збережені")
       close();
     }
   }
@@ -68,7 +69,7 @@ export function RegisterStepThree({ close, isVisible }: IModalBaseProps) {
         <View className="self-center gap-10 w-[80%]">
           <Controller
             control={control}
-            name="firstName"
+            name="first_name"
             rules={{
               required: {
                 value: true,
@@ -92,7 +93,7 @@ export function RegisterStepThree({ close, isVisible }: IModalBaseProps) {
           />
           <Controller
             control={control}
-            name="lastName"
+            name="last_name"
             rules={{
               required: {
                 value: true,
@@ -129,12 +130,12 @@ export function RegisterStepThree({ close, isVisible }: IModalBaseProps) {
                   placeholder="@"
                   autoCapitalize="none"
                   onChange={field.onChange}
-                  onChangeText={(text) => {
-                    field.onChange(text.replace(/^@+/, "").replace(/@/g, ""));
-                  }}
-                  value={`@${field.value}`}
-                  // onChangeText={field.onChange}
-                  // value={field.value}
+                //   onChangeText={(text) => {
+                //     field.onChange(text.replace(/^@+/, "").replace(/@/g, ""));
+                //   }}
+                //   value={`@ ${field.value}`}
+                  onChangeText={field.onChange}
+                  value={field.value}
                   label="Ім'я користувача"
                   autoCorrect={false}
                   err={fieldState.error}

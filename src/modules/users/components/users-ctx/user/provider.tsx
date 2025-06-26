@@ -1,5 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import {
+    IAlbum,
+    ICreateAlbumForm,
   ILoginForm,
   IRegisterForm,
   IUser,
@@ -10,6 +12,8 @@ import { ICreatePostForm, IPost } from "../../../../posts/types";
 import { postsService } from "../../../../posts/services";
 import { getErrorMessage } from "../../../../../shared/utils/errors";
 import { UserCtx } from "./context";
+import { albumsService } from "../../../services/albums";
+
 
 export function UsersProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<IUserExtended | null>(null);
@@ -93,34 +97,25 @@ export function UsersProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const login = async (data: ILoginForm) => {
+  const addAlbum = async (data: ICreateAlbumForm): Promise<string | void> => {
+    if (!user) {
+      return "Unauthorized";
+    }
     try {
       setIsLoading(true);
-      const token = await authService.login(data);
-      setToken(token);
+      const albumPartial = await albumsService.createAlbum(data);
+      const album: IAlbum = {
+        ...data,
+        ...albumPartial,
+      };
+      setUser({ ...user, profile: { ...user.profile, albums: [album, ...user.profile.albums] } });
     } catch (err) {
       return getErrorMessage(err);
     } finally {
       setIsLoading(false);
     }
-  };
+  } 
 
-  const register = async (data: IRegisterForm) => {
-    try {
-      setIsLoading(true);
-      const resp = await authService.register(data);
-      setToken(resp.token);
-    } catch (err) {
-      return getErrorMessage(err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const logout = async () => {
-    await authService.logOut();
-    setUser(null);
-  };
 
   const updateUserData = (updatedData: Partial<IUser>) => {
     if (!user) throw new Error("Not authenticated");
@@ -130,13 +125,11 @@ export function UsersProvider({ children }: { children: ReactNode }) {
     <UserCtx.Provider
       value={{
         user,
-        login,
-        register,
         isLoading,
-        logout,
         addPost,
         updatePost,
         removePost,
+        addAlbum,
         updateUserData,
       }}
     >

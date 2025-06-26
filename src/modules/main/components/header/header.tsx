@@ -3,7 +3,7 @@ import { Link, usePathname, useRouter } from "expo-router";
 import { LogoIcon, LogOutIcon, PlusIcon, SettingsIcon } from "../../../../shared/ui/icons/headerIcons";
 import { LinkItem } from "./link-item";
 import { useEffect, useState } from "react";
-import { useUserCtx } from "../../../users/components/users-ctx";
+import { useAuthCtx, useUserCtx } from "../../../users/components/users-ctx";
 import { ModalName, useModal } from "../../../../shared/context/modal";
 
 
@@ -17,7 +17,8 @@ export function Header() {
   const router = useRouter();
   const defaultHeaderActions: HeaderAction[] = Object.values(HeaderAction) as HeaderAction[]
   const [showedActions, setShowedActions] = useState<HeaderAction[]>(defaultHeaderActions)
-  const { user, logout } = useUserCtx();
+  const { user } = useUserCtx();
+  const { logout } = useAuthCtx()
   const { open: openModal } = useModal()
   // const { open: openPostModal } = useModal();
   // const { open: openGroupModal } = useCreateGroupModal();

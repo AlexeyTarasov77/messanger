@@ -9,6 +9,7 @@ import { AlbumModal } from "./album-modal";
 export function CreateAlbumModal(modalProps: IModalBaseProps) {
     const { addAlbum } = useUserCtx();
     const onSubmit = async (data: ICreateAlbumForm): Promise<string | void> => {
+        console.log(data)
         return await addAlbum(data);
     };
     return (
@@ -16,10 +17,12 @@ export function CreateAlbumModal(modalProps: IModalBaseProps) {
             <AlbumForm
                 defaultValues={{
                     name: "",
-                    topic: {name: ""},
-                    created_at: ""
+                    topic_id: ""
+                    // created_at: ""
                 }}
                 onSubmit={onSubmit}
+                onSuccess={modalProps.close}
+                close={modalProps.close}
             />
         </AlbumModal>
     );

@@ -17,5 +17,5 @@ export const getUserDisplayName = (user: {
 };
 
 export const getUserAvatar = (user: { profile: { avatars: IUserAvatar[] } }): IUserAvatar | undefined => {
-  return user.profile.avatars.filter(avatar => avatar.active)[0]
+  return user.profile?.avatars.filter(avatar => avatar.active)[0]
 }

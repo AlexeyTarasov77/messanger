@@ -14,13 +14,9 @@ import dayjs from "dayjs";
 
 export function MainBlock() {
   const { user, updateUserData } = useUserCtx();
-  if (!user) return;
+  if (!user ) return;
   const [isEditMode, setIsEditMode] = useState(false);
   const { control, handleSubmit, setError } = useForm<IPersonalInfoForm>({
-    defaultValues: {
-      ...user,
-      date_of_birth: formatDate(new Date(user.profile.date_of_birth), "%d-%m-%YYYY")
-    },
   });
   const onSubmit = async (data: IPersonalInfoForm) => {
     try {

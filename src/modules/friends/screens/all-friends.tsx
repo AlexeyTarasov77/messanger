@@ -43,7 +43,6 @@ export function AllFriends() {
                         }
                         rightButton={
                             <TouchableOpacity
-                                // onPress={async () => deleteFriend(Number(friend.id))}
                                 onPress={() => {
                                     open({
                                         name: ModalName.CONFIRMATION, props: {

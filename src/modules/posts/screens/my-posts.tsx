@@ -14,7 +14,7 @@ export function MyPosts() {
         <Text className="text-2xl text-center text-slive">В тебе ще нема жодних постiв. Нажми на плюс вверху экрану щоб створити!</Text>
       }
       <View className="gap-4 pb-8r">
-        {user.profile.posts.map((post) => (
+        {user.profile?.posts.map((post) => (
           <PostCard
             menuEnabled={true}
             key={post.id}

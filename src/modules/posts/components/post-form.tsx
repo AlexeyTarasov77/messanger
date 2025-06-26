@@ -77,25 +77,7 @@ export function PostForm({
         }
     };
 
-    // const createTag = async (name: string) => {
-    //     // try {
-    //     //     const newTag = await postsService.createTag(name);
-    //     //     setTags((prev) => [...prev, newTag]);
-    //     // } catch (error) {
-    //     //     console.error("Не удалось создать тег:", error);
-    //     // }
-    //     // try {
-    //     //     const newTag = await postsService.createTag(name);
 
-    //     //     if (!newTag || typeof newTag !== "object" || !("id" in newTag))
-    //     //         return;
-
-    //     //     setTags((prev) => [...prev, newTag]); // newTag: IPostTag
-    //     // } catch (error) {
-    //     //     console.error("Не удалось создать тег:", error);
-    //     // }
-
-    // };
     const createTag = async (name: string) => {
         try {
             const newTag = await postsService.createTag(name);
@@ -225,6 +207,7 @@ export function PostForm({
                     {/* </TouchableOpacity> */}
                     <RoundedButton
                         onPress={async () => {
+                            if (!newTagName.trim()) return;
                             await createTag(newTagName);
                             setNewTagName("");
                             setShowCreateTagInput(false);

@@ -59,7 +59,7 @@ export function OTPInput({
             maxLength={1}
             autoCapitalize="none"
             autoCorrect={false}
-            className="h-[40] w-10 text-center border-grey rounded-2xl"
+            className="h-[40] w-8 text-center border-grey rounded-2xl"
           />
         )}
       />
@@ -76,7 +76,7 @@ export function OTPInput({
   }
   return (
     <View className="flex items-center">
-      <View className="flex-row gap-6 pb-8">{otpInpusPairs}</View>
+      <View className="flex-row gap-4 pb-8">{otpInpusPairs}</View>
       {renderError(inputErr)}
     </View>
   );
