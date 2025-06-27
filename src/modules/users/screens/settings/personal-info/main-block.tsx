@@ -17,6 +17,7 @@ export function MainBlock() {
   if (!user ) return;
   const [isEditMode, setIsEditMode] = useState(false);
   const { control, handleSubmit, setError } = useForm<IPersonalInfoForm>({
+    defaultValues: user
   });
   const onSubmit = async (data: IPersonalInfoForm) => {
     try {

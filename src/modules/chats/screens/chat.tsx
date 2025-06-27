@@ -6,6 +6,7 @@ import {
     Text,
     TouchableOpacity,
     View,
+    Image
 } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
 import { Input } from "../../../shared/ui/input";

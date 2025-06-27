@@ -3,6 +3,7 @@ import { IAlbum } from "../types";
 import { capitalize } from "../../../shared/utils/base";
 
 export function AlbumPreview({ album }: { album: IAlbum }) {
+    if (!album.created_at)return
     return (
         <View className="bg-white w-full gap-3">
             <View className="pt-4 gap-2">

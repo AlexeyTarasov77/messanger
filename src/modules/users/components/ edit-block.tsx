@@ -34,7 +34,7 @@ export function EditBlock({
           <RoundedButton
             {...rest}
             onPress={toggleMode}
-            icon={<ICONS.CloseIcon width={15} height={15} />}
+            icon={<ICONS.CloseIcon width={15} height={15} fill="#543C52"/>}
           />
         )}
       </View>

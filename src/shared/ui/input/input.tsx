@@ -132,17 +132,20 @@ function InputSearch(props: Omit<IInputProps, "iconLeft">) {
 Input.InputSearch = InputSearch;
 
 function Password(props: Omit<IInputProps, "iconRight">) {
-    const { label, err } = props;
+    const { label, err, disabled } = props;
     const [isHidden, setIsHidden] = useState(true);
 
     return (
         <View>
-            {!!label && <Text className="text-dark">{label}</Text>}
-            <View className="flex-row rounded-2xl border border-grey px-2 pl-2">
+            {!!label && <Text className={disabled ? "text-gray-400" : "text-black"}>{label}</Text>}
+            <View className={`flex-row rounded-2xl border border-grey px-2 pl-2 ${
+                    disabled ? "border-gray-400" : "border-grey"
+                }` }>
                 <TextInput
                     placeholderTextColor="#CDCDCD"
                     secureTextEntry={isHidden}
                     {...props}
+                    readOnly={disabled}
                 />
                 <View className="ml-auto self-center">
                     <TouchableWithoutFeedback

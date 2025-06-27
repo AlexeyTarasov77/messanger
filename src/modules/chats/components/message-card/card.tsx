@@ -12,15 +12,8 @@ export function MessageCard({
     msg: ChatMessageWithAuthor;
     isOwnMsg: boolean;
 }) {
-    const { id } = useLocalSearchParams();
-    const router = useRouter();
     return (
-        <TouchableOpacity
-            className={`flex-row ${isOwnMsg? "justify-end": "justify-start"}`}
-            onPress={() => {
-                router.push(`/chats/${id}`);
-            }}
-        >
+        <View className={`flex-row ${isOwnMsg ? "justify-end" : "justify-start"}`}>
             {isOwnMsg ? (
                 <View className="max-w-[70%] self-end rounded-lg bg-border p-2 items-end mb-2">
                     <View className="w-full items-end">
@@ -33,21 +26,24 @@ export function MessageCard({
                     </Text>
                 </View>
             ) : (
-                <View className="border-border border rounded-lg max-w-[70%] bg-white p-2 mb-2">
-                    <UserAvatar user={msg.author} />
-                    <View className="flex-1">
-                        <Text className="font-sm text-sm text-slive">
-                            {getUserDisplayName(msg.author)}
-                        </Text>
-                        <Text className="text-sm text-darkBlue">
-                            {msg.content}
+                <View className="flex-1 flex-row gap-2">
+                    <UserAvatar user={msg.author} className="w-12 h-12" />
+                    <View className="flex-1 border-border border rounded-lg max-w-[70%] bg-white p-2 mb-2">
+                        <View>
+                            <Text className="font-sm text-sm text-slive">
+                                {getUserDisplayName(msg.author)}
+                            </Text>
+                            <Text className="text-sm text-darkBlue">
+                                {msg.content}
+                            </Text>
+                        </View>
+                        <Text className="text-xs text-gray-400 ml-auto">
+                            {formatDate(new Date(msg.sent_at), "%H:%M")}
                         </Text>
                     </View>
-                    <Text className="text-xs text-gray-400 ml-auto">
-                        {formatDate(new Date(msg.sent_at), "%H:%M")}
-                    </Text>
                 </View>
             )}
-        </TouchableOpacity>
+            </View>
+
     );
 }

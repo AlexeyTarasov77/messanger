@@ -29,7 +29,7 @@ export function RegisterStepTwo() {
       setError("root", { message: getErrorMessage(err) });
       return;
     }
-    router.replace("/");
+    router.replace("/login");
   }
 
   return (
