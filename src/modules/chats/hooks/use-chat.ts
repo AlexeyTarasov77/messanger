@@ -17,5 +17,5 @@ export function useChat(chatId: number) {
     }
     f()
   }, [])
-  return { chat, isLoading }
+  return { chat, isLoading, setChat }
 }

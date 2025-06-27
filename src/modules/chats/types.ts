@@ -73,9 +73,8 @@ export interface ChatGroupWithRelations extends ChatGroup {
   messages: ChatMessageWithRelations[];
 }
 
-export interface PersonalChatWithRelations extends ChatGroup {
+export interface PersonalChatWithRelations extends ChatGroupWithMessages {
   partner: IUser
-  messages: ChatMessage[];
 }
 
 export interface ChatGroupWithMembers extends ChatGroup {

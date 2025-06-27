@@ -19,7 +19,7 @@ export function ChatCard({
         <TouchableOpacity
             className="flex-row items-center gap-4"
             onPress={() => {
-                router.push(`/chats/${chat.id}`);
+                router.push(`/chats/groups/${chat.id}`);
             }}
         >
             {user ? (
