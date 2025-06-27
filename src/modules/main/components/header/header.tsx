@@ -5,6 +5,7 @@ import { LogoIcon, LogOutIcon, PlusIcon, SettingsIcon } from "../../../../shared
 import { useUserCtx } from "../../../users/components/users-ctx/context";
 import { useCreatePostModal } from "../../../posts/components";
 import { useCreateGroupModal } from "../../../chats/components";
+import { useUpdateAlbumModal } from "../../../album/components";
 
 export function Header({}) {
     const router = useRouter()
@@ -42,13 +43,52 @@ export function Header({}) {
         </View>
     );
 }
+function HeaderAlbum() {
+    const router = useRouter();
+    const { user, logout } = useUserCtx()
+    const { open: updateAlbumModalOpen } = useUpdateAlbumModal()
+    const onLogout = () => {
+        logout()
+        router.navigate("/users/login")
+    }
+    return (
+        <View className="p-2 bg-white self-center justify-center w-full">
+            <View className="flex-row p-2 gap-[30%] bg-white self-center justify-center w-full">
+                <View className="self-center items-center justify-center">
+                    <Link href="/" asChild >
+                        <TouchableOpacity>
+                            <LogoIcon />
+                        </TouchableOpacity>
+                    </Link>
+                </View>
+                {user &&
+                    <View className="flex-row gap-2 max-w-fit">
+                        <TouchableOpacity onPress={() => updateAlbumModalOpen()} className=" border-text border rounded-full p-2 ">
+                            <PlusIcon width={20} height={20} />
+                        </TouchableOpacity>,
+                        <TouchableOpacity
+                            onPress={onLogout}
+                            className="border-text border rounded-full p-2 "
+                        >
+                            <LogOutIcon width={20} height={20} />
+                        </TouchableOpacity>,
+                    </View>
+                }
+            </View>
+        </View>
+    );
+}
+
+Header.HeaderAlbum = HeaderAlbum;
+
+
 
 function HeaderChats() {
     const router = useRouter();
     const { user, logout } = useUserCtx()
     const { open: createGroupModalOpen } = useCreateGroupModal()
-    const { open: CreateGroupModal } = useCreateGroupModal()
     const onLogout = () => {
+        logout()
         router.navigate("/users/login")
     }
     const onMessages = () => {

@@ -46,6 +46,24 @@ function InputSearch(props: Omit<IInputProps, "iconLeft">) {
 
 Input.InputSearch = InputSearch;
 
+
+function InputSelect(props: Omit<IInputProps, "iconRight">) {
+    const { err } = props;
+    return (
+        <View className="">
+            <View className="flex-row gap-1 items-center rounded-2xl px-2 border border-grey">
+                <TextInput placeholderTextColor="#81818D" {...props} />
+                <View className=" self-center">
+                    <ICONS.SearchIcon width={20} height={20} />
+                </View>
+            </View>
+            {renderError(err)}
+        </View>
+    );
+}
+
+Input.InputSelect = InputSelect;
+
 function Password(props: Omit<IInputProps, "iconRight">) {
     const { label, err } = props;
     const [isHidden, setIsHidden] = useState(true);

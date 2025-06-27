@@ -14,9 +14,14 @@ export function PostCard({ post, menuEnabled }: { post: IPostWithAuthor, menuEna
             <View className="flex-row justify-between py-4 px-2">
                 <View>
                     <View className="flex-row items-center gap-4">
-                        <UserAvatar user={post.author} />
+                        <UserAvatar
+                            avatarUrl={post.author.avatarUrl}
+                            isOnline={post.author.isOnline}
+                        />
                         <View className="font-medium text-sm">
-                            <Text>{getUserDisplayName(post.author)}</Text>
+                            <Text className="font-medium text-sm">
+                                {getUserDisplayName(post.author)}
+                            </Text>
                         </View>
                     </View>
                     {!!post.author.signatureUrl && <UserSignature signatureUrl={post.author.signatureUrl} />}
@@ -45,13 +50,13 @@ export function PostCard({ post, menuEnabled }: { post: IPostWithAuthor, menuEna
                     ))}
                 </View>
                 <View className="flex-row flex-wrap justify-center">
-                    {post.media.map(media => (
+                    {/* {post.media.map(media => (
                         <Image
                             key={media.id}
                             source={{ uri: media.url }}
                             className="rounded-2xl m-2 w-40 h-60"
                         />
-                    ))}
+                    ))} */}
                 </View>
             </View>
             <View className="flex-row gap-4">

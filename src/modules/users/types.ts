@@ -1,4 +1,5 @@
 import { IPost } from "../posts/types";
+import { IAlbum } from "../album/types";
 
 export interface ILoginForm {
     email: string;
@@ -29,6 +30,7 @@ export interface IUser {
 export interface IUserExtended extends IUser {
     createdPosts: IPost[];
     viewedPosts: IPost[];
+    updatedAlbum: IAlbum[];
     likedPosts: IPost[];
 }
 

@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useColorScheme } from "nativewind";
 import { RedirectUnauthenticated } from "../../components/redirect-unauthenticated";
 import { CreatePostModal } from "../../../posts/screens";
+import { UpdateAlbumModal } from "../../../album/screens";
 import { CreateGroupModal } from "../../../chats/screens";
 
 export function RootLayout() {
@@ -26,9 +27,11 @@ export function RootLayout() {
       <Stack.Screen name="/users/chats-list" options={{ header: () => <Header.HeaderChats /> }} /> */}
 
       {/* <Stack screenOptions={{ header: () => <Header /> }} /> */}
+      <Stack screenOptions={{ header: () => <Header.HeaderAlbum /> }} />
       <Stack screenOptions={{ header: () => <Header.HeaderChats /> }} />
-      <CreatePostModal  />
-      <CreateGroupModal />
+      <CreatePostModal />
+      {/* <CreateGroupModal /> */}
+      {/* <CreateAlbumModal /> */}
     </RedirectUnauthenticated>
   );
 }
