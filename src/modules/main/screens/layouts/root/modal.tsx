@@ -1,4 +1,3 @@
-import { CreateGroupModal } from "../../../../chats/screens";
 import { useEffect, useRef } from "react";
 import { CreatePostModal } from "../../../../posts/screens";
 import { RegisterStepThree } from "../../../../users/screens";
@@ -8,6 +7,7 @@ import { IModal, ModalName, useModal } from "../../../../../shared/context/modal
 import { ConfirmationModal } from "../../../../../shared/ui/confirmation-modal/modal";
 import { UpdatePostModal } from "../../../../posts/screens/update-post";
 import { CreateAlbumModal } from "../../../../users/screens/settings/albums";
+import { CreateGroupModalStep1, CreateGroupModalStep2 } from "../../../../chats/screens";
 
 function RegisterModalCheck() {
   const { user } = useUserCtx();
@@ -47,7 +47,8 @@ export function ModalRoot() {
     [ModalName.FIRST_LOGIN]: RegisterStepThree,
     [ModalName.UPDATE_POST]: UpdatePostModal,
     [ModalName.CREATE_ALBUM]: CreateAlbumModal,
-    [ModalName.CREATE_CHAT]: CreateGroupModal,
+    [ModalName.CREATE_CHAT_STEP_1]: CreateGroupModalStep1,
+    [ModalName.CREATE_CHAT_STEP_2]: CreateGroupModalStep2,
     [ModalName.CONFIRMATION]: ConfirmationModal,
   }
   return <>

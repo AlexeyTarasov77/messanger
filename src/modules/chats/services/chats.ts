@@ -1,5 +1,6 @@
 import { GET, POST } from "../../../shared/api/client";
-import { ChatGroup, ChatGroupWithLastMsg, ChatGroupWithRelations, PersonalChatWithLastMsg, PersonalChatWithRelations } from "../types";
+import { getImageData } from "../../../shared/utils/images";
+import { ChatGroup, ChatGroupWithLastMsg, ChatGroupWithRelations, CreateGroupStep2Data, PersonalChatWithLastMsg, PersonalChatWithRelations } from "../types";
 
 export const chatsService = {
   listGroupChats: async () => {
@@ -40,5 +41,14 @@ export const chatsService = {
       throw new Error(resp.message);
     }
     return resp.data;
+  },
+  createChat: async (data: CreateGroupStep2Data & { is_personal_chat: boolean }) => {
+    const formData = new FormData()
+    formData.append("name", data.name)
+    formData.append("is_personal_chat", String(data.is_personal_chat))
+    data.selectedMembers.forEach(member => {
+      formData.append("membersIds", String(member.id))
+    })
+    formData.append("photo", getImageData(data.photo) as any)
   }
 }

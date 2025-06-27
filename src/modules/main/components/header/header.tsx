@@ -32,7 +32,7 @@ export function Header() {
     if (friendPathRegexp.test(currPath) || profilePathRegexp.test(currPath)) {
       setShowedActions(defaultHeaderActions.filter(showedAction => showedAction !== HeaderAction.CREATE))
     } else if (chatsPathRegexp.test(currPath)) {
-      setCreateActionCallback(() => () => openModal({ name: ModalName.CREATE_CHAT }))
+      setCreateActionCallback(() => () => openModal({ name: ModalName.CREATE_CHAT_STEP_1 }))
       setShowedActions(defaultHeaderActions.filter(showedAction => showedAction !== HeaderAction.SETTINGS))
     } else if (settingsPathRegexp.test(currPath)) {
       setCreateActionCallback(() => () => openModal({ name: ModalName.CREATE_ALBUM }))

@@ -1,20 +1,24 @@
-import { Input } from "../../../shared/ui/input/input";
+import { Input } from "../../../../shared/ui/input/input";
 import React, { useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import Modal from "react-native-modal";
-import { ICONS } from "../../../shared/ui/icons";
-import { UserAvatar } from '../../users/components/avatar';
-import { getUserDisplayName } from '../../users/utils';
-import { UICheckbox } from '../../../shared/ui/checkbox/checkbox';
-import { Loader } from '../../../shared/ui/loader/loader';
-import { useAllFriends } from '../../friends/hooks/use-all-friends';
-import { IUser } from '../../users/types';
-import { RoundedButton } from '../../../shared/ui/button/button';
-import { IModalBaseProps } from "../../main/types";
+import { ICONS } from "../../../../shared/ui/icons";
+import { UserAvatar } from '../../../users/components/avatar';
+import { getUserDisplayName } from '../../../users/utils';
+import { UICheckbox } from '../../../../shared/ui/checkbox/checkbox';
+import { Loader } from '../../../../shared/ui/loader/loader';
+import { useAllFriends } from '../../../friends/hooks/use-all-friends';
+import { IUser } from '../../../users/types';
+import { RoundedButton } from '../../../../shared/ui/button/button';
+import { IModalBaseProps } from "../../../main/types";
+import { ModalName, useModal } from "../../../../shared/context/modal";
+import { renderError } from "../../../../shared/utils/errors";
 
-export function CreateGroupModal({ close, isVisible }: IModalBaseProps) {
-  const [selectedMembersIds, setSelectedMembersIds] = useState<number[]>([])
+export function CreateGroupModalStep1({ close, isVisible }: IModalBaseProps) {
+  const { open } = useModal()
+  const [selectedMembers, setSelectedMembers] = useState<IUser[]>([])
   const [searchQuery, setSearchQuery] = useState<string>("")
+  const [error, setError] = useState("")
   const { allFriends: contacts, isLoading } = useAllFriends()
   if (isLoading) {
     return <Loader />
@@ -23,10 +27,15 @@ export function CreateGroupModal({ close, isVisible }: IModalBaseProps) {
     contacts.filter(contact => getUserDisplayName(contact).toLowerCase().startsWith(searchQuery.toLowerCase()))
     : contacts
   const onSubmit = () => {
+    if (!selectedMembers.length) {
+      setError("Виберiть хоча б одного участника!")
+      return
+    }
     close()
+    open({ name: ModalName.CREATE_CHAT_STEP_2, props: { selectedMembers } })
   };
   const onCancel = () => {
-    setSelectedMembersIds([])
+    setSelectedMembers([])
     setSearchQuery("")
     close()
   }
@@ -61,7 +70,7 @@ export function CreateGroupModal({ close, isVisible }: IModalBaseProps) {
             className="h-[42]"
           />
           <Text className='color-grey '>
-            Вибрано: {selectedMembersIds.length}
+            Вибрано: {selectedMembers.length}
           </Text>
           <ScrollView className='max-h-60'>
             {Object.entries(groupedContacts).map(([letter, contacts]) => (
@@ -77,10 +86,10 @@ export function CreateGroupModal({ close, isVisible }: IModalBaseProps) {
                     </View>
                     <UICheckbox
                       className="w-4 h-4"
-                      value={selectedMembersIds.includes(contact.id)}
+                      value={selectedMembers.includes(contact)}
                       onValueChange={val => val
-                        ? setSelectedMembersIds(prev => [...prev, contact.id])
-                        : setSelectedMembersIds(prev => prev.filter(id => id !== contact.id))
+                        ? setSelectedMembers(prev => [...prev, contact])
+                        : setSelectedMembers(prev => prev.filter(selectedContact => selectedContact.id !== contact.id))
                       }
                     />
                   </View>
@@ -89,7 +98,7 @@ export function CreateGroupModal({ close, isVisible }: IModalBaseProps) {
             ))}
           </ScrollView>
         </View>
-
+        {error && renderError(error)}
         <View className="flex-row justify-end gap-2">
           <RoundedButton className="py-0" onPress={onCancel} label="Скасувати" />
           <RoundedButton className="py-0" onPress={onSubmit} label="Далі" filled darkFill />

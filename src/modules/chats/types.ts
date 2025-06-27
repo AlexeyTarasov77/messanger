@@ -99,3 +99,12 @@ export interface ChatMessageWithAuthor extends ChatMessage {
   author: IUser;
 }
 
+
+export interface CreateGroupStep1Data {
+  selectedMembers: IUser[];
+}
+
+export interface CreateGroupStep2Data extends CreateGroupStep1Data {
+  name: string;
+  photo: string;
+}

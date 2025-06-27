@@ -11,7 +11,8 @@ const ModalContext = createContext<IModalContext>({} as IModalContext);
 export enum ModalName {
   CREATE_POST,
   UPDATE_POST,
-  CREATE_CHAT,
+  CREATE_CHAT_STEP_1,
+  CREATE_CHAT_STEP_2,
   UPDATE_CHAT,
   CREATE_ALBUM,
   FIRST_LOGIN,
