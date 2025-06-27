@@ -8,12 +8,17 @@ import { useAuthCtx } from "../auth/context";
 
 export function SocketProvider({ children }: { children: ReactNode }) {
     const [socket, setSocket] = useState<Socket | null>(null);
-    const {isAuthenticated} = useAuthCtx()
-    
+    const { isAuthenticated } = useAuthCtx()
+    const [token, setToken] = useState<string | null>(null)
+
     useEffect(() => {
-        const token =  AsyncStorage.getItem(AUTH_TOKEN_KEY);
+        const getToken = async () => {
+            const token = await AsyncStorage.getItem(AUTH_TOKEN_KEY);
+            setToken(token)
+        }
+        getToken()
         if (!token) return;
-        const newSocket = io(WS_SERVER_URL, { auth: { token } });
+        const newSocket = io(WS_SERVER_URL, { auth: { token: `Bearer ${token}` } });
         newSocket.on("connect", () => {
             console.log("Socket connection is ok");
         });
@@ -25,7 +30,7 @@ export function SocketProvider({ children }: { children: ReactNode }) {
             newSocket?.disconnect();
             setSocket(null);
         };
-    }, [isAuthenticated]);
+    }, [isAuthenticated, token]);
 
     return (
         <SocketCtx.Provider value={{ socket }}>{children}</SocketCtx.Provider>
