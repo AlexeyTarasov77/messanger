@@ -37,7 +37,7 @@ export function GroupChatScreen() {
                 {chat.name}
               </Text>
               <Text className="text-grey">
-                {/* 3 учасники, 1 в мережі */}
+
                 {chat.members.length} учасники
               </Text>
             </View>

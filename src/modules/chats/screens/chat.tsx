@@ -22,7 +22,7 @@ export function ChatScreen() {
     const router = useRouter();
     const { socket } = useSocketCtx();
     const { id } = useLocalSearchParams();
-    const { user } = useUserCtx()
+    const { user } = useUserCtx();
     const [message, setMessage] = useState<string>("");
     const [chat, setChat] = useState<PersonalChatWithRelations>();
     useEffect(() => {
@@ -42,81 +42,134 @@ export function ChatScreen() {
                     messages: [...prev.messages, data],
                 };
             });
-            setMessage("")
+            setMessage("");
         });
     }, [socket]);
     // TODO: remove chat fetching here, because chat will be returned from socket on joinChat
     useEffect(() => {
-        if (!user) return
+        if (!user) return;
         const f = async () => {
-            const chat = await chatsService.getPersonalChat(Number(id), user!.id)
-            setChat(chat)
-        }
-        f()
+            const chat = await chatsService.getPersonalChat(
+                Number(id),
+                user!.id
+            );
+            setChat(chat);
+        };
+        f();
     }, [user]);
-    if (!chat || !user) return <Loader />
+    if (!chat || !user) return <Loader />;
     return (
-        <View className="bg-mainBg h-full">
-            <View className="bg-white border border-border rounded-xl mt-3 mb-3">
-                <View className="border-b border-border pb-2 p-4 flex-row justify-between">
-                    <View className="flex-row items-center gap-3">
-                        <TouchableOpacity
-                            onPress={() => {
-                                if (router.canGoBack()) {
-                                    socket?.emit("leaveChat", { chat_group_id: +id });
-                                    router.back();
-                                }
-                            }}
-                        >
-                            <ICONS.BackIcon
-                                width={20}
-                                height={20}
-                                fill="#81818D"
-                            />
-                        </TouchableOpacity>
-                        <UserAvatar user={chat!.partner} />
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={Platform.OS === "ios" ? 160 : 20}
+        >
+            <View className="bg-mainBg h-full">
+                <View className="bg-white rounded-xl border-border border mb-6 pb-2 mt-3 flex-1 px-2">
+                    <View className="border-b border-border pb-2 p-4 pt-3 flex-row justify-between">
+                        <View className="flex-row items-center gap-3">
+                            <TouchableOpacity
+                                onPress={() => {
+                                    if (router.canGoBack()) {
+                                        socket?.emit("leaveChat", {
+                                            chat_group_id: +id,
+                                        });
+                                        router.back();
+                                    }
+                                }}
+                            >
+                                <ICONS.BackIcon
+                                    width={20}
+                                    height={20}
+                                    fill="#81818D"
+                                />
+                            </TouchableOpacity>
+                            <UserAvatar user={chat!.partner} />
+                            <View>
+                                <Text className="font-medium text-2xl">
+                                    {chat?.partner.first_name}{" "}
+                                    {chat?.partner.last_name}
+                                </Text>
+                            </View>
+                        </View>
                         <View>
-                            <Text className="font-medium text-2xl">
-                                {chat?.partner.username}
-                            </Text>
+                            <ICONS.PostSettingsIcon width={20} height={20} />
                         </View>
                     </View>
-                    <View>
-                        <ICONS.PostSettingsIcon width={20} height={20} />
-                    </View>
-                </View>
-                <ScrollView>
-                    {chat.messages.reverse().map(msg =>
-                        <MessageCard key={msg.id} msg={{ ...msg, author: msg.author_id === user.id ? user : chat.partner }}
-                            isOwnMsg={msg.author_id === user.id}
+                    <ScrollView className="pb-8 pt-2 ">
+                        <View className="flex-1">
+                            {Object.entries(
+                                chat.messages
+                                    .slice()
+                                    .reverse()
+                                    .reduce((acc, msg) => {
+                                        const date = new Date(
+                                            msg.sent_at
+                                        ).toDateString();
+                                        if (!acc[date]) acc[date] = [];
+                                        acc[date].push(msg);
+                                        return acc;
+                                    }, {} as Record<string, typeof chat.messages>)
+                            ).map(([date, messages]) => (
+                                <View key={date}>
+                                    <View className="items-center my-2 bg-border w-[40%] justify-center self-center rounded-lg px py-2">
+                                        <Text className="text-base text-darkBlue">
+                                            {new Date(date).toLocaleDateString(
+                                                "uk-UA",
+                                                {
+                                                    day: "numeric",
+                                                    month: "long",
+                                                    year: "numeric",
+                                                }
+                                            )}
+                                        </Text>
+                                    </View>
+                                    {messages.map((msg, index) => (
+                                        <MessageCard
+                                            key={`${msg.id}-${index}`}
+                                            msg={{
+                                                ...msg,
+                                                author:
+                                                    msg.author_id === user.id
+                                                        ? user
+                                                        : chat.partner,
+                                            }}
+                                            isOwnMsg={msg.author_id === user.id}
+                                        />
+                                    ))}
+                                </View>
+                            ))}
+                        </View>
+                    </ScrollView>
+                    <View className="flex-row p-6 bottom-0 ">
+                        <Input
+                            placeholder="Повідомлення"
+                            onChangeText={(val) => setMessage(val)}
+                            value={message}
+                            className="w-5/6 h-12"
                         />
-                    )}
-                </ScrollView>
-                <View className="flex-row p-6 bottom-0 ">
-                    <Input placeholder="Повідомлення" onChangeText={(val) => setMessage(val)} value={message} className="w-5/6 h-12" />
-                    <View className="flex-row gap-2">
-                        <TouchableOpacity
-                            className="flex-row items-center justify-center  border-slive border  rounded-full w-10 h-10"
-                        >
-                            <ICONS.ImageIcon />
-                        </TouchableOpacity>
+                        <View className="flex-row gap-2">
+                            <TouchableOpacity className="flex-row items-center justify-center  border-slive border  rounded-full w-10 h-10">
+                                <ICONS.ImageIcon />
+                            </TouchableOpacity>
 
-                        <TouchableOpacity
-                            onPress={() => {
-                                if (!socket) return
-                                socket.emit("sendMessage", {
-                                    content: message,
-                                    attached_image: null,
-                                    chat_group_id: +id
-                                });
-                            }}
-                            className="flex-row items-center justify-center  bg-slive  rounded-full w-10 h-10"
-                        >
-                            <ICONS.SendPostIcon width={20} height={20} />
-                        </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    if (!socket) return;
+                                    socket.emit("sendMessage", {
+                                        content: message,
+                                        attached_image: null,
+                                        chat_group_id: +id,
+                                    });
+                                }}
+                                className="flex-row items-center justify-center  bg-slive  rounded-full w-10 h-10"
+                            >
+                                <ICONS.SendPostIcon width={20} height={20} />
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
