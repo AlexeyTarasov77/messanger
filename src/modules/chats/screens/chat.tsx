@@ -71,7 +71,7 @@ export function ChatScreen() {
                             <TouchableOpacity
                                 onPress={() => {
                                     if (router.canGoBack()) {
-                                        socket?.emit("leaveChat", {
+                                        socket?.emit("disconnectChat", {
                                             chat_group_id: +id,
                                         });
                                         router.back();
@@ -101,7 +101,6 @@ export function ChatScreen() {
                             {Object.entries(
                                 chat.messages
                                     .slice()
-                                    .reverse()
                                     .reduce((acc, msg) => {
                                         const date = new Date(
                                             msg.sent_at
