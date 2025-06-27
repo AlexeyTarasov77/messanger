@@ -12,15 +12,7 @@ export function MessageCard({
     msg: ChatMessageWithAuthor;
     isOwnMsg: boolean;
 }) {
-    const { id } = useLocalSearchParams();
-    const router = useRouter();
     return (
-        // <TouchableOpacity
-        //     className={`flex-row ${isOwnMsg ? "justify-end" : "justify-start"}`}
-        //     onPress={() => {
-        //         router.push(`/chats/${id}`);
-        //     }}
-        // >
         <View className={`flex-row ${isOwnMsg ? "justify-end" : "justify-start"}`}>
             {isOwnMsg ? (
                 <View className="max-w-[70%] self-end rounded-lg bg-border p-2 items-end mb-2">
@@ -52,6 +44,6 @@ export function MessageCard({
                 </View>
             )}
             </View>
-        // </TouchableOpacity>
+
     );
 }
