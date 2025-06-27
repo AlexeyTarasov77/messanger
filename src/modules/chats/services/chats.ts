@@ -49,6 +49,11 @@ export const chatsService = {
     data.selectedMembers.forEach(member => {
       formData.append("membersIds", String(member.id))
     })
-    formData.append("photo", getImageData(data.photo) as any)
+    formData.append("avatar", getImageData(data.avatar) as any)
+    const resp = await POST<ChatGroup>("/messanger/chats", formData);
+    if (!resp.success) {
+      throw new Error(resp.message);
+    }
+    return resp.data;
   }
 }

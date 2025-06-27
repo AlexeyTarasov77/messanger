@@ -106,5 +106,5 @@ export interface CreateGroupStep1Data {
 
 export interface CreateGroupStep2Data extends CreateGroupStep1Data {
   name: string;
-  photo: string;
+  avatar: string;
 }

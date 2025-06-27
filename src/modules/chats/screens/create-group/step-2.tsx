@@ -13,6 +13,7 @@ import { getErrorMessage, renderError } from "../../../../shared/utils/errors";
 import { DEFAULT_AVATAR_URL } from "../../../../shared/constants";
 import { pickImage } from "../../../../shared/utils/images";
 import { ModalName, useModal } from "../../../../shared/context/modal";
+import { TextBtn } from "../../../../shared/ui/button";
 
 
 export function CreateGroupModalStep2({ close, isVisible, selectedMembers: prevSelectedMembers }: IModalBaseProps & { selectedMembers?: IUser[] }) {
@@ -26,7 +27,7 @@ export function CreateGroupModalStep2({ close, isVisible, selectedMembers: prevS
   const [error, setError] = useState("")
   const onSubmit = async () => {
     try {
-      await chatsService.createChat({ name: chatName, photo: chatPhoto, selectedMembers, is_personal_chat: false })
+      await chatsService.createChat({ name: chatName, avatar: chatPhoto, selectedMembers, is_personal_chat: false })
       close()
     } catch (err) {
       setError(getErrorMessage(err))
@@ -64,10 +65,12 @@ export function CreateGroupModalStep2({ close, isVisible, selectedMembers: prevS
             autoCorrect={false}
             className="h-[42]"
           />
-          <View className="gap-6 items-center">
-            <TouchableOpacity onPress={pickChatPhoto}>
-              <Image source={{ uri: chatPhoto || DEFAULT_AVATAR_URL }} className="rounded-full w-12 h-12" />
-            </TouchableOpacity>
+          <View className="gap-6 items-center justify-center">
+            <Image source={{ uri: chatPhoto || DEFAULT_AVATAR_URL }} className="rounded-full w-12 h-12" />
+            <View className="gap-6 flex-row">
+              <TextBtn label="Додайте фото" Icon={ICONS.PostsIcon} onPress={pickChatPhoto} />
+              <TextBtn label="Оберіть фото" Icon={ICONS.PostsIcon} onPress={pickChatPhoto} />
+            </View>
           </View>
           <Text className="text-lg">
             Учасники
