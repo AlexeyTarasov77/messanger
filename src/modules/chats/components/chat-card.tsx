@@ -19,7 +19,7 @@ export function ChatCard({
         <TouchableOpacity
             className="flex-row items-center gap-4"
             onPress={() => {
-                router.push(`/chats/${chat.id}`);
+                router.push(`/chats/groups/${chat.id}`);
             }}
         >
             {user ? (
@@ -36,14 +36,18 @@ export function ChatCard({
                 <Text className="font-medium text-lg">
                     {user ? getUserDisplayName(user) : chat.name}
                 </Text>
-                <Text className="text-sm text-gray-600" numberOfLines={1}>
-                    {getUserDisplayName(chat.lastMessage.author)}:{" "}
-                    {chat.lastMessage.content}
-                </Text>
+                {chat.lastMessage &&
+                    <Text className="text-sm text-gray-600" numberOfLines={1}>
+                        {getUserDisplayName(chat.lastMessage.author)}:{" "}
+                        {chat.lastMessage.content}
+                    </Text>
+                }
             </View>
-            <Text className="text-xs text-gray-400 ml-auto">
-                {formatDate(new Date(chat.lastMessage.sent_at), "%H:%M")}
-            </Text>
+            {chat.lastMessage &&
+                <Text className="text-xs text-gray-400 ml-auto">
+                    {formatDate(new Date(chat.lastMessage.sent_at), "%H:%M")}
+                </Text>
+            }
         </TouchableOpacity>
     );
 }

@@ -63,7 +63,7 @@ export interface ChatMessage {
 }
 
 export interface ChatGroupWithLastMsg extends ChatGroup {
-  lastMessage: ChatMessageWithAuthor
+  lastMessage?: ChatMessageWithAuthor
 }
 
 // Interfaces with relations
@@ -73,9 +73,8 @@ export interface ChatGroupWithRelations extends ChatGroup {
   messages: ChatMessageWithRelations[];
 }
 
-export interface PersonalChatWithRelations extends ChatGroup {
+export interface PersonalChatWithRelations extends ChatGroupWithMessages {
   partner: IUser
-  messages: ChatMessage[];
 }
 
 export interface ChatGroupWithMembers extends ChatGroup {
