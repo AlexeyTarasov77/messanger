@@ -34,7 +34,7 @@ export function GroupChatScreen() {
             <View className="bg-slive rounded-full w-12 h-12"></View>
             <View>
               <Text className="font-medium text-2xl">
-                New Group
+                {chat.name}
               </Text>
               <Text className="text-grey">
                 {/* 3 учасники, 1 в мережі */}
