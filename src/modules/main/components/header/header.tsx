@@ -36,7 +36,9 @@ export function Header() {
       setShowedActions(defaultHeaderActions.filter(showedAction => showedAction !== HeaderAction.SETTINGS))
     } else if (settingsPathRegexp.test(currPath)) {
       setCreateActionCallback(() => () => openModal({ name: ModalName.CREATE_ALBUM }))
-      setShowedActions(defaultHeaderActions.filter(showedAction => showedAction !== HeaderAction.SETTINGS))
+    //   setShowedActions(defaultHeaderActions.filter(showedAction => showedAction !== HeaderAction.SETTINGS))
+      setShowedActions(defaultHeaderActions)
+    
     } else {
       setShowedActions(defaultHeaderActions)
       setCreateActionCallback(() => () => openModal({ name: ModalName.CREATE_POST }))

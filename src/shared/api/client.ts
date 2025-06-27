@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SERVER_URL, AUTH_TOKEN_KEY } from "../constants";
-import { APIResponse, IResponseFailure } from "./types";
+import { APIResponse } from "./types";
 
 export async function sendReq<T>(
   path: string | URL,

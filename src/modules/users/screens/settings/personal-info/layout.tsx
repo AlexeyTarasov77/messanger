@@ -9,7 +9,6 @@ export function Layout() {
     <View className="gap-2">
       <ProfileCardBlock />
       <MainBlock />
-      <PasswordBlock/>
       <SignatureOptionsBlock />
     </View>
   );
