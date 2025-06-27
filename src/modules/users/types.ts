@@ -25,9 +25,15 @@ export interface IPersonalInfoForm {
     date_of_birth?: string;
 }
 
+export interface IPasswordForm {
+    password: string;
+    confirm_password?: string;
+}
+
 export interface IUser {
     id: number;
     username?: string;
+    password?: string;
     email: string;
     first_name?: string;
     last_name?: string;
@@ -117,7 +123,4 @@ export interface ILoginResponse {
     user: IUserExtended;
 }
 
-
-export interface Socket {
-
-}
+export interface Socket {}
