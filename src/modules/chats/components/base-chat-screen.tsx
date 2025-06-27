@@ -126,7 +126,7 @@ export function BaseChatScreen({ chat, setChat, chatInfo, getMsgAuthor }: BaseCh
               placeholder="Повідомлення"
               onChangeText={(val) => setMessage(val)}
               value={message}
-              className="w-3/4 h-12"
+              className="w-[76%] h-12"
             />
             <View className="flex-row gap-2">
               <TouchableOpacity className="flex-row items-center justify-center  border-slive border  rounded-full w-10 h-10">

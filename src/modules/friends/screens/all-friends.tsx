@@ -7,10 +7,13 @@ import { useUserCtx } from "../../users/components/users-ctx";
 import { friendsService } from "../services";
 import { getErrorMessage } from "../../../shared/utils/errors";
 import { ModalName, useModal } from "../../../shared/context/modal";
+import { useRouter } from "expo-router";
+import { chatsService } from "../../chats/services/chats";
 
 export function AllFriends() {
     const { allFriends, isLoading, setAllFriends } = useAllFriends();
     const { user } = useUserCtx();
+    const router = useRouter()
     const { open } = useModal();
     if (isLoading || !user) return <Loader />;
     const deleteFriend = async (friendId: number) => {
@@ -33,7 +36,10 @@ export function AllFriends() {
                         user={friend}
                         leftButton={
                             <TouchableOpacity
-                                // onPress={}
+                                onPress={ async ()=>{
+                                    const personalChat = await chatsService.getOrCreatePersonalChat(friend.id)
+                                    router.push(`/chats/${personalChat.id}`);
+                                }}
                                 className="flex-row items-center gap-1 bg-slive p-2 rounded-[1234]"
                             >
                                 <Text className="text-white text-center px-3">
