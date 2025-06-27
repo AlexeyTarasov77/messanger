@@ -21,6 +21,11 @@ export function MessageCard({
                             {msg.content}
                         </Text>
                     </View>
+                    {msg.attached_image &&
+                        <View className="p-2">
+                            <Image source={{ uri: msg.attached_image }} className="w-40 h-40 rounded-lg" />
+                        </View>
+                    }
                     <Text className="text-xs text-gray-400 ml-auto">
                         {formatDate(new Date(msg.sent_at), "%H:%M")}
                     </Text>
@@ -36,6 +41,11 @@ export function MessageCard({
                             <Text className="text-sm text-darkBlue">
                                 {msg.content}
                             </Text>
+                            {msg.attached_image &&
+                                <View className="p-2">
+                                    <Image source={{ uri: msg.attached_image }} className="w-40 h-40 rounded-lg" />
+                                </View>
+                            }
                         </View>
                         <Text className="text-xs text-gray-400 ml-auto">
                             {formatDate(new Date(msg.sent_at), "%H:%M")}
@@ -43,7 +53,7 @@ export function MessageCard({
                     </View>
                 </View>
             )}
-            </View>
+        </View>
 
     );
 }
