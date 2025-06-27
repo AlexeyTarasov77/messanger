@@ -16,7 +16,7 @@ export function MyPosts() {
                     щоб створити!
                 </Text>
             )}
-            <View className="gap-4 pb-8r">
+            <View className="gap-4 pb-8">
                 {user.profile?.posts.map((post) => (
                     <PostCard
                         menuEnabled={true}
