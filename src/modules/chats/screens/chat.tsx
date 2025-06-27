@@ -6,12 +6,11 @@ import {
     Text,
     TouchableOpacity,
     View,
-    Image,
 } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
 import { Input } from "../../../shared/ui/input";
 import { useSocketCtx, useUserCtx } from "../../users/components/users-ctx";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PersonalChatWithRelations } from "../types";
 import { chatsService } from "../services/chats";
 import { UserAvatar } from "../../users/components/avatar";
@@ -25,14 +24,12 @@ export function ChatScreen() {
     const { user } = useUserCtx();
     const [message, setMessage] = useState<string>("");
     const [chat, setChat] = useState<PersonalChatWithRelations>();
+    const messagesBoxRef = useRef<ScrollView>(null);
+
+    useEffect(() => messagesBoxRef.current?.scrollToEnd({ animated: true }), [chat])
     useEffect(() => {
         if (!socket) return;
-        socket.emit("joinChat", { chat_group_id: +id }, (data: any) => {
-            // TODO: fix invalid response processing
-            if (data.status == "success") {
-                setChat(data.data);
-            }
-        });
+        socket.emit("joinChat", { chat_group_id: +id });
 
         socket.on("newMessage", (data) => {
             setChat((prev) => {
@@ -45,7 +42,6 @@ export function ChatScreen() {
             setMessage("");
         });
     }, [socket]);
-    // TODO: remove chat fetching here, because chat will be returned from socket on joinChat
     useEffect(() => {
         if (!user) return;
         const f = async () => {
@@ -84,7 +80,7 @@ export function ChatScreen() {
                                     fill="#81818D"
                                 />
                             </TouchableOpacity>
-                            <UserAvatar user={chat!.partner} />
+                            <UserAvatar className="w-12 h-12" user={chat!.partner} />
                             <View>
                                 <Text className="font-medium text-2xl">
                                     {chat?.partner.first_name}{" "}
@@ -96,7 +92,7 @@ export function ChatScreen() {
                             <ICONS.PostSettingsIcon width={20} height={20} />
                         </View>
                     </View>
-                    <ScrollView className="pb-8 pt-2 ">
+                    <ScrollView className="pb-8 pt-2" ref={messagesBoxRef}>
                         <View className="flex-1">
                             {Object.entries(
                                 chat.messages
