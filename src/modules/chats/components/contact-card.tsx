@@ -1,28 +1,30 @@
 import { Text, TouchableOpacity } from "react-native";
 import { UserAvatar } from "../../users/components/avatar";
 import { getUserDisplayName } from "../../users/utils";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { IUser } from "../../users/types";
+import { chatsService } from "../services/chats";
 
 export function ContactCard({
-  user
-}: { user: IUser }) {
-  const { id } = useLocalSearchParams()
+  contact
+}: { contact: IUser }) {
   const router = useRouter();
+  const navigateChat = async () => {
+    const personalChat = await chatsService.getOrCreatePersonalChat(contact.id)
+    router.push(`/chats/${personalChat.id}`);
+  }
   return (
     <TouchableOpacity
-      onPress={() => {
-        router.push(`/chats/${id}`);
-      }}
+      onPress={navigateChat}
       className="flex-row items-center gap-4 p-3 "
     >
       <UserAvatar
-        user={user}
+        user={contact}
         showIsOnline={false}
         className="w-12 h-12"
       />
       <Text className="text-base font-medium">
-        {getUserDisplayName(user)}
+        {getUserDisplayName(contact)}
       </Text>
     </TouchableOpacity>
   );
