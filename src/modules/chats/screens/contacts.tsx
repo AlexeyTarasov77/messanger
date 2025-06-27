@@ -76,7 +76,7 @@ export function ContactsScreen() {
                                 );
                             }}
                         />
-                        {contacts.map(contact => <ContactCard key={contact.id} user={contact} />)}
+                        {contacts.map(contact => <ContactCard key={contact.id} contact={contact} />)}
 
                     </View>
                 </View>

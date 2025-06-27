@@ -12,7 +12,7 @@ export interface IProfileCardForm {
 }
 
 export interface IUserAvatar {
-    id: string;
+    id: number;
     shown: boolean;
     active: boolean;
     image: string;
@@ -52,7 +52,6 @@ export interface IAlbum {
 export interface ICreateAlbumForm {
     name: string;
     topic_id: string;
-    // created_at: string;
 }
 
 interface IAlbumAuthor {
@@ -120,5 +119,5 @@ export interface ILoginResponse {
 
 
 export interface Socket {
-    
+
 }
