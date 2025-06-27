@@ -63,7 +63,7 @@ export interface ChatMessage {
 }
 
 export interface ChatGroupWithLastMsg extends ChatGroup {
-  lastMessage: ChatMessageWithAuthor
+  lastMessage?: ChatMessageWithAuthor
 }
 
 // Interfaces with relations
