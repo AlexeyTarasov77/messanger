@@ -76,7 +76,7 @@ export function BaseChatScreen({ chat, setChat, chatInfo, getMsgAuthor }: BaseCh
               </TouchableOpacity>
               {chatInfo}
             </View>
-            <View>
+            <View className="items-center self-center">
               <ICONS.PostSettingsIcon width={20} height={20} />
             </View>
           </View>
@@ -121,12 +121,12 @@ export function BaseChatScreen({ chat, setChat, chatInfo, getMsgAuthor }: BaseCh
               ))}
             </View>
           </ScrollView>
-          <View className="flex-row p-6 bottom-0 ">
+          <View className="flex-row p-6 bottom-0 gap-2 items-center">
             <Input
               placeholder="Повідомлення"
               onChangeText={(val) => setMessage(val)}
               value={message}
-              className="w-5/6 h-12"
+              className="w-3/4 h-12"
             />
             <View className="flex-row gap-2">
               <TouchableOpacity className="flex-row items-center justify-center  border-slive border  rounded-full w-10 h-10">
