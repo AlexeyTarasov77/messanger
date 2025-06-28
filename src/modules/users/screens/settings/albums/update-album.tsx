@@ -19,8 +19,9 @@ export function UpdateteAlbumModal({
             {album && (
                 <AlbumForm
                     defaultValues={{
-                        name: "",
-                        topic_id: "",
+                        ...album
+                        // name: "",
+                        // topic_id: "",
                         // created_at: ""
                     }}
                     onSubmit={onSubmit}

@@ -72,7 +72,7 @@ export function GroupCreateOrUpdateModal({
               {heading}
             </Text>
           </View>
-          <Input.InputSearch
+          <Input
             placeholder="Введіть назву"
             autoCapitalize="none"
             label="Назва"
