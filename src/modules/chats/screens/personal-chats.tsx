@@ -1,4 +1,4 @@
-import { ScrollView, TouchableOpacity, Text, View, Button } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import { ICONS } from "../../../shared/ui/icons";
 import { usePersonalChats } from "../hooks";
 import { Loader } from "../../../shared/ui/loader/loader";

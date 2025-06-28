@@ -21,7 +21,7 @@ export function ChatCard({
         <TouchableOpacity
             className="flex-row items-center gap-4"
             onPress={() => {
-                router.push(`/chats/groups/${chat.id}`);
+                router.push(chat.is_personal_chat ? `/chats/${chat.id}` : `/chats/groups/${chat.id}`);
             }}
         >
             {user ? (
@@ -40,7 +40,9 @@ export function ChatCard({
                 </Text>
                 {chat.lastMessage &&
                     <Text className="text-sm text-gray-600" numberOfLines={1}>
-                        {getUserDisplayName(chat.lastMessage.author)}:{" "}
+                        {!chat.is_personal_chat &&
+                            getUserDisplayName(chat.lastMessage.author) + " "
+                        }
                         {chat.lastMessage.content}
                     </Text>
                 }

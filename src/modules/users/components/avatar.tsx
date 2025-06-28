@@ -9,19 +9,18 @@ export interface IUserAvatarProps {
     user: { id: number, profile: { avatars: IUserAvatar[] } };
     isUserOnline?: boolean;
     className?: string;
-    width?: number;
-    height?: number;
+    onlineBadgeSize?: number;
     redirectUrl?: string
 }
 
 export function UserAvatar({
     user,
     className,
-    width,
-    height,
     isUserOnline,
+    onlineBadgeSize,
     redirectUrl,
 }: IUserAvatarProps) {
+    onlineBadgeSize = onlineBadgeSize || 15
     const router = useRouter()
     const showIsOnline = isUserOnline !== undefined
     return (
@@ -36,9 +35,9 @@ export function UserAvatar({
                 {showIsOnline &&
                     <View className="absolute bottom-0 right-1">
                         {isUserOnline ? (
-                            <ICONS.OnlineIcon width={width} height={height} />
+                            <ICONS.OnlineIcon width={onlineBadgeSize} height={onlineBadgeSize} />
                         ) : (
-                            <ICONS.OfflineIcon width={width} height={height} />
+                            <ICONS.OfflineIcon width={onlineBadgeSize} height={onlineBadgeSize} />
                         )}
                     </View>
                 }
