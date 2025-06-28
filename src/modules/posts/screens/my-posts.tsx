@@ -23,8 +23,7 @@ export function MyPosts() {
                         key={post.id}
                         post={{
                             ...post,
-                            author: { user: user, ...user.profile },
-                            tags: post.tags.map((t: any) => t.tag),
+                            author: { user: user, ...user.profile }
                         }}
                     />
                 ))}

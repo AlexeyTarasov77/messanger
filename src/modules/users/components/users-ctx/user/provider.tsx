@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import {
-    IAlbum,
-    ICreateAlbumForm,
+  IAlbum,
+  ICreateAlbumForm,
   ILoginForm,
   IRegisterForm,
   IUser,
@@ -114,7 +114,7 @@ export function UsersProvider({ children }: { children: ReactNode }) {
     } finally {
       setIsLoading(false);
     }
-  } 
+  }
 
 
   const updateUserData = (updatedData: Partial<IUser>) => {

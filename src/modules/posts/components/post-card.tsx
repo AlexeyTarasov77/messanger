@@ -44,7 +44,7 @@ export function PostCard({
       <View className="flex-row justify-between py-4 px-2">
         <View>
           <View className="flex-row items-center gap-4">
-            <UserAvatar user={{ profile: post.author, ...post.author.user }} isUserOnline={checkUserOnline(post.author.user.id)} width={12} height={12} className="w-12 h-12" />
+            <UserAvatar user={{ profile: post.author, ...post.author.user }} isUserOnline={checkUserOnline(post.author.user.id)} className="w-12 h-12" />
             <View className="font-medium text-sm">
               <Text>{getUserDisplayName(post.author.user)}</Text>
             </View>
@@ -68,7 +68,7 @@ export function PostCard({
           {post.content}
         </Text>
         <View className="flex-row flex-wrap font-normal text-sm leading-none gap-1">
-          {post.tags?.map(tag => (
+          {post.tags.map(tag => (
             <Text className="text-text" key={tag.id}>
               #{tag.name}
             </Text>
