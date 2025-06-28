@@ -34,7 +34,7 @@ export function Album({ albumData: initialAlbumData }: { albumData: IAlbum }) {
         return { image: { file: file, id: asset.assetId || String(new Date().getTime()), filename } }
       })
       await updateAlbum({ images: pickedImages })
-      setAlbum({ ...album, images: [...album.images, ...pickedImages] })
+      setAlbum({ ...album, images: album.images ? [...album.images, ...pickedImages] : pickedImages })
     }
   }
   return (
@@ -57,7 +57,7 @@ export function Album({ albumData: initialAlbumData }: { albumData: IAlbum }) {
       <View className="border border-grey" />
       <Text className="text-darkBlue">Фотографіїї</Text>
       <View className="flex-row justify-between items-center flex-wrap">
-        {album.images.map(({ image }) => (
+        {album.images?.map(({ image }) => (
           <UserPhoto imageURI={buildImageUrl(image)} className="mt-3" btnsClassname="top-28 left-16" iconsSize={20} imgSize={160} key={image.id} />
         ))}
         <View className="mt-3 w-[160] h-40 border-dashed border border-grey justify-center items-center">

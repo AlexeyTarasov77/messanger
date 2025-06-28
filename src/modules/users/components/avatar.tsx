@@ -6,11 +6,11 @@ import { IUserAvatar } from "../types";
 import { getUserAvatar } from "../utils";
 
 export interface IUserAvatarProps {
-    user: { isOnline: boolean, id: number, profile: { avatars: IUserAvatar[] } };
+    user: { id: number, profile: { avatars: IUserAvatar[] } };
+    isUserOnline?: boolean;
     className?: string;
     width?: number;
     height?: number;
-    showIsOnline?: boolean;
     redirectUrl?: string
 }
 
@@ -19,13 +19,11 @@ export function UserAvatar({
     className,
     width,
     height,
-    showIsOnline,
+    isUserOnline,
     redirectUrl,
 }: IUserAvatarProps) {
     const router = useRouter()
-    if (showIsOnline === undefined) {
-        showIsOnline = true
-    }
+    const showIsOnline = isUserOnline !== undefined
     return (
         <View className="flex-row">
             <TouchableOpacity onPress={() => { redirectUrl || router.replace(`/profile/${user.id}`) }}>
@@ -37,7 +35,7 @@ export function UserAvatar({
                 </View>
                 {showIsOnline &&
                     <View className="absolute bottom-0 right-1">
-                        {user.isOnline ? (
+                        {isUserOnline ? (
                             <ICONS.OnlineIcon width={width} height={height} />
                         ) : (
                             <ICONS.OfflineIcon width={width} height={height} />

@@ -12,7 +12,7 @@ import { ICONS } from "../../../shared/ui/icons";
 import { Input } from "../../../shared/ui/input";
 import { useSocketCtx, useUserCtx } from "../../users/components/users-ctx";
 import { ReactNode, useEffect, useRef, useState } from "react";
-import { ChatGroupWithMessages } from "../types";
+import { ChatGroupWithMessages, ChatMessage } from "../types";
 import { Loader } from "../../../shared/ui/loader/loader";
 import { MessageCard } from "../components";
 import { IUser } from "../../users/types";
@@ -60,7 +60,7 @@ export function BaseChatScreen({ chat, setChat, chatInfo, getMsgAuthor, menuEnab
     if (!socket) return;
     socket.emit("joinChat", { chat_group_id: +id });
 
-    socket.on("newMessage", (data) => {
+    socket.on("newMessage", (data: ChatMessage) => {
       setChat((prev) => {
         if (!prev) return prev;
         return {

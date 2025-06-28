@@ -49,7 +49,7 @@ export interface IAlbum {
     id: number;
     name: string;
     topic: { id: number; name: string };
-    created_at?: string;
+    created_at: string;
     images?: { image: MediaImage }[];
     preview_image?: string;
     shown: boolean;
@@ -123,4 +123,4 @@ export interface ILoginResponse {
     user: IUserExtended;
 }
 
-export interface Socket {}
+export interface Socket { }
