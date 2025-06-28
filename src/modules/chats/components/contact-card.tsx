@@ -22,6 +22,8 @@ export function ContactCard({
         user={contact}
         // showIsOnline={false}
         className="w-12 h-12"
+        width={48}
+        height={48}
       />
       <Text className="text-base font-medium">
         {getUserDisplayName(contact)}

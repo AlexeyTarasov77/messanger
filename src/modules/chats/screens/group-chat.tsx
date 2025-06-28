@@ -6,6 +6,7 @@ import { IUser } from "../../users/types";
 import { BaseChatScreen } from "../components/base-chat-screen";
 import { DEFAULT_AVATAR_URL } from "../../../shared/constants";
 import { useSocketCtx } from "../../users/components/users-ctx";
+import { DEFAULT_ICONS } from "../../../shared/ui/icons/icons";
 
 
 export function GroupChatScreen() {
@@ -28,7 +29,11 @@ export function GroupChatScreen() {
     chat={chat}
     getMsgAuthor={(authorId: number) => chatMembersMap[authorId]}
     chatInfo={<>
-      <Image source={{ uri: chat.avatar || DEFAULT_AVATAR_URL }} className="rounded-full w-12 h-12" />
+    {chat.avatar? 
+      <Image source={{ uri: chat.avatar }} className="rounded-full w-12 h-12" />
+    :
+    <DEFAULT_ICONS.DEFAULT_GROUP_ICON className="w-12 h-12"  width={48} height={48}/>
+    }
       <View>
         <Text className="font-medium text-2xl">
           {chat.name}

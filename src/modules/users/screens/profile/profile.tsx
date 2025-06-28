@@ -178,7 +178,7 @@ export function Profile({ showAll }: { showAll?: boolean }) {
     return (
         <ScrollView className="bg-mainBg h-full">
             <View className="gap-10 py-6 bg-white border-border justify-center items-center">
-                <UserAvatar user={user} className="w-28 h-28" />
+                <UserAvatar user={user} className="w-28 h-28" width={112} height={112}/>
                 <View className="justify-center items-center gap-2 ">
                     <Text className=" text-4xl font-semibold ">
                         {getUserDisplayName(user)}

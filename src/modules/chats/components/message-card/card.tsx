@@ -32,7 +32,7 @@ export function MessageCard({
                 </View>
             ) : (
                 <View className="flex-1 flex-row gap-2">
-                    <UserAvatar user={msg.author} className="w-12 h-12" />
+                    <UserAvatar user={msg.author} className="w-12 h-12" width={48} height={48}/>
                     <View className="flex-1 border-border border rounded-lg max-w-[70%] bg-white p-2 mb-2">
                         <View>
                             <Text className="font-sm text-sm text-slive">
