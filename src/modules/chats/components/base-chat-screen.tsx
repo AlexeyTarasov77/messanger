@@ -1,5 +1,6 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
+  Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -15,6 +16,7 @@ import { ChatGroupWithMessages } from "../types";
 import { Loader } from "../../../shared/ui/loader/loader";
 import { MessageCard } from "../components";
 import { IUser } from "../../users/types";
+import { pickImage } from "../../../shared/utils/images";
 
 interface BaseChatProps {
   chat: ChatGroupWithMessages;
@@ -23,13 +25,29 @@ interface BaseChatProps {
   getMsgAuthor: (authorId: number) => IUser
 }
 
+type MessageSendPayload = {
+  content: string;
+  attached_image?: string;
+}
+
 export function BaseChatScreen({ chat, setChat, chatInfo, getMsgAuthor }: BaseChatProps) {
   const router = useRouter();
   const { socket } = useSocketCtx();
   const { id } = useLocalSearchParams();
   const { user } = useUserCtx();
-  const [message, setMessage] = useState<string>("");
+  const [inputMessage, setInputMessage] = useState<MessageSendPayload | null>(null);
   const messagesBoxRef = useRef<ScrollView>(null);
+
+  const pickMessageImage = async () => {
+    const result = await pickImage({
+      mediaTypes: "images",
+      base64: true
+    });
+    if (result && !result.canceled && result.assets) {
+      const imageUri = result.assets[0].base64!
+      setInputMessage(prev => (prev ? { ...prev, attached_image: imageUri } : { attached_image: imageUri, content: "" }))
+    }
+  }
 
   useEffect(() => messagesBoxRef.current?.scrollToEnd({ animated: true }), [chat])
   useEffect(() => {
@@ -44,7 +62,7 @@ export function BaseChatScreen({ chat, setChat, chatInfo, getMsgAuthor }: BaseCh
           messages: [...prev.messages, data],
         };
       });
-      setMessage("");
+      setInputMessage(null);
     });
   }, [socket]);
   if (!chat || !user) return <Loader />;
@@ -121,25 +139,27 @@ export function BaseChatScreen({ chat, setChat, chatInfo, getMsgAuthor }: BaseCh
               ))}
             </View>
           </ScrollView>
+          {inputMessage?.attached_image &&
+            <View><Image source={{ uri: "data:image/png;base64, " + inputMessage.attached_image }} className="w-20 h-20 rounded-lg" /></View>
+          }
           <View className="flex-row p-6 bottom-0 gap-2 items-center">
             <Input
               placeholder="Повідомлення"
-              onChangeText={(val) => setMessage(val)}
-              value={message}
-              className="w-[76%] h-12"
+              onChangeText={(val) => setInputMessage(prev => (prev ? { ...prev, content: val } : { content: val }))}
+              value={inputMessage?.content || ""}
+              className="w-3/4 h-12"
             />
             <View className="flex-row gap-2">
-              <TouchableOpacity className="flex-row items-center justify-center  border-slive border  rounded-full w-10 h-10">
+              <TouchableOpacity onPress={pickMessageImage} className="flex-row items-center justify-center  border-slive border  rounded-full w-10 h-10">
                 <ICONS.ImageIcon />
               </TouchableOpacity>
 
               <TouchableOpacity
                 onPress={() => {
-                  if (!socket) return;
+                  if (!socket || !inputMessage) return;
                   socket.emit("sendMessage", {
-                    content: message,
-                    attached_image: null,
-                    chat_group_id: +id,
+                    ...inputMessage,
+                    chat_group_id: +id
                   });
                 }}
                 className="flex-row items-center justify-center  bg-slive  rounded-full w-10 h-10"

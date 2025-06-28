@@ -1,14 +1,14 @@
 import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
-import { ICONS } from "../../../../shared/ui/icons";
-import { IPostWithAuthor } from "../../types";
-import { UserAvatar } from "../../../users/components/avatar";
-import { getUserDisplayName } from "../../../users/utils";
-import { UserSignature } from "../../../users/components/sig";
+import { ICONS } from "../../../shared/ui/icons";
+import { IPostWithAuthor } from "../types";
+import { UserAvatar } from "../../users/components/avatar";
+import { getUserDisplayName } from "../../users/utils";
+import { UserSignature } from "../../users/components/sig";
 import { useState } from "react";
-import { Menu } from "./menu";
-import { buildImageUrl } from "../../../../shared/utils/images";
-import { useUserCtx } from "../../../users/components/users-ctx";
-import { ModalName, useModal } from "../../../../shared/context/modal";
+import { Menu, MenuBtn } from "../../../shared/ui/menu";
+import { buildImageUrl } from "../../../shared/utils/images";
+import { useUserCtx } from "../../users/components/users-ctx";
+import { ModalName, useModal } from "../../../shared/context/modal";
 
 export function PostCard({
   post,
@@ -30,6 +30,14 @@ export function PostCard({
     }
     setMenuOpened(false)
   }
+  const menuButtons = [
+    <MenuBtn Icon={ICONS.BinIcon} label="Видалити публікацію" onPress={handlePostRemove} />,
+    <MenuBtn
+      Icon={ICONS.PenIcon}
+      label="Редагувати допис"
+      onPress={handlePostEdit}
+    />
+  ]
   return (
     <View className="border border-border rounded-2xl p-2 gap-2 bg-white">
       <View className="flex-row justify-between py-4 px-2">
@@ -48,7 +56,7 @@ export function PostCard({
           <TouchableOpacity onPress={() => setMenuOpened(!menuOpened)}>
             <ICONS.PostSettingsIcon height={16} />
           </TouchableOpacity>
-          {menuEnabled && menuOpened && <Menu onRemove={handlePostRemove} onEdit={handlePostEdit} />}
+          {menuEnabled && menuOpened && <Menu buttons={menuButtons} />}
         </View>
       </View>
       <View className="border-t border-border pt-4 px-2 gap-4">
