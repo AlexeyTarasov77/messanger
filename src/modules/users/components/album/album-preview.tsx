@@ -1,6 +1,6 @@
 import { View, Text, Image } from "react-native";
-import { IAlbum } from "../types";
-import { capitalize } from "../../../shared/utils/base";
+import { IAlbum } from "../../types";
+import { capitalize } from "../../../../shared/utils/base";
 
 export function AlbumPreview({ album }: { album: IAlbum }) {
     if (!album.created_at)return

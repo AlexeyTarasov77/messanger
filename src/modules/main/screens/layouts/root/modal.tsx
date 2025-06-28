@@ -3,13 +3,14 @@ import { CreatePostModal } from "../../../../posts/screens";
 import { RegisterStepThree } from "../../../../users/screens";
 import { useUserCtx } from "../../../../users/components/users-ctx";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { IModal, ModalName, useModal } from "../../../../../shared/context/modal";
+import { ModalName, useModal } from "../../../../../shared/context/modal";
 import { ConfirmationModal } from "../../../../../shared/ui/confirmation-modal/modal";
 import { UpdatePostModal } from "../../../../posts/screens/update-post";
 import { CreateAlbumModal } from "../../../../users/screens/settings/albums";
 import { CreateGroupModalStep1, CreateGroupModalStep2 } from "../../../../chats/screens";
 import { UpdateGroupModal } from "../../../../chats/screens/edit-group/update";
 import { AddGroupMemberModal } from "../../../../chats/screens/edit-group/add-member";
+import { UpdateteAlbumModal } from "../../../../users/screens/settings/albums/update-album";
 
 function RegisterModalCheck() {
   const { user } = useUserCtx();
@@ -50,6 +51,7 @@ export function ModalRoot() {
     [ModalName.UPDATE_POST]: UpdatePostModal,
     [ModalName.UPDATE_CHAT]: UpdateGroupModal,
     [ModalName.CREATE_ALBUM]: CreateAlbumModal,
+    [ModalName.UPDATE_ALBUM]: UpdateteAlbumModal,
     [ModalName.CREATE_CHAT_STEP_1]: CreateGroupModalStep1,
     [ModalName.CREATE_CHAT_STEP_2]: CreateGroupModalStep2,
     [ModalName.CONFIRMATION]: ConfirmationModal,

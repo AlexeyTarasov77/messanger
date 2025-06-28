@@ -6,7 +6,7 @@ import { ICONS } from "../../../../shared/ui/icons";
 import { useGetUserById } from "../../hooks/use-get-user-by-id";
 import { Loader } from "../../../../shared/ui/loader/loader";
 import { PostCard } from "../../../posts/components";
-import { AlbumPreview } from "../../components/album-preview";
+import { AlbumPreview } from "../../components/album/album-preview";
 import { useAllFriends } from "../../../friends/hooks/use-all-friends";
 import { useRequests } from "../../../friends/hooks/use-requests";
 import { ModalName, useModal } from "../../../../shared/context/modal";

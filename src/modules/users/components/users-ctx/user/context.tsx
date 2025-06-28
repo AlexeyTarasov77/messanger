@@ -1,9 +1,5 @@
 import { createContext, useContext } from "react";
-import {
-    ICreateAlbumForm,
-    IUser,
-    IUserExtended,
-} from "../../../types";
+import { ICreateAlbumForm, IUser, IUserExtended } from "../../../types";
 import { ICreatePostForm } from "../../../../posts/types";
 
 interface IUserCtx {
@@ -17,6 +13,11 @@ interface IUserCtx {
     updateUserData: (updatedData: Partial<IUser>) => void;
     removePost: (postId: number) => Promise<string | void>;
     addAlbum: (data: ICreateAlbumForm) => Promise<string | void>;
+    updateAlbum: (
+        data: Partial<ICreateAlbumForm>,
+        albumId: number
+    ) => Promise<string | void>;
+    removeAlbum: (albumId: number) => Promise<string | void>;
 }
 
 export const UserCtx = createContext<IUserCtx | null>(null);

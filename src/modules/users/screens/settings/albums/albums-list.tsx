@@ -4,7 +4,7 @@ import { Heading } from "../../../../../shared/ui/heading/heading";
 import { ICONS } from "../../../../../shared/ui/icons";
 import { useUserCtx } from "../../../components/users-ctx";
 import { Block } from "../block";
-import { Album } from "../../../components/album";
+import { Album } from "../../../components/album/album";
 import { ModalName, useModal } from "../../../../../shared/context/modal";
 
 export function AlbumsList() {
@@ -16,7 +16,7 @@ export function AlbumsList() {
             {user.profile.albums ? (
                 user.profile.albums.map((album) => (
                     <Block key={album.id}>
-                        <Album albumData={album} />
+                        <Album albumData={album} menuEnabled={true} />
                     </Block>
                 ))
             ) : (

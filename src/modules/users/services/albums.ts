@@ -1,10 +1,10 @@
-import { PATCH, POST } from "../../../shared/api/client";
+import { DELETE, PATCH, POST } from "../../../shared/api/client";
 import { buildImageUrl, getImageData } from "../../../shared/utils/images";
 import { CreateAlbumModal } from "../screens/settings/albums";
 import { IAlbum, ICreateAlbumForm } from "../types";
 
 export const albumsService = {
-    updateAlbum: async (albumId: number, data: Partial<IAlbum>) => {
+    updateAlbum: async (data: Partial<IAlbum>, albumId: number) => {
         const formData = new FormData();
         if (data.name) {
             formData.append("name", data.name);
@@ -34,7 +34,7 @@ export const albumsService = {
         const formData = new FormData();
         formData.append("name", data.name);
         formData.append("topic_id", String(data.topic_id));
-        console.log(formData)
+        console.log(formData);
         // formData.append("created_at", data.created_at);
 
         const resp = await POST<IAlbum>("/users/albums/", formData);
@@ -42,5 +42,12 @@ export const albumsService = {
             throw new Error(resp.message);
         }
         return resp.data;
+    },
+
+    deleteAlbum: async (albumId: number) => {
+        const resp = await DELETE(`/users/albums/${albumId}`);
+        if (!resp.success) {
+            throw new Error(resp.message);
+        }
     },
 };

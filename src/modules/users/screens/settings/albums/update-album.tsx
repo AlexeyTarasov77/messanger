@@ -4,24 +4,31 @@ import { ICreateAlbumForm } from "../../../types";
 import { AlbumForm } from "./album-form";
 import { AlbumModal } from "./album-modal";
 
-export function UpdateteAlbumModal(modalProps: IModalBaseProps) {
-    const { addAlbum } = useUserCtx();
+export function UpdateteAlbumModal({
+    albumId,
+    ...modalProps
+}: IModalBaseProps & { albumId?: number }) {
+    const { updateAlbum, user } = useUserCtx();
+    const album = user?.profile?.albums.find((album) => album.id === albumId);
     const onSubmit = async (data: ICreateAlbumForm): Promise<string | void> => {
-        console.log(data)
-        return await addAlbum(data);
+        console.log(data);
+        return await updateAlbum(data, album!.id);
     };
     return (
         <AlbumModal {...modalProps} heading="Редагувати альбом">
-            <AlbumForm
-                defaultValues={{
-                    name: "",
-                    topic_id: ""
-                    // created_at: ""
-                }}
-                onSubmit={onSubmit}
-                onSuccess={modalProps.close}
-                close={modalProps.close}
-            />
+            {album && (
+                <AlbumForm
+                    defaultValues={{
+                        name: "",
+                        topic_id: "",
+                        // created_at: ""
+                    }}
+                    onSubmit={onSubmit}
+                    isPartialForm={true}
+                    onSuccess={modalProps.close}
+                    close={modalProps.close}
+                />
+            )}
         </AlbumModal>
     );
 }
