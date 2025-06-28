@@ -1,4 +1,4 @@
-import { GET, POST } from "../../../shared/api/client";
+import { DELETE, GET, POST } from "../../../shared/api/client";
 import { getImageData } from "../../../shared/utils/images";
 import { ChatGroup, ChatGroupWithLastMsg, ChatGroupWithRelations, CreateGroupStep2Data, PersonalChatWithLastMsg, PersonalChatWithRelations } from "../types";
 
@@ -51,6 +51,20 @@ export const chatsService = {
     })
     formData.append("avatar", getImageData(data.avatar) as any)
     const resp = await POST<ChatGroup>("/messanger/chats", formData);
+    if (!resp.success) {
+      throw new Error(resp.message);
+    }
+    return resp.data;
+  },
+  deleteChat: async (chatId: number) => {
+    const resp = await DELETE("/messanger/chats/" + String(chatId));
+    if (!resp.success) {
+      throw new Error(resp.message);
+    }
+    return resp.data;
+  },
+  leaveChat: async (chatId: number) => {
+    const resp = await DELETE("/messanger/chats/leave/" + String(chatId));
     if (!resp.success) {
       throw new Error(resp.message);
     }

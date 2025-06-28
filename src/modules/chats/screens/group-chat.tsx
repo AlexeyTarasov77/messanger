@@ -16,6 +16,7 @@ export function GroupChatScreen() {
   chat.members.forEach(member => chatMembersMap[member.id] = member)
 
   return <BaseChatScreen
+    menuEnabled={true}
     setChat={setChat as any}
     chat={chat}
     getMsgAuthor={(authorId: number) => chatMembersMap[authorId]}
@@ -26,7 +27,8 @@ export function GroupChatScreen() {
           {chat.name}
         </Text>
         <Text className="text-grey">
-          {chat.members.length} учасники
+          {/* amount of chat members including admin */}
+          {chat.members.length + 1} учасники
         </Text>
       </View>
 

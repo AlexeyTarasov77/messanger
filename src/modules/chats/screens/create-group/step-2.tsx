@@ -14,10 +14,12 @@ import { DEFAULT_AVATAR_URL } from "../../../../shared/constants";
 import { pickImage } from "../../../../shared/utils/images";
 import { ModalName, useModal } from "../../../../shared/context/modal";
 import { TextBtn } from "../../../../shared/ui/button";
+import { useRouter } from "expo-router";
 
 
 export function CreateGroupModalStep2({ close, isVisible, selectedMembers: prevSelectedMembers }: IModalBaseProps & { selectedMembers?: IUser[] }) {
   const { open } = useModal()
+  const router = useRouter()
   const [selectedMembers, setSelectedMembers] = useState<IUser[]>([])
   useEffect(() => {
     prevSelectedMembers && setSelectedMembers(prevSelectedMembers)
@@ -27,8 +29,9 @@ export function CreateGroupModalStep2({ close, isVisible, selectedMembers: prevS
   const [error, setError] = useState("")
   const onSubmit = async () => {
     try {
-      await chatsService.createChat({ name: chatName, avatar: chatPhoto, selectedMembers, is_personal_chat: false })
+      const chat = await chatsService.createChat({ name: chatName, avatar: chatPhoto, selectedMembers, is_personal_chat: false })
       close()
+      router.push(`/chats/groups/${chat.id}`)
     } catch (err) {
       setError(getErrorMessage(err))
     }
