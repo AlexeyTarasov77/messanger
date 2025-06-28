@@ -38,6 +38,8 @@ export function PostCard({
       onPress={handlePostEdit}
     />
   ]
+
+  if (!post) return
   return (
     <View className="border border-border rounded-2xl p-2 gap-2 bg-white">
       <View className="flex-row justify-between py-4 px-2">
@@ -67,9 +69,9 @@ export function PostCard({
           {post.content}
         </Text>
         <View className="flex-row flex-wrap font-normal text-sm leading-none gap-1">
-          {post.tags?.map(tag => (
+          {post.tags.map(tag => (
             <Text className="text-text" key={tag.id}>
-              #{tag.name}
+              #{tag?.name}
             </Text>
           ))}
         </View>
