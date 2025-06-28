@@ -24,6 +24,7 @@ export function UpdateGroupModal({ chat, setChat, ...modalProps }: IModalBasePro
       name={ModalName.UPDATE_CHAT}
       onSubmit={onSubmit}
       onCancel={modalProps.close}
+      chatId={chat?.id}
     />
   )
 }

@@ -9,6 +9,7 @@ import { UpdatePostModal } from "../../../../posts/screens/update-post";
 import { CreateAlbumModal } from "../../../../users/screens/settings/albums";
 import { CreateGroupModalStep1, CreateGroupModalStep2 } from "../../../../chats/screens";
 import { UpdateGroupModal } from "../../../../chats/screens/edit-group/update";
+import { AddGroupMemberModal } from "../../../../chats/screens/edit-group/add-member";
 
 function RegisterModalCheck() {
   const { user } = useUserCtx();
@@ -52,6 +53,7 @@ export function ModalRoot() {
     [ModalName.CREATE_CHAT_STEP_1]: CreateGroupModalStep1,
     [ModalName.CREATE_CHAT_STEP_2]: CreateGroupModalStep2,
     [ModalName.CONFIRMATION]: ConfirmationModal,
+    [ModalName.ADD_GROUP_MEMBER]: AddGroupMemberModal
   }
   return <>
     <RegisterModalCheck />

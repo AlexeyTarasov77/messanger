@@ -14,7 +14,7 @@ import { getUserDisplayName } from "../../users/utils";
 import { RoundedButton } from "../../../shared/ui/button/button";
 import { IModalBaseProps } from "../../main/types";
 import clsx from "clsx";
-import { ModalName } from "../../../shared/context/modal";
+import { ModalName, useModal } from "../../../shared/context/modal";
 
 export function GroupCreateOrUpdateModal({
   defaultValues,
@@ -22,13 +22,17 @@ export function GroupCreateOrUpdateModal({
   name,
   isVisible,
   onCancel,
+  chatId,
   close
 }: {
   defaultValues?: CreateGroupStep2Data;
   onSubmit: (data: CreateGroupStep2Data) => Promise<string | void>;
   onCancel?: () => void;
-  name: ModalName.UPDATE_CHAT | ModalName.CREATE_CHAT_STEP_2
+  name: ModalName.UPDATE_CHAT | ModalName.CREATE_CHAT_STEP_2;
+  chatId?: number
 } & IModalBaseProps) {
+  if (name === ModalName.UPDATE_CHAT && isVisible && !chatId) throw new Error("Invalid GroupCreateOrUpdateModal invocation! chatId must be provided for update modal")
+  const { open } = useModal()
   const onFormSubmit = async (data: CreateGroupStep2Data) => {
     const errMsg = await onSubmit(data);
     if (errMsg) {
@@ -37,7 +41,7 @@ export function GroupCreateOrUpdateModal({
   };
   const [selectedMembers, setSelectedMembers] = useState<IUser[]>([])
   const [chatName, setChatName] = useState<string>("")
-  const [chatAvatar, setChatAvatar] = useState<string>("")
+  const [chatAvatar, setChatAvatar] = useState<string | undefined>()
   useEffect(() => {
     if (!defaultValues) return
     setSelectedMembers(defaultValues.selectedMembers)
@@ -89,8 +93,10 @@ export function GroupCreateOrUpdateModal({
             {name === ModalName.UPDATE_CHAT ?
               <View className="flex-row justify-between">
                 <Text className="text-lg">Учасники</Text>
-                {/* TODO: Open 'add member' modal on button press */}
-                <TextBtn label="Додайте учасника" Icon={ICONS.PlusIcon} />
+                <TextBtn onPress={() => {
+                  close()
+                  open({ name: ModalName.ADD_GROUP_MEMBER, props: { chatId } })
+                }} label="Додайте учасника" Icon={ICONS.PlusIcon} />
               </View>
               : <Text className="text-lg">Учасники</Text>
             }
