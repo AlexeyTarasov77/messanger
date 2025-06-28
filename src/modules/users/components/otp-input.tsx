@@ -51,7 +51,7 @@ export function OTPInput({
           maxLength: 1,
         }}
         render={({ field }) => (
-          <Input
+          <Input.InputOtp
             placeholder="___"
             onChange={field.onChange}
             onChangeText={field.onChange}

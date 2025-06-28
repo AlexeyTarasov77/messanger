@@ -4,7 +4,6 @@ import { ICONS } from "../icons";
 import { useState } from "react";
 import { renderError } from "../../utils/errors";
 
-
 export function Input({
     label,
     err,
@@ -45,6 +44,24 @@ export function Input({
         </View>
     );
 }
+
+function InputOpt(props: IInputProps) {
+    const { err, className } = props;
+    return (
+        <View className="">
+            <View className="flex-row gap-1 items-center rounded-2xl px-2 border border-grey">
+                <TextInput
+                    placeholderTextColor="#81818D"
+                    className={`${className}`}
+                    {...props}
+                />
+            </View>
+            {renderError(err)}
+        </View>
+    );
+}
+
+Input.InputOtp = InputOpt
 
 function InputSearch(props: Omit<IInputProps, "iconLeft">) {
     const { err } = props;
