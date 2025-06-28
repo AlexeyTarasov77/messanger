@@ -1,6 +1,6 @@
-import { DELETE, GET, POST } from "../../../shared/api/client";
+import { DELETE, GET, PATCH, POST } from "../../../shared/api/client";
 import { getImageData } from "../../../shared/utils/images";
-import { ChatGroup, ChatGroupWithLastMsg, ChatGroupWithRelations, CreateGroupStep2Data, PersonalChatWithLastMsg, PersonalChatWithRelations } from "../types";
+import { ChatGroup, ChatGroupWithLastMsg, ChatGroupWithMembers, ChatGroupWithRelations, CreateGroupStep2Data, PersonalChatWithLastMsg, PersonalChatWithRelations } from "../types";
 
 export const chatsService = {
   listGroupChats: async () => {
@@ -66,6 +66,25 @@ export const chatsService = {
   },
   leaveChat: async (chatId: number) => {
     const resp = await DELETE("/messanger/chats/leave/" + String(chatId));
+    if (!resp.success) {
+      throw new Error(resp.message);
+    }
+    return resp.data;
+  },
+  updateChat: async (data: Partial<ChatGroupWithMembers>, chatId: number) => {
+    const formData = new FormData()
+    if (data.name) {
+      formData.append("name", data.name)
+    }
+    if (data.members) {
+      data.members.forEach(member => {
+        formData.append("membersIds", String(member.id))
+      })
+    }
+    if (data.avatar) {
+      formData.append("avatar", getImageData(data.avatar) as any)
+    }
+    const resp = await PATCH<ChatGroup>("/messanger/chats/" + String(chatId), formData);
     if (!resp.success) {
       throw new Error(resp.message);
     }

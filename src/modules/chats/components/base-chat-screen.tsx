@@ -87,7 +87,7 @@ export function BaseChatScreen({ chat, setChat, chatInfo, getMsgAuthor, menuEnab
     <MenuBtn
       Icon={ICONS.PenIcon}
       label="Редагувати группу"
-      onPress={() => open({ name: ModalName.UPDATE_CHAT, props: { chat } })}
+      onPress={() => open({ name: ModalName.UPDATE_CHAT, props: { chat, setChat } })}
     />,
     <MenuBtn Icon={ICONS.BinIcon} label="Видалити чат" onPress={deleteChat} />
   ) : menuButtons.push(<MenuBtn Icon={ICONS.LogOutIcon} label="Покинути группу" onPress={leaveChat} />)
