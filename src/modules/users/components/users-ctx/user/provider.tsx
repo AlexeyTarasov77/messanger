@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import {
     IAlbum,
+    IAlbumTopic,
     ICreateAlbumForm,
     ILoginForm,
     IRegisterForm,
@@ -11,7 +12,7 @@ import { authService, usersService } from "../../../services";
 import { ICreatePostForm, IPost } from "../../../../posts/types";
 import { postsService } from "../../../../posts/services";
 import { getErrorMessage } from "../../../../../shared/utils/errors";
-import { UserCtx } from "./context";
+import { CreateAlbumPayload, UserCtx } from "./context";
 import { albumsService } from "../../../services/albums";
 
 export function UsersProvider({ children }: { children: ReactNode }) {
@@ -121,17 +122,18 @@ export function UsersProvider({ children }: { children: ReactNode }) {
         }
     };
 
-    const addAlbum = async (data: ICreateAlbumForm): Promise<string | void> => {
+    const addAlbum = async (data: CreateAlbumPayload): Promise<string | void> => {
         if (!user) {
             return "Unauthorized";
         }
         try {
             setIsLoading(true);
-            const albumPartial = await albumsService.createAlbum(data);
+            const albumPartial = await albumsService.createAlbum({ name: data.name, topic_id: data.topic.id.toString() });
             const album: IAlbum = {
                 ...data,
                 ...albumPartial,
             };
+            console.log("NEW ALBUM IN CONTEXT", album)
             setUser({
                 ...user,
                 profile: {
@@ -147,7 +149,7 @@ export function UsersProvider({ children }: { children: ReactNode }) {
     };
 
     const updateAlbum = async (
-        data: Partial<ICreateAlbumForm>,
+        data: Partial<CreateAlbumPayload>,
         albumId: number
     ): Promise<string | void> => {
         if (!user) {
@@ -163,6 +165,9 @@ export function UsersProvider({ children }: { children: ReactNode }) {
                 ...oldAlbum,
                 ...updatedAlbum,
             };
+            if (data.topic) {
+                newAlbum.topic = data.topic
+            }
             setUser({
                 ...user,
                 profile: {

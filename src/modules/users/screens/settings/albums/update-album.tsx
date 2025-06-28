@@ -1,6 +1,6 @@
 import { IModalBaseProps } from "../../../../main/types";
 import { useUserCtx } from "../../../components/users-ctx";
-import { ICreateAlbumForm } from "../../../types";
+import { CreateAlbumPayload } from "../../../components/users-ctx/user/context";
 import { AlbumForm } from "./album-form";
 import { AlbumModal } from "./album-modal";
 
@@ -10,8 +10,7 @@ export function UpdateteAlbumModal({
 }: IModalBaseProps & { albumId?: number }) {
     const { updateAlbum, user } = useUserCtx();
     const album = user?.profile?.albums.find((album) => album.id === albumId);
-    const onSubmit = async (data: ICreateAlbumForm): Promise<string | void> => {
-        console.log(data);
+    const onSubmit = async (data: Partial<CreateAlbumPayload>): Promise<string | void> => {
         return await updateAlbum(data, album!.id);
     };
     return (
@@ -19,10 +18,8 @@ export function UpdateteAlbumModal({
             {album && (
                 <AlbumForm
                     defaultValues={{
-                        ...album
-                        // name: "",
-                        // topic_id: "",
-                        // created_at: ""
+                        ...album,
+                        topic_id: album.topic.id.toString()
                     }}
                     onSubmit={onSubmit}
                     isPartialForm={true}

@@ -1,6 +1,5 @@
 import { DELETE, PATCH, POST } from "../../../shared/api/client";
 import { buildImageUrl, getImageData } from "../../../shared/utils/images";
-import { CreateAlbumModal } from "../screens/settings/albums";
 import { IAlbum, ICreateAlbumForm } from "../types";
 
 export const albumsService = {
@@ -31,13 +30,7 @@ export const albumsService = {
     },
 
     createAlbum: async (data: ICreateAlbumForm) => {
-        const formData = new FormData();
-        formData.append("name", data.name);
-        formData.append("topic_id", String(data.topic_id));
-        console.log(formData);
-        // formData.append("created_at", data.created_at);
-
-        const resp = await POST<IAlbum>("/users/albums/", formData);
+        const resp = await POST<IAlbum>("/users/albums/", data);
         if (!resp.success) {
             throw new Error(resp.message);
         }

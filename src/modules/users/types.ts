@@ -45,10 +45,15 @@ export interface IUser {
     };
 }
 
+export interface IAlbumTopic {
+    id: number;
+    name: string
+}
+
 export interface IAlbum {
     id: number;
     name: string;
-    topic: { id: number; name: string };
+    topic: IAlbumTopic;
     created_at: string;
     images?: { image: MediaImage }[];
     preview_image?: string;

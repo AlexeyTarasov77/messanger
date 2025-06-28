@@ -1,10 +1,12 @@
-import { Controller, useForm, UseFormProps } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { ICreateAlbumForm } from "../../../types";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Input } from "../../../../../shared/ui/input";
 import { Picker } from "@react-native-picker/picker";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTags } from "../../../../posts/hooks/use-tags";
+import { renderError } from "../../../../../shared/utils/errors";
+import { CreateAlbumPayload } from "../../../components/users-ctx/user/context";
 
 export function AlbumForm({
     defaultValues,
@@ -13,24 +15,27 @@ export function AlbumForm({
     onSuccess,
     close,
 }: {
-    defaultValues: UseFormProps<ICreateAlbumForm>["defaultValues"];
-    onSubmit: (data: ICreateAlbumForm) => Promise<string | void>;
+    defaultValues?: ICreateAlbumForm;
+    onSubmit: (data: CreateAlbumPayload) => Promise<string | void>;
     isPartialForm?: boolean;
     onSuccess?: () => void;
     close: () => void;
 }) {
+    const { tags } = useTags();
+
     const {
         handleSubmit,
         control,
         setError,
+        setValue,
         formState: { errors },
     } = useForm<ICreateAlbumForm>({ defaultValues });
-
-    const [selectedTopic, setSelectedTopic] = useState();
-    const { tags } = useTags();
-
+    useEffect(() => {
+        if (!tags.length || defaultValues?.topic_id) return
+        setValue("topic_id", tags[0].id.toString())
+    }, [tags])
     const onFormSubmit = async (data: ICreateAlbumForm) => {
-        const errMsg = await onSubmit(data);
+        const errMsg = await onSubmit({ name: data.name, topic: tags.find(tag => tag.id == Number(data.topic_id))! })
         if (errMsg) {
             return setError("root", { message: errMsg });
         }
@@ -149,6 +154,7 @@ export function AlbumForm({
                         );
                     }}
                 /> */}
+                {renderError(errors.root)}
                 <View className="w-full flex-row justify-end gap-2 pb-8 pr-2 mt-12">
                     <TouchableOpacity
                         onPress={close}
