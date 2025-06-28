@@ -4,28 +4,17 @@ import {
     View,
 } from "react-native";
 import { useUserCtx } from "../../users/components/users-ctx";
-import { useEffect, useState } from "react";
-import { PersonalChatWithRelations } from "../types";
-import { chatsService } from "../services/chats";
 import { UserAvatar } from "../../users/components/avatar";
 import { BaseChatScreen } from "../components/base-chat-screen";
+import { usePersonalChat } from "../hooks/use-chat";
+import { Loader } from "../../../shared/ui/loader/loader";
 
 export function ChatScreen() {
-    const [chat, setChat] = useState<PersonalChatWithRelations>();
     const { id } = useLocalSearchParams();
     const { user } = useUserCtx()
-    useEffect(() => {
-        if (!user) return;
-        const f = async () => {
-            const chat = await chatsService.getPersonalChat(
-                Number(id),
-                user!.id
-            );
-            setChat(chat);
-        };
-        f();
-    }, [user]);
+    const { chat, setChat, isLoading } = usePersonalChat(Number(id))
     if (!chat || !user) return
+    if (isLoading) return <Loader />
     return <BaseChatScreen
         setChat={setChat as any}
         chat={chat}

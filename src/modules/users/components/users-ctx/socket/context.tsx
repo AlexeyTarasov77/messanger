@@ -3,6 +3,7 @@ import { io, Socket } from "socket.io-client";
 
 interface ISocketCtx {
 	socket: Socket | null;
+	checkUserOnline: (userId: number) => boolean;
 }
 
 export const SocketCtx = createContext<ISocketCtx | null>(null);

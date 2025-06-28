@@ -9,8 +9,7 @@ export function useGroupChats() {
     const f = async () => {
       setIsLoading(true)
       try {
-        let chats: ChatGroupWithLastMsg[]
-        chats = await chatsService.listGroupChats()
+        const chats = await chatsService.listGroupChats()
         setChats(chats)
       } finally {
         setIsLoading(false)
@@ -28,8 +27,7 @@ export function usePersonalChats() {
     const f = async () => {
       setIsLoading(true)
       try {
-        let chats: PersonalChatWithLastMsg[]
-        chats = await chatsService.listPersonalChats()
+        const chats = await chatsService.listPersonalChats()
         setChats(chats)
       } finally {
         setIsLoading(false)

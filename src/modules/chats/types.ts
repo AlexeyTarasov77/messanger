@@ -27,12 +27,6 @@ export interface IMessageCard {
   time: string;
 }
 
-export interface ICreateGroupForm {
-  name: string;
-  users: IUser[];
-  avatarUrl?: string;
-  media: MediaImage[];
-}
 
 
 export interface ChatGroup {
@@ -47,11 +41,6 @@ export interface PersonalChatWithLastMsg extends ChatGroupWithLastMsg {
   withUser: IUser
 }
 
-export interface ChatGroupMember {
-  id: number;
-  chatgroup_id: number;
-  profile_id: number;
-}
 
 export interface ChatMessage {
   id: number;
@@ -78,17 +67,13 @@ export interface PersonalChatWithRelations extends ChatGroupWithMessages {
 }
 
 export interface ChatGroupWithMembers extends ChatGroup {
-  members: ChatGroupMember[];
+  members: IUser[];
 }
 
 export interface ChatGroupWithMessages extends ChatGroup {
   messages: ChatMessage[];
 }
 
-export interface ChatGroupMemberWithRelations extends ChatGroupMember {
-  chatgroup: ChatGroup;
-  profile: IUserProfile;
-}
 
 export interface ChatMessageWithRelations extends ChatMessage {
   author: IUser;
@@ -106,5 +91,5 @@ export interface CreateGroupStep1Data {
 
 export interface CreateGroupStep2Data extends CreateGroupStep1Data {
   name: string;
-  avatar: string;
+  avatar?: string;
 }

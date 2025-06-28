@@ -1,6 +1,6 @@
-import { GET, POST } from "../../../shared/api/client";
+import { DELETE, GET, PATCH, POST } from "../../../shared/api/client";
 import { getImageData } from "../../../shared/utils/images";
-import { ChatGroup, ChatGroupWithLastMsg, ChatGroupWithRelations, CreateGroupStep2Data, PersonalChatWithLastMsg, PersonalChatWithRelations } from "../types";
+import { ChatGroup, ChatGroupWithLastMsg, ChatGroupWithMembers, ChatGroupWithRelations, CreateGroupStep2Data, PersonalChatWithLastMsg, PersonalChatWithRelations } from "../types";
 
 export const chatsService = {
   listGroupChats: async () => {
@@ -17,11 +17,12 @@ export const chatsService = {
     }
     return resp.data;
   },
-  getChat: async (chatId: number) => {
+  getGroupChat: async (chatId: number) => {
     const resp = await GET<ChatGroupWithRelations>("/messanger/chats/" + String(chatId));
     if (!resp.success) {
       throw new Error(resp.message);
     }
+    resp.data.members.push(resp.data.admin) // admin is also member
     return resp.data;
   },
   getPersonalChat: async (chatId: number, currUserId: number): Promise<PersonalChatWithRelations> => {
@@ -49,8 +50,43 @@ export const chatsService = {
     data.selectedMembers.forEach(member => {
       formData.append("membersIds", String(member.id))
     })
-    formData.append("avatar", getImageData(data.avatar) as any)
+    if (data.avatar) {
+      formData.append("avatar", getImageData(data.avatar) as any)
+    }
     const resp = await POST<ChatGroup>("/messanger/chats", formData);
+    if (!resp.success) {
+      throw new Error(resp.message);
+    }
+    return resp.data;
+  },
+  deleteChat: async (chatId: number) => {
+    const resp = await DELETE("/messanger/chats/" + String(chatId));
+    if (!resp.success) {
+      throw new Error(resp.message);
+    }
+    return resp.data;
+  },
+  leaveChat: async (chatId: number) => {
+    const resp = await DELETE("/messanger/chats/leave/" + String(chatId));
+    if (!resp.success) {
+      throw new Error(resp.message);
+    }
+    return resp.data;
+  },
+  updateChat: async (data: Partial<ChatGroupWithMembers>, chatId: number) => {
+    const formData = new FormData()
+    if (data.name) {
+      formData.append("name", data.name)
+    }
+    if (data.members) {
+      data.members.forEach(member => {
+        formData.append("membersIds", String(member.id))
+      })
+    }
+    if (data.avatar) {
+      formData.append("avatar", getImageData(data.avatar) as any)
+    }
+    const resp = await PATCH<ChatGroup>("/messanger/chats/" + String(chatId), formData);
     if (!resp.success) {
       throw new Error(resp.message);
     }

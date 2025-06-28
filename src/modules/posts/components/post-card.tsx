@@ -7,7 +7,7 @@ import { UserSignature } from "../../users/components/sig";
 import { useState } from "react";
 import { Menu, MenuBtn } from "../../../shared/ui/menu";
 import { buildImageUrl } from "../../../shared/utils/images";
-import { useUserCtx } from "../../users/components/users-ctx";
+import { useSocketCtx, useUserCtx } from "../../users/components/users-ctx";
 import { ModalName, useModal } from "../../../shared/context/modal";
 
 export function PostCard({
@@ -17,6 +17,7 @@ export function PostCard({
   post: IPostWithAuthor;
   menuEnabled: boolean;
 }) {
+  const { checkUserOnline } = useSocketCtx()
   const [menuOpened, setMenuOpened] = useState(false);
   const { removePost } = useUserCtx()
   const { open } = useModal()
@@ -45,7 +46,7 @@ export function PostCard({
       <View className="flex-row justify-between py-4 px-2">
         <View>
           <View className="flex-row items-center gap-4">
-            <UserAvatar user={{ profile: post.author, ...post.author.user }} width={12} height={12} className="w-12 h-12" />
+            <UserAvatar user={{ profile: post.author, ...post.author.user }} isUserOnline={checkUserOnline(post.author.user.id)} width={12} height={12} className="w-12 h-12" />
             <View className="font-medium text-sm">
               <Text>{getUserDisplayName(post.author.user)}</Text>
             </View>

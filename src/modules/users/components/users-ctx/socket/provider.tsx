@@ -7,6 +7,7 @@ import { useAuthCtx } from "../auth/context";
 
 
 export function SocketProvider({ children }: { children: ReactNode }) {
+    const [onlineUsersIds, setOnlineUsersIds] = useState<number[]>([])
     const [socket, setSocket] = useState<Socket | null>(null);
     const { isAuthenticated } = useAuthCtx()
     const [token, setToken] = useState<string | null>(null)
@@ -25,14 +26,26 @@ export function SocketProvider({ children }: { children: ReactNode }) {
         newSocket.on("disconnect", () => {
             console.log("Socket disconnected");
         });
+        newSocket.on("listOnlineUsers", (data: { usersIds: number[] }) => {
+            setOnlineUsersIds(data.usersIds)
+        })
+        newSocket.on("connectedUser", (data: { userId: number }) => {
+            console.log("NEW USER CONNECTED", data.userId)
+            setOnlineUsersIds(prev => [...prev, data.userId])
+        })
+        newSocket.on("disconnectedUser", (data: { userId: number }) => {
+            console.log("USER DISCONNECTED", data.userId)
+            setOnlineUsersIds(prev => prev.filter(connectedId => connectedId !== data.userId))
+        })
         setSocket(newSocket);
         return () => {
             newSocket?.disconnect();
             setSocket(null);
         };
     }, [isAuthenticated, token]);
+    console.log("ONLINE USERS", onlineUsersIds)
 
     return (
-        <SocketCtx.Provider value={{ socket }}>{children}</SocketCtx.Provider>
+        <SocketCtx.Provider value={{ socket, checkUserOnline: (userId: number) => onlineUsersIds.includes(userId) }}>{children}</SocketCtx.Provider>
     );
 }

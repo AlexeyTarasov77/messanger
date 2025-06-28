@@ -6,6 +6,7 @@ import { formatDate } from "../../../shared/utils/dates";
 import { DEFAULT_AVATAR_URL } from "../../../shared/constants";
 import { IUser } from "../../users/types";
 import { UserAvatar } from "../../users/components/avatar";
+import { useSocketCtx } from "../../users/components/users-ctx";
 
 export function ChatCard({
     chat,
@@ -14,16 +15,17 @@ export function ChatCard({
     chat: ChatGroupWithLastMsg;
     user?: IUser;
 }) {
+    const { checkUserOnline } = useSocketCtx()
     const router = useRouter();
     return (
         <TouchableOpacity
             className="flex-row items-center gap-4"
             onPress={() => {
-                router.push(`/chats/groups/${chat.id}`);
+                router.push(chat.is_personal_chat ? `/chats/${chat.id}` : `/chats/groups/${chat.id}`);
             }}
         >
             {user ? (
-                <UserAvatar className="w-12 h-12" user={user} />
+                <UserAvatar isUserOnline={checkUserOnline(user.id)} className="w-12 h-12" user={user} />
             ) : (
                 <View>
                     <Image
@@ -38,7 +40,9 @@ export function ChatCard({
                 </Text>
                 {chat.lastMessage &&
                     <Text className="text-sm text-gray-600" numberOfLines={1}>
-                        {getUserDisplayName(chat.lastMessage.author)}:{" "}
+                        {!chat.is_personal_chat &&
+                            getUserDisplayName(chat.lastMessage.author) + " "
+                        }
                         {chat.lastMessage.content}
                     </Text>
                 }

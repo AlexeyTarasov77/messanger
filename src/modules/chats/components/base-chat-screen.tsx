@@ -12,17 +12,21 @@ import { ICONS } from "../../../shared/ui/icons";
 import { Input } from "../../../shared/ui/input";
 import { useSocketCtx, useUserCtx } from "../../users/components/users-ctx";
 import { ReactNode, useEffect, useRef, useState } from "react";
-import { ChatGroupWithMessages } from "../types";
+import { ChatGroupWithMessages, ChatMessage } from "../types";
 import { Loader } from "../../../shared/ui/loader/loader";
 import { MessageCard } from "../components";
 import { IUser } from "../../users/types";
 import { pickImage } from "../../../shared/utils/images";
+import { Menu, MenuBtn } from "../../../shared/ui/menu";
+import { ModalName, useModal } from "../../../shared/context/modal";
+import { chatsService } from "../services/chats";
 
 interface BaseChatProps {
   chat: ChatGroupWithMessages;
   setChat: React.Dispatch<React.SetStateAction<ChatGroupWithMessages | undefined>>;
   chatInfo: ReactNode;
   getMsgAuthor: (authorId: number) => IUser
+  menuEnabled?: boolean
 }
 
 type MessageSendPayload = {
@@ -30,8 +34,10 @@ type MessageSendPayload = {
   attached_image?: string;
 }
 
-export function BaseChatScreen({ chat, setChat, chatInfo, getMsgAuthor }: BaseChatProps) {
+export function BaseChatScreen({ chat, setChat, chatInfo, getMsgAuthor, menuEnabled }: BaseChatProps) {
+  const { open } = useModal()
   const router = useRouter();
+  const [menuOpened, setMenuOpened] = useState(false)
   const { socket } = useSocketCtx();
   const { id } = useLocalSearchParams();
   const { user } = useUserCtx();
@@ -54,7 +60,7 @@ export function BaseChatScreen({ chat, setChat, chatInfo, getMsgAuthor }: BaseCh
     if (!socket) return;
     socket.emit("joinChat", { chat_group_id: +id });
 
-    socket.on("newMessage", (data) => {
+    socket.on("newMessage", (data: ChatMessage) => {
       setChat((prev) => {
         if (!prev) return prev;
         return {
@@ -66,6 +72,25 @@ export function BaseChatScreen({ chat, setChat, chatInfo, getMsgAuthor }: BaseCh
     });
   }, [socket]);
   if (!chat || !user) return <Loader />;
+  const deleteChat = async () => {
+    await chatsService.deleteChat(chat.id)
+    router.replace("/chats/groups/group-messages")
+  }
+  const leaveChat = async () => {
+    await chatsService.leaveChat(chat.id)
+    router.replace("/chats/groups/group-messages")
+  }
+  const menuButtons = [
+    <MenuBtn Icon={ICONS.PostsIcon} label="Медіа" />
+  ]
+  user.id === chat.admin_id ? menuButtons.push(
+    <MenuBtn
+      Icon={ICONS.PenIcon}
+      label="Редагувати группу"
+      onPress={() => open({ name: ModalName.UPDATE_CHAT, props: { chat, setChat } })}
+    />,
+    <MenuBtn Icon={ICONS.BinIcon} label="Видалити чат" onPress={deleteChat} />
+  ) : menuButtons.push(<MenuBtn Icon={ICONS.LogOutIcon} label="Покинути группу" onPress={leaveChat} />)
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -94,8 +119,11 @@ export function BaseChatScreen({ chat, setChat, chatInfo, getMsgAuthor }: BaseCh
               </TouchableOpacity>
               {chatInfo}
             </View>
-            <View className="items-center self-center">
-              <ICONS.PostSettingsIcon width={20} height={20} />
+            <View className="self-center relative">
+              <TouchableOpacity onPress={() => setMenuOpened(!menuOpened)}>
+                <ICONS.PostSettingsIcon height={16} />
+              </TouchableOpacity>
+              {menuEnabled && menuOpened && <Menu buttons={menuButtons} />}
             </View>
           </View>
           <ScrollView className="pb-8 pt-2" ref={messagesBoxRef}>
