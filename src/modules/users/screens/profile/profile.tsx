@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, TouchableOpacity, Alert } from "react-native";
-import { Link, Redirect, useLocalSearchParams } from "expo-router";
+import { Link, Redirect, useLocalSearchParams, useRouter } from "expo-router";
 import { getUserDisplayName } from "../../utils";
 import { UserAvatar } from "../../components/avatar";
 import { ICONS } from "../../../../shared/ui/icons";
@@ -9,20 +9,67 @@ import { PostCard } from "../../../posts/components";
 import { AlbumPreview } from "../../components/album-preview";
 import { useAllFriends } from "../../../friends/hooks/use-all-friends";
 import { useRequests } from "../../../friends/hooks/use-requests";
-import { ModalName } from "../../../../shared/context/modal";
+import { ModalName, useModal } from "../../../../shared/context/modal";
+import { chatsService } from "../../../chats/services/chats";
+import { friendsService, funcButtons } from "../../../friends/services";
+import { useRecommendations } from "../../../friends/hooks/use-recommendations";
+import { useEffect } from "react";
+import { EXCLUDED_RECOMMENDED_USERS_KEY } from "../../../../shared/constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export function Profile() {
+export function Profile({ showAll }: { showAll?: boolean }) {
     const { id } = useLocalSearchParams();
-
+    const router = useRouter();
+    const { open } = useModal();
     const userId = Number(id);
+    const { deleteFriend, declineRequest, acceptRequest } = funcButtons();
+
     const { user, isLoading, error } = useGetUserById(userId);
-    // console.log("Profile posts:", user?.profile.posts);
     console.log(
         "PostCard tags:",
         JSON.stringify(user?.profile.posts.map((post) => post.tags))
     );
     const { allFriends } = useAllFriends();
     const { requests } = useRequests();
+    const { recommendations, setRecommendations } = useRecommendations();
+    useEffect(() => {
+        const func = async () => {
+            const excludedIdsString = await AsyncStorage.getItem(
+                EXCLUDED_RECOMMENDED_USERS_KEY
+            );
+            if (!excludedIdsString) return;
+            const excludedIds = excludedIdsString.split(",");
+            setRecommendations(
+                recommendations.filter(
+                    (user) => !excludedIds.includes(String(user.id))
+                )
+            );
+        };
+        !showAll && !isLoading && func();
+    }, [isLoading, showAll]);
+
+    if (isLoading || !user) return <Loader />;
+    const createFriendRequest = async (toUserId: number) => {
+        try {
+            await friendsService.createFriendRequest(toUserId);
+            setRecommendations(
+                recommendations.filter(
+                    (recommendedUser) => recommendedUser.id !== toUserId
+                )
+            );
+        } catch (err) {
+            console.error(err);
+            Alert.alert("Не вдалося створити заявку. Спробуйте пiзнiше!");
+        }
+    };
+    const removeRecommendedUser = async (id: number) => {
+        setRecommendations(
+            recommendations.filter(
+                (recommendedUser) => recommendedUser.id !== id
+            )
+        );
+        await friendsService.removeRecommendedUser(String(id));
+    };
     if (isLoading) {
         return <Loader />;
     }
@@ -39,10 +86,29 @@ export function Profile() {
     if (isFriend) {
         content = (
             <View className="flex-row justify-between items-center gap-4">
-                <TouchableOpacity className="bg-slive p-2 rounded-[1234]">
+                <TouchableOpacity
+                    onPress={async () => {
+                        const personalChat =
+                            await chatsService.getOrCreatePersonalChat(user.id);
+                        router.push(`/chats/${personalChat.id}`);
+                    }}
+                    className="bg-slive p-2 rounded-[1234]"
+                >
                     <Text className="text-white px-3">Повідомлення</Text>
                 </TouchableOpacity>
-                <TouchableOpacity className="border border-slive p-2 rounded-[1234]">
+                <TouchableOpacity
+                    onPress={() => {
+                        open({
+                            name: ModalName.CONFIRMATION,
+                            props: {
+                                onConfirm: async () =>
+                                    deleteFriend(Number(user.id)),
+                                label: "Ви дійсно хочете видалити користувача?",
+                            },
+                        });
+                    }}
+                    className="border border-slive p-2 rounded-[1234]"
+                >
                     <Text className="text-slive px-3">Видалити</Text>
                 </TouchableOpacity>
             </View>
@@ -50,10 +116,25 @@ export function Profile() {
     } else if (hasRequest) {
         content = (
             <View className="flex-row justify-between items-center gap-4">
-                <TouchableOpacity className="bg-slive p-2 rounded-[1234]">
+                <TouchableOpacity
+                    onPress={() => acceptRequest(Number(user.id))}
+                    className="bg-slive p-2 rounded-[1234]"
+                >
                     <Text className="text-white px-3">Підтвердити</Text>
                 </TouchableOpacity>
-                <TouchableOpacity className="border border-slive p-2 rounded-[1234]">
+                <TouchableOpacity
+                    onPress={() => {
+                        open({
+                            name: ModalName.CONFIRMATION,
+                            props: {
+                                onConfirm: async () =>
+                                    declineRequest(Number(user.id)),
+                                label: "Ви дійсно хочете видалити користувача?",
+                            },
+                        });
+                    }}
+                    className="border border-slive p-2 rounded-[1234]"
+                >
                     <Text className="text-slive px-3">Видалити</Text>
                 </TouchableOpacity>
             </View>
@@ -62,14 +143,29 @@ export function Profile() {
         content = (
             <View className="flex-row justify-between items-center gap-4">
                 <TouchableOpacity
-                    // onPress={async () => await createFriendRequest(recommendedUser.id)}
+                    onPress={async () =>
+                                    await createFriendRequest(
+                                        user.id
+                                    )
+                                }
                     className="flex-row items-center gap-1 bg-slive p-2 rounded-[1234]"
                 >
                     <Text className="text-white text-center px-3">Додати</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    // onPress={async () => await removeRecommendedUser(recommendedUser.id)}
+                    onPress={() => {
+                                    open({
+                                        name: ModalName.CONFIRMATION,
+                                        props: {
+                                            onConfirm: async () =>
+                                                removeRecommendedUser(
+                                                    user.id
+                                                ),
+                                            label: "Ви дійсно хочете видалити користувача?",
+                                        },
+                                    });
+                                }}
                     className="flex-row items-center gap-1 border border-slive p-2 rounded-[1234]"
                 >
                     <Text className="text-slive text-center px-3">
@@ -82,12 +178,7 @@ export function Profile() {
     return (
         <ScrollView className="bg-mainBg h-full">
             <View className="gap-10 py-6 bg-white border-border justify-center items-center">
-                <UserAvatar
-                    user={user}
-                    width={18}
-                    height={18}
-                    className="w-28 h-28"
-                />
+                <UserAvatar user={user} className="w-28 h-28" />
                 <View className="justify-center items-center gap-2 ">
                     <Text className=" text-4xl font-semibold ">
                         {getUserDisplayName(user)}

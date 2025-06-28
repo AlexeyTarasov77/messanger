@@ -20,7 +20,7 @@ export function ContactCard({
     >
       <UserAvatar
         user={contact}
-        showIsOnline={false}
+        // showIsOnline={false}
         className="w-12 h-12"
       />
       <Text className="text-base font-medium">

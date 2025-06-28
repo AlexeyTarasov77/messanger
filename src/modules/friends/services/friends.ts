@@ -71,5 +71,4 @@ export const friendsService = {
     await AsyncStorage.setItem(EXCLUDED_RECOMMENDED_USERS_KEY, [...prevIds, userId].join(","))
   },
 
-  // message: async () => {}
 };

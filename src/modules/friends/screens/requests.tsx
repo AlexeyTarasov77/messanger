@@ -3,40 +3,41 @@ import { FriendCard } from "../components/friend-card";
 import { Card } from "../components/card";
 import { useRequests } from "../hooks/use-requests";
 import { Loader } from "../../../shared/ui/loader/loader";
-import { friendsService } from "../services";
+import { friendsService, funcButtons } from "../services";
 import { useUserCtx } from "../../users/components/users-ctx";
 import { getErrorMessage } from "../../../shared/utils/errors";
 import { ModalName, useModal } from "../../../shared/context/modal";
 
 export function Requests() {
     const { requests, isLoading, setRequests } = useRequests();
+    const {acceptRequest, declineRequest} = funcButtons()
     const { user } = useUserCtx();
     const { open } = useModal();
     if (isLoading || !user) return <Loader />;
 
-    const removeRequest = async (
-        fromUserId: number,
-        action: "accept" | "decline"
-    ) => {
-        try {
-            if (action === "accept") {
-                await friendsService.acceptRequest(fromUserId);
-            } else {
-                await friendsService.declineRequest(fromUserId);
-            }
-        } catch (err) {
-            Alert.alert(getErrorMessage(err));
-            return;
-        }
-        setRequests(
-            requests.filter((fromUser) => Number(fromUser.id) !== fromUserId)
-        );
-    };
+    // const removeRequest = async (
+    //     fromUserId: number,
+    //     action: "accept" | "decline"
+    // ) => {
+    //     try {
+    //         if (action === "accept") {
+    //             await friendsService.acceptRequest(fromUserId);
+    //         } else {
+    //             await friendsService.declineRequest(fromUserId);
+    //         }
+    //     } catch (err) {
+    //         Alert.alert(getErrorMessage(err));
+    //         return;
+    //     }
+    //     setRequests(
+    //         requests.filter((fromUser) => Number(fromUser.id) !== fromUserId)
+    //     );
+    // };
 
-    const acceptRequest = async (fromUserId: number) =>
-        await removeRequest(fromUserId, "accept");
-    const declineRequest = async (fromUserId: number) =>
-        removeRequest(fromUserId, "decline");
+    // const acceptRequest = async (fromUserId: number) =>
+    //     await removeRequest(fromUserId, "accept");
+    // const declineRequest = async (fromUserId: number) =>
+    //     removeRequest(fromUserId, "decline");
 
     return requests && requests.length > 0 ? (
         <Card title={"Запити"} seeAllLink={"/friends/requests"}>

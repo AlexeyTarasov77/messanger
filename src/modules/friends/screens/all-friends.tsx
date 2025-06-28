@@ -4,29 +4,20 @@ import { FriendCard } from "../components/friend-card";
 import { Loader } from "../../../shared/ui/loader/loader";
 import { useAllFriends } from "../hooks/use-all-friends";
 import { useUserCtx } from "../../users/components/users-ctx";
-import { friendsService } from "../services";
+import { friendsService, funcButtons } from "../services";
 import { getErrorMessage } from "../../../shared/utils/errors";
 import { ModalName, useModal } from "../../../shared/context/modal";
 import { useRouter } from "expo-router";
 import { chatsService } from "../../chats/services/chats";
 
 export function AllFriends() {
-    const { allFriends, isLoading, setAllFriends } = useAllFriends();
+    const { allFriends, isLoading } = useAllFriends();
+    const {deleteFriend} = funcButtons()
     const { user } = useUserCtx();
     const router = useRouter()
     const { open } = useModal();
     if (isLoading || !user) return <Loader />;
-    const deleteFriend = async (friendId: number) => {
-        try {
-            await friendsService.deleteFriend(friendId);
-        } catch (err) {
-            console.error(err);
-            return Alert.alert(getErrorMessage(err));
-        }
-        setAllFriends(
-            allFriends.filter((friend) => Number(friend.id) !== friendId)
-        );
-    };
+   
     return allFriends && allFriends.length > 0 ? (
         <Card title={"Всі друзі"} seeAllLink={"/friends/all-friends"}>
             {allFriends.map((friend) => {
