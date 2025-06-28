@@ -42,7 +42,7 @@ export const usersService = {
             formData.append("avatar", getImageData(data.avatar) as any);
         }
 
-        if (data.password){
+        if (data.password) {
             formData.append("password", data.password)
         }
         const resp = await PATCH<IUser>("/users/me/update", formData);
