@@ -15,7 +15,7 @@ export function GroupChatScreen() {
   if (isLoading) return <Loader />
   if (!chat) return
   const chatMembersMap: Record<number, IUser> = {}
-  let onlineMembersCount = 0
+  let onlineMembersCount = -1 // set -1 initial value to exclude current user
   chat.members.forEach(member => {
     chatMembersMap[member.id] = member
     if (checkUserOnline(member.id)) {
@@ -34,7 +34,7 @@ export function GroupChatScreen() {
           {chat.name}
         </Text>
         <Text className="text-grey">
-          {chat.members.length} учасники {onlineMembersCount && `, ${onlineMembersCount} в мережі`}
+          {chat.members.length} учасники {onlineMembersCount > 0 ? `, ${onlineMembersCount} в мережі` : ""}
         </Text>
       </View>
 

@@ -1,12 +1,13 @@
-import { Modal } from "react-native";
 import { getErrorMessage } from "../../../../shared/utils/errors";
 import { IModalBaseProps } from "../../../main/types";
 import { GroupCreateOrUpdateModal } from "../../components/group-modal";
 import { chatsService } from "../../services/chats";
 import { ChatGroupWithMembers, CreateGroupStep2Data } from "../../types";
 import { ModalName } from "../../../../shared/context/modal";
+import { useUserCtx } from "../../../users/components/users-ctx";
 
 export function UpdateGroupModal({ chat, setChat, ...modalProps }: IModalBaseProps & { chat?: ChatGroupWithMembers, setChat?: React.Dispatch<React.SetStateAction<ChatGroupWithMembers | null>> }) {
+  const { user } = useUserCtx()
   const onSubmit = async (data: CreateGroupStep2Data) => {
     if (!chat || !setChat) throw new Error("Missing required props!")
     try {
@@ -19,7 +20,7 @@ export function UpdateGroupModal({ chat, setChat, ...modalProps }: IModalBasePro
   };
   return (
     <GroupCreateOrUpdateModal
-      defaultValues={{ selectedMembers: chat?.members || [], name: chat?.name || "", avatar: chat?.avatar || "" }}
+      defaultValues={{ selectedMembers: chat?.members?.filter(member => member.id !== user!.id) || [], name: chat?.name || "", avatar: chat?.avatar || "" }}
       {...modalProps}
       name={ModalName.UPDATE_CHAT}
       onSubmit={onSubmit}
