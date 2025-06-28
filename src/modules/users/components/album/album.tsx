@@ -24,7 +24,6 @@ export function Album({
     const [menuOpened, setMenuOpened] = useState(false);
     const { removeAlbum } = useUserCtx();
     const { open } = useModal();
-
     const handleAlbumEdit = async () => {
         open({ name: ModalName.UPDATE_ALBUM, props: { albumId: album.id } });
     };

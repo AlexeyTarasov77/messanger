@@ -1,6 +1,8 @@
 import { createContext, useContext } from "react";
-import { ICreateAlbumForm, IUser, IUserExtended } from "../../../types";
+import { IAlbumTopic, ICreateAlbumForm, IUser, IUserExtended } from "../../../types";
 import { ICreatePostForm } from "../../../../posts/types";
+
+export type CreateAlbumPayload = { name: string, topic: IAlbumTopic }
 
 interface IUserCtx {
     user: IUserExtended | null;
@@ -12,9 +14,9 @@ interface IUserCtx {
     ) => Promise<string | void>;
     updateUserData: (updatedData: Partial<IUser>) => void;
     removePost: (postId: number) => Promise<string | void>;
-    addAlbum: (data: ICreateAlbumForm) => Promise<string | void>;
+    addAlbum: (data: CreateAlbumPayload) => Promise<string | void>;
     updateAlbum: (
-        data: Partial<ICreateAlbumForm>,
+        data: Partial<CreateAlbumPayload>,
         albumId: number
     ) => Promise<string | void>;
     removeAlbum: (albumId: number) => Promise<string | void>;
