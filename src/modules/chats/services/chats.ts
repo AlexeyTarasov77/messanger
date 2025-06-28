@@ -17,11 +17,12 @@ export const chatsService = {
     }
     return resp.data;
   },
-  getChat: async (chatId: number) => {
+  getGroupChat: async (chatId: number) => {
     const resp = await GET<ChatGroupWithRelations>("/messanger/chats/" + String(chatId));
     if (!resp.success) {
       throw new Error(resp.message);
     }
+    resp.data.members.push(resp.data.admin) // admin is also member
     return resp.data;
   },
   getPersonalChat: async (chatId: number, currUserId: number): Promise<PersonalChatWithRelations> => {
