@@ -112,6 +112,7 @@ export interface IRegisterStepTwo {
     otp4: string;
     otp5: string;
     otp6: string;
+    otp: string
 }
 
 export interface IRegisterStepThree {

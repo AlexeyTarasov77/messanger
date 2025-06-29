@@ -51,18 +51,16 @@ export function Input({
                 </Text>
             )}
             <View
-                className={`flex-row rounded-xl px-2 border items-center ${
-                    disabled ? "border-gray-400" : "border-grey"
-                } `}
+                className={`flex-row rounded-xl px-2 border items-center ${disabled ? "border-gray-400" : "border-grey"
+                    } `}
 
-                // className={`flex-row rounded-xl px-3 py-3 border ${disabled ? "border-gray-400" : "border-grey"} ${className}`}
+            // className={`flex-row rounded-xl px-3 py-3 border ${disabled ? "border-gray-400" : "border-grey"} ${className}`}
             >
                 <TextInput
                     placeholderTextColor="#CDCDCD"
                     {...props}
-                    className={`${className} w-full ${
-                        disabled ? "text-gray-400" : " "
-                    }`}
+                    className={`py-2 ${className} w-full ${disabled ? "text-gray-400" : " "
+                        }`}
                     //   editable={!disabled}
                     readOnly={disabled}
                 />
@@ -143,14 +141,12 @@ function Password(props: Omit<IInputProps, "iconRight">) {
                 </Text>
             )}
             <View
-                className={`flex-row rounded-2xl border border-grey px-2 pl-2 ${
-                    disabled ? "border-gray-400" : "border-grey"
-                }`}
+                className={`flex-row rounded-2xl border border-grey px-2 pl-2 ${disabled ? "border-gray-400" : "border-grey"
+                    }`}
             >
                 <TextInput
-                    className={`${className} w-4/5 ${
-                        disabled ? "text-gray-400" : " "
-                    }`}
+                    className={`${className} w-4/5 ${disabled ? "text-gray-400" : " "
+                        }`}
                     placeholderTextColor="#CDCDCD"
                     secureTextEntry={isHidden}
                     {...props}

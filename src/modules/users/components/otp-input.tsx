@@ -74,10 +74,33 @@ export function OTPInput({
       </View>,
     );
   }
+  console.log(otpInpusPairs)
   return (
     <View className="flex items-center">
-      <View className="flex-row gap-4 pb-8">{otpInpusPairs}</View>
-      {renderError(inputErr)}
+      <Controller
+        control={control}
+        name="otp"
+        rules={{
+          required: {
+            value: true,
+            message: "Confirmation otp is required",
+          },
+          maxLength: 6,
+        }}
+        render={({ field, fieldState }) => (
+          <Input
+            placeholder="Введiть код з пошти"
+            onChange={field.onChange}
+            onChangeText={field.onChange}
+            value={field.value}
+            err={fieldState.error}
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+        )}
+      />
+      {/* <View className="flex-row gap-4 pb-8">{otpInpusPairs}</View> */}
+      {/* {renderError(inputErr)} */}
     </View>
   );
 }

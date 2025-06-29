@@ -21,7 +21,7 @@ export function RegisterStepTwo() {
       defaultValues: otpFieldsDefaults,
     });
   async function onSubmit(data: IRegisterStepTwo) {
-    const otp = collectFullCode(data);
+    const otp = data.otp;
     console.log("OTP:", otp);
     try {
       await authService.register({ ...prevData, otp });
@@ -29,7 +29,7 @@ export function RegisterStepTwo() {
       setError("root", { message: getErrorMessage(err) });
       return;
     }
-    router.replace("/login");
+    router.replace("/");
   }
 
   return (
@@ -53,7 +53,7 @@ export function RegisterStepTwo() {
                 Код підтвердження
               </Text>
             </View>
-            <OTPInput  control={control} errors={formState.errors} />
+            <OTPInput control={control} errors={formState.errors} />
           </View>
           <View className="mb-3">{renderError(formState.errors.root)}</View>
           <View>

@@ -4,7 +4,6 @@ import {
   ILoginForm,
   IRegisterForm,
   IRegisterResponse,
-  IRegisterStepThree,
 } from "../types";
 import { AUTH_TOKEN_KEY } from "../../../shared/constants";
 
