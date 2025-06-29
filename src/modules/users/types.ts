@@ -55,6 +55,7 @@ export interface IAlbum {
     name: string;
     topic: IAlbumTopic;
     created_at: string;
+    updated_at?: string;
     images?: { image: MediaImage }[];
     preview_image?: string;
     shown: boolean;

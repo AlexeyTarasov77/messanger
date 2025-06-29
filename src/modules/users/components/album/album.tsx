@@ -7,7 +7,7 @@ import { buildImageUrl, pickImage } from "../../../../shared/utils/images";
 import { capitalize } from "../../../../shared/utils/base";
 import { albumsService } from "../../services/albums";
 import { getErrorMessage } from "../../../../shared/utils/errors";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UserPhoto } from "../photo";
 import { ModalName, useModal } from "../../../../shared/context/modal";
 import { useUserCtx } from "../users-ctx";

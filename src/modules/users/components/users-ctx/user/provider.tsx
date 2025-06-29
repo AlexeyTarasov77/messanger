@@ -168,6 +168,7 @@ export function UsersProvider({ children }: { children: ReactNode }) {
             if (data.topic) {
                 newAlbum.topic = data.topic
             }
+            newAlbum.updated_at = new Date().getTime().toString()
             setUser({
                 ...user,
                 profile: {
