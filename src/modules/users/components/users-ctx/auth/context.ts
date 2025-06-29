@@ -5,7 +5,7 @@ interface IAuthCtx {
     isLoading: boolean;
     login: (data: ILoginForm) => Promise<string | void>;
     register: (data: IRegisterForm) => Promise<string | void>;
-    logout: () => void;
+    logout: () => Promise<void>;
     isAuthenticated: boolean;
 }
 

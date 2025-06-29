@@ -1,13 +1,10 @@
 import { ScrollView, Text, View } from "react-native";
 import { useUserCtx } from "../../users/components/users-ctx";
 import { PostCard } from "../components";
-import { Redirect } from "expo-router";
 
 export function MyPosts() {
     let { user } = useUserCtx();
-    if (!user) {
-        return <Redirect href="/users/login" />;
-    }
+    if (!user) return
     return (
         <ScrollView className="bg-mainBg pt-4">
             {!user.profile.posts.length && (

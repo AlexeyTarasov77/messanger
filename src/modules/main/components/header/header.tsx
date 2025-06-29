@@ -20,8 +20,6 @@ export function Header() {
   const { user } = useUserCtx();
   const { logout } = useAuthCtx()
   const { open: openModal } = useModal()
-  // const { open: openPostModal } = useModal();
-  // const { open: openGroupModal } = useCreateGroupModal();
   const [createActionCallback, setCreateActionCallback] = useState(() => () => openModal({ name: ModalName.CREATE_POST }))
   const currPath = usePathname()
   useEffect(() => {
@@ -36,17 +34,16 @@ export function Header() {
       setShowedActions(defaultHeaderActions.filter(showedAction => showedAction !== HeaderAction.SETTINGS))
     } else if (settingsPathRegexp.test(currPath)) {
       setCreateActionCallback(() => () => openModal({ name: ModalName.CREATE_ALBUM }))
-    //   setShowedActions(defaultHeaderActions.filter(showedAction => showedAction !== HeaderAction.SETTINGS))
+      //   setShowedActions(defaultHeaderActions.filter(showedAction => showedAction !== HeaderAction.SETTINGS))
       setShowedActions(defaultHeaderActions)
-    
     } else {
       setShowedActions(defaultHeaderActions)
       setCreateActionCallback(() => () => openModal({ name: ModalName.CREATE_POST }))
     }
   }, [currPath])
 
-  const onLogout = () => {
-    logout();
+  const onLogout = async () => {
+    await logout();
     router.navigate("/users/login");
   };
   return (

@@ -32,31 +32,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (data: ILoginForm) => {
     try {
-      setIsLoading(true);
-      const token = await authService.login(data);
-      setToken(token);
+      const newToken = await authService.login(data);
+      setToken(newToken);
     } catch (err) {
       return getErrorMessage(err);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   const register = async (data: IRegisterForm) => {
     try {
-      setIsLoading(true);
       const resp = await authService.register(data);
       setToken(resp.token);
     } catch (err) {
       return getErrorMessage(err);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   const logout = async () => {
     await authService.logOut();
     setToken("");
+    setIsAuthenticated(false)
   };
 
   return (

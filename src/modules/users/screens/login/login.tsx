@@ -4,7 +4,7 @@ import { Input } from "../../../../shared/ui/input/input";
 import { Link, useRouter } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { ILoginForm } from "../../types";
-import { useAuthCtx, useUserCtx } from "../../components/users-ctx";
+import { useAuthCtx } from "../../components/users-ctx";
 import { renderError } from "../../../../shared/utils/errors";
 
 export function Login() {

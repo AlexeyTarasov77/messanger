@@ -1,26 +1,24 @@
 import { ReactNode, useEffect, useState } from "react";
 import {
     IAlbum,
-    IAlbumTopic,
-    ICreateAlbumForm,
-    ILoginForm,
-    IRegisterForm,
     IUser,
     IUserExtended,
 } from "../../../types";
-import { authService, usersService } from "../../../services";
+import { usersService } from "../../../services";
 import { ICreatePostForm, IPost } from "../../../../posts/types";
 import { postsService } from "../../../../posts/services";
 import { getErrorMessage } from "../../../../../shared/utils/errors";
 import { CreateAlbumPayload, UserCtx } from "./context";
 import { albumsService } from "../../../services/albums";
+import { useAuthCtx } from "../auth/context";
 
 export function UsersProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<IUserExtended | null>(null);
-    const [token, setToken] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const { isAuthenticated } = useAuthCtx()
 
     useEffect(() => {
+        if (!isAuthenticated) return
         const fetchUser = async () => {
             try {
                 setIsLoading(true);
@@ -35,7 +33,7 @@ export function UsersProvider({ children }: { children: ReactNode }) {
         };
 
         fetchUser();
-    }, [token]);
+    }, [isAuthenticated]);
 
     const updatePost = async (
         data: Partial<ICreatePostForm>,
