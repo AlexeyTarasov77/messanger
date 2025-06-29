@@ -4,37 +4,6 @@ import { ICONS } from "../icons";
 import { useState } from "react";
 import { renderError } from "../../utils/errors";
 
-// export function Input({
-//   label,
-//   err,
-//   iconRight,
-//   disabled,
-//   className,
-//   ...props
-// }: IInputProps) {
-//   return (
-//     <View>
-//       {!!label && (
-//         <Text className={disabled ? "text-gray-400" : "text-black"}>
-//           {label}
-//         </Text>
-//       )}
-//       <View
-//         className={`flex-row rounded-xl px-3 py-3 border ${disabled ? "border-gray-400" : "border-grey"} ${className}`}
-//       >
-//         <TextInput
-//           placeholderTextColor="#CDCDCD"
-//           {...props}
-//           className={`w-full  ${disabled ? "text-gray-400" : " "} `}
-//           readOnly={disabled}
-//         />
-//         {iconRight && <View style={{ marginLeft: "auto" }}>{iconRight}</View>}
-//       </View>
-//       {renderError(err)}
-//     </View>
-//   );
-// }
-
 export function Input({
     label,
     err,
@@ -74,43 +43,23 @@ export function Input({
     );
 }
 
-// import { TextInput, View,TouchableWithoutFeedback, Text } from "react-native";
-// // import { styled } from "nativewind";
+function InputOpt(props: IInputProps) {
+    const { err, className } = props;
+    return (
+        <View className="">
+            <View className="flex-row gap-1 items-center rounded-2xl px-2 border border-grey">
+                <TextInput
+                    placeholderTextColor="#81818D"
+                    className={`${className}`}
+                    {...props}
+                />
+            </View>
+            {renderError(err)}
+        </View>
+    );
+}
 
-// export function Input({
-//   label,
-//   err,
-//   iconRight,
-//   disabled,
-//   className,
-//   ...props
-// }: IInputProps) {
-//   return (
-//     <View className="w-full">
-//       {!!label && (
-//         <Text className={`mb-1 ${disabled ? "text-gray-400" : "text-black"}`}>
-//           {label}
-//         </Text>
-//       )}
-//       <View
-//         className={`flex-row items-center rounded-xl px-3 py-3 border ${
-//           disabled ? "border-gray-400" : "border-grey"
-//         } ${className}`}
-//       >
-//         <TextInput
-//           className={`flex-1 text-base ${
-//             disabled ? "text-gray-400" : "text-black"
-//           }`}
-//           placeholderTextColor="#CDCDCD"
-//           editable={!disabled}
-//           {...props}
-//         />
-//         {iconRight && <View className="ml-auto">{iconRight}</View>}
-//       </View>
-//       {renderError(err)}
-//     </View>
-//   );
-// }
+Input.InputOtp = InputOpt
 
 function InputSearch(props: Omit<IInputProps, "iconLeft">) {
     const { err } = props;

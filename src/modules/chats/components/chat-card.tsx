@@ -7,6 +7,7 @@ import { DEFAULT_AVATAR_URL } from "../../../shared/constants";
 import { IUser } from "../../users/types";
 import { UserAvatar } from "../../users/components/avatar";
 import { useSocketCtx } from "../../users/components/users-ctx";
+import { DEFAULT_ICONS } from "../../../shared/ui/icons/icons";
 
 export function ChatCard({
     chat,
@@ -15,43 +16,56 @@ export function ChatCard({
     chat: ChatGroupWithLastMsg;
     user?: IUser;
 }) {
-    const { checkUserOnline } = useSocketCtx()
+    const { checkUserOnline } = useSocketCtx();
     const router = useRouter();
     return (
         <TouchableOpacity
             className="flex-row items-center gap-4"
             onPress={() => {
-                router.push(chat.is_personal_chat ? `/chats/${chat.id}` : `/chats/groups/${chat.id}`);
+                router.push(
+                    chat.is_personal_chat
+                        ? `/chats/${chat.id}`
+                        : `/chats/groups/${chat.id}`
+                );
             }}
         >
             {user ? (
-                <UserAvatar isUserOnline={checkUserOnline(user.id)} className="w-12 h-12" user={user} />
+                <UserAvatar
+                    isUserOnline={checkUserOnline(user.id)}
+                    className="w-12 h-12"
+                    user={user}
+                    width={48}
+                    height={48}
+                />
             ) : (
                 <View>
-                    <Image
-                        source={{ uri: chat.avatar || DEFAULT_AVATAR_URL }}
-                        className="rounded-full w-12 h-12"
-                    />
+                    {chat.avatar ? (
+                        <Image
+                            source={{ uri: chat.avatar }}
+                            className="rounded-full w-12 h-12"
+                        />
+                    ) : (
+                        <DEFAULT_ICONS.DEFAULT_GROUP_ICON className="w-12 h-12" width={48} height={48}/>
+                    )}
                 </View>
             )}
             <View className="flex-1">
                 <Text className="font-medium text-lg">
                     {user ? getUserDisplayName(user) : chat.name}
                 </Text>
-                {chat.lastMessage &&
+                {chat.lastMessage && (
                     <Text className="text-sm text-gray-600" numberOfLines={1}>
                         {!chat.is_personal_chat &&
-                            getUserDisplayName(chat.lastMessage.author) + " "
-                        }
+                            getUserDisplayName(chat.lastMessage.author) + " "}
                         {chat.lastMessage.content}
                     </Text>
-                }
+                )}
             </View>
-            {chat.lastMessage &&
+            {chat.lastMessage && (
                 <Text className="text-xs text-gray-400 ml-auto">
                     {formatDate(new Date(chat.lastMessage.sent_at), "%H:%M")}
                 </Text>
-            }
+            )}
         </TouchableOpacity>
     );
 }

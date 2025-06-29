@@ -27,6 +27,8 @@ import { BackIcon } from "./back-icon";
 import { ContactsIcon } from "./contacts-icon";
 import { CrossIcon } from "./cross-icon";
 import { PlusForPostIcon } from "./plus-icon";
+import { DEFAULT_AVATAR_ICON } from "./defaultIcons/default-avatar-icon";
+import { DEFAULT_GROUP_ICON } from "./defaultIcons/default-group-icon";
 
 export const ICONS = {
   EyeIcon,
@@ -59,3 +61,8 @@ export const ICONS = {
   CrossIcon,
   PlusForPostIcon
 };
+
+export const DEFAULT_ICONS = {
+    DEFAULT_AVATAR_ICON,
+    DEFAULT_GROUP_ICON
+}

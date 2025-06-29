@@ -18,6 +18,8 @@ export function FriendCard(props: IFriendCardProps) {
       <UserAvatar
         user={user}
         className="w-[96] h-[96]"
+        width={96} 
+        height={96}
       />
       <View className="self-center">
         <Text className="text-2xl font-bold">{getUserDisplayName(user)}</Text>
