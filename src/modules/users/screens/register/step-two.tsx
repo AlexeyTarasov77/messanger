@@ -16,12 +16,12 @@ import { getErrorMessage, renderError } from "../../../../shared/utils/errors";
 export function RegisterStepTwo() {
   const router = useRouter();
   const prevData = useLocalSearchParams() as unknown as IRegisterStepOne;
-  const { handleSubmit, control, formState, setError } =
+  const { handleSubmit, control, formState, setError, setValue } =
     useForm<IRegisterStepTwo>({
       defaultValues: otpFieldsDefaults,
     });
   async function onSubmit(data: IRegisterStepTwo) {
-    const otp = data.otp;
+    const otp = collectFullCode(data);
     console.log("OTP:", otp);
     try {
       await authService.register({ ...prevData, otp });
@@ -53,7 +53,7 @@ export function RegisterStepTwo() {
                 Код підтвердження
               </Text>
             </View>
-            <OTPInput control={control} errors={formState.errors} />
+            <OTPInput control={control} errors={formState.errors} setValue={setValue} />
           </View>
           <View className="mb-3">{renderError(formState.errors.root)}</View>
           <View>
