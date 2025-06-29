@@ -22,11 +22,12 @@ export function RegisterStepThree({ close, isVisible }: IModalBaseProps) {
     defaultValues: { first_name: "", last_name: "", username: "" },
   });
 
-  const { user } = useUserCtx();
+  const { user, updateUserData } = useUserCtx();
 
   async function onSubmit(data: IRegisterStepThree) {
     try {
-      await usersService.updateUser(data);
+      const updatedUser = await usersService.updateUser(data);
+      updateUserData({ ...user, ...updatedUser })
     } catch (err) {
       setError("root", { message: getErrorMessage(err) });
       return;
@@ -130,10 +131,10 @@ export function RegisterStepThree({ close, isVisible }: IModalBaseProps) {
                   placeholder="@"
                   autoCapitalize="none"
                   onChange={field.onChange}
-                //   onChangeText={(text) => {
-                //     field.onChange(text.replace(/^@+/, "").replace(/@/g, ""));
-                //   }}
-                //   value={`@ ${field.value}`}
+                  //   onChangeText={(text) => {
+                  //     field.onChange(text.replace(/^@+/, "").replace(/@/g, ""));
+                  //   }}
+                  //   value={`@ ${field.value}`}
                   onChangeText={field.onChange}
                   value={field.value}
                   label="Ім'я користувача"
